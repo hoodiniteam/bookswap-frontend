@@ -1,3 +1,11 @@
 {
-  "extends": ["next", "next/core-web-vitals"]
+  "extends": ["eslint:recommended", "next", "prettier"],
+  "rules": {
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1, "maxBOF": 1 }],
+    "max-len": ["error", { "code": 100 }]
+  },
+  "globals": {
+    "localStorage": true,
+    "fetch": true
+  }
 }
