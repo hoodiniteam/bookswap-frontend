@@ -1,9 +1,11 @@
-import { createClient } from 'urql';
+import {createClient} from 'urql';
+
+const isServerSide = typeof window === 'undefined';
 
 const client = createClient({
   url: 'https://bookswap-api-srnev.ondigitalocean.app/graphql',
   fetchOptions: () => {
-    if (typeof window !== 'undefined'){
+    if (!isServerSide){
       const token = localStorage.getItem('token');
       return {
         headers: { authorization: token ? `Bearer ${token}` : '' },
@@ -16,4 +18,4 @@ const client = createClient({
   },
 });
 
-export { client };
+export { client};
