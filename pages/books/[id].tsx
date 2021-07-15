@@ -7,7 +7,9 @@ query($id:String!){
     book{
       title
       description
+      image
       id
+      condition
     }
   }
 }
@@ -24,11 +26,33 @@ const Book = () => {
   if (error) return <p>Oh no... {error.message}</p>;
   return(
     <>
-     <div className="flex flex-col border-2 p-5 max-w-min">
-       <span>Title: {data?.getBook.book.title}</span>
-       <span>Description: {data?.getBook.book.description}</span>
-       <span className="whitespace-nowrap">ID: {data?.getBook.book.id}</span>
+     <form className="flex flex-col border-2 p-5 max-w-min">
+       <div className='flex justify-between my-1.5'>
+         Title:
+         <input className="border" defaultValue={data?.getBook.book.title}/>
+       </div>
+       <div className='flex justify-between my-1.5'>
+         Description:
+         <input className="border" defaultValue={data?.getBook.book.description}/>
+       </div>
+       <div className='flex justify-between my-1.5'>
+         Image:
+         <input className="border" defaultValue={data?.getBook.book.image}/>
+       </div>
+       <div className='flex justify-between my-1.5'>
+       Title:
+       <select defaultValue={data?.getBook.book.conditional} className="border w-44">
+         <option>BRANDNEW</option>
+         <option>LIKENEW</option>
+         <option>GOOD</option>
+         <option>SATISFACTORY</option>
+         <option>BAD</option>
+         <option>TERRIBLE</option>
+       </select>
      </div>
+     <button type="submit">Change</button>
+     </form>
+      <button onClick={()=>router.push('/getBooks')}>Previous</button>
     </>
  )
 }
