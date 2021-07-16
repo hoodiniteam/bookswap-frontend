@@ -10,6 +10,10 @@ query($id:String!){
       image
       id
       condition
+      status
+      creator{
+          email
+        }
     }
   }
 }
@@ -25,11 +29,24 @@ mutation($id:String!, $title:String, $description: String, $image: String, $stat
   }
 }
 `
+// eslint-disable-next-line no-unused-vars
+enum BookStatus{
+  // eslint-disable-next-line no-unused-vars
+    DELIVERING,
+    // eslint-disable-next-line no-unused-vars
+    EXTRACTED,
+    // eslint-disable-next-line no-unused-vars
+    HOLD,
+    // eslint-disable-next-line no-unused-vars
+    OPEN
+}
+
 type BookData = {
   description: string
   id: string
   image: string
   title: string
+  status: BookStatus
 }
 
 const Book = () => {
@@ -42,6 +59,7 @@ const Book = () => {
   const [book, setBook] = useState<BookData | null>(null)
   useEffect(() => {
     if(result.data){
+      console.log(result.data)
       setBook(result.data.getBook.book)
     }
   }, [result])
@@ -61,6 +79,7 @@ const Book = () => {
         title: book.title,
         description: book.description,
         image: book.image,
+        status: book.status
       }
       updateBook(variables).then(res=>{
         console.log(res);
@@ -84,6 +103,15 @@ const Book = () => {
             Image:
             <input className="border" name="image" defaultValue={book.image} onChange={onChangeHandler}/>
           </div>
+          <div className='flex justify-between my-1.5'>
+            Status:
+            <select name="status" defaultValue={book.status} onChange={onChangeHandler}>
+              <option value="DELIVERING">DELIVERING</option>
+              <option value="EXTRACTED">EXTRACTED</option>
+              <option value="HOLD">HOLD</option>
+              <option value="OPEN">OPEN</option>
+            </select>
+          </div>
           <button type="submit">Change</button>
         </form>
         <button onClick={() => router.push('/getBooks')}>Previous</button>
@@ -91,6 +119,5 @@ const Book = () => {
     )
   }
   return null;
-
 }
 export default Book

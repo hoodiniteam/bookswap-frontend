@@ -35,7 +35,7 @@ const [search, setSearch] = useState('');
         { error ? <h1>Opps something went wrong</h1> : '' }
         <div className="flex flex-col">
         {data?.getBooks.books ? data?.getBooks.books.map(( item: any, indx: number  ) => {
-          return <button className="cursor-pointer" onClick={onClickHandler} id={item.id} key={indx}>{item.title}</button>
+          return <span className="cursor-pointer" onClick={onClickHandler} id={item.id} key={indx}>{item.title}</span>
         }) : ''}
         </div>
       </div>
