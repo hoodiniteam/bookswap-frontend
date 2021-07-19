@@ -14,6 +14,7 @@ query($id:String!){
       creator{
           email
           id
+          firstName 
         }
     }
   }
@@ -55,6 +56,7 @@ enum BookStatus{
 type UserCreator = {
   id: string,
   email: string
+  firstName: string
 }
 
 type BookData = {
@@ -115,6 +117,10 @@ const Book = () => {
       <>
         <form className="flex flex-col border-2 p-5 max-w-min" onSubmit={onSubmitHandler}>
           <div className='flex justify-between my-1.5'>
+            Creator Name:
+            <h2 className="font-bold">{book.creator.firstName}</h2>
+          </div>
+          <div className='flex justify-between my-1.5'>
             Title:
             <input className="border" name="title" defaultValue={book.title} onChange={onChangeHandler}/>
           </div>
@@ -129,8 +135,6 @@ const Book = () => {
           <div className='flex justify-between my-1.5'>
             Status:
             <select name="status" defaultValue={book.status} onChange={onChangeHandler}>
-              <option value="DELIVERING">DELIVERING</option>
-              <option value="EXTRACTED">EXTRACTED</option>
               <option value="HOLD">HOLD</option>
               <option value="OPEN">OPEN</option>
             </select>
