@@ -19,7 +19,7 @@ const GetBooks = () => {
   const [search, setSearch] = useState('');
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [booksPerPage] = useState(5);
+  const [booksPerPage] = useState(10);
   const router = useRouter()
   const [result,] = useQuery({
   query: GetBooksQuery,
