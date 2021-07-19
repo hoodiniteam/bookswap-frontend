@@ -13,11 +13,22 @@ query($id:String!){
       status
       creator{
           email
+          id
         }
     }
   }
 }
 `
+const GetId = `
+query{
+  me{
+    user{
+      id
+    }
+  }
+}
+`
+
 const UpdateBookMutation = `
 mutation($id:String!, $title:String, $description: String, $image: String, $status:BooksStatus){
   updateBook(options:{id:$id, title:$title, description:$description, image: $image, status:$status}){
@@ -41,28 +52,40 @@ enum BookStatus{
     OPEN
 }
 
+type UserCreator = {
+  id: string,
+  email: string
+}
+
 type BookData = {
   description: string
   id: string
   image: string
   title: string
   status: BookStatus
+  creator: UserCreator
 }
 
 const Book = () => {
   const router = useRouter();
+  const [myIdResult,] = useQuery({
+    query: GetId
+  })
   const [result,] = useQuery({
     query: GetBook,
     variables: {id: router.query.id}
   });
   const [,updateBook] = useMutation(UpdateBookMutation)
   const [book, setBook] = useState<BookData | null>(null)
+  const [userId, setUserId] = useState(null)
   useEffect(() => {
     if(result.data){
-      console.log(result.data)
       setBook(result.data.getBook.book)
     }
-  }, [result])
+    if(myIdResult.data){
+      setUserId(myIdResult.data.me.user.id)
+    }
+  }, [result, myIdResult])
   if (result.fetching) return <p>Loading...</p>;
   if (result.error) return <p>Oh no... {result.error.message}</p>;
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>{
@@ -87,7 +110,7 @@ const Book = () => {
     }
 
   }
-  if(!result.fetching && book !== null){
+  if(!result.fetching && book !== null && userId !== null){
     return (
       <>
         <form className="flex flex-col border-2 p-5 max-w-min" onSubmit={onSubmitHandler}>
@@ -112,7 +135,8 @@ const Book = () => {
               <option value="OPEN">OPEN</option>
             </select>
           </div>
-          <button type="submit">Change</button>
+          {book.creator.id === userId ? <button type="submit">Change</button> : ''}
+
         </form>
         <button onClick={() => router.push('/getBooks')}>Previous</button>
       </>
