@@ -31,8 +31,8 @@ query{
 `
 
 const UpdateBookMutation = `
-mutation($id:String!, $title:String, $description: String, $image: String, $status:BooksStatus){
-  updateBook(options:{id:$id, title:$title, description:$description, image: $image, status:$status}){
+mutation($id:String!, $title:String, $description: String, $image: String, $status: BooksStatus, $condition: BooksCondition){
+  updateBook(options:{id:$id, title:$title, description:$description, image: $image, status:$status, condition: $condition}){
     status
     errors {
       message
@@ -53,6 +53,21 @@ enum BookStatus{
     OPEN
 }
 
+// eslint-disable-next-line no-unused-vars
+enum BooksCondition {
+  // eslint-disable-next-line no-unused-vars
+  BAD,
+  // eslint-disable-next-line no-unused-vars
+  BRANDNEW,
+  // eslint-disable-next-line no-unused-vars
+  GOOD,
+  // eslint-disable-next-line no-unused-vars
+  LIKENEW,
+  // eslint-disable-next-line no-unused-vars
+  SATISFACTORY,
+  // eslint-disable-next-line no-unused-vars
+  TERRIBLE
+}
 type UserCreator = {
   id: string,
   email: string
@@ -64,6 +79,7 @@ type BookData = {
   id: string
   image: string
   title: string
+  condition: BooksCondition
   status: BookStatus
   creator: UserCreator
 }
@@ -95,6 +111,7 @@ const Book = () => {
     if(book){
       setBook({...book, [name]: value})
     }
+    console.log()
   }
   const onSubmitHandler = (e: FormEvent<HTMLElement>) => {
     e.preventDefault();
@@ -104,7 +121,8 @@ const Book = () => {
         title: book.title,
         description: book.description,
         image: book.image,
-        status: book.status
+        status: book.status,
+        condition: book.condition
       }
       updateBook(variables).then(res=>{
         console.log(res);
@@ -122,21 +140,32 @@ const Book = () => {
           </div>
           <div className='flex justify-between my-1.5'>
             Title:
-            <input className="border" name="title" defaultValue={book.title} onChange={onChangeHandler}/>
+            <input className="border" name="title" value={book.title} onChange={onChangeHandler}/>
           </div>
           <div className='flex justify-between my-1.5'>
             Description:
-            <input className="border" name="description" defaultValue={book.description} onChange={onChangeHandler}/>
+            <input className="border" name="description" value={book.description} onChange={onChangeHandler}/>
           </div>
           <div className='flex justify-between my-1.5'>
             Image:
-            <input className="border" name="image" defaultValue={book.image} onChange={onChangeHandler}/>
+            <input className="border" name="image" value={book.image} onChange={onChangeHandler}/>
           </div>
           <div className='flex justify-between my-1.5'>
             Status:
-            <select name="status" defaultValue={book.status} onChange={onChangeHandler}>
+            <select name="status" value={book.status} onChange={onChangeHandler}>
               <option value="HOLD">HOLD</option>
               <option value="OPEN">OPEN</option>
+            </select>
+          </div>
+          <div className='flex justify-between my-1.5'>
+            Status:
+            <select name="condition" value={book.condition} onChange={onChangeHandler}>
+              <option value="BRANDNEW">BRANDNEW</option>
+              <option value="LIKENEW">LIKENEW</option>
+              <option value="GOOD">GOOD</option>
+              <option value="SATISFACTORY">SATISFACTORY</option>
+              <option value="BAD">BAD</option>
+              <option value="TERRIBLE">TERRIBLE</option>
             </select>
           </div>
           {book.creator.id === userId ? <button type="submit">Change</button> : ''}
