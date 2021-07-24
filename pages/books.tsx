@@ -52,7 +52,10 @@ const Books = () => {
   }
     return (
       <div className=" px-5 py-3">
-        <h1>Books</h1>
+        <div className="inline-flex w-96 justify-between">
+            <h1>Books</h1>
+            <button onClick={() => router.push('/home')}>To HomePage</button>
+        </div>
         <div>
           <input onChange={onHandlerSearch} value={searchTerm} type='text' className="border w-64"/>
         </div>
