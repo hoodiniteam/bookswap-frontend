@@ -6,11 +6,9 @@ type AppProps = {
 };
 const Pagination = ({booksPerPage, totalBooks, paginate}: AppProps) => {
   const pageNumbers = [];
-
   for(let i = 1; i <= Math.ceil(totalBooks / booksPerPage); i++){
     pageNumbers.push(i);
   }
-
   return(
     <>
       <ul className="flex gap-1">
@@ -20,7 +18,7 @@ const Pagination = ({booksPerPage, totalBooks, paginate}: AppProps) => {
                     {item}
                   </a>
                 </li>
-        })}
+            })}
       </ul>
     </>
   )

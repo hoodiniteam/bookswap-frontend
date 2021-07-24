@@ -22,24 +22,22 @@ const GetBooks = () => {
   const [status, setStatus] = useState("HOLD");
   const [total, setTotal] = useState(0)
   const [books, setBooks] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage] = useState(10);
+  const [offset, setOffset] = useState(0)
   const router = useRouter()
   const [result,] = useQuery({
   query: GetBooksQuery,
-  variables: {search: search, limit:booksPerPage, offset: currentPage, status: status}
+  variables: {search: search, offset:offset, limit: booksPerPage, status: status}
 })
   useEffect(() => {
     if(result.data){
       setBooks(result.data.getBooks.books)
       setTotal(result.data.getBooks.count)
-      console.log(result.data.getBooks.books)
     }
   }, [result])
   const paginate = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
+    setOffset((pageNumber - 1) * booksPerPage)
   }
-
   const onClickHandler = (e: {target: any}) => {
     router.push(`/books/${e.target?.id}`)
   }
