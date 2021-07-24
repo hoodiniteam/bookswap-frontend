@@ -15,7 +15,10 @@ query($id:String!){
           email
           id
           firstName 
-        }
+      }
+      expects{
+        email
+      }
     }
   }
 }
@@ -25,6 +28,16 @@ query{
   me{
     user{
       id
+    }
+  }
+}
+`
+const AddBookInMyWaitingListMutation = `
+mutation($id:String!){
+  addBookToMyWaitingList(id: $id){
+    status
+    errors{
+      message
     }
   }
 }
@@ -74,6 +87,10 @@ type UserCreator = {
   firstName: string
 }
 
+type ListOfExpects = [{
+  email: string
+}]
+
 type BookData = {
   description: string
   id: string
@@ -82,10 +99,12 @@ type BookData = {
   condition: BooksCondition
   status: BookStatus
   creator: UserCreator
+  expects: ListOfExpects
 }
 
 const Book = () => {
   const router = useRouter();
+  let key = 1;
   const [myIdResult,] = useQuery({
     query: GetId
   })
@@ -94,10 +113,12 @@ const Book = () => {
     variables: {id: router.query.id}
   });
   const [,updateBook] = useMutation(UpdateBookMutation)
+  const [, addToMyWaitingList] = useMutation(AddBookInMyWaitingListMutation)
   const [book, setBook] = useState<BookData | null>(null)
   const [userId, setUserId] = useState(null)
   useEffect(() => {
     if(result.data){
+      console.log(result.data.getBook.book)
       setBook(result.data.getBook.book)
     }
     if(myIdResult.data){
@@ -112,6 +133,14 @@ const Book = () => {
       setBook({...book, [name]: value})
     }
     console.log()
+  }
+  const addBookToList = () => {
+    const variables = {
+      id: router.query.id
+    }
+    addToMyWaitingList(variables).then(res => {
+      console.log(res);
+    })
   }
   const onSubmitHandler = (e: FormEvent<HTMLElement>) => {
     e.preventDefault();
@@ -168,10 +197,20 @@ const Book = () => {
               <option value="TERRIBLE">TERRIBLE</option>
             </select>
           </div>
+          <div className='flex justify-between my-1.5'>
+            Expects:
+           <div>
+             {book.expects.map(user => {
+               return <span key={key+=1}>{user.email}</span>
+             })}
+           </div>
+          </div>
           {book.creator.id === userId ? <button type="submit">Change</button> : ''}
-
         </form>
-        <button onClick={() => router.push('/getBooks')}>Previous</button>
+        <div className="flex justify-between w-72">
+          <button onClick={() => router.push('/getBooks')}>Previous</button>
+          <button onClick={addBookToList}>Add to my waiting list</button>
+        </div>
       </>
     )
   }
