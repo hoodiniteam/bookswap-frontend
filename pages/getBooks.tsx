@@ -18,8 +18,8 @@ query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
 }
 `
 const GetBooks = () => {
+  const [searchTerm, setSearchTerm] = useState('');
   const [search, setSearch] = useState('');
-  const [status, setStatus] = useState("HOLD");
   const [total, setTotal] = useState(0)
   const [books, setBooks] = useState([]);
   const [booksPerPage] = useState(10);
@@ -27,7 +27,7 @@ const GetBooks = () => {
   const router = useRouter()
   const [result,] = useQuery({
   query: GetBooksQuery,
-  variables: {search: search, offset:offset, limit: booksPerPage, status: status}
+  variables: {search: search, offset:offset, limit: booksPerPage}
 })
   useEffect(() => {
     if(result.data){
@@ -38,6 +38,15 @@ const GetBooks = () => {
   const paginate = (pageNumber: number) => {
     setOffset((pageNumber - 1) * booksPerPage)
   }
+  const onHandlerSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchTerm(e.target.value)
+      if(e.target.value.length >= 3){
+        setSearch(searchTerm)
+      }else{
+        setSearch('')
+      }
+  }
+
   const onClickHandler = (e: {target: any}) => {
     router.push(`/books/${e.target?.id}`)
   }
@@ -45,15 +54,7 @@ const GetBooks = () => {
       <div className=" px-5 py-3">
         <h1>Books</h1>
         <div>
-          <input onChange={event => setSearch(event.target.value)} value={search} type='text' className="border w-64"/>
-        </div>
-        <div>
-          <select onChange={event => setStatus(event.target.value)}>
-            <option value="HOLD">HOLD</option>
-            <option value="DELIVERING">DELIVERING</option>
-            <option value="EXTRACTED">EXTRACTED</option>
-            <option value="OPEN">OPEN</option>
-          </select>
+          <input onChange={onHandlerSearch} value={searchTerm} type='text' className="border w-64"/>
         </div>
         { result.fetching ? <h1>Loading...</h1> : '' }
         { result.error ? <h1>Opps something went wrong</h1> : '' }
