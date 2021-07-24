@@ -11,7 +11,7 @@ mutation($title: String!, $description: String!, $image: String!, $condition:Boo
   }
 }
 `
-const CreateBook = () => {
+const Create = () => {
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [img, setImg] = useState('');
@@ -46,4 +46,4 @@ const CreateBook = () => {
     </>
   )
 }
-export default CreateBook
+export default Create

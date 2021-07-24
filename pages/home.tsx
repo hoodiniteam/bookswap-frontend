@@ -17,7 +17,7 @@ const Home = () => {
         <button className="px-1.5 py-0.5 text-white bg-blue-400 rounded-full"
                 onClick={() => router.push('/createBook')}>Add book
         </button>
-        <button className="px-1.5 py-0.5 text-white bg-blue-400 rounded-full" onClick={() => router.push('/user')}>About
+        <button className="px-1.5 py-0.5 text-white bg-blue-400 rounded-full" onClick={() => router.push('/profile')}>About
           me
         </button>
       </div>

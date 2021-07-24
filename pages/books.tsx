@@ -17,7 +17,7 @@ query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
   }
 }
 `
-const GetBooks = () => {
+const Books = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [search, setSearch] = useState('');
   const [total, setTotal] = useState(0)
@@ -69,4 +69,4 @@ const GetBooks = () => {
       </div>
     )
 }
-export default withAuth(GetBooks)
+export default withAuth(Books)

@@ -72,7 +72,7 @@ type UserData = {
   zipcode: number
   waiting: WaitingList
 }
-const UserPage = () => {
+const Profile = () => {
   let key = 1
   const [result,] = useQuery({
     query: GetMe,
@@ -81,7 +81,6 @@ const UserPage = () => {
   const [user, setUser] = useState<UserData | null>(null)
   useEffect(()=>{
     if(result.data){
-      console.log(result.data.me.user);
       setUser(result.data.me.user);
     }
   }, [result])
@@ -167,7 +166,10 @@ const UserPage = () => {
           Phone:
           <input className="border" name="phone"  value={user.phone} onChange={onChangeHandler}/>
         </div>
-
+          <div className="flex justify-between my-1">
+              My Books
+              <button onClick={() => router.push('/profile/books')}>MyBooks</button>
+          </div>
         <button onClick={() => router.push('/home')}>To Homepage</button>
         <button type="submit">Change</button>
       </form>
@@ -175,4 +177,4 @@ const UserPage = () => {
   }
   return null;
 }
-export default withAuth(UserPage)
+export default withAuth(Profile)
