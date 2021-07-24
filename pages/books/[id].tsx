@@ -187,7 +187,7 @@ const Book = () => {
             </select>
           </div>
           <div className='flex justify-between my-1.5'>
-            Status:
+            Condition:
             <select name="condition" value={book.condition} onChange={onChangeHandler}>
               <option value="BRANDNEW">BRANDNEW</option>
               <option value="LIKENEW">LIKENEW</option>
