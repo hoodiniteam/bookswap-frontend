@@ -23,6 +23,7 @@ const Books = () => {
   const [total, setTotal] = useState(0)
   const [books, setBooks] = useState([]);
   const [booksPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1)
   const [offset, setOffset] = useState(0)
   const router = useRouter()
   const [result,] = useQuery({
@@ -36,14 +37,17 @@ const Books = () => {
     }
   }, [result])
   const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber)
     setOffset((pageNumber - 1) * booksPerPage)
   }
   const onHandlerSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchTerm(e.target.value)
       if(e.target.value.length >= 3){
         setSearch(searchTerm)
+        setOffset(0)
       }else{
         setSearch('')
+        setOffset((currentPage - 1) * booksPerPage)
       }
   }
 
