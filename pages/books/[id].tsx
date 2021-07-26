@@ -131,7 +131,6 @@ const Book = () => {
     if(book){
       setBook({...book, [name]: value})
     }
-    console.log()
   }
   const addBookToList = () => {
     const variables = {
@@ -208,7 +207,7 @@ const Book = () => {
         </form>
         <div className="flex justify-between w-72">
           <button onClick={() => router.push('/books')}>Previous</button>
-          <button onClick={addBookToList}>Add to my waiting list</button>
+          {book.creator.id === userId ? "" : <button onClick={addBookToList}>Add to my waiting list</button>}
         </div>
       </>
     )
