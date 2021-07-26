@@ -3,6 +3,7 @@ import {useQuery} from "urql";
 import withAuth from "../components/HOC";
 import {useRouter} from "next/router";
 import Pagination from "../components/pagination";
+import LogOut from "../helpers/LogOut";
 
 const GetBooksQuery =`
 query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
@@ -29,8 +30,11 @@ const Books = () => {
   const [result,] = useQuery({
   query: GetBooksQuery,
   variables: {search: search, offset:offset, limit: booksPerPage}
-})
+  })
   useEffect(() => {
+    if(result.error?.message.includes('Access denied!')){
+        LogOut()
+    }
     if(result.data){
       setBooks(result.data.getBooks.books)
       setTotal(result.data.getBooks.count)
