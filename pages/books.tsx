@@ -36,9 +36,12 @@ const Books = () => {
       setTotal(result.data.getBooks.count)
     }
   }, [result])
-  const paginate = (pageNumber: number) => {
-    setCurrentPage(pageNumber)
-    setOffset((pageNumber - 1) * booksPerPage)
+  const paginate = (pageNumber: number, e: MouseEvent) => {
+      document.querySelectorAll('.pagItem').forEach(item=> item.classList.remove('active'))
+      // @ts-ignore
+      e.target.classList.add('active')
+      setCurrentPage(pageNumber)
+      setOffset((pageNumber - 1) * booksPerPage)
   }
   const onHandlerSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchTerm(e.target.value)

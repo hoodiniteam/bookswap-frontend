@@ -12,9 +12,10 @@ const Pagination = ({booksPerPage, totalBooks, paginate}: AppProps) => {
   return(
     <>
       <ul className="flex gap-1">
-        {pageNumbers.map((item: number) =>{
+        {pageNumbers.map((item: number, indx, arr) =>{
           return <li key={item}>
-                  <a onClick={()=>paginate(item)} className="px-3 py-1.5 bg-blue-400 text-white cursor-pointer">
+                  <a onClick={(e)=>paginate(item, e)}
+                     className={item === arr[0] ? "px-3 py-1.5 bg-blue-400 text-white cursor-pointer pagItem active" : "px-3 py-1.5 bg-blue-400 text-white cursor-pointer pagItem"}>
                     {item}
                   </a>
                 </li>
