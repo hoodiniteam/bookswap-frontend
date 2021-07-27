@@ -27,8 +27,6 @@ const Register = () => {
     email:'',
     password: '',
   })
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
   const [, register] = useMutation(RegisterMutation)
   const [errorMsg, setErrorMsg] = useState('');
   const [field, setField] = useState('')
@@ -64,23 +62,6 @@ const Register = () => {
       }
     }
     return (
-        // <div className="border-2 rounded-md p-5 max-w-min mx-auto mt-10">
-        //   <h1>Registration Form</h1>
-        //   <form className="w-96  p-3" onSubmit={submit}>
-        //     <label className="h-12 flex flex-col justify-between">
-        //       <span className="text-xs text-red-500">{field === 'email' ? errInfo : ''}</span>
-        //       <input className="border-2 w-40" placeholder="email" onChange={(event => setEmail(event.target.value))}/>
-        //     </label>
-        //     <label className="h-12 flex flex-col justify-between">
-        //       <span className="text-xs text-red-500">{field === "password" ? errInfo : ''}</span>
-        //       <input className="border-2 w-40" placeholder="password"
-        //              onChange={(event => setPassword(event.target.value))}/>
-        //     </label>
-        //     <div className="flex justify-between w-48 p-5">
-        //       <button className="bg-blue-400 text-white" type="submit">Register</button>
-        //     </div>
-        //   </form>
-        // </div>
         <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-md w-full space-y-8">
             <div>
