@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {useMutation, useQuery} from "urql";
 import {useRouter} from "next/router";
-import withAuth from "../components/HOC";
+import withAuth from "../../components/HOC";
 
 const GetMe = `
 query{
@@ -71,7 +71,7 @@ type UserData = {
   zipcode: number
   waiting: WaitingList
 }
-const Profile = () => {
+const Index = () => {
   let key = 1
   const [result,] = useQuery({
     query: GetMe,
@@ -176,4 +176,4 @@ const Profile = () => {
   }
   return null;
 }
-export default withAuth(Profile)
+export default withAuth(Index)

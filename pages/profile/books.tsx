@@ -15,15 +15,15 @@ query{
 }
 `
 
-type MyBooks = [{
+type MyBooksType = [{
     title: string,
     id: string
 }]
 
-const Books = () => {
+const MyBooks = () => {
   let keyId = 1
   const router = useRouter()
-  const [myBooks, setMyBooks] = useState<MyBooks | null>(null)
+  const [myBooks, setMyBooks] = useState<MyBooksType | null>(null)
   const [result, ] = useQuery({
     query: GetMe
   })
@@ -56,4 +56,4 @@ const Books = () => {
   return null
 }
 
-export default withAuth(Books)
+export default withAuth(MyBooks)
