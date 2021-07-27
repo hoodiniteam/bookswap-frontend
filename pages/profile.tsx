@@ -17,7 +17,6 @@ query{
       id
       lastName
       phone
-      points
       region
       street
       zipcode
@@ -66,7 +65,7 @@ type UserData = {
   id: string
   lastName: string
   phone: string
-  points: number
+  points?: number
   region: string
   street: string
   zipcode: number
