@@ -170,7 +170,7 @@ const Profile = () => {
               <button onClick={() => router.push('/profile/books')}>MyBooks</button>
           </div>
         <button onClick={() => router.push('/home')}>To Homepage</button>
-        <button type="submit">Change</button>
+        <button type="submit">Save</button>
       </form>
     )
   }
