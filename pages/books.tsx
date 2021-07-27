@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {useQuery} from "urql";
 import withAuth from "../components/HOC";
 import {useRouter} from "next/router";
@@ -20,6 +20,7 @@ query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
 `
 const Books = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [status, setStatus] = useState(null);
   const [search, setSearch] = useState('');
   const [total, setTotal] = useState(0)
   const [books, setBooks] = useState([]);
@@ -29,7 +30,12 @@ const Books = () => {
   const router = useRouter()
   const [result,] = useQuery({
   query: GetBooksQuery,
-  variables: {search: search, offset:offset, limit: booksPerPage}
+  variables: {
+      search: search,
+      offset:offset,
+      limit: booksPerPage,
+      status: status,
+  }
   })
   useEffect(() => {
     if(result.error?.message.includes('Access denied!')){
@@ -40,8 +46,11 @@ const Books = () => {
       setTotal(result.data.getBooks.count)
     }
   }, [result])
-  const paginate = (pageNumber: number, e: MouseEvent) => {
-      document.querySelectorAll('.pagItem').forEach(item=> item.classList.remove('active'))
+  const paginate = (pageNumber: number, e: MouseEvent | ChangeEvent) => {
+      document.querySelectorAll('.pagItem').forEach((item, indx, arr)=> {
+          item.classList.remove('active')
+          arr[pageNumber - 1].classList.add('active');
+      })
       // @ts-ignore
       e.target.classList.add('active')
       setCurrentPage(pageNumber)
@@ -57,6 +66,18 @@ const Books = () => {
         setOffset((currentPage - 1) * booksPerPage)
       }
   }
+  const onHandlerSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+      if(e.target.value === "ALL"){
+          setStatus(null)
+          setCurrentPage(1)
+          paginate(1, e)
+      }else{
+          // @ts-ignore
+          setStatus(e.target.value)
+          setCurrentPage(1)
+          paginate(1, e)
+      }
+  }
 
   const onClickHandler = (e: {target: any}) => {
     router.push(`/books/${e.target?.id}`)
@@ -67,10 +88,19 @@ const Books = () => {
             <h1>Books</h1>
             <button onClick={() => router.push('/home')}>To HomePage</button>
         </div>
+         <div className="flex w-96 justify-between">
         <div>
-          <input onChange={onHandlerSearch} value={searchTerm} type='text' className="border w-64"/>
+          <input onChange={onHandlerSearch} value={searchTerm} type='text' className="border w-60"/>
         </div>
-        { result.fetching ? <h1>Loading...</h1> : '' }
+             <select name="status" className="border w-32" onChange={onHandlerSelect}>
+                 <option>ALL</option>
+                 <option value="DELIVERING">DELIVERING</option>
+                 <option value="EXTRACTED">EXTRACTED</option>
+                 <option value="HOLD">HOLD</option>
+                 <option value="OPEN">OPEN</option>
+             </select>
+         </div>
+          { result.fetching ? <h1>Loading...</h1> : '' }
         { result.error ? <h1>Opps something went wrong</h1> : '' }
         <div className="flex flex-col">
           {!result.fetching && books !== null ? books.map(( item: any, indx: number  ) => {
@@ -78,7 +108,7 @@ const Books = () => {
           }) : null}
         </div>
           <ul className="flex justify-between w-20">
-           <Pagination booksPerPage={booksPerPage} totalBooks={total} paginate={paginate} />
+               <Pagination booksPerPage={booksPerPage} totalBooks={total} paginate={paginate} />
           </ul>
       </div>
     )
