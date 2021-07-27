@@ -203,7 +203,7 @@ const Book = () => {
              })}
            </div>
           </div>
-          {book.creator.id === userId ? <button type="submit">Change</button> : ''}
+          {book.creator.id === userId ? <button type="submit">Save</button> : ''}
         </form>
         <div className="flex justify-between w-72">
           <button onClick={() => router.push('/books')}>Previous</button>
