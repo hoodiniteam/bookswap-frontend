@@ -4,9 +4,9 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { SearchIcon } from '@heroicons/react/solid'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import LogOut from "../helpers/LogOut";
 
 const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
-const profile = ['Your Profile', 'Settings', 'Sign out']
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
@@ -16,12 +16,15 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
   return (props: any) => {
     if (typeof window !== "undefined") {
       const Router = useRouter();
+      const profile = [{title: 'Your Profile', function: () => Router.push('/profile')}, {title: 'Settings'}, {title: 'Sign out', function: LogOut}]
       // @ts-ignore
       const accessToken = localStorage.getItem("token");
       if (!accessToken) {
         Router.replace("/login").then();
         return null;
       }
+      // @ts-ignore
+      // @ts-ignore
       return (
           <div className="min-h-screen bg-gray-100">
             <div className="bg-indigo-600 pb-32">
@@ -130,13 +133,14 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
                                               <Menu.Item key={item}>
                                                 {({ active }) => (
                                                     <a
+                                                        onClick={item.function}
                                                         href="#"
                                                         className={classNames(
                                                             active ? 'bg-gray-100' : '',
                                                             'block py-2 px-4 text-sm text-gray-700'
                                                         )}
                                                     >
-                                                      {item}
+                                                      {item.title}
                                                     </a>
                                                 )}
                                               </Menu.Item>
