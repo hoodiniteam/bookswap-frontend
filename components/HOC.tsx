@@ -130,7 +130,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
                                             className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                                         >
                                           {profile.map((item) => (
-                                              <Menu.Item key={item}>
+                                              <Menu.Item key={item.title}>
                                                 {({ active }) => (
                                                     <a
                                                         onClick={item.function}
@@ -200,7 +200,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
                           <div className="mt-3 px-2 space-y-1">
                             {profile.map((item) => (
                                 <a
-                                    key={item}
+                                    key={item.title}
                                     href="#"
                                     className="block rounded-md py-2 px-3 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                                 >
