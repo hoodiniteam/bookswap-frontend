@@ -118,7 +118,7 @@ const GetBook = `
     const [userId, setUserId] = useState(null)
     useEffect(() => {
       if(result.data){
-        console.log(result.data)
+        console.log(router)
         setBook(result.data.getBook.book)
       }
       if(myIdResult.data){
@@ -207,7 +207,7 @@ const GetBook = `
             {book.creator.id === userId ? <button type="submit">Save</button> : ''}
           </form>
           <div className="flex justify-between w-72">
-            <button onClick={() => router.push('/books')}>Previous</button>
+            <button onClick={() => router.back()}>Previous</button>
             {book.creator.id === userId ? "" : <button onClick={addBookToList}>Add to my waiting list</button>}
           </div>
         </>
