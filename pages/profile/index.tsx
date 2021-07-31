@@ -44,9 +44,9 @@ query{
 const UpdateUserMutation = `
 mutation($email: String!, $firstName: String!, $lastName:String!, $country: String!,
 $region: String!, $city:String!, $street: String!, $apartment: String!, $bDay:DateTime!,
-$phone: String!){
+$phone: String!, $gender: Gender, $zipcode: Float){
   updateMe(options:{email:$email, firstName:$firstName, lastName:$lastName, country:$country
-  region:$region, city:$city, street:$street, apartment:$apartment, bDay: $bDay, phone: $phone}){
+  region:$region, city:$city, street:$street, apartment:$apartment, bDay: $bDay, phone: $phone, gender: $gender, zipcode: $zipcode}){
       status
       errors{
         message
@@ -62,6 +62,8 @@ $phone: String!){
       phone
       region
       street
+      zipcode
+      gender
     }
   }
 }
@@ -71,11 +73,22 @@ type WaitingList = [{
   id: string
 }]
 
+// eslint-disable-next-line no-unused-vars
+enum Gender {
+    // eslint-disable-next-line no-unused-vars
+    FEMALE,
+    // eslint-disable-next-line no-unused-vars
+    MALE,
+    // eslint-disable-next-line no-unused-vars
+    OTHER
+}
+
 type UserData = {
   apartment?: string
   bDay?: string
   city: string
   country: string
+  gender: Gender
   email: string
   firstName: string
   id: string
@@ -84,6 +97,7 @@ type UserData = {
   region: string
   street: string
   waiting: WaitingList
+  zipcode: number
 }
 const Index = () => {
   let key = 1
@@ -114,6 +128,8 @@ const Index = () => {
         apartment: user.apartment,
         bDay: user.bDay,
         phone: user.phone,
+        gender: user.gender,
+        zipcode: +user.zipcode
       }
       updateUser(variables).then(data=>{
         console.log( data )
@@ -126,65 +142,10 @@ const Index = () => {
     if(user){
       setUser({...user, [name]: value})
     }
+
   }
   if(!result.fetching && user !== null){
     return (
-      // <form className="px-5 py-8 flex flex-col w-80" onSubmit={submitHandler}>
-      //   <div className='flex justify-between '>
-      //     Email:
-      //     <input className="border" name="email" value={user.email} onChange={onChangeHandler}/>
-      //   </div>
-      //   <div className="flex justify-between my-1">
-      //     First Name:
-      //     <input className="border" name="firstName" value={user.firstName} onChange={onChangeHandler}/>
-      //   </div>
-      //   <div className="flex justify-between my-1">
-      //     Last Name:
-      //     <input className="border" name="lastName"  value={user.lastName} onChange={onChangeHandler}/>
-      //   </div>
-      //   <div className="flex justify-between my-1">
-      //     Region:
-      //     <input className="border" name="region"  value={user.region} onChange={onChangeHandler}/>
-      //   </div>
-      //   <div className="flex justify-between my-1">
-      //     Country:
-      //     <input className="border" name="country"  value={user.country} onChange={onChangeHandler}/>
-      //   </div>
-      //   <div className="flex justify-between my-1">
-      //     City:
-      //     <input className="border" name="city"  value={user.city} onChange={onChangeHandler}/>
-      //   </div>
-      //   <div className="flex justify-between my-1">
-      //     Street:
-      //     <input className="border" name="street"  value={user.street} onChange={onChangeHandler}/>
-      //   </div>
-      //   <div className="flex justify-between my-1">
-      //     Apartment:
-      //     <input className="border" name="apartment"  value={user.apartment} onChange={onChangeHandler}/>
-      //   </div>
-      //   <div className="flex justify-between my-1">
-      //     Birthday:
-      //     <input type="text"  className="border" name="bDay"  value={user.bDay} onChange={onChangeHandler}/>
-      //   </div>
-      //   <div className="flex justify-between my-1">
-      //     WaitingList:
-      //     <div className="flex flex-col">
-      //       {user.waiting.map(book => {
-      //         return <span key={key+=1}>{book.title}</span>
-      //       })}
-      //     </div>
-      //   </div>
-      //   <div className="flex justify-between my-1">
-      //     Phone:
-      //     <input className="border" name="phone"  value={user.phone} onChange={onChangeHandler}/>
-      //   </div>
-      //     <div className="flex justify-between my-1">
-      //         My Books
-      //         <button onClick={() => router.push('/profile/books')}>MyBooks</button>
-      //     </div>
-      //   <button onClick={() => router.push('/home')}>To Homepage</button>
-      //   <button type="submit">Save</button>
-      // </form>
         <div className="lg:grid lg:grid-cols-12 lg:gap-x-5">
             <aside className="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3">
                 <nav className="space-y-1">
@@ -392,6 +353,23 @@ const Index = () => {
                                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     />
                                 </div>
+                                <div className="col-span-6 sm:col-span-3">
+                                    <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                                        Gender:
+                                    </label>
+                                    <select
+                                        onChange={onChangeHandler}
+                                        value={user.gender}
+                                        id="gender"
+                                        name="gender"
+                                        autoComplete="country"
+                                        className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    >
+                                        <option value="MALE">MALE</option>
+                                        <option value="FEMALE">FEMALE</option>
+                                        <option value="OTHER">OTHER</option>
+                                    </select>
+                                </div>
                                 <div className="col-span-6">
                                     <label htmlFor="country" className="block text-sm font-medium text-gray-700">
                                         Country / Region
@@ -466,8 +444,21 @@ const Index = () => {
                                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     />
                                 </div>
-
                                 <div className="col-span-6 sm:col-span-2 lg:col-span-2">
+                                    <label htmlFor="state" className="block text-sm font-medium text-gray-700">
+                                        Zipcode
+                                    </label>
+                                    <input
+                                        onChange={onChangeHandler}
+                                        value={user.zipcode}
+                                        type="number"
+                                        name="zipcode"
+                                        id="zipcode"
+                                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    />
+                                </div>
+
+                                <div className="col-span-6 sm:col-span-3 lg:col-span-3">
                                     <label htmlFor="postal-code" className="block text-sm font-medium text-gray-700">
                                         Phone
                                     </label>
