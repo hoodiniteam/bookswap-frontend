@@ -2,16 +2,8 @@ import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {useMutation, useQuery} from "urql";
 import {useRouter} from "next/router";
 import withAuth from "../../components/HOC";
-import { KeyIcon, UserCircleIcon } from '@heroicons/react/outline'
 import LogOut from "../../helpers/LogOut";
-
-const navigation = [
-    { name: 'Account', href: '#', icon: UserCircleIcon, current: true, },
-    { name: 'My books', href: '#', icon: KeyIcon, current: false,  },
-]
-function classNames(...classes: any) {
-    return classes.filter(Boolean).join(' ')
-}
+import SidebarForProfile from "../../components/sidebar-for-profile";
 
 const GetMe = `
 query{
@@ -105,7 +97,7 @@ const Index = () => {
   const [, updateUser] = useMutation(UpdateUserMutation)
   const [user, setUser] = useState<UserData | null>(null)
   useEffect(()=>{
-    if(result.data){
+      if(result.data){
         if(result.error?.message.includes('Access denied!')){
             LogOut()
         }else{
@@ -148,253 +140,222 @@ const Index = () => {
   }
   if(!result.fetching && user !== null){
     return (
-        <div className="lg:grid lg:grid-cols-12 lg:gap-x-5">
-            <aside className="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3">
-                <nav className="space-y-1">
-                    {navigation.map((item) => (
-                        <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                                item.current
-                                    ? 'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white'
-                                    : 'text-gray-900 hover:text-gray-900 hover:bg-gray-50',
-                                'group rounded-md px-3 py-2 flex items-center text-sm font-medium'
-                            )}
-                            aria-current={item.current ? 'page' : undefined}
-                        >
-                            <item.icon
-                                className={classNames(
-                                    item.current
-                                        ? 'text-indigo-500 group-hover:text-indigo-500'
-                                        : 'text-gray-400 group-hover:text-gray-500',
-                                    'flex-shrink-0 -ml-1 mr-3 h-6 w-6'
-                                )}
-                                aria-hidden="true"
-                            />
-                            <span className="truncate">{item.name}</span>
-                        </a>
-                    ))}
-                </nav>
-            </aside>
-            <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
-                <form action="#" method="POST" onSubmit={submitHandler}>
-                    <div className="shadow sm:rounded-md sm:overflow-hidden">
-                        <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
-                            <div>
-                                <h3 className="text-lg leading-6 font-medium text-gray-900">Personal Information</h3>
-                                <p className="mt-1 text-sm text-gray-500">Use a permanent address where you can recieve mail.</p>
-                            </div>
+       <SidebarForProfile>
+        <form action="#" method="POST" onSubmit={submitHandler}>
+          <div className="shadow sm:rounded-md sm:overflow-hidden">
+            <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
+              <div>
+                <h3 className="text-lg leading-6 font-medium text-gray-900">Personal Information</h3>
+                <p className="mt-1 text-sm text-gray-500">Use a permanent address where you can recieve mail.</p>
+              </div>
+              <div className="grid grid-cols-6 gap-6">
+                <div className="col-span-6 sm:col-span-3">
+                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                      First name
+                  </label>
+                    <input
+                        onChange={onChangeHandler}
+                        value={user.firstName}
+                        type="text"
+                        name="firstName"
+                        id="first-name"
+                        autoComplete="given-name"
+                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    />
+                </div>
 
-                            <div className="grid grid-cols-6 gap-6">
-                                <div className="col-span-6 sm:col-span-3">
-                                    <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                        First name
-                                    </label>
-                                    <input
-                                        onChange={onChangeHandler}
-                                        value={user.firstName}
-                                        type="text"
-                                        name="firstName"
-                                        id="first-name"
-                                        autoComplete="given-name"
-                                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    />
-                                </div>
-
-                                <div className="col-span-6 sm:col-span-3">
-                                    <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
-                                        Last name
-                                    </label>
-                                    <input
-                                        onChange={onChangeHandler}
-                                        value={user.lastName}
-                                        type="text"
-                                        name="lastName"
-                                        id="last-name"
-                                        autoComplete="family-name"
-                                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    />
-                                </div>
-                                <div className="col-span-6 sm:col-span-3">
-                                    <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
-                                        Email address
-                                    </label>
-                                    <input
-                                        onChange={onChangeHandler}
-                                        value={user.email}
-                                        type="email"
-                                        name="email"
-                                        id="email-address"
-                                        autoComplete="email"
-                                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    />
-                                </div>
-
-                                <div className="col-span-6 sm:col-span-3">
-                                    <label htmlFor="bDay" className="block text-sm font-medium text-gray-700">
-                                        Birthday
-                                    </label>
-                                    <input
-                                        onChange={onChangeHandler}
-                                        value={user.bDay}
-                                        type="date"
-                                        name="bDay"
-                                        id="bDay"
-                                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    />
-                                </div>
-                                <div className="col-span-6 sm:col-span-3">
-                                    <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-                                        Gender:
-                                    </label>
-                                    <select
-                                        onChange={onChangeHandler}
-                                        value={user.gender}
-                                        id="gender"
-                                        name="gender"
-                                        autoComplete="country"
-                                        className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    >
-                                        <option value="MALE">MALE</option>
-                                        <option value="FEMALE">FEMALE</option>
-                                        <option value="OTHER">OTHER</option>
-                                    </select>
-                                </div>
-                                <div className="col-span-6">
-                                    <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-                                        Country / Region
-                                    </label>
-                                    <select
-                                        onChange={onChangeHandler}
-                                        value={user.country}
-                                        id="country"
-                                        name="country"
-                                        autoComplete="country"
-                                        className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    >
-                                        <option value="United States">United States</option>
-                                        <option value="Canada">Canada</option>
-                                        <option value="Mexico">Mexico</option>
-                                        <option value="Russia">Russia</option>
-                                    </select>
-                                </div>
-
-                                <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                                    <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                                        City
-                                    </label>
-                                    <input
-                                        onChange={onChangeHandler}
-                                        value={user.city}
-                                        type="text"
-                                        name="city"
-                                        id="city"
-                                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    />
-                                </div>
-
-                                <div className="col-span-6 sm:col-span-4">
-                                    <label htmlFor="street-address" className="block text-sm font-medium text-gray-700">
-                                        Street address
-                                    </label>
-                                    <input
-                                        onChange={onChangeHandler}
-                                        value={user.street}
-                                        type="text"
-                                        name="street"
-                                        id="street-address"
-                                        autoComplete="street-address"
-                                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    />
-                                </div>
-
-                                <div className="col-span-6 sm:col-span-4 lg:col-span-2">
-                                    <label htmlFor="state" className="block text-sm font-medium text-gray-700">
-                                        State / Province
-                                    </label>
-                                    <input
-                                        onChange={onChangeHandler}
-                                        value={user.region}
-                                        type="text"
-                                        name="region"
-                                        id="state"
-                                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    />
-                                </div>
-                                <div className="col-span-6 sm:col-span-2 lg:col-span-2">
-                                    <label htmlFor="state" className="block text-sm font-medium text-gray-700">
-                                        Apartment
-                                    </label>
-                                    <input
-                                        onChange={onChangeHandler}
-                                        value={user.apartment}
-                                        type="number"
-                                        name="apartment"
-                                        id="apartment"
-                                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    />
-                                </div>
-                                <div className="col-span-6 sm:col-span-2 lg:col-span-2">
-                                    <label htmlFor="state" className="block text-sm font-medium text-gray-700">
-                                        Zipcode
-                                    </label>
-                                    <input
-                                        onChange={onChangeHandler}
-                                        value={user.zipcode}
-                                        type="number"
-                                        name="zipcode"
-                                        id="zipcode"
-                                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    />
-                                </div>
-
-                                <div className="col-span-6 sm:col-span-3 lg:col-span-3">
-                                    <label htmlFor="postal-code" className="block text-sm font-medium text-gray-700">
-                                        Phone
-                                    </label>
-                                    <input
-                                        onChange={onChangeHandler}
-                                        value={user.phone}
-                                        type="number"
-                                        name="phone"
-                                        id="phone"
-                                        autoComplete="phone"
-                                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    />
-                                </div>
-                                <div className="col-span-6">
-                                    <label htmlFor="about" className="block text-sm font-medium text-gray-700">
-                                        Books im my waiting list
-                                    </label>
-                                    <div className="mt-1">
-                                        <div className="shadow-sm flex flex-col flex-wrap p-5 mt-1 w-full max-h-80 sm:text-sm border border-gray-300 rounded-md">
-                                            {user.waiting.map(book => {
-                                             return <a
-                                                    className="my-1.5 cursor-pointer"
-                                                    onClick={() => router.push(`/books/${book.id}`)}
-                                                    key={key+=1}
-                                                    >
-                                                    {book.title}
-                                                    </a>
-                                            })}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                            <button
-                                type="submit"
-                                className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                Save
-                            </button>
-                        </div>
+                    <div className="col-span-6 sm:col-span-3">
+                      <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+                          Last name
+                      </label>
+                      <input
+                          onChange={onChangeHandler}
+                          value={user.lastName}
+                          type="text"
+                          name="lastName"
+                          id="last-name"
+                          autoComplete="family-name"
+                          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      />
                     </div>
-                </form>
-            </div>
-        </div>
+                    <div className="col-span-6 sm:col-span-3">
+                      <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
+                          Email address
+                      </label>
+                      <input
+                          onChange={onChangeHandler}
+                          value={user.email}
+                          type="email"
+                          name="email"
+                          id="email-address"
+                          autoComplete="email"
+                          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      />
+                    </div>
+
+                    <div className="col-span-6 sm:col-span-3">
+                      <label htmlFor="bDay" className="block text-sm font-medium text-gray-700">
+                          Birthday
+                      </label>
+                      <input
+                          onChange={onChangeHandler}
+                          value={user.bDay}
+                          type="date"
+                          name="bDay"
+                          id="bDay"
+                          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      />
+                    </div>
+                    <div className="col-span-6 sm:col-span-3">
+                      <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                          Gender:
+                      </label>
+                      <select
+                          onChange={onChangeHandler}
+                          value={user.gender}
+                          id="gender"
+                          name="gender"
+                          autoComplete="country"
+                          className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      >
+                          <option value="MALE">MALE</option>
+                          <option value="FEMALE">FEMALE</option>
+                          <option value="OTHER">OTHER</option>
+                      </select>
+                    </div>
+                      <div className="col-span-6">
+                          <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                              Country / Region
+                          </label>
+                          <select
+                              onChange={onChangeHandler}
+                              value={user.country}
+                              id="country"
+                              name="country"
+                              autoComplete="country"
+                              className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          >
+                              <option value="United States">United States</option>
+                              <option value="Canada">Canada</option>
+                              <option value="Mexico">Mexico</option>
+                              <option value="Russia">Russia</option>
+                          </select>
+                      </div>
+
+                      <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                          <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+                              City
+                          </label>
+                          <input
+                              onChange={onChangeHandler}
+                              value={user.city}
+                              type="text"
+                              name="city"
+                              id="city"
+                              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          />
+                      </div>
+
+                      <div className="col-span-6 sm:col-span-4">
+                          <label htmlFor="street-address" className="block text-sm font-medium text-gray-700">
+                              Street address
+                          </label>
+                          <input
+                              onChange={onChangeHandler}
+                              value={user.street}
+                              type="text"
+                              name="street"
+                              id="street-address"
+                              autoComplete="street-address"
+                              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          />
+                      </div>
+
+                      <div className="col-span-6 sm:col-span-4 lg:col-span-2">
+                          <label htmlFor="state" className="block text-sm font-medium text-gray-700">
+                              State / Province
+                          </label>
+                          <input
+                              onChange={onChangeHandler}
+                              value={user.region}
+                              type="text"
+                              name="region"
+                              id="state"
+                              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          />
+                      </div>
+                      <div className="col-span-6 sm:col-span-2 lg:col-span-2">
+                          <label htmlFor="state" className="block text-sm font-medium text-gray-700">
+                              Apartment
+                          </label>
+                          <input
+                              onChange={onChangeHandler}
+                              value={user.apartment}
+                              type="number"
+                              name="apartment"
+                              id="apartment"
+                              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          />
+                      </div>
+                      <div className="col-span-6 sm:col-span-2 lg:col-span-2">
+                          <label htmlFor="state" className="block text-sm font-medium text-gray-700">
+                              Zipcode
+                          </label>
+                          <input
+                              onChange={onChangeHandler}
+                              value={user.zipcode}
+                              type="number"
+                              name="zipcode"
+                              id="zipcode"
+                              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          />
+                      </div>
+
+                      <div className="col-span-6 sm:col-span-3 lg:col-span-3">
+                          <label htmlFor="postal-code" className="block text-sm font-medium text-gray-700">
+                              Phone
+                          </label>
+                          <input
+                              onChange={onChangeHandler}
+                              value={user.phone}
+                              type="number"
+                              name="phone"
+                              id="phone"
+                              autoComplete="phone"
+                              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          />
+                      </div>
+                      <div className="col-span-6">
+                          <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                              Books im my waiting list
+                          </label>
+                          <div className="mt-1">
+                              <div className="shadow-sm flex flex-col flex-wrap p-5 mt-1 w-full max-h-80 sm:text-sm border border-gray-300 rounded-md">
+                                  {user.waiting.map(book => {
+                                   return <a
+                                          className="my-1.5 cursor-pointer"
+                                          onClick={() => router.push(`/books/${book.id}`)}
+                                          key={key+=1}
+                                          >
+                                          {book.title}
+                                          </a>
+                                  })}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                  <button
+                      type="submit"
+                      className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                      Save
+                  </button>
+              </div>
+          </div>
+        </form>
+       </SidebarForProfile>
     )
   }
   return null;
