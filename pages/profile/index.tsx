@@ -3,6 +3,7 @@ import {useMutation, useQuery} from "urql";
 import {useRouter} from "next/router";
 import withAuth from "../../components/HOC";
 import { CreditCardIcon, KeyIcon, UserCircleIcon, UserGroupIcon, ViewGridAddIcon } from '@heroicons/react/outline'
+import LogOut from "../../helpers/LogOut";
 
 const navigation = [
     { name: 'Account', href: '#', icon: UserCircleIcon, current: true },
@@ -108,7 +109,11 @@ const Index = () => {
   const [user, setUser] = useState<UserData | null>(null)
   useEffect(()=>{
     if(result.data){
-      setUser(result.data.me.user);
+        if(result.error?.message.includes('Access denied!')){
+            LogOut()
+        }else{
+            setUser(result.data.me.user);
+        }
     }
   }, [result])
   const router = useRouter();
