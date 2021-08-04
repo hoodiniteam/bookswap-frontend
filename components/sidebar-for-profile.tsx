@@ -11,7 +11,7 @@ const SidebarForProfile = (props: any) => {
   function classNames(...classes: any) {
     return classes.filter(Boolean).join(' ')
   }
-  const current = () => {
+  const setCurrent = () => {
     navigation.map(item => {
       item.current = !item.current
     })
@@ -26,7 +26,7 @@ const SidebarForProfile = (props: any) => {
                     href={item.href}
                   >
                     <a
-                      onClick={current}
+                      onClick={setCurrent}
                       className={classNames(
                           item.current
                               ? 'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white'

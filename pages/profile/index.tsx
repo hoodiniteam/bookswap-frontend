@@ -4,6 +4,7 @@ import {useRouter} from "next/router";
 import withAuth from "../../components/HOC";
 import LogOut from "../../helpers/LogOut";
 import SidebarForProfile from "../../components/sidebar-for-profile";
+import Layout from "../../components/layout";
 
 const GetMe = `
 query{
@@ -89,6 +90,7 @@ type UserData = {
   waiting: WaitingList
   zipcode: number
 }
+
 const Index = () => {
   let key = 1
   const [result,] = useQuery({
@@ -96,6 +98,7 @@ const Index = () => {
   });
   const [, updateUser] = useMutation(UpdateUserMutation)
   const [user, setUser] = useState<UserData | null>(null)
+  const router = useRouter();
   useEffect(()=>{
       if(result.data){
         if(result.error?.message.includes('Access denied!')){
@@ -105,7 +108,6 @@ const Index = () => {
         }
     }
   }, [result])
-  const router = useRouter();
   if (result.fetching) return <p>Loading...</p>;
   if (result.error) return <p>Oh no... {result.error.message}</p>;
   const submitHandler =(e: FormEvent<HTMLFormElement>) =>{
@@ -140,7 +142,6 @@ const Index = () => {
   }
   if(!result.fetching && user !== null){
     return (
-       <SidebarForProfile>
         <form action="#" method="POST" onSubmit={submitHandler}>
           <div className="shadow sm:rounded-md sm:overflow-hidden">
             <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
@@ -355,9 +356,17 @@ const Index = () => {
               </div>
           </div>
         </form>
-       </SidebarForProfile>
     )
   }
+
   return null;
 }
-export default withAuth(Index)
+
+// eslint-disable-next-line react/display-name
+withAuth(Index.getLayout = (page: any) => {
+  return <Layout>
+            <SidebarForProfile>{page}</SidebarForProfile>
+         </Layout>
+})
+
+export default Index

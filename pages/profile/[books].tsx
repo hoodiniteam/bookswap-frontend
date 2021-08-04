@@ -3,6 +3,8 @@ import {useQuery} from "urql";
 import { useRouter } from 'next/router'
 import withAuth from '../../components/HOC'
 import SidebarForProfile from "../../components/sidebar-for-profile";
+import Layout from "../../components/layout";
+
 const GetMe = `
 query{
   me{
@@ -36,7 +38,6 @@ const MyBooks = () => {
 
   if(myBooks !== null){
     return(
-        <SidebarForProfile>
           <div className="shadow sm:rounded-md sm:overflow-hidden px-5 py-8">
             { result.fetching ? <h1>Loading...</h1> : '' }
             { result.error ? <h1>Opps something went wrong</h1> : '' }
@@ -52,10 +53,16 @@ const MyBooks = () => {
               })}
             </ul>
           </div>
-        </SidebarForProfile>
     )
   }
   return null
 }
 
-export default withAuth(MyBooks)
+// eslint-disable-next-line react/display-name
+withAuth(MyBooks.getLayout = (page: any) => {
+  return <Layout>
+    <SidebarForProfile>{page}</SidebarForProfile>
+  </Layout>
+})
+
+export default MyBooks

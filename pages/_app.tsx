@@ -4,7 +4,9 @@ import {Provider} from 'urql'
 import {client} from "../src/UrqlClient";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return(
+  const getLayout = (Component as any).getLayout || ((page: any) => page)
+
+  return getLayout(
     <Provider value={client}>
       <Component {...pageProps} />
     </Provider>
