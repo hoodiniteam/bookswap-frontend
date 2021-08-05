@@ -1,11 +1,11 @@
-import React from "react";
-import {useRouter} from "next/router";
+import React from "react"
+import Link from 'next/link'
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { SearchIcon } from '@heroicons/react/solid'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import Image from "next/image";
-import LogOut from "../helpers/LogOut";
+import LogOut from "../helpers/LogOut"
 
 const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
 
@@ -13,10 +13,10 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 const Layout = ({children}: any) => {
-  const router = useRouter()
-  const profile = [{title: 'Your Profile', function: () => router.push('/profile')}, {title: 'Settings'}, {title: 'Sign out', function: LogOut}]
+  const profile = [{title: 'Your Profile', href: '/profile'}, {title: 'Settings'}, {title: 'Sign out', function: LogOut}]
       // @ts-ignore
   return (
+        <>
           <div className="min-h-screen bg-gray-100">
             <div className="bg-indigo-600 pb-32">
               <Disclosure as="nav" className="bg-indigo-600 border-b border-indigo-300 border-opacity-25 lg:border-none">
@@ -120,16 +120,19 @@ const Layout = ({children}: any) => {
                                         {profile.map((item) => (
                                           <Menu.Item key={item.title}>
                                             {({ active }) => (
-                                              <a
-                                                onClick={item.function}
-                                                href="#"
-                                                className={classNames(
-                                                    active ? 'bg-gray-100' : '',
-                                                    'block py-2 px-4 text-sm text-gray-700'
-                                                )}
+                                              <Link
+                                                href={item.href ? item.href : '#'}
                                               >
-                                                {item.title}
-                                              </a>
+                                                <a
+                                                  onClick={item.function}
+                                                  className={classNames(
+                                                      active ? 'bg-gray-100' : '',
+                                                      'block py-2 px-4 text-sm text-gray-700'
+                                                  )}
+                                                >
+                                                  {item.title}
+                                                </a>
+                                              </Link>
                                             )}
                                           </Menu.Item>
                                         ))}
@@ -208,15 +211,16 @@ const Layout = ({children}: any) => {
               </div>
             </header>
           </div>
-      <main className="-mt-32">
-        <div className="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
-          {/* Replace with your content */}
-          <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
-            {children}
-          </div>
-        </div>
-      </main>
-    </div>
+          <main className="-mt-32">
+            <div className="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
+              {/* Replace with your content */}
+              <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
+                {children}
+              </div>
+            </div>
+          </main>
+         </div>
+        </>
   );
 };
 
