@@ -65,29 +65,13 @@ const Index = () => {
     let current = currentPage;
     if(page === 'previous' && currentPage > 1){
       current--
-      document.querySelectorAll('.pagItem').forEach((item, indx, arr)=> {
-        item.classList.remove('active')
-        arr[current - 1].classList.add('active');
-      })
       setCurrentPage(current)
-      setOffset((current - 1) * booksPerPage)
-
     }if(page === 'next' && currentPage <= total/booksPerPage ){
       current++
-      document.querySelectorAll('.pagItem').forEach((item, indx, arr)=> {
-        item.classList.remove('active')
-        arr[current - 1].classList.add('active');
-      })
       setCurrentPage(current)
-      setOffset((current - 1) * booksPerPage)
     }else if(!isNaN(page as number)){
-      document.querySelectorAll('.pagItem').forEach((item, indx, arr)=> {
-        item.classList.remove('active')
-        arr[(page as number) - 1].classList.add('active');
-      })
       // @ts-ignore
       setCurrentPage(page)
-      setOffset((page as number - 1) * booksPerPage)
     }
   }
   const onHandlerSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,10 +84,19 @@ const Index = () => {
         setOffset((currentPage - 1) * booksPerPage)
       }
   }
-  const onHandlerSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+  const onHandlerSelect = async (e: ChangeEvent<HTMLSelectElement>) => {
           // @ts-ignore
-          setStatus(e.target.value)
+          await setStatus(e.target.value)
+          await setCurrentPage(1)
   }
+
+  useEffect(()=>{
+    document.querySelectorAll('.pagItem').forEach((item, indx, arr)=> {
+      item.classList.remove('active')
+      arr[currentPage - 1].classList.add('active');
+      setOffset((currentPage - 1) * booksPerPage)
+    })
+  },[currentPage])
   const onClickHandler = (e: {target: any}) => {
     router.push(`/books/${e.target?.id}`).then()
   }
