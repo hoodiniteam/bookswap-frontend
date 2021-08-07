@@ -118,7 +118,6 @@ const GetBook = `
     const [userId, setUserId] = useState(null)
     useEffect(() => {
       if(result.data){
-        console.log(router)
         setBook(result.data.getBook.book)
       }
       if(myIdResult.data){

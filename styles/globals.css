@@ -19,6 +19,43 @@ a {
   box-sizing: border-box;
 }
 
+
+
+
+.pagItem{
+  @apply cursor-pointer;
+  @apply bg-white;
+  @apply border-gray-300;
+  @apply text-gray-500;
+  @apply inline-flex;
+  @apply relative;
+  @apply items-center;
+  @apply px-4;
+  @apply py-2;
+  @apply border;
+  @apply text-sm;
+  @apply font-medium;
+}
+
+.pagItem:hover{
+  @apply bg-gray-50;
+}
+.pagItem.active:hover{
+  @apply bg-gray-50;
+}
+
 .pagItem.active{
-  border: 2px solid red;
+  @apply z-10;
+  @apply bg-indigo-50;
+  @apply border-indigo-500;
+  @apply text-indigo-600;
+  @apply relative;
+  @apply inline-flex;
+  @apply items-center;
+  @apply px-4;
+  @apply py-2;
+  @apply border;
+  @apply text-sm;
+  @apply font-medium;
+  @apply cursor-pointer;
 }
