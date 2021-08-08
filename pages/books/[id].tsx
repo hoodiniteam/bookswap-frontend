@@ -55,31 +55,19 @@ const GetBook = `
     }
   }
   `
-  // eslint-disable-next-line no-unused-vars
   enum BookStatus{
-    // eslint-disable-next-line no-unused-vars
       DELIVERING,
-      // eslint-disable-next-line no-unused-vars
       EXTRACTED,
-      // eslint-disable-next-line no-unused-vars
       HOLD,
-      // eslint-disable-next-line no-unused-vars
       OPEN
   }
 
-  // eslint-disable-next-line no-unused-vars
   enum BooksCondition {
-    // eslint-disable-next-line no-unused-vars
     BAD,
-    // eslint-disable-next-line no-unused-vars
     BRANDNEW,
-    // eslint-disable-next-line no-unused-vars
     GOOD,
-    // eslint-disable-next-line no-unused-vars
     LIKENEW,
-    // eslint-disable-next-line no-unused-vars
     SATISFACTORY,
-    // eslint-disable-next-line no-unused-vars
     TERRIBLE
   }
   type UserCreator = {

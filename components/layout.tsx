@@ -14,7 +14,6 @@ function classNames(...classes: any) {
 }
 const Layout = ({children}: any) => {
   const profile = [{title: 'Your Profile', href: '/profile'}, {title: 'Settings'}, {title: 'Sign out', function: LogOut}]
-      // @ts-ignore
   return (
         <>
           <div className="min-h-screen bg-gray-100">

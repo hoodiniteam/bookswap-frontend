@@ -1,5 +1,11 @@
 {
-  "extends": ["eslint:recommended", "next", "prettier"],
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "react"
+  ],
+  "extends": ["eslint:recommended","plugin:react/recommended","plugin:@typescript-eslint/recommended", "next", "prettier"],
   "ignorePatterns": ["pages/tailwind/*.tsx"],
   "rules": {
     "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1, "maxBOF": 1 }]
@@ -7,5 +13,10 @@
   "env": {
     "es6": true,
     "browser": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
   }
 }

@@ -27,7 +27,7 @@ type Books = [{
 }]
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [status, setStatus] = useState();
+  const [status, setStatus] = useState('');
   const [search, setSearch] = useState('');
   const [total, setTotal] = useState(0)
   const [books, setBooks] = useState<Books | []>([]);
@@ -36,7 +36,7 @@ const Index = () => {
   const [offset, setOffset] = useState(0)
   const router = useRouter()
   const variables = () => {
-      let obj = {
+      const obj = {
           search: search,
           offset: offset,
           limit: booksPerPage,
@@ -70,8 +70,7 @@ const Index = () => {
       current++
       setCurrentPage(current)
     }else if(!isNaN(page as number)){
-      // @ts-ignore
-      setCurrentPage(page)
+          setCurrentPage(page as number)
     }
   }
   const onHandlerSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,10 +83,9 @@ const Index = () => {
         setOffset((currentPage - 1) * booksPerPage)
       }
   }
-  const onHandlerSelect = async (e: ChangeEvent<HTMLSelectElement>) => {
-          // @ts-ignore
-          await setStatus(e.target.value)
-          await setCurrentPage(1)
+  const onHandlerSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+      setStatus(e.target.value)
+      setCurrentPage(1)
   }
 
   useEffect(()=>{

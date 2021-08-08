@@ -4,7 +4,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 type AppProps = {
   booksPerPage: number
   totalBooks: number
-  paginate: Function
+  paginate: (type:any) => void
 };
 const Pagination = ({booksPerPage, totalBooks, paginate}: AppProps) => {
   const pageNumbers = [];
