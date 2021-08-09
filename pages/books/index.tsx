@@ -4,6 +4,7 @@ import withAuth from "../../components/HOC";
 import {useRouter} from "next/router";
 import Pagination from "../../components/pagination";
 import LogOut from "../../helpers/LogOut";
+import {SearchIcon} from "@heroicons/react/solid";
 
 const GetBooksQuery =`
 query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
@@ -106,10 +107,31 @@ const Index = () => {
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
               <h1>Books</h1>
             <div className="col-span-2 flex justify-between">
-              <div>
-                <input onChange={onHandlerSearch} value={searchTerm} type='text' className="border w-60"/>
+              <div className="flex-1 flex justify-center mr-5">
+                <div className="max-w-lg w-full lg:max-w-xs">
+                  <label htmlFor="search" className="sr-only">
+                    Search
+                  </label>
+                  <div className="relative text-gray-400 focus-within:text-gray-600">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                      <SearchIcon className="h-5 w-5" aria-hidden="true" />
+                    </div>
+                    <input
+                      onChange={onHandlerSearch}
+                      value={searchTerm}
+                      id="search"
+                      className="block w-full bg-white py-2 pl-10 pr-3 border border-gray-400 rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
+                      placeholder="Search"
+                      type="search"
+                      name="search"
+                    />
+                  </div>
+                </div>
               </div>
-              <select name="status" className="border w-32" onChange={onHandlerSelect}>
+              <select name="status"
+                      className="block bg-white py-2 px-3 border border-gray-400 rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
+                      onChange={onHandlerSelect}
+              >
                 <option value=''>ALL</option>
                 <option value="DELIVERING">DELIVERING</option>
                 <option value="EXTRACTED">EXTRACTED</option>
