@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Script from 'next/script'
-export const Upload = ({getInfo}: any) => {
+export const Upload = ({getInfo}:any) => {
   const [upload, setUpload] = useState()
   const generateSignature = (callback:any, params_to_sign:any) => {
     fetch('https://bookswap-api-srnev.ondigitalocean.app/cloudinarySign', {
@@ -36,8 +36,7 @@ export const Upload = ({getInfo}: any) => {
       }
   }, []);
     return(
-        <div onClick={getInfo(upload)}>
-          <Script src="https://upload-widget.cloudinary.com/global/all.js" strategy="beforeInteractive"/>
+        <div onClick={() => getInfo(upload)}>
           <div
             id="widget_bin">
           </div>

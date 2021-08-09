@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {useMutation, useQuery} from "urql";
 import {useRouter} from "next/router";
-import withAuth from "../../components/HOC";
+import withAuth from "../../../components/HOC";
 const GetBook = `
   query($id:String!){
     getBook(id:$id){
@@ -191,7 +191,7 @@ const GetBook = `
                })}
              </div>
             </div>
-            {book.creator.id === userId ? <button type="submit">Save</button> : ''}
+            {book.creator.id === userId ? <button onClick={()=> router.push(`${router.asPath}/change`)} >Edit</button> : ''}
           </form>
           <div className="flex justify-between w-72">
             <button onClick={() => router.back()}>Previous</button>

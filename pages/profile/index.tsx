@@ -5,6 +5,7 @@ import withAuth from "../../components/HOC";
 import LogOut from "../../helpers/LogOut";
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import Layout from "../../components/layout";
+import Upload from "../../components/upload-widget";
 
 const GetMe = `
 query{
