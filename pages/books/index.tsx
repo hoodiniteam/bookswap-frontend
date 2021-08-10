@@ -28,7 +28,7 @@ type Books = [{
 }]
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState('OPEN');
   const [search, setSearch] = useState('');
   const [total, setTotal] = useState(0)
   const [books, setBooks] = useState<Books | []>([]);
@@ -126,6 +126,7 @@ const Index = () => {
                 </div>
               </div>
               <select name="status"
+                      defaultValue={'OPEN'}
                       className="block bg-white py-2 px-3 border border-gray-400 rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
                       onChange={onHandlerSelect}
               >
