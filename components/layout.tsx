@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import Link from 'next/link'
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
@@ -6,13 +6,28 @@ import { SearchIcon } from '@heroicons/react/solid'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import Image from "next/image";
 import LogOut from "../helpers/LogOut"
-
-const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
+import {useRouter} from "next/router";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 const Layout = ({children}: any) => {
+  const router = useRouter();
+  const [navigation, setNavigation] = useState([
+    {title: 'Home', href: '/home', current: true},
+    {title: 'Profile', href: '/profile', current: false},
+    {title: 'Books', href: '/books', current: false}
+  ])
+  useEffect(() => {
+    const newArr = [...navigation]
+    navigation.map((item, index) => {
+      item.current  = false;
+      if(item.href === router.asPath){
+        newArr.splice(index, 1, {...item, current: true})
+        setNavigation(newArr)
+      }
+    })
+  },[router.asPath])
   const profile = [{title: 'Your Profile', href: '/profile'}, {title: 'Settings'}, {title: 'Sign out', function: LogOut}]
   return (
         <>
@@ -28,28 +43,30 @@ const Layout = ({children}: any) => {
                           </div>
                           <div className="hidden lg:block lg:ml-10">
                             <div className="flex space-x-4">
-                              {navigation.map((item, itemIdx) =>
-                                itemIdx === 0 ? (
-                                  <Fragment key={item}>
-                                    {/* Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" */}
-                                    <a href="#" className="bg-indigo-700 text-white rounded-md py-2 px-3 text-sm font-medium">
-                                        {item}
-                                    </a>
-                                  </Fragment>
-                                ) : (
-                                  <a
-                                    key={item}
-                                    href="#"
-                                    className="text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium"
+                              {navigation.map(item =>
+                                  <Link
+                                    key={item.title}
+                                    href={item.href}
                                   >
-                                    {item}
-                                  </a>
-                                )
+                                    <a
+                                      className={ item.current ? "bg-indigo-700 text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium" :
+                                        "text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium"}
+                                    >
+                                      {item.title}
+                                    </a>
+                                  </Link>
                               )}
                             </div>
                           </div>
                         </div>
                         <div className="flex-1 px-2 flex justify-center lg:ml-6 lg:justify-end">
+                          <button
+                            onClick={()=>router.push('/books/create')}
+                            type="button"
+                            className="inline-flex items-center px-4 py-1.5 mr-5 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                          >
+                            Create book
+                          </button>
                           <div className="max-w-lg w-full lg:max-w-xs">
                             <label htmlFor="search" className="sr-only">
                               Search
@@ -149,7 +166,7 @@ const Layout = ({children}: any) => {
                         <div className="px-2 pt-2 pb-3 space-y-1">
                           {navigation.map((item, itemIdx) =>
                             itemIdx === 0 ? (
-                              <Fragment key={item}>
+                              <Fragment key={item.title}>
                                 {/* Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" */}
                                 <a
                                   href="#"
@@ -160,7 +177,7 @@ const Layout = ({children}: any) => {
                               </Fragment>
                             ) : (
                               <a
-                                key={item}
+                                key={item.title}
                                 href="#"
                                 className="text-white hover:bg-indigo-500 hover:bg-opacity-75 block rounded-md py-2 px-3 text-base font-medium"
                               >
@@ -206,7 +223,13 @@ const Layout = ({children}: any) => {
           </Disclosure>
             <header className="py-10">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 className="text-3xl font-bold text-white">Dashboard</h1>
+                <h1 className="text-3xl font-bold text-white">{
+                  navigation.map(item => {
+                   if(item.current){
+                     return item.title
+                   }
+                  })
+                }</h1>
               </div>
             </header>
           </div>

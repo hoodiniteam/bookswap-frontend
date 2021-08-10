@@ -103,7 +103,6 @@ const Index = () => {
       return (
         <>
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-              <h1>Books</h1>
             <div className="col-span-2 flex justify-between">
               <div className="flex-1 flex justify-center mr-5">
                 <div className="max-w-lg w-full lg:max-w-xs">
