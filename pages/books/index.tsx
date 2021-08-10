@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
 import {useQuery} from "urql";
-import withAuth from "../../components/HOC";
+import withAuth from "../../components/withAuth";
 import {useRouter} from "next/router";
 import Pagination from "../../components/pagination";
 import LogOut from "../../helpers/LogOut";

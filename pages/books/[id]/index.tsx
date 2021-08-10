@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {useMutation, useQuery} from "urql";
 import {useRouter} from "next/router";
-import withAuth from "../../../components/HOC";
+import withAuth from "../../../components/withAuth";
 const GetBook = `
   query($id:String!){
     getBook(id:$id){

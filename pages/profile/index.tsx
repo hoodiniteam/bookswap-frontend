@@ -1,12 +1,10 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {useMutation, useQuery} from "urql";
 import {useRouter} from "next/router";
-import withAuth from "../../components/HOC";
+import withAuth from "../../components/withAuth";
 import LogOut from "../../helpers/LogOut";
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import Layout from "../../components/layout";
-import Upload from "../../components/upload-widget";
-
 const GetMe = `
 query{
   me{
@@ -359,7 +357,6 @@ const Index = () => {
         </form>
     )
   }
-
   return null;
 }
 

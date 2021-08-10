@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import {useQuery} from "urql";
 import { useRouter } from 'next/router'
-import withAuth from '../../components/HOC'
+import withAuth from '../../components/withAuth'
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import Layout from "../../components/layout";
 

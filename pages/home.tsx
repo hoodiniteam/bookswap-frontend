@@ -1,6 +1,6 @@
 import React from "react";
 import {useRouter} from "next/router";
-import withAuth from "../components/HOC";
+import withAuth from "../components/withAuth";
 const Home = () => {
   return (
     <>

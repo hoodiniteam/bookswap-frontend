@@ -1,5 +1,5 @@
 const LogOut = () => {
-    window.location.href = 'http://localhost:3000/login/';
+    window.location.href = '/login';
     localStorage.clear()
 }
 export default LogOut
