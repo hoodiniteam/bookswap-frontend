@@ -1,6 +1,8 @@
 import React from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
-
+import Link from "next/link";
+import {router} from "next/client";
+import {useRouter} from "next/router";
 type AppProps = {
   booksPerPage: number
   totalBooks: number
@@ -52,14 +54,17 @@ const Pagination = ({booksPerPage, totalBooks, paginate}: AppProps) => {
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
             </a>
             {pageNumbers.map((page, indx, arr)=>{
-             return <a
-                    href="#"
+             return <Link
+                    href={`books?page=${page}`}
                     key={page}
-                    onClick={()=>paginate(page)}
-                    className={arr[0] === page ? "active pagItem" : "pagItem"}
                     >
-                    {page}
-                    </a>
+                      <a
+                      onClick={()=>paginate(page)}
+                      className={arr[0] === page ? "active pagItem" : "pagItem"}
+                      >
+                      {page}
+                      </a>
+                    </Link>
             })}
             {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
             {/*<a*/}

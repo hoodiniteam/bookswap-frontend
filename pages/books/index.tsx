@@ -28,13 +28,14 @@ type Books = [{
 }]
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [status, setStatus] = useState('OPEN');
+  const [status, setStatus] = useState<string>();
   const [search, setSearch] = useState('');
   const [total, setTotal] = useState(0)
   const [books, setBooks] = useState<Books | []>([]);
   const [booksPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1)
   const [offset, setOffset] = useState(0)
+  const [page, setPage] = useState<number>(1)
   const router = useRouter()
   const variables = () => {
       const obj = {
@@ -67,11 +68,14 @@ const Index = () => {
     if(page === 'previous' && currentPage > 1){
       current--
       setCurrentPage(current)
+      setPage(current)
     }if(page === 'next' && currentPage <= total/booksPerPage ){
       current++
       setCurrentPage(current)
+      setPage(current)
     }else if(!isNaN(page as number)){
           setCurrentPage(page as number)
+          setPage(page as number)
     }
   }
   const onHandlerSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,18 +88,33 @@ const Index = () => {
         setOffset((currentPage - 1) * booksPerPage)
       }
   }
-  const onHandlerSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-      setStatus(e.target.value)
-      setCurrentPage(1)
-  }
 
   useEffect(()=>{
-    document.querySelectorAll('.pagItem').forEach((item, indx, arr)=> {
-      item.classList.remove('active')
-      arr[currentPage - 1].classList.add('active');
-      setOffset((currentPage - 1) * booksPerPage)
-    })
-  },[currentPage])
+    if(router.query.page && result.data){
+      setCurrentPage(+router.query.page)
+      const arr = document.querySelectorAll('.pagItem')
+        arr.forEach((item, indx, arr)=> {
+        item.classList.remove('active')
+        arr[currentPage - 1].classList.add('active');
+      })
+    }
+    setOffset((currentPage - 1) * booksPerPage)
+  }, [router.query, result, currentPage])
+
+  const onHandlerSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+      setStatus(e.target.value)
+  }
+  useEffect(() => {
+    return () => {
+      router.push({
+        pathname: router.route,
+        query: {
+          page: 1
+        }
+      }).then()
+    }
+  }, [status])
+
   const onClickHandler = (e: {target: any}) => {
     router.push(`/books/${e.target?.id}`).then()
   }
@@ -126,7 +145,7 @@ const Index = () => {
                 </div>
               </div>
               <select name="status"
-                      defaultValue={'OPEN'}
+                      value={status}
                       className="block bg-white py-2 px-3 border border-gray-400 rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
                       onChange={onHandlerSelect}
               >
