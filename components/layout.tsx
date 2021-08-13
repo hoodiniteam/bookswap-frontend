@@ -16,7 +16,7 @@ const Layout = ({children}: any) => {
   const [navigation, setNavigation] = useState([
     {title: 'Home', href: '/home', current: true},
     {title: 'Profile', href: '/profile', current: false},
-    {title: 'Books', href: '/books', current: false}
+    {title: 'Books', href: '/books?page=1&status=OPEN', current: false}
   ])
   useEffect(() => {
     const newArr = [...navigation]

@@ -28,14 +28,13 @@ type Books = [{
 }]
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [status, setStatus] = useState<string>();
+  const [status, setStatus] = useState<string>('');
   const [search, setSearch] = useState('');
   const [total, setTotal] = useState(0)
   const [books, setBooks] = useState<Books | []>([]);
   const [booksPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1)
   const [offset, setOffset] = useState(0)
-  const [page, setPage] = useState<number>(1)
   const router = useRouter()
   const variables = () => {
       const obj = {
@@ -68,14 +67,11 @@ const Index = () => {
     if(page === 'previous' && currentPage > 1){
       current--
       setCurrentPage(current)
-      setPage(current)
     }if(page === 'next' && currentPage <= total/booksPerPage ){
       current++
       setCurrentPage(current)
-      setPage(current)
     }else if(!isNaN(page as number)){
           setCurrentPage(page as number)
-          setPage(page as number)
     }
   }
   const onHandlerSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,6 +88,7 @@ const Index = () => {
   useEffect(()=>{
     if(router.query.page && result.data){
       setCurrentPage(+router.query.page)
+      setStatus(`${router.query.status}`)
       const arr = document.querySelectorAll('.pagItem')
         arr.forEach((item, indx, arr)=> {
         item.classList.remove('active')
@@ -102,18 +99,14 @@ const Index = () => {
   }, [router.query, result, currentPage])
 
   const onHandlerSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-      setStatus(e.target.value)
-  }
-  useEffect(() => {
-    return () => {
       router.push({
         pathname: router.route,
         query: {
-          page: 1
+          page: 1,
+          status: e.target.value,
         }
       }).then()
-    }
-  }, [status])
+  }
 
   const onClickHandler = (e: {target: any}) => {
     router.push(`/books/${e.target?.id}`).then()
@@ -185,7 +178,7 @@ const Index = () => {
               </li>
             ))}
           </ul>
-          <Pagination booksPerPage={booksPerPage} totalBooks={total} paginate={paginate} />
+          <Pagination currentPage={currentPage} status={status} booksPerPage={booksPerPage} totalBooks={total} paginate={paginate} />
         </>
       )
   }
