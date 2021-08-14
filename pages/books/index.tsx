@@ -48,6 +48,7 @@ const Index = () => {
           return obj
       }
   }
+
   const [result,] = useQuery({
   query: GetBooksQuery,
   variables: variables()
@@ -62,6 +63,7 @@ const Index = () => {
         }
     }
   }, [result])
+
   const paginate = (page: number | string) => {
     let current = currentPage;
     if(page === 'previous' && currentPage > 1){
@@ -88,7 +90,7 @@ const Index = () => {
   useEffect(()=>{
     if(router.query.page && result.data){
       setCurrentPage(+router.query.page)
-      setStatus(`${router.query.status}`)
+      setStatus(`${router.query.status || ''}`)
       const arr = document.querySelectorAll('.pagItem')
         arr.forEach((item, indx, arr)=> {
         item.classList.remove('active')
@@ -99,6 +101,14 @@ const Index = () => {
   }, [router.query, result, currentPage])
 
   const onHandlerSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    if(!e.target.value){
+      router.push({
+        pathname: router.route,
+        query: {
+          page: 1,
+        }
+      }).then()
+    }else{
       router.push({
         pathname: router.route,
         query: {
@@ -106,6 +116,7 @@ const Index = () => {
           status: e.target.value,
         }
       }).then()
+    }
   }
 
   const onClickHandler = (e: {target: any}) => {
@@ -178,7 +189,7 @@ const Index = () => {
               </li>
             ))}
           </ul>
-          <Pagination currentPage={currentPage} status={status} booksPerPage={booksPerPage} totalBooks={total} paginate={paginate} />
+          <Pagination status={status} booksPerPage={booksPerPage} totalBooks={total} paginate={paginate} />
         </>
       )
   }
