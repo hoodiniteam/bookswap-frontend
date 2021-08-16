@@ -48,6 +48,13 @@ const Index = () => {
           return obj
       }
   }
+  const href = (page: number) => {
+    if(status === ''){
+      return `books?page=${page}`
+    }else{
+      return `books?page=${page}&status=${status}`
+    }
+  }
 
   const [result,] = useQuery({
   query: GetBooksQuery,
@@ -189,7 +196,7 @@ const Index = () => {
               </li>
             ))}
           </ul>
-          <Pagination status={status} booksPerPage={booksPerPage} totalBooks={total} paginate={paginate} />
+          <Pagination href={href} status={status} booksPerPage={booksPerPage} totalBooks={total} paginate={paginate} />
         </>
       )
   }

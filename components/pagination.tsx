@@ -1,15 +1,15 @@
 import React from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 import Link from "next/link";
-import {router} from "next/client";
-import {useRouter} from "next/router";
+
 type AppProps = {
   booksPerPage: number
   totalBooks: number
   paginate: (type:any) => void
   status: string
+  href: (type: number) => string
 };
-const Pagination = ({booksPerPage, totalBooks, paginate, status}: AppProps) => {
+const Pagination = ({booksPerPage, totalBooks, paginate, status, href}: AppProps) => {
   const pageNumbers = [];
   for(let i = 1; i <= Math.ceil(totalBooks / booksPerPage); i++){
     pageNumbers.push(i);
@@ -29,7 +29,7 @@ const Pagination = ({booksPerPage, totalBooks, paginate, status}: AppProps) => {
             </a>
             {pageNumbers.map((page, indx, arr)=>{
              return <Link
-                    href={`books?page=${page}&status=${status}`}
+                    href={href(page)}
                     key={page}
                     >
                       <a
