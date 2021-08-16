@@ -16,13 +16,14 @@ const Layout = ({children}: any) => {
   const [navigation, setNavigation] = useState([
     {title: 'Home', href: '/home', current: true},
     {title: 'Profile', href: '/profile', current: false},
-    {title: 'Books', href: '/books?page=1&status=OPEN', current: false}
+    {title: 'Books', href: '/books', current: false}
   ])
   useEffect(() => {
     const newArr = [...navigation]
     navigation.map((item, index) => {
       item.current  = false;
-      if(item.href === router.asPath){
+
+      if(router.asPath.includes(item.href)){
         newArr.splice(index, 1, {...item, current: true})
         setNavigation(newArr)
       }
