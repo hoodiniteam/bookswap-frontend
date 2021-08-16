@@ -5,6 +5,7 @@ import {useRouter} from "next/router";
 import Pagination from "../../components/pagination";
 import LogOut from "../../helpers/LogOut";
 import {SearchIcon} from "@heroicons/react/solid";
+import BookWrapper from "../../components/book-wrapper";
 
 const GetBooksQuery =`
 query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
@@ -132,71 +133,60 @@ const Index = () => {
   if(books !== null){
       return (
         <>
-          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-            <div className="col-span-2 flex justify-between">
-              <div className="flex-1 flex justify-center mr-5">
-                <div className="max-w-lg w-full lg:max-w-xs">
-                  <label htmlFor="search" className="sr-only">
-                    Search
-                  </label>
-                  <div className="relative text-gray-400 focus-within:text-gray-600">
-                    <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                      <SearchIcon className="h-5 w-5" aria-hidden="true" />
-                    </div>
-                    <input
-                      onChange={onHandlerSearch}
-                      value={searchTerm}
-                      id="search"
-                      className="block w-full bg-white py-2 pl-10 pr-3 border border-gray-400 rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
-                      placeholder="Search"
-                      type="search"
-                      name="search"
-                    />
-                  </div>
-                </div>
-              </div>
-              <select name="status"
-                      value={status}
-                      className="block bg-white py-2 px-3 border border-gray-400 rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
-                      onChange={onHandlerSelect}
-              >
-                <option value=''>ALL</option>
-                <option value="DELIVERING">DELIVERING</option>
-                <option value="EXTRACTED">EXTRACTED</option>
-                <option value="HOLD">HOLD</option>
-                <option value="OPEN">OPEN</option>
-              </select>
-            </div>
+          <div className="col-span-2 flex justify-between">
             { result.fetching ? <h1>Loading...</h1> : '' }
             { result.error ? <h1>Opps something went wrong</h1> : '' }
+            <div className="flex-1 flex justify-center mr-5">
+              <div className="max-w-lg w-full lg:max-w-xs">
+                <label htmlFor="search" className="sr-only">
+                  Search
+                </label>
+                <div className="relative text-gray-400 focus-within:text-gray-600">
+                  <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                    <SearchIcon className="h-5 w-5" aria-hidden="true" />
+                  </div>
+                  <input
+                    onChange={onHandlerSearch}
+                    value={searchTerm}
+                    id="search"
+                    className="block w-full bg-white py-2 pl-10 pr-3 border border-gray-400 rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
+                    placeholder="Search"
+                    type="search"
+                    name="search"
+                  />
+                </div>
+              </div>
+            </div>
+            <select name="status"
+                    value={status}
+                    className="block bg-white py-2 px-3 border border-gray-400 rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
+                    onChange={onHandlerSelect}
+            >
+              <option value=''>ALL</option>
+              <option value="DELIVERING">DELIVERING</option>
+              <option value="EXTRACTED">EXTRACTED</option>
+              <option value="HOLD">HOLD</option>
+              <option value="OPEN">OPEN</option>
+            </select>
+          </div>
+          <ul className="grid grid-cols-1 grid-rows-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:grid-rows-1 mt-5">
             {books.map((book, index) => (
-              <li
-                key={1+index}
-                className="col-span-3 col-start-2  flex flex-col text-center bg-white rounded-lg shadow "
-              >
-                <h3 className="mt-6 text-gray-900 text-sm font-medium">{book.title}</h3>
-                <div className="grid grid-cols-3 col-span-3 p-5">
-                  <div className="col-span-1">
-                  <img src={source} alt="" className="object-cover pointer-events-none group-hover:opacity-75" />
-                  </div>
-                  <div className="col-span-2 ml-5 px-5 break-words">
-                    <span>{book.description}</span>
-                  </div>
-                </div>
-                <div className="mx-auto my-6 flex">
-                  <button
-                    id={book.id}
-                    onClick={onClickHandler}
-                    type="button"
-                    className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    Show book
-                  </button>
-                </div>
-              </li>
+              <BookWrapper
+                key={ 1+index }
+                src={source}
+                title={book.title}
+                id={book.id}
+                onClickHandler={onClickHandler}
+              />
             ))}
           </ul>
-          <Pagination href={href} status={status} booksPerPage={booksPerPage} totalBooks={total} paginate={paginate} />
+          <Pagination
+            href={href}
+            status={status}
+            booksPerPage={booksPerPage}
+            totalBooks={total}
+            paginate={paginate}
+          />
         </>
       )
   }

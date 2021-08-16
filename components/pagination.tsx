@@ -15,7 +15,7 @@ const Pagination = ({booksPerPage, totalBooks, paginate, status, href}: AppProps
     pageNumbers.push(i);
   }
   return(
-    <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+    <div className="bg-white px-4 py-3 flex items-center mt-5 justify-between border-gray-200 sm:px-6">
       <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-center">
         <div>
           <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
