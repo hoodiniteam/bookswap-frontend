@@ -23,7 +23,7 @@ const Layout = ({children}: any) => {
     navigation.map((item, index) => {
       item.current  = false;
 
-      if(router.asPath.includes(item.href)){
+      if(router.route.includes(item.href)){
         newArr.splice(index, 1, {...item, current: true})
         setNavigation(newArr)
       }
