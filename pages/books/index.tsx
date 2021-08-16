@@ -68,6 +68,8 @@ const Index = () => {
         }else{
             setBooks(result.data.getBooks.books)
             setTotal(result.data.getBooks.count)
+            setCurrentPage(1)
+            setStatus('OPEN')
         }
     }
   }, [result])
@@ -106,7 +108,7 @@ const Index = () => {
       })
     }
     setOffset((currentPage - 1) * booksPerPage)
-  }, [router.query, result, currentPage])
+  }, [router.query, result, currentPage, booksPerPage])
 
   const onHandlerSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     if(!e.target.value){
@@ -182,7 +184,6 @@ const Index = () => {
           </ul>
           <Pagination
             href={href}
-            status={status}
             booksPerPage={booksPerPage}
             totalBooks={total}
             paginate={paginate}

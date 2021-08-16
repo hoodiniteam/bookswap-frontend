@@ -6,10 +6,9 @@ type AppProps = {
   booksPerPage: number
   totalBooks: number
   paginate: (type:any) => void
-  status: string
   href: (type: number) => string
 };
-const Pagination = ({booksPerPage, totalBooks, paginate, status, href}: AppProps) => {
+const Pagination = ({booksPerPage, totalBooks, paginate, href,}: AppProps) => {
   const pageNumbers = [];
   for(let i = 1; i <= Math.ceil(totalBooks / booksPerPage); i++){
     pageNumbers.push(i);
