@@ -1,8 +1,9 @@
-import React, {ChangeEvent, FormEvent, useState} from "react";
+import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {useMutation} from "urql";
 import {useRouter} from "next/router";
 import withAuth from "../../components/withAuth";
 import Upload from "../../components/upload-widget";
+import {useForm} from 'react-hook-form'
 
 const CreateBookMutation = `
 mutation($title: String!, $description: String!, $image: String!, $condition:BooksCondition! ){
@@ -14,17 +15,19 @@ mutation($title: String!, $description: String!, $image: String!, $condition:Boo
   }
 }
 `
+
 const Create = () => {
   const [book, setBook] = useState({
     title: '',
     description: '',
-    condition: ''
+    condition: 'BRANDNEW'
   })
+  const {register, handleSubmit, clearErrors, formState: {errors}} = useForm()
   const [img, setImg] = useState('');
   const [, createBook] = useMutation(CreateBookMutation)
   const router = useRouter();
-  const submit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const submit = handleSubmit((data, event) => {
+    event?.preventDefault()
     if(book){
       const variables = {
         title: book.title,
@@ -36,7 +39,8 @@ const Create = () => {
         router.push(`/books/${res.data.createBook.book.id}`).then()
       })
     }
-  }
+  })
+
   const getInfo = (info: any) => {
     const imgInfoString = JSON.stringify(info)
           setImg(imgInfoString)
@@ -46,6 +50,7 @@ const Create = () => {
     if (book) {
       setBook({...book, [name]: value})
     }
+    clearErrors(name)
   }
   return (
     <>
@@ -58,11 +63,12 @@ const Create = () => {
 
             <div className="grid grid-cols-3 gap-6">
               <div className="col-span-3">
-                <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="title" className="block text-sm font-medium text-gray-700">
                   Title
                 </label>
                 <div className="mt-1 rounded-md shadow-sm flex">
                   <input
+                    {...register('title', {required: true})}
                     onChange={onChangeHandler}
                     type="text"
                     name="title"
@@ -70,14 +76,16 @@ const Create = () => {
                     className="focus:ring-indigo-500 focus:border-indigo-500 flex-grow block w-full min-w-0 border py-1.5 px-2 rounded-none rounded-md sm:text-sm border-gray-300"
                   />
                 </div>
+                {errors.title ? <span className='text-red-500 text-xs'>Enter title </span> : ''}
               </div>
 
               <div className="col-span-3">
-                <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="description" className="block text-sm font-medium text-gray-700">
                   Description
                 </label>
                 <div className="mt-1">
                     <textarea
+                      {...register('description', {required: true})}
                       onChange={onChangeHandler}
                       id="description"
                       name="description"
@@ -85,6 +93,7 @@ const Create = () => {
                       className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md"
                     />
                 </div>
+                {errors.description ? <span className='text-red-500 text-xs'>Enter description </span> : ''}
               </div>
 
               <div className="col-span-3">
@@ -93,6 +102,7 @@ const Create = () => {
                 </label>
                 <div className="mt-1">
                     <select
+                      value={book.condition}
                       onChange={onChangeHandler}
                       id="condition"
                       name="condition"
