@@ -7,17 +7,55 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import Image from "next/image";
 import LogOut from "../helpers/LogOut"
 import {useRouter} from "next/router";
+import {useQuery} from "urql";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
+
+const Books = `
+query($search: String,$limit: Float,){
+  getBooks(search: $search, limit: $limit){
+    status
+    books{
+      title
+   
+    }
+  }
+}
+`
+
+type Books = [{
+  title: string
+}]
 const Layout = ({children}: any) => {
   const router = useRouter();
+  const [show, setShow] = useState(false)
+  const [search, setSearch] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [books, setBooks] = useState<Books | []>([])
   const [navigation, setNavigation] = useState([
     {title: 'Home', href: '/home', current: true},
     {title: 'Profile', href: '/profile', current: false},
     {title: 'Books', href: '/books', current: false}
   ])
+
+  const [result, ] = useQuery({
+    query: Books,
+    variables:{
+      search: search,
+      limit: 5
+    }
+  })
+
+  useEffect(() => {
+    if(result.data){
+      setBooks(result.data.getBooks.books)
+    }
+  })
+
+  const booksToShow = books.slice(0, 5)
+
   useEffect(() => {
     const newArr = [...navigation]
     navigation.map((item, index) => {
@@ -29,6 +67,17 @@ const Layout = ({children}: any) => {
       }
     })
   },[router.asPath])
+
+  const onHandlerSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value)
+    if(e.target.value.length >= 3){
+      setSearch(searchTerm)
+      setShow(true)
+    }else{
+      setSearch('')
+      setShow(false)
+    }
+  }
   const profile = [{title: 'Your Profile', href: '/profile'}, {title: 'Settings'}, {title: 'Sign out', function: LogOut}]
   return (
         <>
@@ -77,6 +126,7 @@ const Layout = ({children}: any) => {
                                 <SearchIcon className="h-5 w-5" aria-hidden="true" />
                               </div>
                               <input
+                                onChange={onHandlerSearch}
                                 id="search"
                                 className="block w-full bg-white py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
                                 placeholder="Search"
@@ -84,6 +134,11 @@ const Layout = ({children}: any) => {
                                 name="search"
                               />
                             </div>
+                            {show ? <div className="bg-white fixed flex flex-col w-80 border rounded-md p-4">
+                              {booksToShow.map((book, index) => {
+                                return <span key={index + 1}>{book.title}</span>
+                              })}
+                            </div> : ''}
                           </div>
                         </div>
                         <div className="flex lg:hidden">
