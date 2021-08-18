@@ -1,5 +1,6 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {useMutation, useQuery} from "urql";
+import {useForm} from "react-hook-form";
 import {useRouter} from "next/router";
 import withAuth from "../../components/withAuth";
 import LogOut from "../../helpers/LogOut";
@@ -96,8 +97,9 @@ const Index = () => {
     query: GetMe,
   });
   const [, updateUser] = useMutation(UpdateUserMutation)
-  const [user, setUser] = useState<UserData | null>(null)
+  const [user, setUser] = useState<UserData | ''>('')
   const router = useRouter();
+  const {register, clearErrors, handleSubmit, formState: {errors}} = useForm()
   useEffect(()=>{
       if(result.data){
         if(result.error?.message.includes('Access denied!')){
@@ -109,8 +111,9 @@ const Index = () => {
   }, [result])
   if (result.fetching) return <p>Loading...</p>;
   if (result.error) return <p>Oh no... {result.error.message}</p>;
-  const submitHandler =(e: FormEvent<HTMLFormElement>) =>{
-    e.preventDefault()
+
+  const submitHandler = handleSubmit((data, event) =>{
+    event?.preventDefault()
     if(user){
       const variables = {
         email: user.email,
@@ -130,16 +133,16 @@ const Index = () => {
         console.log( data )
       })
     }
+  })
 
-  }
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
     const {name, value} = e.target;
     if(user){
       setUser({...user, [name]: value})
     }
-
+    clearErrors(name)
   }
-  if(!result.fetching && user !== null){
+  if(!result.fetching && user){
     return (
         <form action="#" method="POST" onSubmit={submitHandler}>
           <div className="shadow sm:rounded-md sm:overflow-hidden">
@@ -154,6 +157,7 @@ const Index = () => {
                       First name
                   </label>
                     <input
+                        {...register('firstName', {required: true})}
                         onChange={onChangeHandler}
                         value={user.firstName}
                         type="text"
@@ -162,6 +166,7 @@ const Index = () => {
                         autoComplete="given-name"
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
+                  {errors.firstName ? <span className="text-red-500 text-xs">enter first name</span> : ''}
                 </div>
 
                     <div className="col-span-6 sm:col-span-3">
@@ -169,6 +174,7 @@ const Index = () => {
                           Last name
                       </label>
                       <input
+                        {...register('lastName', {required: true})}
                           onChange={onChangeHandler}
                           value={user.lastName}
                           type="text"
@@ -177,12 +183,14 @@ const Index = () => {
                           autoComplete="family-name"
                           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       />
+                      {errors.lastName ? <span className="text-red-500 text-xs">enter last name</span> : ''}
                     </div>
                     <div className="col-span-6 sm:col-span-3">
                       <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
                           Email address
                       </label>
                       <input
+                        {...register('email', {required: true})}
                           onChange={onChangeHandler}
                           value={user.email}
                           type="email"
@@ -191,6 +199,7 @@ const Index = () => {
                           autoComplete="email"
                           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       />
+                      {errors.email ? <span className="text-red-500 text-xs">enter your email</span> : ''}
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">

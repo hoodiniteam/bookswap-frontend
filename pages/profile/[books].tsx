@@ -64,7 +64,6 @@ const MyBooks = () => {
       const arr = document.querySelectorAll('.pagItem')
       arr.forEach((item, indx, arr) => {
         item.classList.remove('active')
-        console.log(arr[currentPage - 1]);
         arr[currentPage - 1].classList.add('active');
       })
     }

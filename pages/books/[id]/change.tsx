@@ -1,8 +1,9 @@
-import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {useMutation, useQuery} from "urql";
 import {useRouter} from "next/router";
 import withAuth from "../../../components/withAuth";
 import Upload from "../../../components/upload-widget";
+import {useForm} from "react-hook-form";
 
 const CreateBookMutation = `
 mutation($title: String!, $description: String!, $image: String!, $condition:BooksCondition! ){
@@ -59,26 +60,26 @@ const Change = () => {
   const [book, setBook] = useState<Book | null>(null)
   const [img, setImg] = useState('');
   const [, createBook] = useMutation(CreateBookMutation)
+  const {register, handleSubmit, clearErrors, formState: {errors}} = useForm()
   useEffect(()=>{
     if(result.data){
       setBook(result.data.getBook.book)
-      console.log(result.data.getBook.book)
     }
   }, [result])
-  const submit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const submit = handleSubmit((data, event) => {
+    event?.preventDefault();
     if(book){
       const variables = {
         title: book.title,
         description:book.description,
         image: img,
-        // condition: book.condition
+        condition: book.condition
       };
       createBook(variables).then(res => {
         router.push(`/books/${res.data.createBook.book.id}`).then()
       })
     }
-  }
+  })
   const getInfo = (info: any) => {
     const imgInfoString = JSON.stringify(info)
     setImg(imgInfoString)
@@ -88,6 +89,7 @@ const Change = () => {
     if (book) {
       setBook({...book, [name]: value})
     }
+    clearErrors(name)
   }
   if(book !== null){
     return (
@@ -108,6 +110,7 @@ const Change = () => {
                   </label>
                   <div className="mt-1 rounded-md shadow-sm flex">
                     <input
+                      {...register('title', {required: true})}
                       onChange={onChangeHandler}
                       value={book.title}
                       type="text"
@@ -116,6 +119,7 @@ const Change = () => {
                       className="focus:ring-indigo-500 focus:border-indigo-500 flex-grow block w-full min-w-0 border py-1.5 px-2 rounded-none rounded-md sm:text-sm border-gray-300"
                     />
                   </div>
+                  {errors.title ? <span className="text-red-500 text-xs">enter title</span> : ''}
                 </div>
 
                 <div className="col-span-3">
@@ -124,6 +128,7 @@ const Change = () => {
                   </label>
                   <div className="mt-1">
                     <textarea
+                      {...register('description', {required: true})}
                       value={book.description}
                       onChange={onChangeHandler}
                       id="description"
@@ -132,6 +137,7 @@ const Change = () => {
                       className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md"
                     />
                   </div>
+                  {errors.description ? <span className="text-red-500 text-xs">enter description</span> : ''}
                 </div>
 
                 <div className="col-span-3">
