@@ -24,7 +24,7 @@ const navigation = [
   { name: 'Integrations', href: '#', icon: ViewGridAddIcon, current: false },
 ]
 
-function classNames(...classes) {
+function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 

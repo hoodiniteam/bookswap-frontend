@@ -49,9 +49,11 @@ const MyBooks = () => {
       if(page === 'previous' && currentPage > 1){
         current--
         setCurrentPage(current)
+        router.push(`${href(current)}`)
       }if(page === 'next' && currentPage <= myBooks.length/booksPerPage ){
         current++
         setCurrentPage(current)
+        router.push(`${href(current)}`)
       }else if(!isNaN(page as number)){
         setCurrentPage(page as number)
       }

@@ -73,19 +73,23 @@ const Index = () => {
         }
     }
   }, [result])
-
   const paginate = (page: number | string) => {
     let current = currentPage;
     if(page === 'previous' && currentPage > 1){
       current--
       setCurrentPage(current)
+      router.push(`${href(current)}`)
     }if(page === 'next' && currentPage <= total/booksPerPage ){
       current++
       setCurrentPage(current)
+      router.push(`${href(current)}`)
     }else if(!isNaN(page as number)){
           setCurrentPage(page as number)
     }
   }
+  useEffect(() => {
+    console.log(currentPage);
+  }, [currentPage])
   const onHandlerSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchTerm(e.target.value)
       if(e.target.value.length >= 3){
