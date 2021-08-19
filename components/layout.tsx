@@ -14,7 +14,7 @@ function classNames(...classes: any) {
 }
 
 const Books = `
-query($search: String,$limit: Float,){
+query($search: String, $limit: Float,){
   getBooks(search: $search, limit: $limit){
     status
     books{
@@ -47,11 +47,18 @@ const Layout = ({children}: any) => {
       limit: 5
     }
   })
+  const onFocus = () => {
+    setShow(true)
+  }
+  const onBlur = () => {
+    setShow(false)
+  }
 
   useEffect(() => {
     if(result.data){
       setBooks(result.data.getBooks.books)
     }
+    console.log(result)
   })
 
   const booksToShow = books.slice(0, 5)
@@ -126,6 +133,8 @@ const Layout = ({children}: any) => {
                                 <SearchIcon className="h-5 w-5" aria-hidden="true" />
                               </div>
                               <input
+                                onBlur={onBlur}
+                                onFocus={onFocus}
                                 onChange={onHandlerSearch}
                                 id="search"
                                 className="block w-full bg-white py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
