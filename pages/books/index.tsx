@@ -1,11 +1,14 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react'
 import {useQuery} from "urql";
-import withAuth from "../../components/withAuth";
+import { WithAuth } from '../../components/withAuth'
 import {useRouter} from "next/router";
 import Pagination from "../../components/pagination";
 import LogOut from "../../helpers/LogOut";
 import {SearchIcon} from "@heroicons/react/solid";
 import BookWrapper from "../../components/book-wrapper";
+import Layout from '../../components/layout'
+import SidebarForProfile from '../../components/sidebar-for-profile'
+import MyBooks from '../profile/[books]'
 
 const GetBooksQuery =`
 query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
@@ -138,63 +141,74 @@ const Index = () => {
   }
   if(books !== null){
       return (
-        <>
-          <div className="col-span-2 flex justify-between">
-            { result.fetching ? <h1>Loading...</h1> : '' }
-            { result.error ? <h1>Opps something went wrong</h1> : '' }
-            <div className="flex-1 flex justify-center mr-5">
-              <div className="max-w-lg w-full lg:max-w-xs">
-                <label htmlFor="search" className="sr-only">
-                  Search
-                </label>
-                <div className="relative text-gray-400 focus-within:text-gray-600">
-                  <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                    <SearchIcon className="h-5 w-5" aria-hidden="true" />
+              <>
+                  <div className='col-span-2 flex justify-between'>
+                      {result.fetching ? <h1>Loading...</h1> : ''}
+                      {result.error ? <h1>Opps something went wrong</h1> : ''}
+                      <div className='flex-1 flex justify-center mr-5'>
+                          <div className='max-w-lg w-full lg:max-w-xs'>
+                              <label htmlFor='search' className='sr-only'>
+                                  Search
+                              </label>
+                              <div className='relative text-gray-400 focus-within:text-gray-600'>
+                                  <div className='pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center'>
+                                      <SearchIcon className='h-5 w-5' aria-hidden='true' />
+                                  </div>
+                                  <input
+                                      onChange={onHandlerSearch}
+                                      value={searchTerm}
+                                      id='search'
+                                      className='block w-full bg-white py-2 pl-10 pr-3 border border-gray-400 rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm'
+                                      placeholder='Search'
+                                      type='search'
+                                      name='search'
+                                  />
+                              </div>
+                          </div>
+                      </div>
+                      <select name='status'
+                              value={status}
+                              className='block bg-white py-2 px-3 border border-gray-400 rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm'
+                              onChange={onHandlerSelect}
+                      >
+                          <option value=''>ALL</option>
+                          <option value='DELIVERING'>DELIVERING</option>
+                          <option value='EXTRACTED'>EXTRACTED</option>
+                          <option value='HOLD'>HOLD</option>
+                          <option value='OPEN'>OPEN</option>
+                      </select>
                   </div>
-                  <input
-                    onChange={onHandlerSearch}
-                    value={searchTerm}
-                    id="search"
-                    className="block w-full bg-white py-2 pl-10 pr-3 border border-gray-400 rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
-                    placeholder="Search"
-                    type="search"
-                    name="search"
+                  <ul className='grid grid-cols-1 grid-rows-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:grid-rows-1 mt-5'>
+                      {books.map((book, index) => (
+                          <BookWrapper
+                              key={1 + index}
+                              src={source}
+                              title={book.title}
+                              id={book.id}
+                              onClickHandler={onClickHandler}
+                          />
+                      ))}
+                  </ul>
+                  <Pagination
+                      href={href}
+                      booksPerPage={booksPerPage}
+                      totalBooks={total}
+                      paginate={paginate}
                   />
-                </div>
-              </div>
-            </div>
-            <select name="status"
-                    value={status}
-                    className="block bg-white py-2 px-3 border border-gray-400 rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
-                    onChange={onHandlerSelect}
-            >
-              <option value=''>ALL</option>
-              <option value="DELIVERING">DELIVERING</option>
-              <option value="EXTRACTED">EXTRACTED</option>
-              <option value="HOLD">HOLD</option>
-              <option value="OPEN">OPEN</option>
-            </select>
-          </div>
-          <ul className="grid grid-cols-1 grid-rows-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:grid-rows-1 mt-5">
-            {books.map((book, index) => (
-              <BookWrapper
-                key={ 1+index }
-                src={source}
-                title={book.title}
-                id={book.id}
-                onClickHandler={onClickHandler}
-              />
-            ))}
-          </ul>
-          <Pagination
-            href={href}
-            booksPerPage={booksPerPage}
-            totalBooks={total}
-            paginate={paginate}
-          />
-        </>
+              </>
       )
   }
   return null;
 }
-export default withAuth(Index)
+
+Index.getLayout = function getLayout(page: ReactElement) {
+    return (
+            <WithAuth>
+                <Layout>
+                    {page}
+                </Layout>
+            </WithAuth>
+    )
+}
+
+export default Index

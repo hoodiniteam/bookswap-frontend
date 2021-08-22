@@ -1,18 +1,28 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import {Provider} from 'urql'
-import {client} from "../src/UrqlClient";
-import Script from "next/script";
-import React from "react";
+import { Provider } from 'urql'
+import { client } from '../src/UrqlClient'
+import Script from 'next/script'
+import React from 'react'
+import type { ReactElement, ReactNode } from 'react'
+import type { NextPage } from 'next'
+import Layout from '../components/layout'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  const getLayout = (Component as any).getLayout || ((page: any) => page)
-
-  return getLayout(
-    <Provider value={client}>
-      <Script src="https://upload-widget.cloudinary.com/global/all.js" strategy="beforeInteractive"/>
-      <Component {...pageProps} />
-    </Provider>
-  )
+type NextPageWithLayout = NextPage & {
+    getLayout?: (page: ReactElement) => ReactNode
 }
-export default MyApp
+
+type AppPropsWithLayout = AppProps & {
+    Component: NextPageWithLayout
+}
+
+export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+    const getLayout = Component.getLayout ?? ((page) => page)
+
+    return (
+        <Provider value={client}>
+            <Script src='https://upload-widget.cloudinary.com/global/all.js' strategy='beforeInteractive' />
+            {getLayout(<Component {...pageProps} />)}
+        </Provider>
+    )
+}

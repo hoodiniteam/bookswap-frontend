@@ -47,6 +47,7 @@ const Layout = ({children}: any) => {
       limit: 5
     }
   })
+
   const onFocus = () => {
     setShow(true)
   }
@@ -136,11 +137,9 @@ const Layout = ({children}: any) => {
                                 onBlur={onBlur}
                                 onFocus={onFocus}
                                 onChange={onHandlerSearch}
-                                id="search"
                                 className="block w-full bg-white py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
                                 placeholder="Search"
                                 type="search"
-                                name="search"
                               />
                             </div>
                             {show ? <div className="bg-white fixed flex flex-col w-80 border rounded-md p-4">
