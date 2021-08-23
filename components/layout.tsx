@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {MouseEventHandler, useEffect, useRef, useState} from "react"
 import Link from 'next/link'
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
@@ -19,7 +19,7 @@ query($search: String, $limit: Float,){
     status
     books{
       title
-
+        id
     }
   }
 }
@@ -27,6 +27,7 @@ query($search: String, $limit: Float,){
 
 type Books = [{
   title: string
+    id: string
 }]
 const Layout = ({children}: any) => {
   const router = useRouter();
@@ -39,6 +40,7 @@ const Layout = ({children}: any) => {
     {title: 'Profile', href: '/profile', current: false},
     {title: 'Books', href: '/books', current: false}
   ])
+  const myRef = useRef()
 
   const [booksData, ] = useQuery({
     query: Books,
@@ -51,15 +53,25 @@ const Layout = ({children}: any) => {
   const onFocus = () => {
     setShow(true)
   }
-  const onBlur = () => {
-    setShow(false)
-  }
+
+    useEffect(() => {
+        document.addEventListener("click", handleClick);
+        return () => document.removeEventListener("click", handleClick);
+        function handleClick(e: any) {
+            if(myRef && myRef.current){
+                const ref: any = myRef.current
+                if(!ref.contains(e.target)){
+                    setShow(false)
+                }
+            }
+        }
+    }, []);
 
   useEffect(() => {
     if(booksData.data){
-      setBooks(booksData.data.getBooks.books)
+        setBooks(booksData.data.getBooks.books)
     }
-  })
+  }, [booksData.data])
 
   const booksToShow = books.slice(0, 5)
 
@@ -128,21 +140,28 @@ const Layout = ({children}: any) => {
                             <label htmlFor="search" className="sr-only">
                               Search
                             </label>
-                            <div className="relative text-gray-400 flex flex-col focus-within:text-gray-600">
+                            <div ref={myRef as any} className="relative text-gray-400 flex flex-col focus-within:text-gray-600">
                               <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
                                 <SearchIcon className="h-5 w-5" aria-hidden="true" />
                               </div>
                               <input
-                                onBlur={onBlur}
                                 onFocus={onFocus}
                                 onChange={onHandlerSearch}
-                                className="block w-full bg-white py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
+                                className="layout-search-input block w-full bg-white py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
                                 placeholder="Search"
                                 type="search"
                               />
-                                {show ? <div className="bg-white absolute w-full shadow-md top-10 z-20 flex flex-col border rounded-md p-4">
+                                {show ? <div className="dropDown bg-white absolute w-full shadow-md top-10 z-20 flex flex-col border rounded-md p-4">
                                     {booksToShow.map((book, index) => {
-                                        return <span key={index + 1}>{book.title}</span>
+                                        return <Link
+                                                href={`/books/${book.id}`}
+                                                key={index + 1}
+                                                >
+                                                    <a
+                                                    onClick={() => setShow(false)}
+                                                    className="cursor-pointer">{book.title}
+                                                    </a>
+                                                </Link>
                                     })}
                                 </div> : ''}
                             </div>
