@@ -71,7 +71,7 @@ const Layout = ({children}: any) => {
     if(booksData.data){
         setBooks(booksData.data.getBooks.books)
     }
-  }, [booksData.data])
+  }, [booksData.data?.getBooks.books])
 
   const booksToShow = books.slice(0, 5)
 
