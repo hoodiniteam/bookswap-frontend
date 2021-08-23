@@ -19,7 +19,7 @@ query($search: String, $limit: Float,){
     status
     books{
       title
-   
+
     }
   }
 }
@@ -40,7 +40,7 @@ const Layout = ({children}: any) => {
     {title: 'Books', href: '/books', current: false}
   ])
 
-  const [result, ] = useQuery({
+  const [booksData, ] = useQuery({
     query: Books,
     variables:{
       search: search,
@@ -56,10 +56,9 @@ const Layout = ({children}: any) => {
   }
 
   useEffect(() => {
-    if(result.data){
-      setBooks(result.data.getBooks.books)
+    if(booksData.data){
+      setBooks(booksData.data.getBooks.books)
     }
-    console.log(result)
   })
 
   const booksToShow = books.slice(0, 5)
@@ -129,7 +128,7 @@ const Layout = ({children}: any) => {
                             <label htmlFor="search" className="sr-only">
                               Search
                             </label>
-                            <div className="relative text-gray-400 focus-within:text-gray-600">
+                            <div className="relative text-gray-400 flex flex-col focus-within:text-gray-600">
                               <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
                                 <SearchIcon className="h-5 w-5" aria-hidden="true" />
                               </div>
@@ -141,12 +140,12 @@ const Layout = ({children}: any) => {
                                 placeholder="Search"
                                 type="search"
                               />
+                                {show ? <div className="bg-white absolute w-full shadow-md top-10 z-20 flex flex-col border rounded-md p-4">
+                                    {booksToShow.map((book, index) => {
+                                        return <span key={index + 1}>{book.title}</span>
+                                    })}
+                                </div> : ''}
                             </div>
-                            {show ? <div className="bg-white fixed flex flex-col w-80 border rounded-md p-4">
-                              {booksToShow.map((book, index) => {
-                                return <span key={index + 1}>{book.title}</span>
-                              })}
-                            </div> : ''}
                           </div>
                         </div>
                         <div className="flex lg:hidden">
