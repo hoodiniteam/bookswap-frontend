@@ -92,7 +92,6 @@ type UserData = {
 }
 
 const Index = () => {
-  let key = 1
   const [result,] = useQuery({
     query: GetMe,
   });
@@ -333,24 +332,6 @@ const Index = () => {
                               autoComplete="phone"
                               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           />
-                      </div>
-                      <div className="col-span-6">
-                          <label htmlFor="about" className="block text-sm font-medium text-gray-700">
-                              Books im my waiting list
-                          </label>
-                          <div className="mt-1">
-                              <div className="shadow-sm flex flex-col flex-wrap p-5 mt-1 w-full max-h-80 sm:text-sm border border-gray-300 rounded-md">
-                                  {user.waiting.map(book => {
-                                   return <a
-                                          className="my-1.5 cursor-pointer"
-                                          onClick={() => router.push(`/books/${book.id}`)}
-                                          key={key+=1}
-                                          >
-                                          {book.title}
-                                          </a>
-                                  })}
-                              </div>
-                          </div>
                       </div>
                   </div>
               </div>
