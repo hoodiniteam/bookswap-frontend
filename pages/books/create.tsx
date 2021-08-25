@@ -6,7 +6,7 @@ import Upload from "../../components/upload-widget";
 import {useForm} from 'react-hook-form'
 
 const CreateBookMutation = `
-mutation($title: String!, $description: String!, $image: String!, $condition:BooksCondition! ){
+mutation($title: String!, $description: String!, $image: JSONObject!, $condition:BooksCondition! ){
   createBook(options:{title: $title, description: $description, image: $image, condition: $condition }){
     status
     book{
@@ -15,7 +15,30 @@ mutation($title: String!, $description: String!, $image: String!, $condition:Boo
   }
 }
 `
-
+type CloudinaryImage = {
+  asset_id: string
+  public_id: string
+  version: number
+  version_id: string
+  signature: string
+  width: number
+  height: number
+  format: string
+  resource_type: string
+  created_at: string
+  tags: [string]
+  bytes: number
+  type: string
+  etag: string
+  placeholder: boolean
+  url: string
+  secure_url: string
+  access_mode: string
+  original_filename: string
+  api_key: string
+  path: string
+  thumbnail_url: string
+}
 const Create = () => {
   const [book, setBook] = useState({
     title: '',
@@ -23,7 +46,7 @@ const Create = () => {
     condition: 'BRANDNEW'
   })
   const {register, handleSubmit, clearErrors, formState: {errors}} = useForm()
-  const [img, setImg] = useState('');
+  const [img, setImg] = useState<CloudinaryImage | null>(null);
   const [, createBook] = useMutation(CreateBookMutation)
   const router = useRouter();
   const submit = handleSubmit((data, event) => {
@@ -36,14 +59,16 @@ const Create = () => {
         condition: book.condition
       };
       createBook(variables).then(res => {
+        console.log(res)
         router.push(`/books/${res.data.createBook.book.id}`).then()
       })
     }
   })
 
   const getInfo = (info: any) => {
-    const imgInfoString = JSON.stringify(info)
-          setImg(imgInfoString)
+    if(info){
+      setImg(info)
+    }
   }
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = e.target;

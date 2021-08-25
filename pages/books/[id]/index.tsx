@@ -8,7 +8,9 @@ const GetBook = `
       book{
         title
         description
-        image
+        image{
+        url
+        }
         id
         condition
         status
@@ -79,10 +81,14 @@ const GetBook = `
     email: string
   }]
 
+type CloudinaryImage = {
+  url: string
+}
+
   type BookData = {
     description: string
     id: string
-    image: string
+    image: CloudinaryImage
     title: string
     condition: BooksCondition
     status: BookStatus
@@ -106,6 +112,7 @@ const GetBook = `
     const [userId, setUserId] = useState(null)
     useEffect(() => {
       if(result.data){
+        console.log(result)
         setBook(result.data.getBook.book)
       }
       if(myIdResult.data){
@@ -163,7 +170,8 @@ const GetBook = `
             </div>
             <div className='flex justify-between my-1.5'>
               Image:
-              <input className="border" name="image" value={book.image} onChange={onChangeHandler}/>
+              <img src={book.image.url}/>
+              {/*<input className="border" name="image" value={book.image} onChange={onChangeHandler}/>*/}
             </div>
             <div className='flex justify-between my-1.5'>
               Status:

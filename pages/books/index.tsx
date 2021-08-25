@@ -17,15 +17,23 @@ query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
       description
       id
       status
+      image{
+        url
+      }
     }
   }
 }
 `
+
+type CloudinaryImage = {
+  url: string
+}
 const source = 'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80'
 type Books = [{
   title: string,
   description: string
   id: string
+  image: CloudinaryImage
 }]
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -66,7 +74,8 @@ const Index = () => {
         if(result.error?.message.includes('Access denied!')){
             LogOut()
         }else{
-            setBooks(result.data.getBooks.books)
+          console.log(result.data.getBooks.books)
+          setBooks(result.data.getBooks.books)
             setTotal(result.data.getBooks.count)
             setCurrentPage(1)
             setStatus('OPEN')
@@ -179,7 +188,7 @@ const Index = () => {
             {books.map((book, index) => (
               <BookWrapper
                 key={ 1+index }
-                src={source}
+                src={book.image !== undefined && book.image !== null ? book.image.url : source}
                 title={book.title}
                 id={book.id}
                 onClickHandler={onClickHandler}
