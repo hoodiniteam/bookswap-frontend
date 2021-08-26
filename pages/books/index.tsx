@@ -1,11 +1,10 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
-import {useQuery} from "urql";
 import withAuth from "../../components/withAuth";
 import {useRouter} from "next/router";
 import Pagination from "../../components/pagination";
-import LogOut from "../../helpers/LogOut";
 import {SearchIcon} from "@heroicons/react/solid";
 import BookWrapper from "../../components/book-wrapper";
+import useCheckTokens from "../../helpers/useCheckTokens";
 
 const GetBooksQuery =`
 query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
@@ -64,24 +63,16 @@ const Index = () => {
       return `books?page=${page}&status=${status}`
     }
   }
+  const [testResult] = useCheckTokens(GetBooksQuery, variables())
 
-  const [result,] = useQuery({
-  query: GetBooksQuery,
-  variables: variables()
-  })
   useEffect(() => {
-    if(result.data){
-        if(result.error?.message.includes('Access denied!')){
-            LogOut()
-        }else{
-          console.log(result.data.getBooks.books)
-          setBooks(result.data.getBooks.books)
-            setTotal(result.data.getBooks.count)
-            setCurrentPage(1)
-            setStatus('OPEN')
-        }
+    if(testResult.data){
+      setBooks(testResult.data.getBooks.books)
+      setTotal(testResult.data.getBooks.count)
+      setCurrentPage(1)
+      setStatus('OPEN')
     }
-  }, [result])
+  }, [testResult])
   const paginate = (page: number | string) => {
     let current = currentPage;
     if(page === 'previous' && currentPage > 1){
@@ -111,7 +102,7 @@ const Index = () => {
   }
 
   useEffect(()=>{
-    if(router.query.page && result.data){
+    if(router.query.page && testResult.data){
       setCurrentPage(+router.query.page)
       setStatus(`${router.query.status || ''}`)
       const arr = document.querySelectorAll('.pagItem')
@@ -121,7 +112,7 @@ const Index = () => {
       })
     }
     setOffset((currentPage - 1) * booksPerPage)
-  }, [router.query, result, currentPage, booksPerPage])
+  }, [router.query, testResult, currentPage, booksPerPage])
 
   const onHandlerSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     if(!e.target.value){
@@ -149,8 +140,8 @@ const Index = () => {
       return (
         <>
           <div className="col-span-2 flex justify-between">
-            { result.fetching ? <h1>Loading...</h1> : '' }
-            { result.error ? <h1>Opps something went wrong</h1> : '' }
+            { testResult.fetching ? <h1>Loading...</h1> : '' }
+            { testResult.error ? <h1>Opps something went wrong</h1> : '' }
             <div className="flex-1 flex justify-center mr-5">
               <div className="max-w-lg w-full lg:max-w-xs">
                 <label htmlFor="search" className="sr-only">

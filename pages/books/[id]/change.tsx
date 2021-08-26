@@ -5,9 +5,9 @@ import withAuth from "../../../components/withAuth";
 import Upload from "../../../components/upload-widget";
 import {useForm} from "react-hook-form";
 
-const CreateBookMutation = `
+const UpdateBookMutation = `
 mutation($title: String!, $description: String!, $image: String!, $condition:BooksCondition! ){
-  createBook(options:{title: $title, description: $description, image: $image, condition: $condition }){
+  updateBook(options:{title: $title, description: $description, image: $image, condition: $condition }){
     status
     book{
       id
@@ -16,12 +16,12 @@ mutation($title: String!, $description: String!, $image: String!, $condition:Boo
 }
 `
 const GetBook = `
-  query($id:String!){
-    getBook(id:$id){
+  query($id: String!){
+    getBook(id: $id){
+      status
       book{
         title
         description
-        image
         id
         condition
         status
@@ -59,10 +59,11 @@ const Change = () => {
   })
   const [book, setBook] = useState<Book | null>(null)
   const [img, setImg] = useState('');
-  const [, createBook] = useMutation(CreateBookMutation)
+  const [, updateBook] = useMutation(UpdateBookMutation)
   const {register, handleSubmit, clearErrors, formState: {errors}} = useForm()
   useEffect(()=>{
     if(result.data){
+      console.log(result)
       setBook(result.data.getBook.book)
     }
   }, [result])
@@ -75,7 +76,7 @@ const Change = () => {
         image: img,
         condition: book.condition
       };
-      createBook(variables).then(res => {
+      updateBook(variables).then(res => {
         router.push(`/books/${res.data.createBook.book.id}`).then()
       })
     }

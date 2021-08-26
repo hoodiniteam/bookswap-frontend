@@ -1,11 +1,11 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
-import {useMutation, useQuery} from "urql";
+import {useMutation} from "urql";
 import {useForm} from "react-hook-form";
 import {useRouter} from "next/router";
 import withAuth from "../../components/withAuth";
-import LogOut from "../../helpers/LogOut";
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import Layout from "../../components/layout";
+import useCheckTokens from "../../helpers/useCheckTokens";
 const GetMe = `
 query{
   me{
@@ -93,24 +93,18 @@ type UserData = {
 
 const Index = () => {
   let key = 1
-  const [result,] = useQuery({
-    query: GetMe,
-  });
+  const [testResult] = useCheckTokens(GetMe)
   const [, updateUser] = useMutation(UpdateUserMutation)
   const [user, setUser] = useState<UserData | ''>('')
   const router = useRouter();
   const {register, clearErrors, handleSubmit, formState: {errors}} = useForm()
   useEffect(()=>{
-      if(result.data){
-        if(result.error?.message.includes('Access denied!')){
-            LogOut()
-        }else{
-            setUser(result.data.me.user);
-        }
+    if(testResult.data){
+      setUser(testResult.data.me.user);
     }
-  }, [result])
-  if (result.fetching) return <p>Loading...</p>;
-  if (result.error) return <p>Oh no... {result.error.message}</p>;
+  }, [testResult])
+  if (testResult.fetching) return <p>Loading...</p>;
+  if (testResult.error) return <p>Oh no... {testResult.error.message}</p>;
 
   const submitHandler = handleSubmit((data, event) =>{
     event?.preventDefault()
@@ -142,7 +136,7 @@ const Index = () => {
     }
     clearErrors(name)
   }
-  if(!result.fetching && user){
+  if(!testResult.fetching && user){
     return (
         <form action="#" method="POST" onSubmit={submitHandler}>
           <div className="shadow sm:rounded-md sm:overflow-hidden">
