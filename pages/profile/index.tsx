@@ -5,7 +5,8 @@ import {useRouter} from "next/router";
 import withAuth from "../../components/withAuth";
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import Layout from "../../components/layout";
-import useCheckTokens from "../../helpers/useCheckTokens";
+import useCheckTokens from "../../helpers/useQueryWrapper";
+import useQueryWrapper from "../../helpers/useQueryWrapper";
 const GetMe = `
 query{
   me{
@@ -93,18 +94,20 @@ type UserData = {
 
 const Index = () => {
   let key = 1
-  const [testResult] = useCheckTokens(GetMe)
+  const [data, fetching, error] = useQueryWrapper({
+    query: GetMe,
+  })
   const [, updateUser] = useMutation(UpdateUserMutation)
   const [user, setUser] = useState<UserData | ''>('')
   const router = useRouter();
   const {register, clearErrors, handleSubmit, formState: {errors}} = useForm()
   useEffect(()=>{
-    if(testResult.data){
-      setUser(testResult.data.me.user);
+    if(data){
+      setUser(data.me.user);
     }
-  }, [testResult])
-  if (testResult.fetching) return <p>Loading...</p>;
-  if (testResult.error) return <p>Oh no... {testResult.error.message}</p>;
+  }, [data])
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
 
   const submitHandler = handleSubmit((data, event) =>{
     event?.preventDefault()
@@ -136,7 +139,7 @@ const Index = () => {
     }
     clearErrors(name)
   }
-  if(!testResult.fetching && user){
+  if(!fetching && user){
     return (
         <form action="#" method="POST" onSubmit={submitHandler}>
           <div className="shadow sm:rounded-md sm:overflow-hidden">

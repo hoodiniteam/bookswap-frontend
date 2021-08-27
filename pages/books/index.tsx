@@ -4,7 +4,7 @@ import {useRouter} from "next/router";
 import Pagination from "../../components/pagination";
 import {SearchIcon} from "@heroicons/react/solid";
 import BookWrapper from "../../components/book-wrapper";
-import useCheckTokens from "../../helpers/useCheckTokens";
+import useQueryWrapper from "../../helpers/useQueryWrapper";
 
 const GetBooksQuery =`
 query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
@@ -63,16 +63,20 @@ const Index = () => {
       return `books?page=${page}&status=${status}`
     }
   }
-  const [testResult] = useCheckTokens(GetBooksQuery, variables())
+  const [data, fetching, error] = useQueryWrapper({
+    query: GetBooksQuery,
+    variables: variables()
+  })
 
   useEffect(() => {
-    if(testResult.data){
-      setBooks(testResult.data.getBooks.books)
-      setTotal(testResult.data.getBooks.count)
+    if(data){
+      console.log(data);
+      setBooks(data.getBooks.books)
+      setTotal(data.getBooks.count)
       setCurrentPage(1)
       setStatus('OPEN')
     }
-  }, [testResult])
+  }, [data])
   const paginate = (page: number | string) => {
     let current = currentPage;
     if(page === 'previous' && currentPage > 1){
@@ -102,7 +106,7 @@ const Index = () => {
   }
 
   useEffect(()=>{
-    if(router.query.page && testResult.data){
+    if(router.query.page && data){
       setCurrentPage(+router.query.page)
       setStatus(`${router.query.status || ''}`)
       const arr = document.querySelectorAll('.pagItem')
@@ -112,7 +116,7 @@ const Index = () => {
       })
     }
     setOffset((currentPage - 1) * booksPerPage)
-  }, [router.query, testResult, currentPage, booksPerPage])
+  }, [router.query, data, currentPage, booksPerPage])
 
   const onHandlerSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     if(!e.target.value){
@@ -140,8 +144,8 @@ const Index = () => {
       return (
         <>
           <div className="col-span-2 flex justify-between">
-            { testResult.fetching ? <h1>Loading...</h1> : '' }
-            { testResult.error ? <h1>Opps something went wrong</h1> : '' }
+            { fetching ? <h1>Loading...</h1> : '' }
+            { error ? <h1>Opps something went wrong</h1> : '' }
             <div className="flex-1 flex justify-center mr-5">
               <div className="max-w-lg w-full lg:max-w-xs">
                 <label htmlFor="search" className="sr-only">

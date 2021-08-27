@@ -63,7 +63,6 @@ const Change = () => {
   const {register, handleSubmit, clearErrors, formState: {errors}} = useForm()
   useEffect(()=>{
     if(result.data){
-      console.log(result)
       setBook(result.data.getBook.book)
     }
   }, [result])
