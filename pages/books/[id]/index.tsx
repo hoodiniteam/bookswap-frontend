@@ -15,9 +15,14 @@ const GetBook = `
         condition
         status
         creator{
-            email
-            id
-            firstName 
+          email
+          id
+          firstName 
+        }
+        holder{
+          email
+          id
+          firstName
         }
         expects{
           email
@@ -46,17 +51,6 @@ const GetBook = `
   }
   `
 
-  const UpdateBookMutation = `
-  mutation($id:String!, $title:String, $description: String, $image: String, $status: BooksStatus, $condition: BooksCondition){
-    updateBook(options:{id:$id, title:$title, description:$description, image: $image, status:$status, condition: $condition}){
-      status
-      errors {
-        message
-        field
-      }
-    }
-  }
-  `
   enum BookStatus{
       DELIVERING,
       EXTRACTED,
@@ -73,6 +67,12 @@ const GetBook = `
     TERRIBLE
   }
   type UserCreator = {
+    email: string
+    id: string,
+    firstName: string
+  }
+  type Holder = {
+    email: string
     id: string,
     firstName: string
   }
@@ -93,12 +93,13 @@ type CloudinaryImage = {
     condition: BooksCondition
     status: BookStatus
     creator: UserCreator
+    holder: Holder
     expects: ListOfExpects
   }
 
   const Book = () => {
     const router = useRouter();
-    let key = 1;
+    // let key = 1;
     const [myIdResult,] = useQuery({
       query: GetId
     })
@@ -106,7 +107,6 @@ type CloudinaryImage = {
       query: GetBook,
       variables: {id: router.query.id}
     });
-    const [,updateBook] = useMutation(UpdateBookMutation)
     const [, addToMyWaitingList] = useMutation(AddBookInMyWaitingListMutation)
     const [book, setBook] = useState<BookData | null>(null)
     const [userId, setUserId] = useState(null)
@@ -119,14 +119,7 @@ type CloudinaryImage = {
         setUserId(myIdResult.data.me.user.id)
       }
     }, [result, myIdResult])
-    if (result.fetching) return <p>Loading...</p>;
-    if (result.error) return <p>Oh no... {result.error.message}</p>;
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>{
-      const {name, value} = e.target;
-      if(book){
-        setBook({...book, [name]: value})
-      }
-    }
+
     const addBookToList = () => {
       const variables = {
         id: router.query.id
@@ -135,79 +128,59 @@ type CloudinaryImage = {
         console.log(res);
       })
     }
-    const onSubmitHandler = (e: FormEvent<HTMLElement>) => {
-      e.preventDefault();
-      if(book){
-        const variables = {
-          id: router.query.id,
-          title: book.title,
-          description: book.description,
-          image: book.image,
-          status: book.status,
-          condition: book.condition
-        }
-        updateBook(variables).then(res=>{
-          console.log(res);
-        })
-      }
-
-    }
+    if (result.fetching) return <p>Loading...</p>;
+    if (result.error) return <p>Oh no... {result.error.message}</p>;
     if(!result.fetching && book !== null && userId !== null){
       return (
         <>
-          <form className="flex flex-col border-2 p-5 max-w-min" onSubmit={onSubmitHandler}>
-            <div className='flex justify-between my-1.5'>
-              Creator Name:
-              <h2 className="font-bold">{book.creator.firstName}</h2>
+          <button
+            type="button"
+            className="inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            onClick={() => router.back()}
+          >
+            Previous
+          </button>
+          {book.creator.id === userId ?
+            <button
+              onClick={()=> router.push(`${router.asPath}/change`)}
+              type="button"
+              className="inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Edit
+            </button>
+            : ''}
+            {book.creator.id === userId ? "" :
+              <button
+                type="button"
+                className="inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                onClick={addBookToList}
+              >
+                Add to my waiting list
+              </button>
+            }
+          <div className="grid grid-cols-6 grid-rows-1 border p-10">
+            <div className="col-span-5">
+              <h1 className="text-center text-4xl ">{book.title}</h1>
+              <h2 className="text-center mt-8">Creator: {book.creator.email}</h2>
             </div>
-            <div className='flex justify-between my-1.5'>
-              Title:
-              <input className="border" name="title" value={book.title} onChange={onChangeHandler}/>
+            <div className="col-span-1">
+              <img src={book.image.url} />
             </div>
-            <div className='flex justify-between my-1.5'>
-              Description:
-              <input className="border" name="description" value={book.description} onChange={onChangeHandler}/>
+          </div>
+          <div className="grid grid-cols-6 grid-rows-1 p-8">
+            <div className="col-span-5 flex flex-col pr-16">
+              <span className="font-bold">Description:</span>
+              <span>{book.description}</span>
             </div>
-            <div className='flex justify-between my-1.5'>
-              Image:
-              <img src={book.image.url}/>
-              {/*<input className="border" name="image" value={book.image} onChange={onChangeHandler}/>*/}
+            <div className="col-span-1 flex flex-col">
+              <span>status: {book.status}</span>
+              <span>condition: {book.condition}</span>
+              <span>holder: {book.holder.email}</span>
             </div>
-            <div className='flex justify-between my-1.5'>
-              Status:
-              <select name="status" value={book.status} onChange={onChangeHandler}>
-                <option value="HOLD">HOLD</option>
-                <option value="OPEN">OPEN</option>
-              </select>
-            </div>
-            <div className='flex justify-between my-1.5'>
-              Condition:
-              <select name="condition" value={book.condition} onChange={onChangeHandler}>
-                <option value="BRANDNEW">BRANDNEW</option>
-                <option value="LIKENEW">LIKENEW</option>
-                <option value="GOOD">GOOD</option>
-                <option value="SATISFACTORY">SATISFACTORY</option>
-                <option value="BAD">BAD</option>
-                <option value="TERRIBLE">TERRIBLE</option>
-              </select>
-            </div>
-            <div className='flex justify-between my-1.5'>
-              Expects:
-             <div>
-               {book.expects.map(user => {
-                 return <span key={key+=1}>{user.email}</span>
-               })}
-             </div>
-            </div>
-            {book.creator.id === userId ? <button onClick={()=> router.push(`${router.asPath}/change`)} >Edit</button> : ''}
-          </form>
-          <div className="flex justify-between w-72">
-            <button onClick={() => router.back()}>Previous</button>
-            {book.creator.id === userId ? "" : <button onClick={addBookToList}>Add to my waiting list</button>}
           </div>
         </>
       )
     }
-    return null;
+    return null
   }
   export default withAuth(Book)
