@@ -41,6 +41,7 @@ const Layout = ({children}: any) => {
                       <div className="relative h-16 flex items-center justify-between lg:border-b lg:border-indigo-400 lg:border-opacity-25">
                         <div className="px-2 flex items-center lg:px-0">
                           <div className="flex-shrink-0">
+                            Logo
                           </div>
                           <div className="hidden lg:block lg:ml-10">
                             <div className="flex space-x-4">
