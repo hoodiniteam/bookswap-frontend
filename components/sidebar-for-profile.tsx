@@ -2,19 +2,28 @@ import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import {KeyIcon, UserCircleIcon} from "@heroicons/react/outline";
 import {useRouter} from "next/router";
+import {BookmarkAltIcon, BookmarkIcon} from "@heroicons/react/solid";
 
 const SidebarForProfile = (props: any) => {
   const router = useRouter()
   const [sideNav, setSideNav] = useState([
     {name: 'Account', href: '/profile', icon: UserCircleIcon, current: true,},
-    {name: 'My books', href: '/profile/books', icon: KeyIcon, current: false,},
+    {name: 'My books', href: '/profile/books', icon: BookmarkAltIcon, current: false,},
+    {name: 'My waiting list', href: '/profile/waitingList', icon: BookmarkIcon, current: false,},
   ]);
-
+  const pathForCompare = () => {
+    const end = router.asPath.indexOf('?')
+    if(router.asPath.includes('page' || 'status')){
+      return router.asPath.slice(0, end)
+    }else{
+      return router.asPath
+    }
+  }
   useEffect(()=>{
     const newArr = [...sideNav]
     sideNav.map((item, index) => {
       item.current  = false;
-      if(item.href === router.asPath){
+      if(item.href === pathForCompare()){
         newArr.splice(index, 1, {...item, current: true})
         setSideNav(newArr)
       }
