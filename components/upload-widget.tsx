@@ -36,7 +36,7 @@ export const Upload = ({getInfo}:any) => {
       }
   }, []);
     return(
-        <div onClick={() => getInfo(upload)}>
+        <div onClick={getInfo(upload)}>
           <div
             id="widget_bin">
           </div>

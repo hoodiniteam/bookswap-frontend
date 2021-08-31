@@ -5,9 +5,9 @@ import withAuth from "../../../components/withAuth";
 import Upload from "../../../components/upload-widget";
 import {useForm} from "react-hook-form";
 
-const CreateBookMutation = `
-mutation($title: String!, $description: String!, $image: String!, $condition:BooksCondition! ){
-  createBook(options:{title: $title, description: $description, image: $image, condition: $condition }){
+const UpdateBookMutation = `
+mutation($id: String!, $title: String!, $description: String!, $image: JSONObject!, $condition:BooksCondition! ){
+  updateBook(options:{id: $id, title: $title, description: $description, image: $image, condition: $condition }){
     status
     book{
       id
@@ -21,8 +21,31 @@ const GetBook = `
       book{
         title
         description
-        image
         id
+        image{
+          asset_id
+          public_id
+          version
+          version_id
+          signature
+          width
+          height
+          format
+          resource_type
+          created_at
+         
+          
+          type
+          etag
+          placeholder
+          url
+          secure_url
+          access_mode
+          original_filename
+          api_key
+          path
+          thumbnail_url
+        }
         condition
         status
         creator{
@@ -45,8 +68,34 @@ enum BooksCondition {
   SATISFACTORY,
   TERRIBLE
 }
+
+type CloudyImage = {
+  asset_id: string
+  public_id: string
+  version: number
+  version_id: string
+  signature: string
+  width: number
+  height: number
+  format: string
+  resource_type: string
+  created_at: string
+  type: string
+  etag: string
+  placeholder: boolean
+  url: string
+  secure_url: string
+  access_mode: string
+  original_filename: string
+  api_key: string
+  path: string
+  thumbnail_url: string
+}
+
 type Book ={
+  id: string
   title: string,
+  image: CloudyImage
   description: string,
   condition: BooksCondition
 }
@@ -58,11 +107,12 @@ const Change = () => {
     variables: {id: id}
   })
   const [book, setBook] = useState<Book | null>(null)
-  const [img, setImg] = useState('');
-  const [, createBook] = useMutation(CreateBookMutation)
+  const [image, setImage] = useState<CloudyImage | null>(null)
+  const [, updateBook] = useMutation(UpdateBookMutation)
   const {register, handleSubmit, clearErrors, formState: {errors}} = useForm()
   useEffect(()=>{
     if(result.data){
+      console.log(result)
       setBook(result.data.getBook.book)
     }
   }, [result])
@@ -72,18 +122,28 @@ const Change = () => {
       const variables = {
         title: book.title,
         description:book.description,
-        image: img,
-        condition: book.condition
+        image: book.image,
+        condition: book.condition,
+        id: book.id
       };
-      createBook(variables).then(res => {
-        router.push(`/books/${res.data.createBook.book.id}`).then()
+      updateBook(variables).then(res => {
+        console.log(res);
+        router.push(`/books/${res.data.updateBook.book.id}`).then()
       })
     }
   })
   const getInfo = (info: any) => {
-    const imgInfoString = JSON.stringify(info)
-    setImg(imgInfoString)
+    if(info){
+      setTimeout(() => setImage(info), 100)
+    }
   }
+
+  useEffect(() => {
+    if(image && book){
+      setBook({...book, image: image})
+    }
+  },[image])
+
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = e.target;
     if (book) {
