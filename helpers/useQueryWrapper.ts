@@ -1,31 +1,15 @@
-import React, {useEffect} from "react";
-import {useQuery} from "urql";
+import  {useEffect} from "react";
+import {useQuery, UseQueryArgs} from "urql";
 import LogOut from "./LogOut";
-import {OperationContext} from "@urql/core";
 
-type Arguments = {
-  query: string,
-  variables?: any
-  requestPolicy?: string
-  pause?: boolean
-  context?: Partial<OperationContext>
-}
-
-const useQueryWrapper = (arg: Arguments) => {
-  const [result, reexecuteQuery] = useQuery({
-    query: arg.query,
-    variables: arg.variables,
-    requestPolicy: "cache-and-network",
-    pause: arg.pause,
-    context: arg.context
-  })
+const useQueryWrapper = (arg: UseQueryArgs) => {
+  const [result, reexecuteQuery] = useQuery(arg)
   useEffect(() => {
     if(result.error?.message.includes('Access denied!')){
       LogOut()
     }
   }, [result])
   const {data, fetching, error} = result
-
   return [data, fetching, error, reexecuteQuery]
 }
 export default useQueryWrapper
