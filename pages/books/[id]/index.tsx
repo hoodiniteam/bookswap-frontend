@@ -1,7 +1,8 @@
-import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, FormEvent, ReactElement, useEffect, useState} from "react";
 import {useMutation, useQuery} from "urql";
 import {useRouter} from "next/router";
-import withAuth from "../../../components/withAuth";
+import { WithAuth } from "../../../components/withAuth";
+import Layout from "../../../components/layout";
 const GetBook = `
   query($id:String!){
     getBook(id:$id){
@@ -183,4 +184,14 @@ type CloudinaryImage = {
     }
     return null
   }
-  export default withAuth(Book)
+Book.getLayout = function getLayout(page: ReactElement) {
+  return (
+      <WithAuth>
+        <Layout>
+          {page}
+        </Layout>
+      </WithAuth>
+  )
+}
+
+export default Book;

@@ -1,24 +1,16 @@
 import React from "react";
 import {useRouter} from "next/router";
-import Layout from "./layout";
 
-const withAuth = (WrappedComponent: React.ComponentType) => {
-  // eslint-disable-next-line react/display-name
-  return (props: any) => {
-    if(typeof window !== "undefined"){
-      const Router = useRouter()
-      const accessToken = localStorage.getItem("token");
-        if (!accessToken) {
-          Router.replace("/login").then();
-          return null;
-        }
+export const WithAuth = ({children}: {children: JSX.Element}): null | JSX.Element => {
+  if(typeof window !== "undefined"){
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const Router = useRouter()
+    const accessToken = localStorage.getItem("token");
+    if (!accessToken) {
+      Router.replace("/login").then();
+      return null;
     }
-      return (
-        <Layout>
-          <WrappedComponent {...props} />
-        </Layout>
-      )
+    return children
   }
+  return null;
 };
-
-export default withAuth

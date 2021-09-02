@@ -1,11 +1,12 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, ReactElement, useEffect, useState} from "react";
 import {useQuery} from "urql";
-import withAuth from "../../components/withAuth";
+import {WithAuth} from "../../components/withAuth";
 import {useRouter} from "next/router";
 import Pagination from "../../components/pagination";
 import LogOut from "../../helpers/LogOut";
 import {SearchIcon} from "@heroicons/react/solid";
 import BookWrapper from "../../components/book-wrapper";
+import Layout from "../../components/layout";
 
 const GetBooksQuery =`
 query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
@@ -206,4 +207,14 @@ const Index = () => {
   }
   return null;
 }
-export default withAuth(Index)
+
+Index.getLayout = function getLayout(page: ReactElement) {
+  return (
+      <WithAuth>
+        <Layout>
+          {page}
+        </Layout>
+      </WithAuth>
+  )
+}
+export default Index;

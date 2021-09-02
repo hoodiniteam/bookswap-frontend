@@ -1,9 +1,10 @@
-import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, FormEvent, ReactElement, useEffect, useState} from "react";
 import {useMutation} from "urql";
 import {useRouter} from "next/router";
-import withAuth from "../../components/withAuth";
+import { WithAuth } from "../../components/withAuth";
 import Upload from "../../components/upload-widget";
 import {useForm} from 'react-hook-form'
+import Layout from "../../components/layout";
 
 const CreateBookMutation = `
 mutation($title: String!, $description: String!, $image: JSONObject!, $condition:BooksCondition! ){
@@ -182,4 +183,14 @@ const Create = () => {
     </>
   )
 }
-export default withAuth(Create)
+Create.getLayout = function getLayout(page: ReactElement) {
+  return (
+      <WithAuth>
+        <Layout>
+          {page}
+        </Layout>
+      </WithAuth>
+  )
+}
+
+export default Create;

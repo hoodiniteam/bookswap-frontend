@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import {useQuery} from "urql";
-import withAuth from "../../components/withAuth";
+import {WithAuth} from "../../components/withAuth";
 import Layout from "../../components/layout";
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import BookWrapper from "../../components/book-wrapper";
@@ -106,10 +106,14 @@ const WaitingList = () => {
   return null;
 }
 
-// eslint-disable-next-line react/display-name
-withAuth(WaitingList.getLayout = (page: any) => {
-  return <Layout>
-    <SidebarForProfile>{page}</SidebarForProfile>
-  </Layout>
-})
+WaitingList.getLayout = function getLayout(page: ReactElement) {
+  return (
+      <WithAuth>
+        <Layout>
+          <SidebarForProfile>{page}</SidebarForProfile>
+        </Layout>
+      </WithAuth>
+  )
+}
+
 export default WaitingList

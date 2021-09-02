@@ -1,7 +1,7 @@
-import React,{useState, useEffect} from 'react';
+import React, {useState, useEffect, ReactElement} from 'react';
 import {useQuery} from "urql";
 import { useRouter } from 'next/router'
-import withAuth from '../../components/withAuth'
+import { WithAuth } from '../../components/withAuth'
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import Layout from "../../components/layout";
 import BookWrapper from "../../components/book-wrapper";
@@ -106,11 +106,14 @@ const MyBooks = () => {
   return null
 }
 
-// eslint-disable-next-line react/display-name
-withAuth(MyBooks.getLayout = (page: any) => {
-  return <Layout>
-    <SidebarForProfile>{page}</SidebarForProfile>
-  </Layout>
-})
+MyBooks.getLayout = function getLayout(page: ReactElement) {
+  return (
+      <WithAuth>
+        <Layout>
+          <SidebarForProfile>{page}</SidebarForProfile>
+        </Layout>
+      </WithAuth>
+  )
+}
 
-export default MyBooks
+export default MyBooks;

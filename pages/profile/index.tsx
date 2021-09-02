@@ -1,8 +1,8 @@
-import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, FormEvent, ReactElement, useEffect, useState} from "react";
 import {useMutation, useQuery} from "urql";
 import {useForm} from "react-hook-form";
 import {useRouter} from "next/router";
-import withAuth from "../../components/withAuth";
+import { WithAuth } from "../../components/withAuth";
 import LogOut from "../../helpers/LogOut";
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import Layout from "../../components/layout";
@@ -349,12 +349,14 @@ const Index = () => {
   }
   return null;
 }
+Index.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <WithAuth>
+            <Layout>
+                <SidebarForProfile>{page}</SidebarForProfile>
+            </Layout>
+        </WithAuth>
+    )
+}
 
-// eslint-disable-next-line react/display-name
-withAuth(Index.getLayout = (page: any) => {
-  return <Layout>
-            <SidebarForProfile>{page}</SidebarForProfile>
-         </Layout>
-})
-
-export default Index
+export default Index;
