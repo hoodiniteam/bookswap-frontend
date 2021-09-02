@@ -38,7 +38,7 @@ type Books = [{
 }]
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [status, setStatus] = useState<string>('');
+  const [status, setStatus] = useState<string>('OPEN');
   const [search, setSearch] = useState('');
   const [total, setTotal] = useState(0)
   const [books, setBooks] = useState<Books | []>([]);
@@ -79,7 +79,6 @@ const Index = () => {
           setBooks(result.data.getBooks.books)
             setTotal(result.data.getBooks.count)
             setCurrentPage(1)
-            setStatus('OPEN')
         }
     }
   }, [result])
