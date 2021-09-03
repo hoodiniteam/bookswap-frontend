@@ -1,15 +1,14 @@
 import  {useEffect} from "react";
 import {useQuery, UseQueryArgs} from "urql";
 import LogOut from "./LogOut";
+import { UseQueryResponse } from 'urql/dist/types/hooks/useQuery'
 
-const useQueryWrapper = (arg: UseQueryArgs) => {
-  const [result, reexecuteQuery] = useQuery(arg)
+export const useQueryWrapper = (arg: UseQueryArgs): UseQueryResponse => {
+  const result = useQuery(arg);
   useEffect(() => {
-    if(result.error?.message.includes('Access denied!')){
+    if(result[0].error?.message.includes('Access denied!')){
       LogOut()
     }
   }, [result])
-  const {data, fetching, error} = result
-  return [data, fetching, error, reexecuteQuery]
+  return result;
 }
-export default useQueryWrapper

@@ -5,8 +5,7 @@ import {useRouter} from "next/router";
 import withAuth from "../../components/withAuth";
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import Layout from "../../components/layout";
-import useCheckTokens from "../../helpers/useQueryWrapper";
-import useQueryWrapper from "../../helpers/useQueryWrapper";
+import { useQueryWrapper } from '../../helpers/useQueryWrapper'
 const GetMe = `
 query{
   me{
@@ -94,7 +93,7 @@ type UserData = {
 
 const Index = () => {
   let key = 1
-  const [data, fetching, error] = useQueryWrapper({
+  const [{data, error, fetching}] = useQueryWrapper({
     query: GetMe,
   })
   const [, updateUser] = useMutation(UpdateUserMutation)

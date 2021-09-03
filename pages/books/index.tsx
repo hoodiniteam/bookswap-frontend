@@ -4,7 +4,7 @@ import {useRouter} from "next/router";
 import Pagination from "../../components/pagination";
 import {SearchIcon} from "@heroicons/react/solid";
 import BookWrapper from "../../components/book-wrapper";
-import useQueryWrapper from "../../helpers/useQueryWrapper";
+import { useQueryWrapper } from '../../helpers/useQueryWrapper'
 
 const GetBooksQuery =`
 query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
@@ -63,7 +63,7 @@ const Index = () => {
       return `books?page=${page}&status=${status}`
     }
   }
-  const [data, fetching, error] = useQueryWrapper({
+  const [{data, error, fetching}] = useQueryWrapper({
     query: GetBooksQuery,
     variables: variables()
   })
