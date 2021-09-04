@@ -1,14 +1,4 @@
-import React, {
-    ChangeEvent,
-    createRef,
-    memo,
-    ReactElement,
-    useCallback,
-    useEffect,
-    useMemo,
-    useRef,
-    useState
-} from "react";
+import React, {ChangeEvent, ReactElement, useEffect, useState} from "react";
 import {useQuery} from "urql";
 import {WithAuth} from "../../components/withAuth";
 import {useRouter} from "next/router";
@@ -17,7 +7,6 @@ import LogOut from "../../helpers/LogOut";
 import {SearchIcon} from "@heroicons/react/solid";
 import BookWrapper from "../../components/book-wrapper";
 import Layout from "../../components/layout";
-import {number} from "prop-types";
 
 const GetBooksQuery =`
 query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
