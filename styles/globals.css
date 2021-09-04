@@ -19,9 +19,6 @@ a {
   box-sizing: border-box;
 }
 
-
-
-
 .pagItem{
   @apply cursor-pointer;
   @apply bg-white;
@@ -58,4 +55,17 @@ a {
   @apply text-sm;
   @apply font-medium;
   @apply cursor-pointer;
+}
+
+.badge-open{
+  @apply bg-green-500
+}
+.badge-hold{
+  @apply bg-red-500
+}
+.badge-swapping{
+  @apply bg-yellow-500
+}
+.badge-extracted{
+  @apply bg-gray-500
 }
