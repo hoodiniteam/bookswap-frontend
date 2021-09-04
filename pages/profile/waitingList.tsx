@@ -52,8 +52,6 @@ const WaitingList = () => {
         current++
         setCurrentPage(current)
         router.push(`${href(current)}`)
-      }else if(!isNaN(page as number)){
-        setCurrentPage(page as number)
       }
     }
   }
@@ -64,11 +62,6 @@ const WaitingList = () => {
   useEffect(() => {
     if(router.query.page && result.data){
       setCurrentPage(+router.query.page)
-      const arr = document.querySelectorAll('.pagItem')
-      arr.forEach((item, indx, arr) => {
-        item.classList.remove('active')
-        arr[currentPage - 1].classList.add('active');
-      })
     }
   }, [currentPage, router.query, result] )
 
@@ -94,6 +87,7 @@ const WaitingList = () => {
             })}
           </ul>
             <Pagination
+              current={currentPage}
               href={href}
               booksPerPage={booksPerPage}
               totalBooks={books.length}

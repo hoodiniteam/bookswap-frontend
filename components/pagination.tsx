@@ -10,7 +10,7 @@ type AppProps = {
     href: (type: number) => string
     current: number
 };
-const Pagination = ({ booksPerPage, totalBooks, paginate, current }: AppProps) => {
+const Pagination = ({ booksPerPage, totalBooks, paginate, current, href }: AppProps) => {
     const router = useRouter()
     const pageNumbers = new Array(Math.ceil(totalBooks / booksPerPage)).fill(true).map((_, idx) => idx + 1);
     return (
@@ -27,10 +27,7 @@ const Pagination = ({ booksPerPage, totalBooks, paginate, current }: AppProps) =
                         </button>
                         {pageNumbers.map((page, indx) => (
                             <Link
-                                href={{
-                                    pathname: '/books',
-                                    query: { ...router.query, page },
-                                }}
+                                href={href(page)}
                                 key={page}>
                                 <a className={current === indx + 1 ? 'active pagItem' : 'pagItem'}>
                                     {page}
