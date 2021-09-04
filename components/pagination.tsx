@@ -8,15 +8,11 @@ type AppProps = {
     totalBooks: number
     paginate: (type: number | string) => void
     href: (type: number) => string
+    current: number
 };
-const Pagination = ({ booksPerPage, totalBooks, paginate }: AppProps) => {
+const Pagination = ({ booksPerPage, totalBooks, paginate, current }: AppProps) => {
     const router = useRouter()
-    const pageNumbers = []
-    for (let i = 1; i <= Math.ceil(totalBooks / booksPerPage); i++) {
-        pageNumbers.push(i)
-    }
-    const pages = new Array(10).fill(true).map((_, idx) => idx + 1);
-    console.log(pages)
+    const pageNumbers = new Array(Math.ceil(totalBooks / booksPerPage)).fill(true).map((_, idx) => idx + 1);
     return (
         <div className='bg-white px-4 py-3 flex items-center mt-5 justify-between border-gray-200 sm:px-6'>
             <div className='hidden sm:flex-1 sm:flex sm:items-center sm:justify-center'>
@@ -29,14 +25,16 @@ const Pagination = ({ booksPerPage, totalBooks, paginate }: AppProps) => {
                             <span className='sr-only'>Previous</span>
                             <ChevronLeftIcon className='h-5 w-5' aria-hidden='true' />
                         </button>
-                        {pageNumbers.map((page, indx, arr) => (
+                        {pageNumbers.map((page, indx) => (
                             <Link
                                 href={{
                                     pathname: '/books',
                                     query: { ...router.query, page },
                                 }}
                                 key={page}>
-                                <a className={arr[0] === page ? 'active pagItem' : 'pagItem'}>{page}</a>
+                                <a className={current === indx + 1 ? 'active pagItem' : 'pagItem'}>
+                                    {page}
+                                </a>
                             </Link>
                         ))}
                         <button

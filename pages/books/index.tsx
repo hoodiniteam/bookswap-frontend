@@ -1,4 +1,14 @@
-import React, {ChangeEvent, ReactElement, useEffect, useState} from "react";
+import React, {
+    ChangeEvent,
+    createRef,
+    memo,
+    ReactElement,
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState
+} from "react";
 import {useQuery} from "urql";
 import {WithAuth} from "../../components/withAuth";
 import {useRouter} from "next/router";
@@ -7,6 +17,7 @@ import LogOut from "../../helpers/LogOut";
 import {SearchIcon} from "@heroicons/react/solid";
 import BookWrapper from "../../components/book-wrapper";
 import Layout from "../../components/layout";
+import {number} from "prop-types";
 
 const GetBooksQuery =`
 query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
@@ -75,10 +86,8 @@ const Index = () => {
         if(result.error?.message.includes('Access denied!')){
             LogOut()
         }else{
-          console.log(result.data.getBooks.books)
           setBooks(result.data.getBooks.books)
             setTotal(result.data.getBooks.count)
-            setCurrentPage(1)
         }
     }
   }, [result])
@@ -92,13 +101,9 @@ const Index = () => {
       current++
       setCurrentPage(current)
       router.push(`${href(current)}`)
-    }else if(!isNaN(page as number)){
-          setCurrentPage(page as number)
     }
   }
-  useEffect(() => {
-    console.log(currentPage);
-  }, [currentPage])
+
   const onHandlerSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchTerm(e.target.value)
       if(e.target.value.length >= 3){
@@ -114,11 +119,6 @@ const Index = () => {
     if(router.query.page && result.data){
       setCurrentPage(+router.query.page)
       setStatus(`${router.query.status || ''}`)
-      const arr = document.querySelectorAll('.pagItem')
-        arr.forEach((item, indx, arr)=> {
-        item.classList.remove('active')
-        arr[currentPage - 1].classList.add('active');
-      })
     }
     setOffset((currentPage - 1) * booksPerPage)
   }, [router.query, result, currentPage, booksPerPage])
@@ -196,6 +196,7 @@ const Index = () => {
             ))}
           </ul>
           <Pagination
+            current={currentPage}
             href={href}
             booksPerPage={booksPerPage}
             totalBooks={total}
