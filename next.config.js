@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-undef
 module.exports = {
   images: {
-    domains: ["images.unsplash.com", ],
+    domains: ["images.unsplash.com", "res.cloudinary.com"],
   },
   reactStrictMode: true,
   async redirects() {

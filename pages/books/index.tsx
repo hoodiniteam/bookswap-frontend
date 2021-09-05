@@ -7,49 +7,16 @@ import LogOut from "../../helpers/LogOut";
 import {SearchIcon} from "@heroicons/react/solid";
 import Layout from "../../components/layout";
 import BookWrapper from "../../components/book-wrapper";
+import { Book } from '../../types/Book'
+import { GetBooksQuery } from '../../graphql/GetBooksQuery'
 
-const GetBooksQuery =`
-query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
-  getBooks(search: $search, status: $status, offset: $offset, limit: $limit){
-    count
-    status
-    books{
-      title
-      description
-      id
-      status
-      image{
-        url
-      }
-    }
-  }
-}
-`
-
-type CloudinaryImage = {
-  url: string
-}
-enum BooksStatus {
-    HOLD,
-    OPEN,
-    SWAPPING,
-    EXTRACTED
-}
-const source = 'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80'
-type Books = [{
-  title: string,
-  description: string
-  id: string
-  status: BooksStatus
-  image: CloudinaryImage
-}]
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [status, setStatus] = useState<string>('OPEN');
   const [search, setSearch] = useState('');
   const [total, setTotal] = useState(0)
-  const [books, setBooks] = useState<Books | []>([]);
-  const [booksPerPage] = useState(5);
+  const [books, setBooks] = useState<Book[]>([]);
+  const [booksPerPage] = useState(30);
   const [currentPage, setCurrentPage] = useState(1)
   const [offset, setOffset] = useState(0)
   const router = useRouter()
@@ -138,36 +105,29 @@ const Index = () => {
     }
   }
 
-  const onClickHandler = (e: {target: any}) => {
-    router.push(`/books/${e.target?.id}`).then()
-  }
   if(books !== null){
       return (
         <>
           <div className="col-span-2 flex justify-between">
-            { result.fetching ? <h1>Loading...</h1> : '' }
-            { result.error ? <h1>Opps something went wrong</h1> : '' }
-            <div className="flex-1 flex justify-center mr-5">
-              <div className="max-w-lg w-full lg:max-w-xs">
-                <label htmlFor="search" className="sr-only">
-                  Search
-                </label>
-                <div className="relative text-gray-400 focus-within:text-gray-600">
+          <div className="max-w-lg w-full lg:max-w-xs">
+              <label htmlFor="search" className="sr-only">
+                                                     Search
+                                                     </label>
+              <div className="relative text-gray-400 focus-within:text-gray-600">
                   <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                    <SearchIcon className="h-5 w-5" aria-hidden="true" />
-                  </div>
+                                                                                                   <SearchIcon className="h-5 w-5" aria-hidden="true" />
+                                                                                                   </div>
                   <input
-                    onChange={onHandlerSearch}
-                    value={searchTerm}
-                    id="search"
-                    className="block w-full bg-white py-2 pl-10 pr-3 border border-gray-400 rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
-                    placeholder="Search"
-                    type="search"
-                    name="search"
+                      onChange={onHandlerSearch}
+                      value={searchTerm}
+                      id="search"
+                      className="block w-full bg-white py-2 pl-10 pr-3 border border-gray-400 rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
+                      placeholder="Search"
+                      type="search"
+                      name="search"
                   />
-                </div>
               </div>
-            </div>
+          </div>
             <select name="status"
                     value={status}
                     className="block bg-white py-2 px-3 border border-gray-400 rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
@@ -180,16 +140,9 @@ const Index = () => {
               <option value="OPEN">OPEN</option>
             </select>
           </div>
-          <ul className="grid grid-cols-1 grid-rows-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:grid-rows-1 mt-5">
-            {books.map((book, index) => (
-              <BookWrapper
-                status={book.status}
-                key={ 1+index }
-                src={book.image !== undefined && book.image !== null ? book.image.url : source}
-                title={book.title}
-                id={book.id}
-                onClickHandler={onClickHandler}
-              />
+          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-5">
+            {books.map((book) => (
+              <BookWrapper key={book.id} book={book} />
             ))}
           </ul>
           <Pagination

@@ -3,6 +3,8 @@ import {useMutation, useQuery} from "urql";
 import {useRouter} from "next/router";
 import { WithAuth } from "../../../components/withAuth";
 import Layout from "../../../components/layout";
+import { BooksCondition, BooksStatus } from '../../../types/Book'
+import { CloudinaryImage } from '../../../types/CloudinaryImage'
 const GetBook = `
   query($id:String!){
     getBook(id:$id){
@@ -10,7 +12,7 @@ const GetBook = `
         title
         description
         image{
-        url
+          url
         }
         id
         condition
@@ -95,17 +97,13 @@ const GetBook = `
     email: string
   }]
 
-type CloudinaryImage = {
-  url: string
-}
-
   type BookData = {
     description: string
     id: string
     image: CloudinaryImage
     title: string
     condition: BooksCondition
-    status: BookStatus
+    status: BooksStatus
     creator: UserCreator
     holder: Holder
     expects: ListOfExpects

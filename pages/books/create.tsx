@@ -68,6 +68,7 @@ const Create = () => {
 
   const getInfo = (info: any) => {
     if(info){
+      console.log(info)
       setImg(info)
     }
   }
