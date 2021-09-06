@@ -3,9 +3,9 @@ import {useMutation, useQuery} from "urql";
 import {useForm} from "react-hook-form";
 import {useRouter} from "next/router";
 import { WithAuth } from "../../components/withAuth";
-import LogOut from "../../helpers/LogOut";
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import Layout from "../../components/layout";
+import { useQueryWrapper } from '../../helpers/useQueryWrapper'
 const GetMe = `
 query{
   me{
@@ -92,24 +92,20 @@ type UserData = {
 }
 
 const Index = () => {
-  const [result,] = useQuery({
+  const [{data, error, fetching}] = useQueryWrapper({
     query: GetMe,
-  });
+  })
   const [, updateUser] = useMutation(UpdateUserMutation)
   const [user, setUser] = useState<UserData | ''>('')
   const router = useRouter();
   const {register, clearErrors, handleSubmit, formState: {errors}} = useForm()
   useEffect(()=>{
-      if(result.data){
-        if(result.error?.message.includes('Access denied!')){
-            LogOut()
-        }else{
-            setUser(result.data.me.user);
-        }
+    if(data){
+      setUser(data.me.user);
     }
-  }, [result])
-  if (result.fetching) return <p>Loading...</p>;
-  if (result.error) return <p>Oh no... {result.error.message}</p>;
+  }, [data])
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
 
   const submitHandler = handleSubmit((data, event) =>{
     event?.preventDefault()
@@ -141,7 +137,7 @@ const Index = () => {
     }
     clearErrors(name)
   }
-  if(!result.fetching && user){
+  if(!fetching && user){
     return (
         <form action="#" method="POST" onSubmit={submitHandler}>
           <div className="shadow sm:rounded-md sm:overflow-hidden">
