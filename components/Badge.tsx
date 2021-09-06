@@ -1,17 +1,7 @@
 import React from 'react';
+import { BooksStatus } from '../types/Book'
 
-enum BooksStatus {
-    HOLD,
-    OPEN,
-    SWAPPING,
-    EXTRACTED
-}
-
-type BadgeProps ={
-    status: BooksStatus
-}
-
-const Badge = ({status}: BadgeProps) => {
+const Badge = ({status}: {status: BooksStatus}) => {
     return (
         <div className={`badge-${status.toString().toLowerCase()} px-5 py-1.5 text-white rounded-full max-w-min`}>
             {status}
