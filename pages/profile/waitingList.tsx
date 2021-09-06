@@ -14,15 +14,24 @@ query{
       waiting{
         title
         id
+        status
       }
     }
   }
 }
 `
 
+enum BooksStatus {
+  HOLD,
+  OPEN,
+  SWAPPING,
+  EXTRACTED
+}
+
 type WaitingListType = [{
   title: string
   id: string
+  status: BooksStatus
 }]
 const source = 'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80'
 
@@ -31,13 +40,22 @@ const WaitingList = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [booksPerPage,] = useState(3)
   const router = useRouter()
-  const [result,] = useQuery({
-    query: GetMe
+  const [result, reexecuteQuery] = useQuery({
+    query: GetMe,
+    requestPolicy: "network-only"
   })
+
   useEffect(()=> {
-    if(result.data)
+    if(result.data){
       setBooks(result.data?.me.user.waiting)
-  })
+    }
+
+  }, [result.data, reexecuteQuery])
+
+  useEffect(() => {
+    console.log(books);
+  }, [books])
+
   const href = (page: number) => {
     return `/profile/waitingList?page=${page}`
   }

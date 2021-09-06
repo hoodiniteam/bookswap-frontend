@@ -133,7 +133,7 @@ const Change = () => {
       })
     }
   })
-  const getInfo = (info: any) => {
+  const getInfo = (info: CloudyImage) => {
     if(info){
       setTimeout(() => setImage(info), 100)
     }
@@ -143,7 +143,7 @@ const Change = () => {
     if(image && book){
       setBook({...book, image: image})
     }
-  },[image])
+  },[image, book])
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = e.target;

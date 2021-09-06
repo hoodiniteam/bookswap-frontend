@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, ReactElement, useEffect, useState} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import {useMutation, useQuery} from "urql";
 import {useRouter} from "next/router";
 import { WithAuth } from "../../../components/withAuth";
@@ -37,6 +37,9 @@ const GetBook = `
     me{
       user{
         id
+        waiting{
+          id
+        }
       }
     }
   }
@@ -44,6 +47,16 @@ const GetBook = `
   const AddBookInMyWaitingListMutation = `
   mutation($id:String!){
     addBookToMyWaitingList(id: $id){
+      status
+      errors{
+        message
+      }
+    }
+  }
+  `
+  const RemoveBookFromMyWaitingList = `
+   mutation($id:String!){
+    removeBookFromMyWaitingList(id: $id){
       status
       errors{
         message
@@ -98,36 +111,62 @@ type CloudinaryImage = {
     expects: ListOfExpects
   }
 
+  type Waiting = [{
+    id: string
+  }]
+
   const Book = () => {
     const router = useRouter();
-    // let key = 1;
-    const [myIdResult,] = useQuery({
-      query: GetId
+    const [waiting, setWaiting] = useState<Waiting | null>(null)
+    const [inList, setList] = useState<boolean | null>(null)
+    const [myIdResult, reexecuteQuery] = useQuery({
+      query: GetId,
     })
     const [result,] = useQuery({
       query: GetBook,
       variables: {id: router.query.id}
     });
     const [, addToMyWaitingList] = useMutation(AddBookInMyWaitingListMutation)
+    const [, removeFromMyWaitingList] = useMutation(RemoveBookFromMyWaitingList)
     const [book, setBook] = useState<BookData | null>(null)
     const [userId, setUserId] = useState(null)
     useEffect(() => {
       if(result.data){
-        console.log(result)
         setBook(result.data.getBook.book)
       }
       if(myIdResult.data){
         setUserId(myIdResult.data.me.user.id)
+        setWaiting(myIdResult.data.me.user.waiting)
       }
     }, [result, myIdResult])
+
+    useEffect(() => {
+      if(waiting){
+        for (let i = 0; i < waiting.length; i++) {
+          if (waiting[i].id === router.query.id) {
+            setList(true)
+          }else{
+            setList(false)
+          }
+        }
+      }
+    }, [waiting, router.query.id])
+
+    const refresh = () => {
+      reexecuteQuery({ requestPolicy: 'network-only' });
+    }
 
     const addBookToList = () => {
       const variables = {
         id: router.query.id
       }
-      addToMyWaitingList(variables).then(res => {
-        console.log(res);
-      })
+      addToMyWaitingList(variables).then(refresh)
+    }
+    const removeBookFromList =() => {
+      const variables = {
+        id: router.query.id
+      }
+      removeFromMyWaitingList(variables).then(refresh)
     }
     if (result.fetching) return <p>Loading...</p>;
     if (result.error) return <p>Oh no... {result.error.message}</p>;
@@ -150,22 +189,31 @@ type CloudinaryImage = {
               Edit
             </button>
             : ''}
-            {book.creator.id === userId ? "" :
+
+          {book.creator.id !== userId ?
+              inList  ?
               <button
-                type="button"
-                className="inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                onClick={addBookToList}
+                  type="button"
+                  className="inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  onClick={removeBookFromList}
+              >
+                Remove from waiting list
+              </button> :
+              <button
+                  type="button"
+                  className="inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  onClick={addBookToList}
               >
                 Add to my waiting list
-              </button>
-            }
+              </button> : ''
+          }
           <div className="grid grid-cols-6 grid-rows-1 border p-10">
             <div className="col-span-5">
               <h1 className="text-center text-4xl ">{book.title}</h1>
               <h2 className="text-center mt-8">Creator: {book.creator.email}</h2>
             </div>
             <div className="col-span-1">
-              <img src={book.image.url} />
+              <img src={book.image.url} alt={'image'} />
             </div>
           </div>
           <div className="grid grid-cols-6 grid-rows-1 p-8">

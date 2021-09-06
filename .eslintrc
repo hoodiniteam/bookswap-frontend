@@ -8,7 +8,9 @@
   "extends": ["eslint:recommended","plugin:react/recommended","plugin:@typescript-eslint/recommended", "next", "prettier"],
   "ignorePatterns": ["pages/tailwind/*.tsx"],
   "rules": {
-    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1, "maxBOF": 1 }]
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1, "maxBOF": 1 }],
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   },
   "env": {
     "es6": true,
