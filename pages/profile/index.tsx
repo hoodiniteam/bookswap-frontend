@@ -158,7 +158,7 @@ const Index = () => {
                     <input
                         {...register('firstName', {required: true})}
                         onChange={onChangeHandler}
-                        value={user.firstName}
+                        value={user.firstName || ''}
                         type="text"
                         name="firstName"
                         id="first-name"
@@ -174,8 +174,8 @@ const Index = () => {
                       </label>
                       <input
                         {...register('lastName', {required: true})}
-                          onChange={onChangeHandler}
-                          value={user.lastName}
+                          onChange={onChangeHandler }
+                          value={user.lastName || ''}
                           type="text"
                           name="lastName"
                           id="last-name"
@@ -191,7 +191,7 @@ const Index = () => {
                       <input
                         {...register('email', {required: true})}
                           onChange={onChangeHandler}
-                          value={user.email}
+                          value={user.email || ''}
                           type="email"
                           name="email"
                           id="email-address"
@@ -207,7 +207,7 @@ const Index = () => {
                       </label>
                       <input
                           onChange={onChangeHandler}
-                          value={user.bDay}
+                          value={user.bDay || ''}
                           type="date"
                           name="bDay"
                           id="bDay"
@@ -220,7 +220,7 @@ const Index = () => {
                       </label>
                       <select
                           onChange={onChangeHandler}
-                          value={user.gender}
+                          value={user.gender || ''}
                           id="gender"
                           name="gender"
                           autoComplete="country"
@@ -237,7 +237,7 @@ const Index = () => {
                           </label>
                           <select
                               onChange={onChangeHandler}
-                              value={user.country}
+                              value={user.country || ''}
                               id="country"
                               name="country"
                               autoComplete="country"
@@ -256,7 +256,7 @@ const Index = () => {
                           </label>
                           <input
                               onChange={onChangeHandler}
-                              value={user.city}
+                              value={user.city || ''}
                               type="text"
                               name="city"
                               id="city"
@@ -270,7 +270,7 @@ const Index = () => {
                           </label>
                           <input
                               onChange={onChangeHandler}
-                              value={user.street}
+                              value={user.street || ''}
                               type="text"
                               name="street"
                               id="street-address"
@@ -285,7 +285,7 @@ const Index = () => {
                           </label>
                           <input
                               onChange={onChangeHandler}
-                              value={user.region}
+                              value={user.region || ''}
                               type="text"
                               name="region"
                               id="state"
@@ -298,7 +298,7 @@ const Index = () => {
                           </label>
                           <input
                               onChange={onChangeHandler}
-                              value={user.apartment}
+                              value={user.apartment || ''}
                               type="number"
                               name="apartment"
                               id="apartment"
@@ -311,7 +311,7 @@ const Index = () => {
                           </label>
                           <input
                               onChange={onChangeHandler}
-                              value={user.zipcode}
+                              value={user.zipcode || ''}
                               type="number"
                               name="zipcode"
                               id="zipcode"
@@ -325,7 +325,7 @@ const Index = () => {
                           </label>
                           <input
                               onChange={onChangeHandler}
-                              value={user.phone}
+                              value={user.phone || ''}
                               type="number"
                               name="phone"
                               id="phone"
