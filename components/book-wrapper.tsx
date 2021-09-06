@@ -1,17 +1,26 @@
 import React from "react";
+import Badge from "./Badge";
+
+enum BooksStatus {
+  HOLD,
+  OPEN,
+  SWAPPING,
+  EXTRACTED
+}
 
 type AppProps = {
   src: string
   title: string
   id: string
   onClickHandler: (e: { target: any}) => void
+  status: BooksStatus
 };
 
-const BookWrapper = ({src, title, id, onClickHandler}: AppProps) => {
+const BookWrapper = ({src, title, id, onClickHandler, status}: AppProps) => {
 
   return(
     <li
-      className="col-span-1 flex flex-col justify-between text-center bg-white rounded-lg shadow "
+      className="col-span-1 flex flex-col justify-between items-center text-center bg-white rounded-lg shadow "
     >
       <div className="p-5">
         <div className="flex flex-col">
@@ -21,6 +30,7 @@ const BookWrapper = ({src, title, id, onClickHandler}: AppProps) => {
           <h3 className="mt-6 text-gray-900 text-sm font-medium">{title}</h3>
         </div>
       </div>
+      <Badge status={status} />
       <div className="mx-auto my-6 flex">
         <button
           id={id}

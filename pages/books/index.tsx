@@ -5,8 +5,8 @@ import {useRouter} from "next/router";
 import Pagination from "../../components/pagination";
 import LogOut from "../../helpers/LogOut";
 import {SearchIcon} from "@heroicons/react/solid";
-import BookWrapper from "../../components/book-wrapper";
 import Layout from "../../components/layout";
+import BookWrapper from "../../components/book-wrapper";
 
 const GetBooksQuery =`
 query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
@@ -29,11 +29,18 @@ query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
 type CloudinaryImage = {
   url: string
 }
+enum BooksStatus {
+    HOLD,
+    OPEN,
+    SWAPPING,
+    EXTRACTED
+}
 const source = 'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80'
 type Books = [{
   title: string,
   description: string
   id: string
+  status: BooksStatus
   image: CloudinaryImage
 }]
 const Index = () => {
@@ -167,7 +174,7 @@ const Index = () => {
                     onChange={onHandlerSelect}
             >
               <option value=''>ALL</option>
-              <option value="DELIVERING">DELIVERING</option>
+              <option value="SWAPPING">SWAPPING</option>
               <option value="EXTRACTED">EXTRACTED</option>
               <option value="HOLD">HOLD</option>
               <option value="OPEN">OPEN</option>
@@ -176,6 +183,7 @@ const Index = () => {
           <ul className="grid grid-cols-1 grid-rows-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:grid-rows-1 mt-5">
             {books.map((book, index) => (
               <BookWrapper
+                status={book.status}
                 key={ 1+index }
                 src={book.image !== undefined && book.image !== null ? book.image.url : source}
                 title={book.title}
