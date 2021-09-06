@@ -7,7 +7,6 @@ import BookWrapper from "../../components/book-wrapper";
 import { Book } from '../../types/Book'
 import { GetMe} from "../../graphql/GetMe";
 
-const source = 'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80'
 const MyBooks = () => {
   const [myBooks, setMyBooks] = useState<Book[]>([])
   const [result, ] = useQuery({

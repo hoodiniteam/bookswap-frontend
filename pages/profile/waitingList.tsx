@@ -28,15 +28,15 @@ const WaitingList = () => {
 
   if(books){
     return(
-      <>
-        <div className="shadow sm:rounded-md sm:overflow-hidden px-5 py-8">
-          <ul className="grid grid-cols-1 grid-rows-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 lg:grid-rows-1 mt-5">
-            {books.map((book) => {
-              return <BookWrapper key={book.id} book={book}/>
-            })}
-          </ul>
-        </div>
-      </>
+        <>
+          <div className="shadow sm:rounded-md sm:overflow-hidden px-5 py-8">
+            <ul className="grid grid-cols-1 grid-rows-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 lg:grid-rows-1 mt-5">
+              {books.map((book) => {
+                return <BookWrapper key={book.id} book={book}/>
+              })}
+            </ul>
+          </div>
+        </>
     )
   }
   return null;
@@ -53,4 +53,3 @@ WaitingList.getLayout = function getLayout(page: ReactElement) {
 }
 
 export default WaitingList
-
