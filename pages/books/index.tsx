@@ -111,12 +111,12 @@ const Index = () => {
           <div className="col-span-2 flex justify-between">
           <div className="max-w-lg w-full lg:max-w-xs">
               <label htmlFor="search" className="sr-only">
-                                                     Search
-                                                     </label>
+                Search
+              </label>
               <div className="relative text-gray-400 focus-within:text-gray-600">
                   <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                                                                                                   <SearchIcon className="h-5 w-5" aria-hidden="true" />
-                                                                                                   </div>
+                    <SearchIcon className="h-5 w-5" aria-hidden="true" />
+                   </div>
                   <input
                       onChange={onHandlerSearch}
                       value={searchTerm}
