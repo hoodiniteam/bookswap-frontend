@@ -129,9 +129,12 @@ const Book = () => {
             for (let i = 0; i < waiting.length; i++) {
                 if (waiting[i].id === router.query.id) {
                     setList(true)
-                } else {
+                }else {
                     setList(false)
                 }
+            }
+            if(waiting.length < 1) {
+                setList(false)
             }
         }
     }, [waiting, router.query.id])
@@ -152,6 +155,7 @@ const Book = () => {
         }
         removeFromMyWaitingList(variables).then(refresh)
     }
+
     if (result.fetching) return <p>Loading...</p>
     if (result.error) return <p>Oh no... {result.error.message}</p>
     if (!result.fetching && book !== null && userId !== null) {
