@@ -1,6 +1,7 @@
 import { CloudinaryImage } from './CloudinaryImage'
 
 export enum BooksStatus {
+    ABSENT,
     HOLD,
     OPEN,
     SWAPPING,
