@@ -1,10 +1,11 @@
-import React, {ReactElement, useEffect, useState} from "react";
-import {useMutation, useQuery} from "urql";
-import {useRouter} from "next/router";
-import { WithAuth } from "../../../components/withAuth";
-import Layout from "../../../components/layout";
+import React, { ReactElement, useEffect, useState } from 'react'
+import { useMutation, useQuery } from 'urql'
+import { useRouter } from 'next/router'
+import { WithAuth } from '../../../components/withAuth'
+import Layout from '../../../components/layout'
 import { BooksCondition, BooksStatus } from '../../../types/Book'
 import { CloudinaryImage } from '../../../types/CloudinaryImage'
+
 const GetBook = `
   query($id:String!){
     getBook(id:$id){
@@ -34,7 +35,7 @@ const GetBook = `
     }
   }
   `
-  const GetId = `
+const GetId = `
   query{
     me{
       user{
@@ -46,7 +47,7 @@ const GetBook = `
     }
   }
   `
-  const AddBookInMyWaitingListMutation = `
+const AddBookInMyWaitingListMutation = `
   mutation($id:String!){
     addBookToMyWaitingList(id: $id){
       status
@@ -56,7 +57,7 @@ const GetBook = `
     }
   }
   `
-  const RemoveBookFromMyWaitingList = `
+const RemoveBookFromMyWaitingList = `
    mutation($id:String!){
     removeBookFromMyWaitingList(id: $id){
       status
@@ -67,37 +68,22 @@ const GetBook = `
   }
   `
 
-  enum BookStatus{
-      DELIVERING,
-      EXTRACTED,
-      HOLD,
-      OPEN
-  }
-
-  enum BooksCondition {
-    BAD,
-    BRANDNEW,
-    GOOD,
-    LIKENEW,
-    SATISFACTORY,
-    TERRIBLE
-  }
-  type UserCreator = {
+type UserCreator = {
     email: string
     id: string,
     firstName: string
-  }
-  type Holder = {
+}
+type Holder = {
     email: string
     id: string,
     firstName: string
-  }
+}
 
-  type ListOfExpects = [{
+type ListOfExpects = [{
     email: string
-  }]
+}]
 
-  type BookData = {
+type BookData = {
     description: string
     id: string
     image: CloudinaryImage
@@ -107,137 +93,138 @@ const GetBook = `
     creator: UserCreator
     holder: Holder
     expects: ListOfExpects
-  }
+}
 
-  type Waiting = [{
+type Waiting = [{
     id: string
-  }]
+}]
 
-  const Book = () => {
-    const router = useRouter();
+const Book = () => {
+    const router = useRouter()
     const [waiting, setWaiting] = useState<Waiting | null>(null)
     const [inList, setList] = useState<boolean | null>(null)
     const [myIdResult, reexecuteQuery] = useQuery({
-      query: GetId,
+        query: GetId,
     })
-    const [result,] = useQuery({
-      query: GetBook,
-      variables: {id: router.query.id}
-    });
+    const [result] = useQuery({
+        query: GetBook,
+        variables: { id: router.query.id },
+    })
     const [, addToMyWaitingList] = useMutation(AddBookInMyWaitingListMutation)
     const [, removeFromMyWaitingList] = useMutation(RemoveBookFromMyWaitingList)
     const [book, setBook] = useState<BookData | null>(null)
     const [userId, setUserId] = useState(null)
     useEffect(() => {
-      if(result.data){
-        setBook(result.data.getBook.book)
-      }
-      if(myIdResult.data){
-        setUserId(myIdResult.data.me.user.id)
-        setWaiting(myIdResult.data.me.user.waiting)
-      }
+        if (result.data) {
+            setBook(result.data.getBook.book)
+        }
+        if (myIdResult.data) {
+            setUserId(myIdResult.data.me.user.id)
+            setWaiting(myIdResult.data.me.user.waiting)
+        }
     }, [result, myIdResult])
 
     useEffect(() => {
-      if(waiting){
-        for (let i = 0; i < waiting.length; i++) {
-          if (waiting[i].id === router.query.id) {
-            setList(true)
-          }else{
-            setList(false)
-          }
+        if (waiting) {
+            for (let i = 0; i < waiting.length; i++) {
+                if (waiting[i].id === router.query.id) {
+                    setList(true)
+                } else {
+                    setList(false)
+                }
+            }
         }
-      }
     }, [waiting, router.query.id])
 
     const refresh = () => {
-      reexecuteQuery({ requestPolicy: 'network-only' });
+        reexecuteQuery({ requestPolicy: 'network-only' })
     }
 
     const addBookToList = () => {
-      const variables = {
-        id: router.query.id
-      }
-      addToMyWaitingList(variables).then(refresh)
+        const variables = {
+            id: router.query.id,
+        }
+        addToMyWaitingList(variables).then(refresh)
     }
-    const removeBookFromList =() => {
-      const variables = {
-        id: router.query.id
-      }
-      removeFromMyWaitingList(variables).then(refresh)
+    const removeBookFromList = () => {
+        const variables = {
+            id: router.query.id,
+        }
+        removeFromMyWaitingList(variables).then(refresh)
     }
-    if (result.fetching) return <p>Loading...</p>;
-    if (result.error) return <p>Oh no... {result.error.message}</p>;
-    if(!result.fetching && book !== null && userId !== null){
-      return (
-        <>
-          <button
-            type="button"
-            className="inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            onClick={() => router.back()}
-          >
-            Previous
-          </button>
-          {book.creator.id === userId ?
-            <button
-              onClick={()=> router.push(`${router.asPath}/change`)}
-              type="button"
-              className="inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Edit
-            </button>
-            : ''}
+    if (result.fetching) return <p>Loading...</p>
+    if (result.error) return <p>Oh no... {result.error.message}</p>
+    if (!result.fetching && book !== null && userId !== null) {
+        return (
+            <>
+                <button
+                    type='button'
+                    className='inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                    onClick={() => router.back()}
+                >
+                    Previous
+                </button>
+                {book.creator.id === userId ?
+                    <button
+                        onClick={() => router.push(`${router.asPath}/change`)}
+                        type='button'
+                        className='inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                    >
+                        Edit
+                    </button>
+                    : ''}
 
-          {book.creator.id !== userId ?
-              inList  ?
-              <button
-                  type="button"
-                  className="inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  onClick={removeBookFromList}
-              >
-                Remove from waiting list
-              </button> :
-              <button
-                  type="button"
-                  className="inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  onClick={addBookToList}
-              >
-                Add to my waiting list
-              </button> : ''
-          }
-          <div className="grid grid-cols-6 grid-rows-1 border p-10">
-            <div className="col-span-5">
-              <h1 className="text-center text-4xl ">{book.title}</h1>
-              <h2 className="text-center mt-8">Creator: {book.creator.email}</h2>
-            </div>
-            <div className="col-span-1">
-              <img src={book.image.url} alt={'image'} />
-            </div>
-          </div>
-          <div className="grid grid-cols-6 grid-rows-1 p-8">
-            <div className="col-span-5 flex flex-col pr-16">
-              <span className="font-bold">Description:</span>
-              <span>{book.description}</span>
-            </div>
-            <div className="col-span-1 flex flex-col">
-              <span>status: {book.status}</span>
-              <span>condition: {book.condition}</span>
-              <span>holder: {book.holder.email}</span>
-            </div>
-          </div>
-        </>
-      )
+                {book.creator.id !== userId ?
+                    inList ?
+                        <button
+                            type='button'
+                            className='inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                            onClick={removeBookFromList}
+                        >
+                            Remove from waiting list
+                        </button> :
+                        <button
+                            type='button'
+                            className='inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                            onClick={addBookToList}
+                        >
+                            Add to my waiting list
+                        </button> : ''
+                }
+                <div className='grid grid-cols-6 grid-rows-1 border p-10'>
+                    <div className='col-span-5'>
+                        <h1 className='text-center text-4xl '>{book.title}</h1>
+                        <h2 className='text-center mt-8'>Creator: {book.creator.email}</h2>
+                    </div>
+                    <div className='col-span-1'>
+                        <img src={book.image.url} alt={'image'} />
+                    </div>
+                </div>
+                <div className='grid grid-cols-6 grid-rows-1 p-8'>
+                    <div className='col-span-5 flex flex-col pr-16'>
+                        <span className='font-bold'>Description:</span>
+                        <span>{book.description}</span>
+                    </div>
+                    <div className='col-span-1 flex flex-col'>
+                        <span>status: {book.status}</span>
+                        <span>condition: {book.condition}</span>
+                        <span>holder: {book.holder.email}</span>
+                    </div>
+                </div>
+            </>
+        )
     }
     return null
-  }
+}
+
 Book.getLayout = function getLayout(page: ReactElement) {
-  return (
-      <WithAuth>
-        <Layout>
-          {page}
-        </Layout>
-      </WithAuth>
-  )
+    return (
+        <WithAuth>
+            <Layout>
+                {page}
+            </Layout>
+        </WithAuth>
+    )
 }
 
 export default Book;

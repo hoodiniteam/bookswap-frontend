@@ -3,8 +3,8 @@ import {createClient} from 'urql';
 const isServerSide = typeof window === 'undefined';
 
 const client = createClient({
-  // url: 'https://bookswap-api-srnev.ondigitalocean.app/graphql',
-  url: 'http://localhost:4000/graphql',
+  url: 'https://bookswap-api-srnev.ondigitalocean.app/graphql',
+  // url: 'http://localhost:4000/graphql',
   fetchOptions: () => {
     if (!isServerSide){
       const token = localStorage.getItem('token');
