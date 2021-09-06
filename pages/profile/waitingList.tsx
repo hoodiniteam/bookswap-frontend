@@ -1,30 +1,25 @@
 import React, {ReactElement, useEffect, useState} from "react";
-import {useQuery} from "urql";
 import {WithAuth} from "../../components/withAuth";
 import Layout from "../../components/layout";
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import BookWrapper from "../../components/book-wrapper";
 import { Book } from '../../types/Book'
 import { GetMe } from '../../graphql/GetMe'
+import {useQueryWrapper} from "../../helpers/useQueryWrapper";
 
 const WaitingList = () => {
   const [books, setBooks] = useState<Book[]>([])
 
-  const [result, reexecuteQuery] = useQuery({
+  const [{data}] = useQueryWrapper({
     query: GetMe,
     requestPolicy: "network-only"
   })
 
   useEffect(()=> {
-    if(result.data) {
-      setBooks(result.data?.me.user.waiting)
+    if(data) {
+      setBooks(data?.me.user.waiting)
     }
-
-  }, [result.data, reexecuteQuery])
-
-  useEffect(() => {
-    console.log(books);
-  }, [books])
+  }, [data])
 
   if(books){
     return(

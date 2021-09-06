@@ -5,6 +5,7 @@ import { WithAuth } from '../../../components/withAuth'
 import Layout from '../../../components/layout'
 import { BooksCondition, BooksStatus } from '../../../types/Book'
 import { CloudinaryImage } from '../../../types/CloudinaryImage'
+import {useQueryWrapper} from "../../../helpers/useQueryWrapper";
 
 const GetBook = `
   query($id:String!){
@@ -103,7 +104,7 @@ const Book = () => {
     const router = useRouter()
     const [waiting, setWaiting] = useState<Waiting | null>(null)
     const [inList, setList] = useState<boolean | null>(null)
-    const [myIdResult, reexecuteQuery] = useQuery({
+    const [myIdResult, reexecuteQuery] = useQueryWrapper({
         query: GetId,
     })
     const [result] = useQuery({
