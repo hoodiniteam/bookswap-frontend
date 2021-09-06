@@ -1,47 +1,30 @@
-import React from "react";
+import React from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { Book } from '../types/Book'
 import Badge from "./Badge";
 
-enum BooksStatus {
-  HOLD,
-  OPEN,
-  SWAPPING,
-  EXTRACTED
-}
+const placeholder = 'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80'
 
-type AppProps = {
-  src: string
-  title: string
-  id: string
-  onClickHandler: (e: { target: any}) => void
-  status: BooksStatus
-};
-
-const BookWrapper = ({src, title, id, onClickHandler, status}: AppProps) => {
-
-  return(
-    <li
-      className="col-span-1 flex flex-col justify-between items-center text-center bg-white rounded-lg shadow "
-    >
-      <div className="p-5">
-        <div className="flex flex-col">
-          <img src={src} alt="" className="object-cover pointer-events-none group-hover:opacity-75" />
-        </div>
-        <div className="px-5 break-words">
-          <h3 className="mt-6 text-gray-900 text-sm font-medium">{title}</h3>
-        </div>
-      </div>
-      <Badge status={status} />
-      <div className="mx-auto my-6 flex">
-        <button
-          id={id}
-          onClick={onClickHandler}
-          type="button"
-          className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+const BookWrapper = ({book}: {book: Book}) => {
+    const {id, title, image} = book;
+    const src = image ? image.url : placeholder;
+    return (
+        <li
+            className='col-span-1 flex flex-col justify-between text-center bg-white rounded-lg shadow '
         >
-          Show book
-        </button>
-      </div>
-    </li>
-  )
+            <Badge status={book.status} />
+            <Link href={`/books/${id}`}>
+                <a className='p-5'>
+                    <div className='relative h-72'>
+                        <Image src={src} layout="fill" alt={`${title} poster`} className='object-cover pointer-events-none group-hover:opacity-75' />
+                    </div>
+                    <div className='px-5'>
+                        <h3 className='mt-6 text-gray-900 text-sm font-medium'>{title}</h3>
+                    </div>
+                </a>
+            </Link>
+        </li>
+    )
 }
 export default BookWrapper
