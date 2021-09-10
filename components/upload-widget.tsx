@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import Script from 'next/script'
 export const Upload = ({getInfo}:any) => {
   const [upload, setUpload] = useState()
   const generateSignature = (callback:any, params_to_sign:any) => {
