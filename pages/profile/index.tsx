@@ -3,9 +3,9 @@ import {useMutation, useQuery} from "urql";
 import {useForm} from "react-hook-form";
 import {useRouter} from "next/router";
 import { WithAuth } from "../../components/withAuth";
-import LogOut from "../../helpers/LogOut";
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import Layout from "../../components/layout";
+import { useQueryWrapper } from '../../helpers/useQueryWrapper'
 const GetMe = `
 query{
   me{
@@ -92,24 +92,20 @@ type UserData = {
 }
 
 const Index = () => {
-  const [result,] = useQuery({
+  const [{data, error, fetching}] = useQueryWrapper({
     query: GetMe,
-  });
+  })
   const [, updateUser] = useMutation(UpdateUserMutation)
   const [user, setUser] = useState<UserData | ''>('')
   const router = useRouter();
   const {register, clearErrors, handleSubmit, formState: {errors}} = useForm()
   useEffect(()=>{
-      if(result.data){
-        if(result.error?.message.includes('Access denied!')){
-            LogOut()
-        }else{
-            setUser(result.data.me.user);
-        }
+    if(data){
+      setUser(data.me.user);
     }
-  }, [result])
-  if (result.fetching) return <p>Loading...</p>;
-  if (result.error) return <p>Oh no... {result.error.message}</p>;
+  }, [data])
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
 
   const submitHandler = handleSubmit((data, event) =>{
     event?.preventDefault()
@@ -141,7 +137,7 @@ const Index = () => {
     }
     clearErrors(name)
   }
-  if(!result.fetching && user){
+  if(!fetching && user){
     return (
         <form action="#" method="POST" onSubmit={submitHandler}>
           <div className="shadow sm:rounded-md sm:overflow-hidden">
@@ -158,7 +154,7 @@ const Index = () => {
                     <input
                         {...register('firstName', {required: true})}
                         onChange={onChangeHandler}
-                        value={user.firstName}
+                        value={user.firstName || ''}
                         type="text"
                         name="firstName"
                         id="first-name"
@@ -174,8 +170,8 @@ const Index = () => {
                       </label>
                       <input
                         {...register('lastName', {required: true})}
-                          onChange={onChangeHandler}
-                          value={user.lastName}
+                          onChange={onChangeHandler }
+                          value={user.lastName || ''}
                           type="text"
                           name="lastName"
                           id="last-name"
@@ -191,7 +187,7 @@ const Index = () => {
                       <input
                         {...register('email', {required: true})}
                           onChange={onChangeHandler}
-                          value={user.email}
+                          value={user.email || ''}
                           type="email"
                           name="email"
                           id="email-address"
@@ -207,7 +203,7 @@ const Index = () => {
                       </label>
                       <input
                           onChange={onChangeHandler}
-                          value={user.bDay}
+                          value={user.bDay || ''}
                           type="date"
                           name="bDay"
                           id="bDay"
@@ -220,7 +216,7 @@ const Index = () => {
                       </label>
                       <select
                           onChange={onChangeHandler}
-                          value={user.gender}
+                          value={user.gender || ''}
                           id="gender"
                           name="gender"
                           autoComplete="country"
@@ -237,7 +233,7 @@ const Index = () => {
                           </label>
                           <select
                               onChange={onChangeHandler}
-                              value={user.country}
+                              value={user.country || ''}
                               id="country"
                               name="country"
                               autoComplete="country"
@@ -256,7 +252,7 @@ const Index = () => {
                           </label>
                           <input
                               onChange={onChangeHandler}
-                              value={user.city}
+                              value={user.city || ''}
                               type="text"
                               name="city"
                               id="city"
@@ -270,7 +266,7 @@ const Index = () => {
                           </label>
                           <input
                               onChange={onChangeHandler}
-                              value={user.street}
+                              value={user.street || ''}
                               type="text"
                               name="street"
                               id="street-address"
@@ -285,7 +281,7 @@ const Index = () => {
                           </label>
                           <input
                               onChange={onChangeHandler}
-                              value={user.region}
+                              value={user.region || ''}
                               type="text"
                               name="region"
                               id="state"
@@ -298,7 +294,7 @@ const Index = () => {
                           </label>
                           <input
                               onChange={onChangeHandler}
-                              value={user.apartment}
+                              value={user.apartment || ''}
                               type="number"
                               name="apartment"
                               id="apartment"
@@ -311,7 +307,7 @@ const Index = () => {
                           </label>
                           <input
                               onChange={onChangeHandler}
-                              value={user.zipcode}
+                              value={user.zipcode || ''}
                               type="number"
                               name="zipcode"
                               id="zipcode"
@@ -325,7 +321,7 @@ const Index = () => {
                           </label>
                           <input
                               onChange={onChangeHandler}
-                              value={user.phone}
+                              value={user.phone || ''}
                               type="number"
                               name="phone"
                               id="phone"

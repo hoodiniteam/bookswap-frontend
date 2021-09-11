@@ -5,6 +5,7 @@ import { WithAuth } from '../../../components/withAuth'
 import Layout from '../../../components/layout'
 import { BooksCondition, BooksStatus } from '../../../types/Book'
 import { CloudinaryImage } from '../../../types/CloudinaryImage'
+import {useQueryWrapper} from "../../../helpers/useQueryWrapper";
 
 const GetBook = `
   query($id:String!){
@@ -103,7 +104,7 @@ const Book = () => {
     const router = useRouter()
     const [waiting, setWaiting] = useState<Waiting | null>(null)
     const [inList, setList] = useState<boolean | null>(null)
-    const [myIdResult, reexecuteQuery] = useQuery({
+    const [myIdResult, reexecuteQuery] = useQueryWrapper({
         query: GetId,
     })
     const [result] = useQuery({
@@ -129,9 +130,12 @@ const Book = () => {
             for (let i = 0; i < waiting.length; i++) {
                 if (waiting[i].id === router.query.id) {
                     setList(true)
-                } else {
+                }else {
                     setList(false)
                 }
+            }
+            if(waiting.length < 1) {
+                setList(false)
             }
         }
     }, [waiting, router.query.id])
@@ -152,6 +156,7 @@ const Book = () => {
         }
         removeFromMyWaitingList(variables).then(refresh)
     }
+
     if (result.fetching) return <p>Loading...</p>
     if (result.error) return <p>Oh no... {result.error.message}</p>
     if (!result.fetching && book !== null && userId !== null) {

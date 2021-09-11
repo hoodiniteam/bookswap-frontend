@@ -1,23 +1,23 @@
 import React, {useState, useEffect, ReactElement} from 'react';
-import {useQuery} from "urql";
 import { WithAuth } from '../../components/withAuth'
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import Layout from "../../components/layout";
 import BookWrapper from "../../components/book-wrapper";
 import { Book } from '../../types/Book'
-import { GetMe } from '../../graphql/GetMe'
+import { GetMe} from "../../graphql/GetMe";
+import {useQueryWrapper} from "../../helpers/useQueryWrapper";
 
 const MyBooks = () => {
   const [myBooks, setMyBooks] = useState<Book[]>([])
-  const [result, ] = useQuery({
+  const [{data} ] = useQueryWrapper({
     query: GetMe
   })
 
-  useEffect(()=>{
-    if(result.data){
-        setMyBooks(result.data.me.user.books)
+  useEffect(() => {
+    if(data){
+        setMyBooks(data.me.user.books)
     }
-  }, [result])
+  }, [data])
 
   if(myBooks){
     return(

@@ -25,16 +25,16 @@ query($search: String, $limit: Float,){
 }
 `
 
-type Books = [{
+type Book = {
   title: string
   id: string
-}]
+}
 const Layout = ({children}: any) => {
   const router = useRouter();
   const [show, setShow] = useState(false)
   const [search, setSearch] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
-  const [books, setBooks] = useState<Books | []>([])
+  const [books, setBooks] = useState<Book[]>([])
   const [navigation, setNavigation] = useState([
     {title: 'Home', href: '/home', current: true},
     {title: 'Profile', href: '/profile', current: false},

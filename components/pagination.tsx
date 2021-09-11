@@ -1,7 +1,6 @@
 import React from 'react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 type AppProps = {
     booksPerPage: number
@@ -11,7 +10,6 @@ type AppProps = {
     current: number
 };
 const Pagination = ({ booksPerPage, totalBooks, paginate, current, href }: AppProps) => {
-    const router = useRouter()
     const pageNumbers = new Array(Math.ceil(totalBooks / booksPerPage)).fill(true).map((_, idx) => idx + 1);
     return (
         <div className='bg-white px-4 py-3 flex items-center mt-5 justify-between border-gray-200 sm:px-6'>

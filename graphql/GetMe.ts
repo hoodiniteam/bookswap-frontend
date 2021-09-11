@@ -5,6 +5,7 @@ export const GetMe = `
         waiting{
           title
           id
+          status
         }
         books{
           title

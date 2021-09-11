@@ -1,14 +1,13 @@
 import React, {ChangeEvent, ReactElement, useEffect, useState} from "react";
-import {useQuery} from "urql";
-import {WithAuth} from "../../components/withAuth";
+import  {WithAuth} from "../../components/withAuth";
 import {useRouter} from "next/router";
 import Pagination from "../../components/pagination";
-import LogOut from "../../helpers/LogOut";
 import {SearchIcon} from "@heroicons/react/solid";
 import Layout from "../../components/layout";
 import BookWrapper from "../../components/book-wrapper";
 import { Book } from '../../types/Book'
 import { GetBooksQuery } from '../../graphql/GetBooksQuery'
+import {useQueryWrapper} from "../../helpers/useQueryWrapper";
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -40,20 +39,17 @@ const Index = () => {
     }
   }
 
-  const [result,] = useQuery({
+  const [{data}] = useQueryWrapper({
   query: GetBooksQuery,
   variables: variables()
   })
   useEffect(() => {
-    if(result.data){
-        if(result.error?.message.includes('Access denied!')){
-            LogOut()
-        }else{
-          setBooks(result.data.getBooks.books)
-            setTotal(result.data.getBooks.count)
-        }
+    if(data){
+      setBooks(data.getBooks.books)
+        setTotal(data.getBooks.count)
+
     }
-  }, [result])
+  }, [data])
   const paginate = (page: number | string) => {
     let current = currentPage;
     if(page === 'previous' && currentPage > 1){
@@ -79,12 +75,12 @@ const Index = () => {
   }
 
   useEffect(()=>{
-    if(router.query.page && result.data){
+    if(router.query.page && data){
       setCurrentPage(+router.query.page)
       setStatus(`${router.query.status || ''}`)
     }
     setOffset((currentPage - 1) * booksPerPage)
-  }, [router.query, result, currentPage, booksPerPage])
+  }, [router.query, data, currentPage, booksPerPage])
 
   const onHandlerSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     if(!e.target.value){
@@ -111,12 +107,12 @@ const Index = () => {
           <div className="col-span-2 flex justify-between">
           <div className="max-w-lg w-full lg:max-w-xs">
               <label htmlFor="search" className="sr-only">
-                                                     Search
-                                                     </label>
+                Search
+              </label>
               <div className="relative text-gray-400 focus-within:text-gray-600">
                   <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                                                                                                   <SearchIcon className="h-5 w-5" aria-hidden="true" />
-                                                                                                   </div>
+                    <SearchIcon className="h-5 w-5" aria-hidden="true" />
+                   </div>
                   <input
                       onChange={onHandlerSearch}
                       value={searchTerm}

@@ -1,14 +1,15 @@
 import React, {ChangeEvent, ReactElement, useEffect, useState} from "react";
-import {useMutation, useQuery} from "urql";
-import {useRouter} from "next/router";
+import {useMutation} from "urql";
 import { WithAuth } from "../../../components/withAuth";
 import Upload from "../../../components/upload-widget";
 import {useForm} from "react-hook-form";
 import Layout from "../../../components/layout";
+import { useRouter } from "next/router";
+import {useQueryWrapper} from "../../../helpers/useQueryWrapper";
 
 const UpdateBookMutation = `
-mutation($id: String!, $title: String!, $description: String!, $image: JSONObject!, $condition:BooksCondition! ){
-  updateBook(options:{id: $id, title: $title, description: $description, image: $image, condition: $condition }){
+mutation($title: String!, $description: String!, $image: String!, $condition:BooksCondition! ){
+  updateBook(options:{title: $title, description: $description, image: $image, condition: $condition }){
     status
     book{
       id
@@ -17,8 +18,9 @@ mutation($id: String!, $title: String!, $description: String!, $image: JSONObjec
 }
 `
 const GetBook = `
-  query($id:String!){
-    getBook(id:$id){
+  query($id: String!){
+    getBook(id: $id){
+      status
       book{
         title
         description
@@ -103,7 +105,7 @@ type Book ={
 const Change = () => {
   const router = useRouter();
   const id = router.asPath.slice(7, -7)
-  const [result,] = useQuery({
+  const [{data}] = useQueryWrapper({
     query: GetBook,
     variables: {id: id}
   })
@@ -112,11 +114,10 @@ const Change = () => {
   const [, updateBook] = useMutation(UpdateBookMutation)
   const {register, handleSubmit, clearErrors, formState: {errors}} = useForm()
   useEffect(()=>{
-    if(result.data){
-      console.log(result)
-      setBook(result.data.getBook.book)
+    if(data){
+      setBook(data.getBook.book)
     }
-  }, [result])
+  }, [data])
   const submit = handleSubmit((data, event) => {
     event?.preventDefault();
     if(book){
@@ -124,12 +125,10 @@ const Change = () => {
         title: book.title,
         description:book.description,
         image: book.image,
-        condition: book.condition,
-        id: book.id
+        condition: book.condition
       };
       updateBook(variables).then(res => {
-        console.log(res);
-        router.push(`/books/${res.data.updateBook.book.id}`).then()
+        router.push(`/books/${res.data.createBook.book.id}`).then()
       })
     }
   })
