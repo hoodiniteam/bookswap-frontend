@@ -21,6 +21,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     return (
         <Provider value={client}>
             <Script src='https://upload-widget.cloudinary.com/global/all.js' strategy='beforeInteractive' />
+            <Script src='https://js.pusher.com/7.0/pusher.min.js' strategy='beforeInteractive' />
             {getLayout(<Component {...pageProps} />)}
         </Provider>
     )
