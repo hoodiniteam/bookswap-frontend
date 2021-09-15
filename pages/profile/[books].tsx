@@ -36,7 +36,7 @@ const MyBooks = () => {
 MyBooks.getLayout = function getLayout(page: ReactElement) {
   return (
       <WithAuth>
-        <Layout>
+        <Layout title={MyBooks.name}>
           <SidebarForProfile>{page}</SidebarForProfile>
         </Layout>
       </WithAuth>

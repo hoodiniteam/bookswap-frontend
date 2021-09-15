@@ -187,7 +187,7 @@ const Create = () => {
 Create.getLayout = function getLayout(page: ReactElement) {
   return (
       <WithAuth>
-        <Layout>
+        <Layout title={'Create book'}>
           {page}
         </Layout>
       </WithAuth>

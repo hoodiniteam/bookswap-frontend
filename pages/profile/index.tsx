@@ -6,6 +6,7 @@ import { WithAuth } from "../../components/withAuth";
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import Layout from "../../components/layout";
 import { useQueryWrapper } from '../../helpers/useQueryWrapper'
+import Head from "next/head";
 const GetMe = `
 query{
   me{
@@ -140,6 +141,9 @@ const Index = () => {
   if(!fetching && user){
     return (
         <form action="#" method="POST" onSubmit={submitHandler}>
+            <Head>
+                <title>Profile {user.firstName} {user.lastName}</title>
+            </Head>
           <div className="shadow sm:rounded-md sm:overflow-hidden">
             <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
               <div>

@@ -1,4 +1,4 @@
-import React, {MouseEventHandler, useEffect, useRef, useState} from "react"
+import React, {MouseEventHandler, ReactElement, useEffect, useRef, useState} from "react"
 import Link from 'next/link'
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
@@ -8,6 +8,7 @@ import Image from "next/image";
 import LogOut from "../helpers/LogOut"
 import {useRouter} from "next/router";
 import {useQuery} from "urql";
+import Head from "next/head";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
@@ -25,11 +26,15 @@ query($search: String, $limit: Float,){
 }
 `
 
+type LayoutProps = {
+  children: ReactElement,
+  title?: string
+}
 type Book = {
   title: string
   id: string
 }
-const Layout = ({children}: any) => {
+const Layout = ({children, title}: LayoutProps) => {
   const router = useRouter();
   const [show, setShow] = useState(false)
   const [search, setSearch] = useState('')
@@ -69,9 +74,10 @@ const Layout = ({children}: any) => {
 
   useEffect(() => {
     if(booksData.data){
+      console.log(booksData)
       setBooks(booksData.data.getBooks.books)
     }
-  }, [booksData.data?.getBooks.books])
+  }, [booksData.data])
 
   const booksToShow = books.slice(0, 5)
 
@@ -100,6 +106,9 @@ const Layout = ({children}: any) => {
   const profile = [{title: 'Your Profile', href: '/profile'}, {title: 'Settings'}, {title: 'Sign out', function: LogOut}]
   return (
       <>
+        <Head>
+          <title>{title}</title>
+        </Head>
         <div className="min-h-screen bg-gray-100">
           <div className="bg-indigo-600 pb-32">
             <Disclosure as="nav" className="bg-indigo-600 border-b border-indigo-300 border-opacity-25 lg:border-none">

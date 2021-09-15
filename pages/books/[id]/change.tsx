@@ -269,7 +269,7 @@ const Change = () => {
 Change.getLayout = function getLayout(page: ReactElement) {
   return (
       <WithAuth>
-        <Layout>
+        <Layout title={'Change book'}>
           {page}
         </Layout>
       </WithAuth>

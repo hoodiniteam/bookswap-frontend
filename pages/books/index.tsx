@@ -8,6 +8,7 @@ import BookWrapper from "../../components/book-wrapper";
 import { Book } from '../../types/Book'
 import { GetBooksQuery } from '../../graphql/GetBooksQuery'
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
+import Head from "next/head";
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -157,7 +158,7 @@ const Index = () => {
 Index.getLayout = function getLayout(page: ReactElement) {
   return (
       <WithAuth>
-        <Layout>
+        <Layout title={'Books'}>
           {page}
         </Layout>
       </WithAuth>

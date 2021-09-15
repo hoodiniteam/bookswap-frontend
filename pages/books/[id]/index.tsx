@@ -5,37 +5,36 @@ import { WithAuth } from '../../../components/withAuth'
 import Layout from '../../../components/layout'
 import { BooksCondition, BooksStatus } from '../../../types/Book'
 import { CloudinaryImage } from '../../../types/CloudinaryImage'
-import {useQueryWrapper} from "../../../helpers/useQueryWrapper";
+import {useQueryWrapper} from "../../../helpers/useQueryWrapper"
+import Head from 'next/head'
 
 const GetBook = `
-  query($id:String!){
-    getBook(id:$id){
-      book{
-        title
-        description
+query($id: String!){
+  getBook(id: $id){
+    book{
+      description
+        id
         image{
           url
         }
-        id
+        title
         condition
         status
         creator{
+          id  
           email
-          id
-          firstName 
         }
         holder{
+          id  
           email
-          id
-          firstName
         }
         expects{
-          email
-        }
-      }
+          email  
+        } 
     }
   }
-  `
+}
+`
 const GetId = `
   query{
     me{
@@ -100,7 +99,7 @@ type Waiting = [{
     id: string
 }]
 
-const Book = () => {
+const Book = ({title}: any) => {
     const router = useRouter()
     const [waiting, setWaiting] = useState<Waiting | null>(null)
     const [inList, setList] = useState<boolean | null>(null)
@@ -162,6 +161,9 @@ const Book = () => {
     if (!result.fetching && book !== null && userId !== null) {
         return (
             <>
+                <Head>
+                    <title>{book.title}</title>
+                </Head>
                 <button
                     type='button'
                     className='inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'

@@ -40,7 +40,7 @@ const WaitingList = () => {
 WaitingList.getLayout = function getLayout(page: ReactElement) {
   return (
       <WithAuth>
-        <Layout>
+        <Layout title={WaitingList.name}>
           <SidebarForProfile>{page}</SidebarForProfile>
         </Layout>
       </WithAuth>
