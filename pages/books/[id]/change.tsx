@@ -8,8 +8,8 @@ import { useRouter } from "next/router";
 import {useQueryWrapper} from "../../../helpers/useQueryWrapper";
 
 const UpdateBookMutation = `
-mutation($title: String!, $description: String!, $image: String!, $condition:BooksCondition! ){
-  updateBook(options:{title: $title, description: $description, image: $image, condition: $condition }){
+mutation($title: String!, $description: String!, $image: JSONObject!, $condition:BooksCondition!, $id: String! ){
+  updateBook(options:{title: $title, description: $description, image: $image, condition: $condition, id: $id }){
     status
     book{
       id
@@ -109,6 +109,7 @@ const Change = () => {
     query: GetBook,
     variables: {id: id}
   })
+  const [editing, setEditing] = useState(false)
   const [book, setBook] = useState<Book | null>(null)
   const [image, setImage] = useState<CloudyImage | null>(null)
   const [, updateBook] = useMutation(UpdateBookMutation)
@@ -122,13 +123,15 @@ const Change = () => {
     event?.preventDefault();
     if(book){
       const variables = {
+        id: router.query.id,
         title: book.title,
         description:book.description,
-        image: book.image,
+        image: image,
         condition: book.condition
       };
       updateBook(variables).then(res => {
-        router.push(`/books/${res.data.createBook.book.id}`).then()
+        console.log(res)
+        router.push(`/books/${res.data.updateBook.book.id}`).then()
       })
     }
   })
@@ -138,11 +141,11 @@ const Change = () => {
     }
   }
 
-  useEffect(() => {
-    if(image && book){
-      setBook({...book, image: image})
-    }
-  },[image, book])
+  // useEffect(() => {
+  //   if(image && book){
+  //     setBook({...book, image: image})
+  //   }
+  // },[image, book])
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = e.target;
@@ -220,7 +223,7 @@ const Change = () => {
                     </select>
                   </div>
                 </div>
-
+                {editing ?
                 <div className="col-span-3">
                   <label className="block text-sm font-medium text-gray-700">Cover photo</label>
                   <div className="mt-1 border-2 border-gray-300 border-dashed rounded-md px-6 pt-5 pb-6 flex justify-center">
@@ -248,6 +251,19 @@ const Change = () => {
                     </div>
                   </div>
                 </div>
+                    :
+                <div className="col-span-3 grid grid-cols-3 flex items-center gap-10">
+                  <div className="col-span-1">
+                    <img src={book.image.url} />
+                  </div>
+                  <button
+                      onClick={() => setEditing(true)}
+                      className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Edit poster
+                  </button>
+                </div>
+                }
               </div>
             </div>
             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
