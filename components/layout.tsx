@@ -101,7 +101,7 @@ const Layout = ({children, title}: LayoutProps) => {
   useEffect(() => {
     console.log(booksData.data);
   }, [search, booksData])
-  
+
   const profile = [{title: 'Your Profile', href: '/profile'}, {title: 'Settings'}, {
     title: 'Sign out',
     function: LogOut
@@ -325,17 +325,6 @@ const Layout = ({children, title}: LayoutProps) => {
               </>
             )}
           </Disclosure>
-          <header className="py-10">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <h1 className="text-3xl font-bold text-white">{
-                navigation.map(item => {
-                  if (item.current) {
-                    return item.title
-                  }
-                })
-              }</h1>
-            </div>
-          </header>
         </div>
         <main className="-mt-32">
           <div className="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
