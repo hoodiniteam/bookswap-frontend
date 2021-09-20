@@ -8,6 +8,7 @@ import LogOut from "../helpers/LogOut"
 import {useRouter} from "next/router";
 import {useQuery} from "urql";
 import Head from "next/head";
+import { useTranslation } from 'next-i18next';
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
@@ -40,11 +41,16 @@ const Layout = ({children, title}: LayoutProps) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [books, setBooks] = useState<Book[]>([])
   const [navigation, setNavigation] = useState([
-    {title: 'Home', href: '/home', current: true},
-    {title: 'Profile', href: '/profile', current: false},
-    {title: 'Books', href: '/books', current: false}
+    {title: 'home', href: '/home', current: true},
+    {title: 'profile', href: '/profile', current: false},
+    {title: 'books', href: '/books', current: false}
   ])
   const myRef = useRef()
+  const { t, i18n } = useTranslation("nav");
+  const langs: {[key: string]: any} = {
+    en: { nativeName: 'English' },
+    ru: { nativeName: 'Русский' }
+  };
 
   const [booksData,] = useQuery({
     query: Books,
@@ -135,7 +141,7 @@ const Layout = ({children, title}: LayoutProps) => {
                                 className={item.current ? "bg-indigo-700 text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium" :
                                   "text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium"}
                               >
-                                {item.title}
+                                {t(item.title)}
                               </a>
                             </Link>
                           )}
@@ -332,6 +338,22 @@ const Layout = ({children, title}: LayoutProps) => {
             <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
               {children}
             </div>
+          </div>
+          <div className="absolute bottom-0 right-0 p-2">
+            <span className="relative z-0 inline-flex shadow-sm overflow-hidden rounded-md border">
+            {Object.keys(langs).map((lng) => (
+                <Link
+                    key={lng}
+                    href='/home'
+                    locale={router.locale === 'en' ? 'ru' : 'en'}
+                >
+                  <button className="relative inline-flex items-center px-4 py-2 border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500" style={{ fontWeight: i18n.language === lng ? 'bold' : 'normal' }} type="submit" onClick={() => i18n.changeLanguage(lng)}>
+                    {langs[lng].nativeName}
+                  </button>
+                </Link>
+
+            ))}
+              </span>
           </div>
         </main>
       </div>

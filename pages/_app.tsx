@@ -6,6 +6,7 @@ import Script from 'next/script'
 import React from 'react'
 import type { ReactElement, ReactNode } from 'react'
 import type { NextPage } from 'next'
+import { appWithTranslation } from 'next-i18next';
 
 type NextPageWithLayout = NextPage & {
     getLayout?: (page: ReactElement) => ReactNode
@@ -15,7 +16,7 @@ type AppPropsWithLayout = AppProps & {
     Component: NextPageWithLayout
 }
 
-export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     const getLayout = Component.getLayout ?? ((page) => page)
 
     return (
@@ -25,3 +26,5 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         </Provider>
     )
 }
+
+export default appWithTranslation(MyApp);

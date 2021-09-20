@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-undef,@typescript-eslint/no-var-requires
+const { i18n } = require('./next-i18next.config');
 // eslint-disable-next-line no-undef
 module.exports = {
   images: {
@@ -12,5 +14,6 @@ module.exports = {
         permanent: true,
       },
     ]
-  }
+  },
+  i18n,
 }

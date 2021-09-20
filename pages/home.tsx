@@ -2,6 +2,8 @@ import React, { ReactElement } from 'react'
 import { WithAuth } from '../components/withAuth'
 import Layout from '../components/layout'
 import Head from "next/head";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
 const Home = () => {
     return (
         <>
@@ -23,4 +25,11 @@ Home.getLayout = function getLayout(page: ReactElement) {
         </WithAuth>
     )
 }
+
+export const getStaticProps = async ({ locale }: any) => ({
+    props: {
+        ...await serverSideTranslations(locale, ['nav']),
+    },
+})
+
 export default Home;
