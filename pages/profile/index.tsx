@@ -7,6 +7,7 @@ import SidebarForProfile from "../../components/sidebar-for-profile";
 import Layout from "../../components/layout";
 import { useQueryWrapper } from '../../helpers/useQueryWrapper'
 import Head from "next/head";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 const GetMe = `
 query{
   me{
@@ -358,5 +359,11 @@ Index.getLayout = function getLayout(page: ReactElement) {
         </WithAuth>
     )
 }
+
+export const getStaticProps = async ({ locale }: any) => ({
+    props: {
+        ...await serverSideTranslations(locale, ['nav']),
+    },
+})
 
 export default Index;
