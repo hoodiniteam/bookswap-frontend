@@ -1,0 +1,23 @@
+{
+  "home": "Домашняя страница",
+  "personal-information": "Персональные данные",
+  "first-name": "Имя",
+  "last-name": "Фамилия",
+  "email": "Почтовый адрес",
+  "birthday": "Дата рождения",
+  "gender": "Пол",
+  "country-region": "Страна / Регион",
+  "city": "Город",
+  "street-address": "Улица",
+  "state-province": "Область / провинция",
+  "apartment": "Аппартаменты",
+  "zipcode": "Почтовый код",
+  "phone": "Телефон",
+  "save": "Сохранить",
+  "title": "Заголовок",
+  "description": "Описание",
+  "condition": "Состояние",
+  "cover-photo": "Обложка",
+  "creating-book-page": "Создание книги",
+  "editing-book-page": "Редактирование книги"
+}

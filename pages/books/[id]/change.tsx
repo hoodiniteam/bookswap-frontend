@@ -6,6 +6,8 @@ import {useForm} from "react-hook-form";
 import Layout from "../../../components/layout";
 import { useRouter } from "next/router";
 import {useQueryWrapper} from "../../../helpers/useQueryWrapper";
+import {useTranslation} from "next-i18next";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 
 const UpdateBookMutation = `
 mutation($title: String!, $description: String!, $image: JSONObject!, $condition:BooksCondition!, $id: String! ){
@@ -105,6 +107,7 @@ type Book ={
 const Change = () => {
   const router = useRouter();
   const id = router.asPath.slice(7, -7)
+  const {t, i18n} = useTranslation("common");
   const [{data}] = useQueryWrapper({
     query: GetBook,
     variables: {id: id}
@@ -163,13 +166,13 @@ const Change = () => {
           <div className="shadow sm:rounded-md sm:overflow-hidden">
             <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
               <div>
-                <h3 className="text-lg leading-6 font-medium text-gray-900">Editing book</h3>
+                <h3 className="text-lg leading-6 font-medium text-gray-900">{ t('editing-book-page') }</h3>
               </div>
 
               <div className="grid grid-cols-3 gap-6">
                 <div className="col-span-3">
                   <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                    Title
+                    { t('title') }
                   </label>
                   <div className="mt-1 rounded-md shadow-sm flex">
                     <input
@@ -187,7 +190,7 @@ const Change = () => {
 
                 <div className="col-span-3">
                   <label htmlFor="about" className="block text-sm font-medium text-gray-700">
-                    Description
+                    { t('description') }
                   </label>
                   <div className="mt-1">
                     <textarea
@@ -205,7 +208,7 @@ const Change = () => {
 
                 <div className="col-span-3">
                   <label htmlFor="about" className="block text-sm font-medium text-gray-700">
-                    Condition
+                    { t('condition') }
                   </label>
                   <div className="mt-1">
                     <select
@@ -260,7 +263,7 @@ const Change = () => {
                       onClick={() => setEditing(true)}
                       className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
-                    Edit poster
+                    {t('edit')}
                   </button>
                 </div>
                 }
@@ -271,7 +274,7 @@ const Change = () => {
                 type="submit"
                 className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Save
+                { t('save') }
               </button>
             </div>
           </div>
@@ -291,5 +294,11 @@ Change.getLayout = function getLayout(page: ReactElement) {
       </WithAuth>
   )
 }
+
+export const getServerSideProps = async ({ locale }: any) => ({
+  props: {
+    ...await serverSideTranslations(locale, ['common', 'nav']),
+  },
+})
 
 export default Change;

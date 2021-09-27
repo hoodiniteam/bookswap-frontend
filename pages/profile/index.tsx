@@ -8,6 +8,7 @@ import Layout from "../../components/layout";
 import { useQueryWrapper } from '../../helpers/useQueryWrapper'
 import Head from "next/head";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import {useTranslation} from "next-i18next";
 const GetMe = `
 query{
   me{
@@ -101,6 +102,7 @@ const Index = () => {
   const [user, setUser] = useState<UserData | ''>('')
   const router = useRouter();
   const {register, clearErrors, handleSubmit, formState: {errors}} = useForm()
+  const { t, i18n } = useTranslation("common")
   useEffect(()=>{
     if(data){
       setUser(data.me.user);
@@ -148,13 +150,13 @@ const Index = () => {
           <div className="shadow sm:rounded-md sm:overflow-hidden">
             <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
               <div>
-                <h3 className="text-lg leading-6 font-medium text-gray-900">Personal Information</h3>
+                <h3 className="text-lg leading-6 font-medium text-gray-900">{t("personal-information")}</h3>
                 <p className="mt-1 text-sm text-gray-500">Use a permanent address where you can recieve mail.</p>
               </div>
               <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                   <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                      First name
+                    {t("first-name")}
                   </label>
                     <input
                         {...register('firstName', {required: true})}
@@ -171,7 +173,7 @@ const Index = () => {
 
                     <div className="col-span-6 sm:col-span-3">
                       <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
-                          Last name
+                        {t("last-name")}
                       </label>
                       <input
                         {...register('lastName', {required: true})}
@@ -187,7 +189,7 @@ const Index = () => {
                     </div>
                     <div className="col-span-6 sm:col-span-3">
                       <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
-                          Email address
+                        {t("email")}
                       </label>
                       <input
                         {...register('email', {required: true})}
@@ -204,7 +206,7 @@ const Index = () => {
 
                     <div className="col-span-6 sm:col-span-3">
                       <label htmlFor="bDay" className="block text-sm font-medium text-gray-700">
-                          Birthday
+                        {t("birthday")}
                       </label>
                       <input
                           onChange={onChangeHandler}
@@ -217,7 +219,7 @@ const Index = () => {
                     </div>
                     <div className="col-span-6 sm:col-span-3">
                       <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-                          Gender:
+                        {t("gender")}
                       </label>
                       <select
                           onChange={onChangeHandler}
@@ -234,7 +236,7 @@ const Index = () => {
                     </div>
                       <div className="col-span-6">
                           <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-                              Country / Region
+                            {t("country-region")}
                           </label>
                           <select
                               onChange={onChangeHandler}
@@ -253,7 +255,7 @@ const Index = () => {
 
                       <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                           <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                              City
+                            {t("city")}
                           </label>
                           <input
                               onChange={onChangeHandler}
@@ -267,7 +269,7 @@ const Index = () => {
 
                       <div className="col-span-6 sm:col-span-4">
                           <label htmlFor="street-address" className="block text-sm font-medium text-gray-700">
-                              Street address
+                            {t("street-address")}
                           </label>
                           <input
                               onChange={onChangeHandler}
@@ -282,7 +284,7 @@ const Index = () => {
 
                       <div className="col-span-6 sm:col-span-4 lg:col-span-2">
                           <label htmlFor="state" className="block text-sm font-medium text-gray-700">
-                              State / Province
+                            {t("state-province")}
                           </label>
                           <input
                               onChange={onChangeHandler}
@@ -295,7 +297,7 @@ const Index = () => {
                       </div>
                       <div className="col-span-6 sm:col-span-2 lg:col-span-2">
                           <label htmlFor="state" className="block text-sm font-medium text-gray-700">
-                              Apartment
+                            {t("apartment")}
                           </label>
                           <input
                               onChange={onChangeHandler}
@@ -308,7 +310,7 @@ const Index = () => {
                       </div>
                       <div className="col-span-6 sm:col-span-2 lg:col-span-2">
                           <label htmlFor="state" className="block text-sm font-medium text-gray-700">
-                              Zipcode
+                            {t("zipcode")}
                           </label>
                           <input
                               onChange={onChangeHandler}
@@ -322,7 +324,7 @@ const Index = () => {
 
                       <div className="col-span-6 sm:col-span-3 lg:col-span-3">
                           <label htmlFor="postal-code" className="block text-sm font-medium text-gray-700">
-                              Phone
+                            {t("phone")}
                           </label>
                           <input
                               onChange={onChangeHandler}
@@ -341,7 +343,7 @@ const Index = () => {
                       type="submit"
                       className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
-                      Save
+                    {t("save")}
                   </button>
               </div>
           </div>
@@ -362,7 +364,7 @@ Index.getLayout = function getLayout(page: ReactElement) {
 
 export const getStaticProps = async ({ locale }: any) => ({
     props: {
-        ...await serverSideTranslations(locale, ['nav']),
+        ...await serverSideTranslations(locale, ['nav', 'common']),
     },
 })
 

@@ -108,8 +108,8 @@ const Layout = ({children, title}: LayoutProps) => {
     console.log(booksData.data);
   }, [search, booksData])
 
-  const profile = [{title: 'Your Profile', href: '/profile'}, {title: 'Settings'}, {
-    title: 'Sign out',
+  const profile = [{title: 'my-profile', href: '/profile'}, {title: 'settings'}, {
+    title: 'sign-out',
     function: LogOut
   }]
   return (
@@ -154,7 +154,7 @@ const Layout = ({children, title}: LayoutProps) => {
                         type="button"
                         className="inline-flex items-center px-4 py-1.5 mr-5 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                       >
-                        Create book
+                        {t('create')}
                       </button>
                       <div className="max-w-lg w-full lg:max-w-xs">
                         <label htmlFor="search" className="sr-only">
@@ -254,7 +254,7 @@ const Layout = ({children, title}: LayoutProps) => {
                                               'block py-2 px-4 text-sm text-gray-700'
                                             )}
                                           >
-                                            {item.title}
+                                            {t(item.title)}
                                           </a>
                                         </Link>
                                       )}

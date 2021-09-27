@@ -3,14 +3,16 @@ import Link from "next/link";
 import {KeyIcon, UserCircleIcon} from "@heroicons/react/outline";
 import {useRouter} from "next/router";
 import {BookmarkAltIcon, BookmarkIcon} from "@heroicons/react/solid";
+import {useTranslation} from "next-i18next";
 
 const SidebarForProfile = (props: any) => {
   const router = useRouter()
   const [sideNav, setSideNav] = useState([
-    {name: 'Account', href: '/profile', icon: UserCircleIcon, current: true,},
-    {name: 'My books', href: '/profile/books', icon: BookmarkAltIcon, current: false,},
-    {name: 'My waiting list', href: '/profile/waitingList', icon: BookmarkIcon, current: false,},
+    {name: 'account', href: '/profile', icon: UserCircleIcon, current: true,},
+    {name: 'my-books', href: '/profile/books', icon: BookmarkAltIcon, current: false,},
+    {name: 'waiting-list', href: '/profile/waitingList', icon: BookmarkIcon, current: false,},
   ]);
+  const { t, i18n } = useTranslation("nav");
   const pathForCompare = () => {
     const end = router.asPath.indexOf('?')
     if(router.asPath.includes('page' || 'status')){
@@ -60,7 +62,7 @@ const SidebarForProfile = (props: any) => {
                     )}
                     aria-hidden="true"
                   />
-                    <span className="truncate">{item.name}</span>
+                    <span className="truncate">{t(item.name)}</span>
                   </a>
               </Link>
             ))}
@@ -72,4 +74,5 @@ const SidebarForProfile = (props: any) => {
       </div>
     )
 }
+
 export default SidebarForProfile

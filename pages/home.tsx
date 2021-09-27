@@ -3,14 +3,16 @@ import { WithAuth } from '../components/withAuth'
 import Layout from '../components/layout'
 import Head from "next/head";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import {useTranslation} from "next-i18next";
 
 const Home = () => {
+  const { t, i18n } = useTranslation(["common", "nav"]);
     return (
         <>
             <Head>
                 <title>Home</title>
             </Head>
-            <h1>HomePage</h1>
+            <h1>{t("home")}</h1>
             <div className='flex justify-between items-center w-72 mt-5 px-5' />
         </>
     )
@@ -28,7 +30,7 @@ Home.getLayout = function getLayout(page: ReactElement) {
 
 export const getStaticProps = async ({ locale }: any) => ({
     props: {
-        ...await serverSideTranslations(locale, ['nav']),
+        ...await serverSideTranslations(locale, ['common', 'nav']),
     },
 })
 

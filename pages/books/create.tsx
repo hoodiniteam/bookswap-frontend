@@ -1,10 +1,12 @@
-import React, {ChangeEvent, FormEvent, ReactElement, useEffect, useState} from "react";
+import React, {ChangeEvent, ReactElement, useState} from "react";
 import {useMutation} from "urql";
 import {useRouter} from "next/router";
-import { WithAuth } from "../../components/withAuth";
+import {WithAuth} from "../../components/withAuth";
 import Upload from "../../components/upload-widget";
 import {useForm} from 'react-hook-form'
 import Layout from "../../components/layout";
+import {useTranslation} from "next-i18next";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 
 const CreateBookMutation = `
 mutation($title: String!, $description: String!, $image: JSONObject!, $condition:BooksCondition! ){
@@ -50,12 +52,13 @@ const Create = () => {
   const [img, setImg] = useState<CloudinaryImage | null>(null);
   const [, createBook] = useMutation(CreateBookMutation)
   const router = useRouter();
+  const {t, i18n} = useTranslation("common");
   const submit = handleSubmit((data, event) => {
     event?.preventDefault()
-    if(book){
+    if (book) {
       const variables = {
         title: book.title,
-        description:book.description,
+        description: book.description,
         image: img,
         condition: book.condition
       };
@@ -67,7 +70,7 @@ const Create = () => {
   })
 
   const getInfo = (info: any) => {
-    if(info){
+    if (info) {
       console.log(info)
       setImg(info)
     }
@@ -85,13 +88,13 @@ const Create = () => {
         <div className="shadow sm:rounded-md sm:overflow-hidden">
           <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
             <div>
-              <h3 className="text-lg leading-6 font-medium text-gray-900">Creating book</h3>
+              <h3 className="text-lg leading-6 font-medium text-gray-900">{t('creating-book-page')}</h3>
             </div>
 
             <div className="grid grid-cols-3 gap-6">
               <div className="col-span-3">
                 <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-                  Title
+                  { t('title') }
                 </label>
                 <div className="mt-1 rounded-md shadow-sm flex">
                   <input
@@ -108,7 +111,7 @@ const Create = () => {
 
               <div className="col-span-3">
                 <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-                  Description
+                  { t('description') }
                 </label>
                 <div className="mt-1">
                     <textarea
@@ -125,28 +128,29 @@ const Create = () => {
 
               <div className="col-span-3">
                 <label htmlFor="about" className="block text-sm font-medium text-gray-700">
-                  Condition
+                  { t('condition') }
                 </label>
                 <div className="mt-1">
-                    <select
-                      value={book.condition}
-                      onChange={onChangeHandler}
-                      id="condition"
-                      name="condition"
-                      className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md"
-                    >
-                      <option value="BRANDNEW">BRANDNEW</option>
-                      <option value="LIKENEW">LIKENEW</option>
-                      <option value="GOOD">GOOD</option>
-                      <option value="SATISFACTORY">SATISFACTORY</option>
-                      <option value="BAD">BAD</option>
-                    </select>
+                  <select
+                    value={book.condition}
+                    onChange={onChangeHandler}
+                    id="condition"
+                    name="condition"
+                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md"
+                  >
+                    <option value="BRANDNEW">BRANDNEW</option>
+                    <option value="LIKENEW">LIKENEW</option>
+                    <option value="GOOD">GOOD</option>
+                    <option value="SATISFACTORY">SATISFACTORY</option>
+                    <option value="BAD">BAD</option>
+                  </select>
                 </div>
               </div>
 
               <div className="col-span-3">
-                <label className="block text-sm font-medium text-gray-700">Cover photo</label>
-                <div className="mt-1 border-2 border-gray-300 border-dashed rounded-md px-6 pt-5 pb-6 flex justify-center">
+                <label className="block text-sm font-medium text-gray-700">{ t('cover-photo') }</label>
+                <div
+                  className="mt-1 border-2 border-gray-300 border-dashed rounded-md px-6 pt-5 pb-6 flex justify-center">
                   <div className="space-y-1 text-center">
                     <svg
                       className="mx-auto h-12 w-12 text-gray-400"
@@ -165,7 +169,7 @@ const Create = () => {
                     <div className="flex text-sm text-gray-600">
                     </div>
                     <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
-                      <Upload getInfo={getInfo} />
+                    <Upload getInfo={getInfo}/>
                   </div>
                 </div>
               </div>
@@ -176,7 +180,7 @@ const Create = () => {
               type="submit"
               className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Save
+              { t('save') }
             </button>
           </div>
         </div>
@@ -186,12 +190,18 @@ const Create = () => {
 }
 Create.getLayout = function getLayout(page: ReactElement) {
   return (
-      <WithAuth>
-        <Layout title={'Create book'}>
-          {page}
-        </Layout>
-      </WithAuth>
+    <WithAuth>
+      <Layout title={'Create book'}>
+        {page}
+      </Layout>
+    </WithAuth>
   )
 }
+
+export const getStaticProps = async ({ locale }: any) => ({
+  props: {
+    ...await serverSideTranslations(locale, ['common', 'nav']),
+  },
+})
 
 export default Create;

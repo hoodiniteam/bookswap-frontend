@@ -1,5 +1,13 @@
 {
   "home": "Home",
   "profile": "Profile",
-  "books": "Books"
+  "books": "Books",
+  "my-profile": "My profile",
+  "settings": "Settings",
+  "sign-out": "Sign Out",
+  "account": "Account",
+  "waiting-list": "My waiting list",
+  "my-books": "My books",
+  "create": "Create book",
+  "edit": "Edit book"
 }

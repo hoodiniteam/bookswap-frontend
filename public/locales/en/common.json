@@ -1,0 +1,23 @@
+{
+  "home": "Home",
+  "personal-information": "Personal information",
+  "first-name": "First name",
+  "last-name": "Last name",
+  "email": "Email address",
+  "birthday": "Birthday",
+  "gender": "Gender",
+  "country-region": "Country / Region",
+  "city": "City",
+  "street-address": "Street address",
+  "state-province": "State / Province",
+  "apartment": "Apartment",
+  "zipcode": "Zipcode",
+  "phone": "Phone",
+  "save": "Save",
+  "title": "Title",
+  "description": "Description",
+  "condition": "Condition",
+  "cover-photo": "Cover photo",
+  "creating-book-page": "Creating book",
+  "editing-book-page": "Editing book"
+}

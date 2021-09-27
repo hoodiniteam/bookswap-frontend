@@ -9,6 +9,7 @@ import { Book } from '../../types/Book'
 import { GetBooksQuery } from '../../graphql/GetBooksQuery'
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
 import Head from "next/head";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -145,4 +146,9 @@ Index.getLayout = function getLayout(page: ReactElement) {
       </WithAuth>
   )
 }
+export const getStaticProps = async ({ locale }: any) => ({
+  props: {
+    ...await serverSideTranslations(locale, ['common', 'nav']),
+  },
+})
 export default Index;

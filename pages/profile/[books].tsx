@@ -6,6 +6,7 @@ import BookWrapper from "../../components/book-wrapper";
 import { Book } from '../../types/Book'
 import { GetMe} from "../../graphql/GetMe";
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 
 const MyBooks = () => {
   const [myBooks, setMyBooks] = useState<Book[]>([])
@@ -42,5 +43,11 @@ MyBooks.getLayout = function getLayout(page: ReactElement) {
       </WithAuth>
   )
 }
+
+export const getServerSideProps = async ({ locale }: any) => ({
+  props: {
+    ...await serverSideTranslations(locale, ['common', 'nav']),
+  },
+})
 
 export default MyBooks;
