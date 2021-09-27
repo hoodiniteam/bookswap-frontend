@@ -11,6 +11,7 @@ const SidebarForProfile = (props: any) => {
     {name: 'account', href: '/profile', icon: UserCircleIcon, current: true,},
     {name: 'my-books', href: '/profile/books', icon: BookmarkAltIcon, current: false,},
     {name: 'waiting-list', href: '/profile/waitingList', icon: BookmarkIcon, current: false,},
+    {name: 'Swaps', href: '/profile/swaps', icon: BookmarkIcon, current: false,},
   ]);
   const { t, i18n } = useTranslation("nav");
   const pathForCompare = () => {
