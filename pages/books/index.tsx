@@ -13,7 +13,7 @@ import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [status, setStatus] = useState<string>('OPEN');
+  const [status, setStatus] = useState<string>('');
   const [search, setSearch] = useState('');
   const [total, setTotal] = useState(0)
   const [books, setBooks] = useState<Book[]>([]);
@@ -75,6 +75,10 @@ const Index = () => {
         setOffset((currentPage - 1) * booksPerPage)
       }
   }
+
+  useEffect(() => {
+    router.push({query:{page: 1}})
+  }, [])
 
   useEffect(()=>{
     if(router.query.page && data){
