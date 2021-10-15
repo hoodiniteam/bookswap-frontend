@@ -19,5 +19,12 @@
   "condition": "Condition",
   "cover-photo": "Cover photo",
   "creating-book-page": "Creating book",
-  "editing-book-page": "Editing book"
+  "editing-book-page": "Editing book",
+  "search-letters": "Search starts from 3 letters",
+  "BRANDNEW": "Brand new",
+  "LIKENEW": "Like new",
+  "GOOD": "Good",
+  "SATISFACTORY": "Satisfactory",
+  "BAD": "Bad",
+  "TERRIBLE": "Terrible"
 }

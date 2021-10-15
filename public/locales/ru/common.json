@@ -3,7 +3,7 @@
   "personal-information": "Персональные данные",
   "first-name": "Имя",
   "last-name": "Фамилия",
-  "email": "Почтовый адрес",
+  "email": "Email",
   "birthday": "Дата рождения",
   "gender": "Пол",
   "country-region": "Страна / Регион",
@@ -19,5 +19,12 @@
   "condition": "Состояние",
   "cover-photo": "Обложка",
   "creating-book-page": "Создание книги",
-  "editing-book-page": "Редактирование книги"
+  "editing-book-page": "Редактирование книги",
+  "search-letters": "Поиск начнется с 3 символов",
+  "BRANDNEW": "Новая",
+  "LIKENEW": "Как новая",
+  "GOOD": "Хорошее",
+  "SATISFACTORY": "Удовлетворительное",
+  "BAD": "Плохое",
+  "TERRIBLE": "Ужасное"
 }

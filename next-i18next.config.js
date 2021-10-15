@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-undef
 module.exports = {
     i18n: {
-        defaultLocale: 'en',
+        defaultLocale: 'ru',
         locales: ['en', 'ru'],
     },
 };
