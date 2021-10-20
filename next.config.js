@@ -3,7 +3,7 @@ const { i18n } = require('./next-i18next.config');
 // eslint-disable-next-line no-undef
 module.exports = {
   images: {
-    domains: ["images.unsplash.com", "res.cloudinary.com"],
+    domains: ["images.unsplash.com", "res.cloudinary.com", "books.google.com"],
   },
   reactStrictMode: true,
   async redirects() {

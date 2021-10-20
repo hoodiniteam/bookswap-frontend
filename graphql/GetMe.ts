@@ -2,19 +2,20 @@ export const GetMe = `
   query{
     me{
       user{
+        id
         waiting{
           title
           id
           status
         }
         books{
+          id
           title
           description
-          id
           status
           condition
-          image{
-            url
+          edition {
+            image
           }
         }
       }

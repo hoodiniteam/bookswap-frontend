@@ -7,6 +7,7 @@ import { Book } from '../../types/Book'
 import { GetMe } from '../../graphql/GetMe'
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import { localesList } from "../../helpers/locales";
 
 const WaitingList = () => {
   const [books, setBooks] = useState<Book[]>([])
@@ -50,7 +51,7 @@ WaitingList.getLayout = function getLayout(page: ReactElement) {
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {
-    ...await serverSideTranslations(locale, ['common', 'nav']),
+    ...await serverSideTranslations(locale, localesList),
   },
 })
 

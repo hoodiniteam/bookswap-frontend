@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import {useQueryWrapper} from "../../../helpers/useQueryWrapper";
 import {useTranslation} from "next-i18next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import { localesList } from "../../../helpers/locales";
 
 const UpdateBookMutation = `
 mutation($title: String!, $description: String!, $image: JSONObject!, $condition:BooksCondition!, $id: String! ){
@@ -297,7 +298,7 @@ Change.getLayout = function getLayout(page: ReactElement) {
 
 export const getServerSideProps = async ({ locale }: any) => ({
   props: {
-    ...await serverSideTranslations(locale, ['common', 'nav']),
+    ...await serverSideTranslations(locale, localesList),
   },
 })
 

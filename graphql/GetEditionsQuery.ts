@@ -6,9 +6,7 @@ query($search: String, $offset: Float, $limit: Float,){
       title
       description
       id
-      image{
-        url
-      }
+      image
       virtual
     }
   }

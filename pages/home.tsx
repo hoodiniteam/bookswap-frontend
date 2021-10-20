@@ -4,9 +4,10 @@ import Layout from '../components/layout'
 import Head from 'next/head'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
+import { localesList } from '../helpers/locales'
 
 const Home = () => {
-    const { t } = useTranslation(['common', 'nav'])
+    const { t } = useTranslation(localesList)
     return (
         <>
             <Head>
@@ -28,7 +29,7 @@ Home.getLayout = function getLayout(page: ReactElement) {
 
 export const getStaticProps = async ({ locale }: any) => ({
     props: {
-        ...(await serverSideTranslations(locale, ['common', 'nav'])),
+        ...(await serverSideTranslations(locale, localesList)),
     },
 })
 

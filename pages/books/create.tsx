@@ -10,17 +10,9 @@ import AsyncSelect from 'react-select/async';
 import { GetEditionsQuery } from '../../graphql/GetEditionsQuery';
 import { SingleValue } from 'react-select';
 import { BooksCondition } from '../../types/Book';
+import { CreateBookMutation } from '../../graphql/CreateBookMutation';
+import { localesList } from '../../helpers/locales';
 
-const CreateBookMutation = `
-mutation($title: String!, $description: String!, $image: JSONObject!, $condition:BooksCondition! ){
-  createBook(options:{title: $title, description: $description, image: $image, condition: $condition }){
-    status
-    book{
-      id
-    }
-  }
-}
-`;
 const Create = () => {
     const client = useClient();
     const timer = useRef<any>();
@@ -41,7 +33,7 @@ const Create = () => {
     } = useForm();
     const [, createBook] = useMutation(CreateBookMutation);
     const router = useRouter();
-    const { t, i18n } = useTranslation('common');
+    const { t } = useTranslation('common');
     const submit = handleSubmit((data, event) => {
         event?.preventDefault();
         if (book) {
@@ -74,7 +66,7 @@ const Create = () => {
                         const editions = result.map((edition: any) => ({
                             value: {
                                 title: edition.title,
-                                image: edition?.image?.url,
+                                image: edition?.image,
                                 description: edition?.description,
                             },
                             label: (
@@ -83,7 +75,7 @@ const Create = () => {
                                         <div className="w-16">
                                             <img
                                                 className="h-24 w-16 object-contain"
-                                                src={edition?.image?.url}
+                                                src={edition?.image}
                                             />
                                         </div>
                                     </div>
@@ -247,7 +239,7 @@ Create.getLayout = function getLayout(page: ReactElement) {
 
 export const getStaticProps = async ({ locale }: any) => ({
     props: {
-        ...(await serverSideTranslations(locale, ['common', 'nav'])),
+        ...(await serverSideTranslations(locale, localesList)),
     },
 });
 

@@ -9,9 +9,7 @@ query($search: String, $status: BooksStatus, $offset: Float, $limit: Float,){
       id
       status
       condition
-      image{
-        url
-      }
+      image
     }
   }
 }

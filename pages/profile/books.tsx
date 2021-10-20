@@ -1,26 +1,23 @@
-import React, {useState, useEffect, ReactElement} from 'react';
+import React, {ReactElement} from 'react';
 import { WithAuth } from '../../components/withAuth'
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import Layout from "../../components/layout";
 import BookWrapper from "../../components/book-wrapper";
-import { Book } from '../../types/Book'
 import { GetMe} from "../../graphql/GetMe";
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import { localesList } from '../../helpers/locales';
 
 const MyBooks = () => {
-  const [myBooks, setMyBooks] = useState<Book[]>([])
   const [{data} ] = useQueryWrapper({
     query: GetMe
   })
 
-  useEffect(() => {
-    if(data){
-        setMyBooks(data.me.user.books)
-    }
-  }, [data])
-
-  if(myBooks){
+  if (data) {
+    const user = data.me.user;
+    console.log(user);
+    const myBooks = user.books?.map((book: any) => ({ book, image: book.edition.image })) || [];
+    console.log(myBooks);
     return(
       <div className="shadow sm:rounded-md sm:overflow-hidden px-5 py-8">
         <ul className="grid grid-cols-1 grid-rows-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 lg:grid-rows-1 mt-5">
@@ -46,7 +43,7 @@ MyBooks.getLayout = function getLayout(page: ReactElement) {
 
 export const getServerSideProps = async ({ locale }: any) => ({
   props: {
-    ...await serverSideTranslations(locale, ['common', 'nav']),
+    ...await serverSideTranslations(locale, localesList),
   },
 })
 

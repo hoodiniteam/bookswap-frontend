@@ -12,28 +12,28 @@ const GetBook = `
 query($id: String!){
   getBook(id: $id){
     book{
+      id
       description
-        id
-        image{
-          url
-        }
-        title
-        condition
+      title
+      condition
+      status
+      swaps{
         status
-        swaps{
-          status
-        }
-        creator{
-          id  
-          email
-        }
-        holder{
-          id  
-          email
-        }
-        expects{
-          email  
-        } 
+      }
+      creator{
+        id  
+        email
+      }
+      holder{
+        id  
+        email
+      }
+      expects{
+        email  
+      }
+      edition {
+        image
+      }
     }
   }
 }
@@ -135,7 +135,7 @@ const Book = () => {
   const [, addToMyWaitingList] = useMutation(AddBookInMyWaitingListMutation)
   const [, removeFromMyWaitingList] = useMutation(RemoveBookFromMyWaitingList)
   const [, initialSwap] = useMutation(InitialMySwapMutation)
-  const [book, setBook] = useState<BookData | null>(null)
+  const [book, setBook] = useState<any>(null)
   const [userId, setUserId] = useState(null)
   useEffect(() => {
     if (result.data) {
@@ -238,7 +238,7 @@ const Book = () => {
             <h2 className='text-center mt-8'>Creator: {book.creator.email}</h2>
           </div>
           <div className='col-span-1'>
-            <img src={book.image.url} alt={'image'}/>
+            <img src={book.edition?.image} alt={'image'}/>
           </div>
         </div>
         <div className='grid grid-cols-6 grid-rows-1 p-8'>

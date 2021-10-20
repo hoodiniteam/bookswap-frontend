@@ -15,13 +15,14 @@ import { useQueryWrapper } from '../../helpers/useQueryWrapper';
 import Head from 'next/head';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import { localesList } from '../../helpers/locales';
 const GetMe = `
 query{
   me{
     user{
       apartment
       bDay
-      city
+      city  
       country
       gender
       email
@@ -115,7 +116,7 @@ const Index = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const { t, i18n } = useTranslation(['common', 'nav']);
+    const { t } = useTranslation(localesList);
     useEffect(() => {
         if (data) {
             setUser(data.me.user);
@@ -168,10 +169,18 @@ const Index = () => {
                     <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                         <div>
                             <h3 className="text-lg leading-6 font-medium text-gray-900">
-                                {t('account', { ns: 'nav' })}
+                                {t('profile', { ns: 'nav' })}
                             </h3>
                         </div>
                         <div className="grid grid-cols-6 gap-6">
+                            <div className="col-span-6">
+                                <label
+                                    htmlFor="first-name"
+                                    className="block text-sm font-medium text-gray-700"
+                                >
+                                    {t('avatar')}
+                                </label>
+                            </div>
                             <div className="col-span-6 sm:col-span-3">
                                 <label
                                     htmlFor="first-name"
@@ -297,7 +306,7 @@ Index.getLayout = function getLayout(page: ReactElement) {
 
 export const getStaticProps = async ({ locale }: any) => ({
     props: {
-        ...(await serverSideTranslations(locale, ['nav', 'common'])),
+        ...(await serverSideTranslations(locale, localesList)),
     },
 });
 

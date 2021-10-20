@@ -26,5 +26,6 @@
   "GOOD": "Good",
   "SATISFACTORY": "Satisfactory",
   "BAD": "Bad",
-  "TERRIBLE": "Terrible"
+  "TERRIBLE": "Terrible",
+  "avatar": "Avatar"
 }

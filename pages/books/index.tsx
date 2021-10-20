@@ -1,22 +1,19 @@
-import React, {ChangeEvent, ReactElement, useEffect, useState} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import  {WithAuth} from "../../components/withAuth";
 import {useRouter} from "next/router";
 import Pagination from "../../components/pagination";
-import {SearchIcon} from "@heroicons/react/solid";
 import Layout from "../../components/layout";
 import BookWrapper from "../../components/book-wrapper";
-import { Book } from '../../types/Book'
-import { GetBooksQuery } from '../../graphql/GetBooksQuery'
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
-import Head from "next/head";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import { GetEditionsQuery } from "../../graphql/GetEditionsQuery";
+import { localesList } from "../../helpers/locales";
 
 const Index = () => {
-  const [searchTerm, setSearchTerm] = useState('');
   const [status, setStatus] = useState<string>('');
-  const [search, setSearch] = useState('');
+  const [search] = useState('');
   const [total, setTotal] = useState(0)
-  const [books, setBooks] = useState<Book[]>([]);
+  const [editions, setEditions] = useState<any[]>([]);
   const [booksPerPage] = useState(30);
   const [currentPage, setCurrentPage] = useState(1)
   const [offset, setOffset] = useState(0)
@@ -42,13 +39,13 @@ const Index = () => {
   }
 
   const [{data}] = useQueryWrapper({
-  query: GetBooksQuery,
+  query: GetEditionsQuery,
   variables: variables()
   })
   useEffect(() => {
     if(data){
-      setBooks(data.getBooks.books)
-        setTotal(data.getBooks.count)
+      setEditions(data.getEditions.editions)
+        setTotal(data.getEditions.count)
 
     }
   }, [data])
@@ -65,17 +62,6 @@ const Index = () => {
     }
   }
 
-  const onHandlerSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSearchTerm(e.target.value)
-      if(e.target.value.length >= 3){
-        setSearch(searchTerm)
-        setOffset(0)
-      }else{
-        setSearch('')
-        setOffset((currentPage - 1) * booksPerPage)
-      }
-  }
-
   useEffect(() => {
     router.push({query:{page: 1}})
   }, [])
@@ -88,44 +74,12 @@ const Index = () => {
     setOffset((currentPage - 1) * booksPerPage)
   }, [router.query, data, currentPage, booksPerPage])
 
-  const onHandlerSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-    if(!e.target.value){
-      router.push({
-        pathname: router.route,
-        query: {
-          page: 1,
-        }
-      }).then()
-    }else{
-      router.push({
-        pathname: router.route,
-        query: {
-          page: 1,
-          status: e.target.value,
-        }
-      }).then()
-    }
-  }
-
-  if(books !== null){
+  if(editions !== null){
       return (
         <>
-          <div className="col-span-2 flex flex-row-reverse">
-            <select name="status"
-                    value={status}
-                    className="block bg-white py-2 px-3 border border-gray-400 rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
-                    onChange={onHandlerSelect}
-            >
-              <option value=''>ALL</option>
-              <option value="SWAPPING">SWAPPING</option>
-              <option value="EXTRACTED">EXTRACTED</option>
-              <option value="HOLD">HOLD</option>
-              <option value="OPEN">OPEN</option>
-            </select>
-          </div>
-          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-5">
-            {books.map((book) => (
-              <BookWrapper key={book.id} book={book} />
+          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 mt-5">
+            {editions.map((edition) => (
+              <BookWrapper key={edition.id} book={edition} />
             ))}
           </ul>
           <Pagination
@@ -152,7 +106,7 @@ Index.getLayout = function getLayout(page: ReactElement) {
 }
 export const getStaticProps = async ({ locale }: any) => ({
   props: {
-    ...await serverSideTranslations(locale, ['common', 'nav']),
+    ...await serverSideTranslations(locale, localesList),
   },
 })
 export default Index;
