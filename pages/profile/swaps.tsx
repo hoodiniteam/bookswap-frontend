@@ -183,11 +183,9 @@ const Swaps = () => {
 
 Swaps.getLayout = function getLayout(page: ReactElement) {
   return (
-    <WithAuth>
       <Layout title={'Swaps'}>
         <SidebarForProfile>{page}</SidebarForProfile>
       </Layout>
-    </WithAuth>
   )
 }
 

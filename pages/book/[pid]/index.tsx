@@ -123,7 +123,7 @@ const Book = () => {
   const { edition } = data.getEdition;
   if (data) {
     return (
-      <>
+      <div className="space-y-5">
         <Head>
           <title>{edition.title}</title>
         </Head>
@@ -135,7 +135,7 @@ const Book = () => {
           >
             Edit
           </button>
-          : ''} 
+          : ''}
         */}
         {/* {
            book.swaps.length < 1 ?
@@ -147,66 +147,84 @@ const Book = () => {
               Initial swap
             </button> : <div className="px-5 inline-flex py-3 rounded-full mb-5 bg-gray-200 text-gray-500 font-bold">Added to swap</div>
         } */}
-        <div className='grid grid-cols-6 grid-rows-1 border p-10'>
+        <div className='grid gap-6 grid-cols-5 grid-rows-1 border p-10'>
           <div className='col-span-1'>
             <img src={edition.image} alt={edition.title}/>
           </div>
           <div className='col-span-5'>
             <h1 className='text-2xl'>{edition.title}</h1>
+            <p>{edition.views}</p>
             <p className="mt-2 text-sm">{edition.description}</p>
             {/* <h2 className='text-center mt-8'>Creator: {book.creator.email}</h2> */}
           </div>
-        </div>
-        <div className="bg-white shadow overflow-hidden sm:rounded-md">
-          <ul role="list" className="divide-y divide-gray-200">
+          <div className="col-span-6">
             {
-              edition.books.map((book: any) => (
-                <li key={book.id}>
-                  <div className="block hover:bg-gray-50">
-                    <div className="px-6 py-4">
-                      <div className="flex items-center justify-between">
-                        <p className="text-sm font-medium text-indigo-600 truncate">
-                          { book.holder.email }
-                        </p>
-                        <div className="ml-2 flex-shrink-0 flex items-center">
-                          <p className="flex items-center text-sm text-gray-500 mr-2">                           
-                            <ClipboardListIcon className="w-6 h-6" />
-                            { t(book.condition) }
-                          </p>
-                          <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                            { book.status }
-                          </p>
-                        </div>
-                      </div>
-                      <div className="text-sm italic mt-2">{book.description}</div>
-                      {
-                        (
-                          <div className="flex justify-end">
-                            <button
-                              type='button'
-                              className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                              onClick={removeBookFromList}
-                            >
-                              Remove from waiting list
-                            </button>
-                            <button
-                              type='button'
-                              className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                              onClick={addBookToList}
-                            >
-                              Add to my waiting list
-                              </button>
-                          </div>
-                        )
-                      }
-                    </div>
+              (
+                  <div className="flex justify-end">
+                    <button
+                        type='button'
+                        className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                        onClick={removeBookFromList}
+                    >
+                      Remove from waiting list
+                    </button>
+                    <button
+                        type='button'
+                        className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                        onClick={addBookToList}
+                    >
+                      Add to my waiting list
+                    </button>
                   </div>
-                </li>
-              ))
+              )
             }
-          </ul>
+          </div>
         </div>
-      </>
+        <div>
+          <div className="px-4">
+            <p className="text-lg font-medium">Книги</p>
+            {
+              edition.books.length === 0
+              &&
+              <div>
+                <p>Пока здесь нет доступных книг.</p>
+                <p>Добавьтесь в список ожидания и тогда книга быстрее появится на сервисе.</p>
+              </div>
+            }
+          </div>
+          <div className="bg-white shadow mt-2 overflow-hidden sm:rounded-md">
+            <ul role="list" className="divide-y divide-gray-200">
+              {
+                edition.books.map((book: any) => (
+                  <li key={book.id}>
+                    <div className="block hover:bg-gray-50">
+                      <div className="px-6 py-4">
+                        <div className="flex items-center justify-between">
+                          <p className="text-sm font-medium text-indigo-600 truncate">
+                            Держатель: { book.holder.email }
+                          </p>
+                          <div className="ml-2 flex-shrink-0 flex items-center">
+                            <p className="flex items-center text-sm text-gray-500 mr-2">
+                              <ClipboardListIcon className="w-6 h-6" />
+                              { t(book.condition) }
+                            </p>
+                            <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                              { book.status }
+                            </p>
+                          </div>
+                        </div>
+                        {
+                          book.description && <div className="text-sm italic mt-2">{book.description}</div>
+                        }
+                      </div>
+                    </div>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
     )
   }
   return null
@@ -214,11 +232,9 @@ const Book = () => {
 
 Book.getLayout = function getLayout(page: ReactElement) {
   return (
-    <WithAuth>
-      <Layout>
-        {page}
-      </Layout>
-    </WithAuth>
+    <Layout>
+      {page}
+    </Layout>
   )
 }
 

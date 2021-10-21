@@ -296,11 +296,9 @@ const Index = () => {
 };
 Index.getLayout = function getLayout(page: ReactElement) {
     return (
-        <WithAuth>
-            <Layout>
-                <SidebarForProfile>{page}</SidebarForProfile>
-            </Layout>
-        </WithAuth>
+        <Layout>
+            <SidebarForProfile>{page}</SidebarForProfile>
+        </Layout>
     );
 };
 

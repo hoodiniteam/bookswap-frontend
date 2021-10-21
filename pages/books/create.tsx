@@ -1,7 +1,6 @@
 import React, { ChangeEvent, ReactElement, useRef, useState } from 'react';
 import { useClient, useMutation } from 'urql';
 import { useRouter } from 'next/router';
-import { WithAuth } from '../../components/withAuth';
 import { useForm } from 'react-hook-form';
 import Layout from '../../components/layout';
 import { useTranslation } from 'next-i18next';
@@ -208,7 +207,7 @@ const Create = () => {
                                                 key={contition}
                                                 value={contition}
                                             >
-                                                {t(contition)}
+                                                {t(String(contition))}
                                             </option>
                                         ))}
                                     </select>
@@ -231,9 +230,7 @@ const Create = () => {
 };
 Create.getLayout = function getLayout(page: ReactElement) {
     return (
-        <WithAuth>
-            <Layout title={'Create book'}>{page}</Layout>
-        </WithAuth>
+        <Layout title={'Create book'}>{page}</Layout>
     );
 };
 

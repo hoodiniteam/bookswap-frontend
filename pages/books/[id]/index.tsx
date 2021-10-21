@@ -260,11 +260,9 @@ const Book = () => {
 
 Book.getLayout = function getLayout(page: ReactElement) {
   return (
-    <WithAuth>
       <Layout>
         {page}
       </Layout>
-    </WithAuth>
   )
 }
 

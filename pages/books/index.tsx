@@ -39,9 +39,10 @@ const Index = () => {
   }
 
   const [{data}] = useQueryWrapper({
-  query: GetEditionsQuery,
-  variables: variables()
+      query: GetEditionsQuery,
+      variables: variables()
   })
+
   useEffect(() => {
     if(data){
       setEditions(data.getEditions.editions)
@@ -49,6 +50,7 @@ const Index = () => {
 
     }
   }, [data])
+
   const paginate = (page: number | string) => {
     let current = currentPage;
     if(page === 'previous' && currentPage > 1){
@@ -97,11 +99,9 @@ const Index = () => {
 
 Index.getLayout = function getLayout(page: ReactElement) {
   return (
-      <WithAuth>
-        <Layout title={'Books'}>
+      <Layout title={'Books'}>
           {page}
-        </Layout>
-      </WithAuth>
+      </Layout>
   )
 }
 export const getStaticProps = async ({ locale }: any) => ({

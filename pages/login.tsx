@@ -2,6 +2,7 @@ import React, { FormEvent, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useMutation } from 'urql'
 import Link from 'next/link'
+import Cookies from 'js-cookie';
 const LoginMutation = `
   mutation($email: String!, $password: String!){
     login(options:{email:$email, password:$password}){
@@ -53,8 +54,8 @@ const Login = () => {
                 const token = res.data?.login.credentials?.token
                 const refreshToken = res.data?.login.credentials?.refreshToken
                 if (token && refreshToken) {
-                    localStorage.setItem('token', token)
-                    localStorage.setItem('refreshToken', refreshToken)
+                    Cookies.set('token', token);
+                    Cookies.set('refreshToken', refreshToken);
                     setErrMessage('')
                     setErrField('')
                     router.push('/home').then()
@@ -226,26 +227,6 @@ const Login = () => {
                                         ''
                                     )}
                                 </div>
-
-                                {/* <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <input
-                          id="remember-me"
-                          name="remember-me"
-                          type="checkbox"
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                      />
-                      <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                        Remember me
-                      </label>
-                    </div>
-
-                    <div className="text-sm">
-                      <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                        Forgot your password?
-                      </a>
-                    </div>
-                  </div> */}
 
                                 <div>
                                     <button

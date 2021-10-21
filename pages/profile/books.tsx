@@ -1,5 +1,4 @@
 import React, {ReactElement} from 'react';
-import { WithAuth } from '../../components/withAuth'
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import Layout from "../../components/layout";
 import BookWrapper from "../../components/book-wrapper";
@@ -21,7 +20,7 @@ const MyBooks = () => {
     return(
       <div className="shadow sm:rounded-md sm:overflow-hidden px-5 py-8">
         <ul className="grid grid-cols-1 grid-rows-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 lg:grid-rows-1 mt-5">
-          {myBooks.map((book) => {
+          {myBooks.map((book: any) => {
             return <BookWrapper key={book.id} book={book} />
           })}
         </ul>
@@ -33,11 +32,9 @@ const MyBooks = () => {
 
 MyBooks.getLayout = function getLayout(page: ReactElement) {
   return (
-      <WithAuth>
-        <Layout title={MyBooks.name}>
+      <Layout title={MyBooks.name}>
           <SidebarForProfile>{page}</SidebarForProfile>
-        </Layout>
-      </WithAuth>
+      </Layout>
   )
 }
 

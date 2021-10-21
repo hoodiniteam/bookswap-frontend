@@ -8,7 +8,7 @@ export const WithAuth = ({
 }): null | JSX.Element => {
     const Router = useRouter()
     const accessToken = useRef<string | null>(null)
-    console.log(accessToken)
+    console.log("accessToken", accessToken);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {

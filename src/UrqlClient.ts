@@ -20,4 +20,4 @@ const client = createClient({
   },
 });
 
-export { client};
+export { client };

@@ -12,9 +12,12 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import LogOut from '../helpers/LogOut';
 import { useRouter } from 'next/router';
-import { useQuery } from 'urql';
+import {useClient, useMutation, useQuery} from 'urql';
 import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
+import {GetEditionsQuery} from "../graphql/GetEditionsQuery";
+import {CreateBookMutation} from "../graphql/CreateBookMutation";
+import {CreateEmptyEditionMutation} from "../graphql/CreateEmptyEditionMutation";
 
 function classNames(...classes: any) {
     return classes.filter(Boolean).join(' ');
@@ -42,31 +45,23 @@ type Book = {
 };
 const Layout = ({ children, title }: LayoutProps) => {
     const router = useRouter();
-    const [show, setShow] = useState(false);
-    const [search, setSearch] = useState('');
+    const [searchString, setSearchString] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
-    const [books, setBooks] = useState<Book[]>([]);
+    const [books, setBooks] = useState<any[]>([]);
     const [navigation, setNavigation] = useState([
         { title: 'books', href: '/books', current: false },
     ]);
     const myRef = useRef();
+    const [, createEdition] = useMutation(CreateEmptyEditionMutation);
+
+    const client = useClient();
+    const timer = useRef<any>();
+
     const { t, i18n } = useTranslation('nav');
+
     const langs: { [key: string]: any } = {
         en: { nativeName: 'English' },
         ru: { nativeName: 'Русский' },
-    };
-
-    const [booksData] = useQuery({
-        query: Books,
-        variables: {
-            search: search,
-            limit: 5,
-        },
-    });
-
-    const onFocus = () => {
-        setBooks(booksData.data.getBooks.books);
-        setShow(true);
     };
 
     useEffect(() => {
@@ -77,13 +72,25 @@ const Layout = ({ children, title }: LayoutProps) => {
             if (myRef && myRef.current) {
                 const ref: any = myRef.current;
                 if (!ref.contains(e.target)) {
-                    setShow(false);
+                    setSearchString('');
+                    setBooks([]);
                 }
             }
         }
     }, []);
 
-    const booksToShow = books.slice(0, 5);
+    const createEmptyAndGo = (edition: any) => {
+        createEdition({
+            title: edition.title || '',
+            description: edition.description || '',
+            image: edition.image || '',
+        }).then((res) => {
+            router.push(`/book/${res.data.createEmptyEdition.edition.id}`).then(() => {
+                setSearchString('');
+                setBooks([])
+            });
+        })
+    };
 
     useEffect(() => {
         const newArr = [...navigation];
@@ -97,20 +104,38 @@ const Layout = ({ children, title }: LayoutProps) => {
         });
     }, [router.asPath]);
 
-    const onHandlerSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(e.target.value);
-        if (searchTerm.length >= 3) {
-            setSearch(e.target.value);
-            setShow(true);
-        } else {
-            setSearch('');
-            setShow(false);
+    const inputSearchHandler = (e: any) => {
+        const search = e.target.value;
+        setSearchString(search);
+        if (search.length > 3) {
+            clearTimeout(timer.current);
+            timer.current = setTimeout(() => {
+                console.log('called - ', search);
+                client
+                    .query(GetEditionsQuery, {
+                        search: search,
+                    })
+                    .toPromise()
+                    .then((res) => {
+                        const result = res.data?.getEditions?.editions;
+                        if (result) {
+                            const editions = result.map((edition: any) => ({
+                                title: edition.title,
+                                image: edition?.image,
+                                description: edition?.description,
+                                id: edition?.id,
+                                virtual: edition?.virtual,
+                            }));
+                            console.log(editions);
+                            setBooks(editions || []);
+                        }
+                    })
+                    .catch(() => {
+                        setBooks([]);
+                    });
+            }, 800);
         }
-    };
-
-    useEffect(() => {
-        console.log(booksData.data);
-    }, [search, booksData]);
+    }
 
     const profile = [
         { title: 'profile', href: '/profile' },
@@ -163,21 +188,12 @@ const Layout = ({ children, title }: LayoutProps) => {
                                             </div>
                                         </div>
                                         <div className="flex-1 px-2 flex justify-center lg:ml-6 lg:justify-end">
-                                            <button
-                                                onClick={() =>
-                                                    router.push('/books/create')
-                                                }
-                                                type="button"
-                                                className="inline-flex items-center px-4 py-1.5 mr-5 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                            >
-                                                {t('create')}
-                                            </button>
-                                            <div className="max-w-lg w-full lg:max-w-xs">
+                                            <div className="w-full">
                                                 <label
                                                     htmlFor="search"
                                                     className="sr-only"
                                                 >
-                                                    Search
+                                                    {t('book-search')}
                                                 </label>
                                                 <div
                                                     ref={myRef as any}
@@ -190,48 +206,53 @@ const Layout = ({ children, title }: LayoutProps) => {
                                                         />
                                                     </div>
                                                     <input
-                                                        onFocus={onFocus}
-                                                        onChange={
-                                                            onHandlerSearch
-                                                        }
                                                         className="layout-search-input block w-full bg-white py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
-                                                        placeholder="Search"
+                                                        placeholder={t('book-search')}
                                                         type="search"
+                                                        value={searchString}
+                                                        onInput={inputSearchHandler}
                                                     />
-                                                    {show ? (
-                                                        <div className="dropDown bg-white absolute w-full shadow-md top-10 z-20 flex flex-col border rounded-md p-4">
-                                                            {booksToShow.map(
+                                                    {books.length > 0 && (
+                                                        <div style={{maxHeight: 250}} className="dropDown overflow-auto bg-white absolute w-full shadow-md top-11 z-20 flex flex-col border rounded-md p-4">
+                                                            {books.map(
                                                                 (
-                                                                    book,
+                                                                    edition,
                                                                     index
-                                                                ) => {
-                                                                    return (
-                                                                        <Link
-                                                                            href={`/books/${book.id}`}
-                                                                            key={
-                                                                                index +
-                                                                                1
-                                                                            }
-                                                                        >
-                                                                            <a
-                                                                                onClick={() =>
-                                                                                    setShow(
-                                                                                        false
-                                                                                    )
-                                                                                }
-                                                                                className="cursor-pointer"
-                                                                            >
-                                                                                {
-                                                                                    book.title
-                                                                                }
-                                                                            </a>
-                                                                        </Link>
-                                                                    );
-                                                                }
+                                                                ) => (
+                                                                    <>
+                                                                        {
+                                                                            edition.virtual ? (
+                                                                                <div onClick={() => createEmptyAndGo(edition)} key={edition.id} className="flex bg-white hover:bg-gray-100 py-1 cursor-pointer items-center border-b">
+                                                                                    <div className="mr-2 bg-gray-100">
+                                                                                        <div className="w-10">
+                                                                                            <img
+                                                                                                className="h-12 w-10 object-contain"
+                                                                                                src={edition?.image}
+                                                                                            />
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    {edition.title}
+                                                                                </div>
+                                                                            ) : (
+                                                                                <Link href={`/books/${edition.id}`} key={edition.id}>
+                                                                                    <a className="flex bg-white hover:bg-gray-100 py-1 cursor-pointer items-center border-b">
+                                                                                        <div className="mr-2 bg-gray-100">
+                                                                                            <div className="w-10">
+                                                                                                <img
+                                                                                                    className="h-12 w-10 object-contain"
+                                                                                                    src={edition?.image}
+                                                                                                />
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        {edition.title}
+                                                                                    </a>
+                                                                                </Link>
+                                                                            )
+                                                                        }
+                                                                    </>
+                                                                )
                                                             )}
                                                         </div>
-                                                    ) : (
-                                                        ''
                                                     )}
                                                 </div>
                                             </div>
@@ -356,6 +377,17 @@ const Layout = ({ children, title }: LayoutProps) => {
                                                 </Menu>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div className="py-4 flex justify-end">
+                                        <button
+                                            onClick={() =>
+                                                router.push('/books/create')
+                                            }
+                                            type="button"
+                                            className="inline-flex items-center px-4 py-1.5 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                        >
+                                            {t('create')}
+                                        </button>
                                     </div>
                                 </div>
 
