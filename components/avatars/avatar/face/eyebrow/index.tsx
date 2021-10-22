@@ -12,7 +12,8 @@ import SadConcernedNatural from './SadConcernedNatural'
 import UnibrowNatural from './UnibrowNatural'
 import UpDown from './UpDown'
 import UpDownNatural from './UpDownNatural'
-import { EyebrowOption, Selector } from '../../../options'
+import { EyebrowOption } from '../../../options'
+import { Selector } from "../../../options/Selector";
 
 export default class Eyebrow extends React.Component {
   render () {

@@ -1,6 +1,7 @@
 import * as React from 'react'
 
-import { FacialHairColor, Selector } from '../../../options'
+import { FacialHairColor } from '../../../options'
+import {Selector} from "../../../options/Selector";
 
 export interface Props {
   maskID: string

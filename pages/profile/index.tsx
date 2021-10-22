@@ -5,17 +5,19 @@ import React, {
     useEffect,
     useState,
 } from 'react';
-import { useMutation, useQuery } from 'urql';
-import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
-import { WithAuth } from '../../components/withAuth';
+import {useMutation, useQuery} from 'urql';
+import {useForm} from 'react-hook-form';
+import {useRouter} from 'next/router';
+import {WithAuth} from '../../components/withAuth';
 import SidebarForProfile from '../../components/sidebar-for-profile';
 import Layout from '../../components/layout';
-import { useQueryWrapper } from '../../helpers/useQueryWrapper';
+import {useQueryWrapper} from '../../helpers/useQueryWrapper';
 import Head from 'next/head';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
-import { localesList } from '../../helpers/locales';
+import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
+import {useTranslation} from 'next-i18next';
+import {localesList} from '../../helpers/locales';
+import {AvatarComponent} from "../../components/avatars";
+
 const GetMe = `
 query{
   me{
@@ -104,7 +106,7 @@ type UserData = {
 };
 
 const Index = () => {
-    const [{ data, error, fetching }] = useQueryWrapper({
+    const [{data, error, fetching}] = useQueryWrapper({
         query: GetMe,
     });
     const [, updateUser] = useMutation(UpdateUserMutation);
@@ -114,9 +116,9 @@ const Index = () => {
         register,
         clearErrors,
         handleSubmit,
-        formState: { errors },
+        formState: {errors},
     } = useForm();
-    const { t } = useTranslation(localesList);
+    const {t} = useTranslation(localesList);
     useEffect(() => {
         if (data) {
             setUser(data.me.user);
@@ -151,9 +153,9 @@ const Index = () => {
     const onChangeHandler = (
         e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
     ) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         if (user) {
-            setUser({ ...user, [name]: value });
+            setUser({...user, [name]: value});
         }
         clearErrors(name);
     };
@@ -169,7 +171,7 @@ const Index = () => {
                     <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                         <div>
                             <h3 className="text-lg leading-6 font-medium text-gray-900">
-                                {t('profile', { ns: 'nav' })}
+                                {t('profile', {ns: 'nav'})}
                             </h3>
                         </div>
                         <div className="grid grid-cols-6 gap-6">
@@ -180,6 +182,9 @@ const Index = () => {
                                 >
                                     {t('avatar')}
                                 </label>
+                                <AvatarComponent
+                                    avatarStyle='Circle'
+                                />
                             </div>
                             <div className="col-span-6 sm:col-span-3">
                                 <label
@@ -244,7 +249,7 @@ const Index = () => {
                                     {t('email')}
                                 </label>
                                 <input
-                                    {...register('email', { required: true })}
+                                    {...register('email', {required: true})}
                                     onChange={onChangeHandler}
                                     value={user.email || ''}
                                     type="email"
@@ -302,7 +307,7 @@ Index.getLayout = function getLayout(page: ReactElement) {
     );
 };
 
-export const getStaticProps = async ({ locale }: any) => ({
+export const getStaticProps = async ({locale}: any) => ({
     props: {
         ...(await serverSideTranslations(locale, localesList)),
     },

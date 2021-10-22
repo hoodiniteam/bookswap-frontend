@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { uniqueId } from 'lodash'
 
-import { GraphicOption, Selector } from '../../options'
+import { GraphicOption } from '../../options'
+import {Selector} from "../../options/Selector";
 
 export interface Props {
   maskID: string

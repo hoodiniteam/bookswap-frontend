@@ -1,13 +1,11 @@
-import * as PropTypes from 'prop-types'
 import * as React from 'react'
 
-import Avatar, { AvatarStyle } from './avatar'
-import { OptionContext, allOptions } from './options'
+import {Avatar, AvatarStyle} from './avatar'
+import { allOptions } from './options'
 
-export { default as Avatar, AvatarStyle } from './avatar'
-export { Option, OptionContext, allOptions } from './options'
-
-import {default as PieceComponent} from './avatar/piece';
+import {useContext, useEffect} from "react";
+import OptionContext from "./options/OptionContext";
+import { sample } from 'lodash';
 
 export interface Props {
   avatarStyle: string
@@ -29,31 +27,17 @@ export interface Props {
   pieceSize?:string
   viewBox?:string
 }
+export const MyOptionContext = React.createContext(new OptionContext(allOptions));
 
-export default class AvatarComponent extends React.Component<Props> {
-  static childContextTypes = {
-    optionContext: PropTypes.instanceOf(OptionContext)
-  }
-  private optionContext: OptionContext = new OptionContext(allOptions)
+export const AvatarComponent = (props: Props) => {
+  const { avatarStyle, style, className } = props;
+  const context = useContext(MyOptionContext);
 
-  getChildContext () {
-    return { optionContext: this.optionContext }
-  }
-
-  UNSAFE_componentWillMount () {
-    this.updateOptionContext(this.props)
+  const getContext = () => {
+    return { context }
   }
 
-  UNSAFE_componentWillReceiveProps (nextProps: Props) {
-    this.updateOptionContext(nextProps)
-  }
-
-  render () {
-    const { avatarStyle, style, className } = this.props
-    return <Avatar avatarStyle={avatarStyle as AvatarStyle} style={style} className={className} />
-  }
-
-  private updateOptionContext (props: Props) {
+  const updateOptionContext = (props: any) => {
     const data: { [index: string]: string } = {}
     for (const option of allOptions) {
       const value = props[option.key]
@@ -62,42 +46,49 @@ export default class AvatarComponent extends React.Component<Props> {
       }
       data[option.key] = value
     }
-    this.optionContext.setData(data)
-  }
-}
-
-export class Piece extends React.Component<Props> {
-  static childContextTypes = {
-    optionContext: PropTypes.instanceOf(OptionContext)
-  }
-  private optionContext: OptionContext = new OptionContext(allOptions)
-
-  getChildContext () {
-    return { optionContext: this.optionContext }
+    context.setData(data);
   }
 
-  UNSAFE_componentWillMount () {
-    this.updateOptionContext(this.props)
-  }
+  const onRandom = () => {
+    let values: { [index: string]: string } = {
+      avatarStyle,
+    }
 
-  UNSAFE_componentWillReceiveProps (nextProps: Props) {
-    this.updateOptionContext(nextProps)
-  }
-
-  render () {
-    const { avatarStyle, style, pieceType, pieceSize, viewBox } = this.props
-    return <PieceComponent avatarStyle={avatarStyle as AvatarStyle} style={style} pieceType={pieceType} pieceSize={pieceSize} viewBox={viewBox}/>
-  }
-
-  private updateOptionContext (props: Props) {
-    const data: { [index: string]: string } = {}
-    for (const option of allOptions) {
-      const value = props[option.key]
-      if (!value) {
+    for (const option of context.options) {
+      if (option.key in values) {
         continue
       }
-      data[option.key] = value
+      const optionState = context.getOptionState(option.key)!
+      // Notice, when the app just launch and we didn't explore too much
+      // options, some of these nested option is not added by the selector
+      // yet, so we won't be able to select value for them. But as they
+      // keep tapping random button, soon or later we will get all the
+      // options. So it should be fine. Ideally we should find a better
+      // way to collect all the options, but that's okay to just do it this
+      // way for now.
+      if (!optionState.options.length) {
+        continue
+      }
+      values[option.key] = sample(optionState.options)!
     }
-    this.optionContext.setData(data)
+    context.setData(values);
   }
+
+  useEffect(() => {
+    updateOptionContext(props);
+    onRandom();
+  }, [props])
+
+  return (
+      <div>
+        <Avatar avatarStyle={avatarStyle as AvatarStyle} style={style} className={className} />
+        <button
+            type="button"
+            onClick={onRandom}
+            className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Random
+        </button>
+      </div>
+  )
 }

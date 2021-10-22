@@ -1,6 +1,7 @@
 import * as React from 'react'
 
-import { Selector, SkinOption } from '../options'
+import { SkinOption } from '../options'
+import { Selector } from "../options/Selector";
 
 export interface Props {
   maskID: string

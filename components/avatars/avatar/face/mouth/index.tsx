@@ -12,7 +12,8 @@ import Smile from './Smile'
 import Tongue from './Tongue'
 import Twinkle from './Twinkle'
 import Vomit from './Vomit'
-import { MouthOption, Selector } from '../../../options'
+import { MouthOption } from '../../../options'
+import {Selector} from "../../../options/Selector";
 
 export default class Mouth extends React.Component {
   render () {

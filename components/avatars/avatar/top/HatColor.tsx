@@ -1,6 +1,7 @@
 import * as React from 'react'
 
-import { HatColorOption, Selector } from '../../options'
+import { HatColorOption } from '../../options'
+import {Selector} from "../../options/Selector";
 
 export interface Props {
   maskID: string
