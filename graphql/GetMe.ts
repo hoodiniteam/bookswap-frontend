@@ -3,10 +3,10 @@ export const GetMe = `
     me{
       user{
         id
+        email
         waiting{
           title
           id
-          status
         }
         books{
           id

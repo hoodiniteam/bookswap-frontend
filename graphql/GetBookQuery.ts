@@ -1,29 +1,9 @@
+import {fragmentBook} from "./fragmentBook";
+
 export const GetBook = `
-  query($id:String!){
-    getBook(id:$id){
-      book{
-        title
-        description
-        image{
-          url
-        }
-        id
-        condition
-        status
-        creator{
-          email
-          id
-          firstName 
-        }
-        holder{
-          email
-          id
-          firstName
-        }
-        expects{
-          email
-        }
-      }
+  query($id: String!){
+    getBook(id: $id){
+      ${fragmentBook}
     }
   }
-  `
+`

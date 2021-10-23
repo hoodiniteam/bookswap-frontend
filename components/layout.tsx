@@ -57,7 +57,7 @@ const Layout = ({ children, title }: LayoutProps) => {
     const client = useClient();
     const timer = useRef<any>();
 
-    const { t, i18n } = useTranslation('nav');
+    const { t, i18n } = useTranslation(['nav', 'common']);
 
     const langs: { [key: string]: any } = {
         en: { nativeName: 'English' },
@@ -193,7 +193,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                                                     htmlFor="search"
                                                     className="sr-only"
                                                 >
-                                                    {t('book-search')}
+                                                    {t('book-search', {ns: 'common'})}
                                                 </label>
                                                 <div
                                                     ref={myRef as any}
@@ -207,7 +207,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                                                     </div>
                                                     <input
                                                         className="layout-search-input block w-full bg-white py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
-                                                        placeholder={t('book-search')}
+                                                        placeholder={t('book-search', {ns: 'common'})}
                                                         type="search"
                                                         value={searchString}
                                                         onInput={inputSearchHandler}
@@ -469,7 +469,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                             {children}
                         </div>
                     </div>
-                    <div className="absolute bottom-0 right-0 p-2">
+                    {/* <div className="absolute bottom-0 right-0 p-2">
                         <span className="relative z-0 inline-flex shadow-sm overflow-hidden rounded-md border">
                             {Object.keys(langs).map((lng) => (
                                 <Link
@@ -495,7 +495,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                                 </Link>
                             ))}
                         </span>
-                    </div>
+                    </div> */}
                 </main>
             </div>
         </>

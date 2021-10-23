@@ -17,6 +17,7 @@ const Create = () => {
     const timer = useRef<any>();
 
     const [book, setBook] = useState({
+        editionId: '',
         title: '',
         description: '',
         image: '',
@@ -33,9 +34,11 @@ const Create = () => {
     const [, createBook] = useMutation(CreateBookMutation);
     const router = useRouter();
     const { t } = useTranslation('common');
+
     const submit = handleSubmit((data, event) => {
         event?.preventDefault();
         if (book) {
+            console.log('book', book);
             createBook(book).then((res) => {
                 console.log(res);
                 router.push(`/books/${res.data.createBook.book.id}`).then();
@@ -64,6 +67,7 @@ const Create = () => {
                     if (result) {
                         const editions = result.map((edition: any) => ({
                             value: {
+                                editionId: !edition.virtual ? edition.id : null,
                                 title: edition.title,
                                 image: edition?.image,
                                 description: edition?.description,
@@ -100,6 +104,7 @@ const Create = () => {
         }>;
     }) => {
         if (newValue.value) {
+            console.log(newValue.value);
             setBook({
                 ...book,
                 title: newValue.value.title,
@@ -173,11 +178,11 @@ const Create = () => {
                                     htmlFor="userDescription"
                                     className="block text-sm font-medium text-gray-700"
                                 >
-                                    {t('description')}
+                                    {t('userDescription')}
                                 </label>
                                 <div className="mt-1">
                                     <textarea
-                                        {...register('description')}
+                                        {...register('userDescription')}
                                         onChange={onChangeHandler}
                                         id="userDescription"
                                         name="userDescription"
