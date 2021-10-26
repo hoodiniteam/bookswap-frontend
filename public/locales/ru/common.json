@@ -28,5 +28,10 @@
   "BAD": "Плохое",
   "TERRIBLE": "Ужасное",
   "avatar": "Аватар",
-  "book-search": "Поиск книги"
+  "book-search": "Поиск книги",
+  "user-description": "Описание",
+  "sender": "Отправитель",
+  "recipient": "Получатель",
+  "status": "Статус",
+  "edit": "Изменить"
 }

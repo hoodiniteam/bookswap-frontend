@@ -166,6 +166,7 @@ const Create = () => {
                                 </label>
                                 <div className="mt-1 rounded-md shadow-sm">
                                     <AsyncSelect
+                                        placeholder={t('book-search')}
                                         loadOptions={loadOptions}
                                         onChange={handleSelectChange as any}
                                     />
@@ -186,7 +187,7 @@ const Create = () => {
                                     htmlFor="userDescription"
                                     className="block text-sm font-medium text-gray-700"
                                 >
-                                    {t('userDescription')}
+                                    {t('user-description')}
                                 </label>
                                 <div className="mt-1">
                                     <textarea

@@ -28,5 +28,10 @@
   "BAD": "Bad",
   "TERRIBLE": "Terrible",
   "avatar": "Avatar",
-  "book-search": "Book search"
+  "book-search": "Book search",
+  "user-description": "User description",
+  "sender": "Sender",
+  "recipient": "Recipient",
+  "status": "Статус",
+  "edit": "Edit"
 }

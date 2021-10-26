@@ -1,8 +1,10 @@
 import React, {ReactElement, useEffect, useState} from 'react';
-import {WithAuth} from "../../components/withAuth";
 import Layout from "../../components/layout";
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { localesList } from '../../helpers/locales';
 
 const GetSwapsQuery = `
 query{
@@ -88,16 +90,16 @@ const Swaps = () => {
   const [{data}] = useQueryWrapper({
     query: GetSwapsQuery
   })
-
+  const { t, i18n } = useTranslation("common");
   useEffect(() => {
     console.log(data)
   }, [data])
 
   return (
     <div className="flex flex-col">
-      <div className="-my-2 overflow-x-hidden sm:-mx-6 lg:-mx-8">
+      <div className="-my-2 overflow-x-hidden sm:-mx-6 ">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-          <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <div className="overflow-hidden">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
               <tr>
@@ -105,25 +107,25 @@ const Swaps = () => {
                   scope="col"
                   className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Sender
+                  {t('sender')}
                 </th>
                 <th
                   scope="col"
                   className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Recipient
+                  {t('recipient')}
                 </th>
                 <th
                   scope="col"
                   className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Title
+                  {t('title')}
                 </th>
                 <th
                   scope="col"
                   className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Status
+                  {t('status')}
                 </th>
                 <th scope="col" className="relative px-6 py-3">
                   <span className="sr-only">Edit</span>
@@ -167,7 +169,7 @@ const Swaps = () => {
                   </td>
                   <td className="pl-4 pr-8 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <a href="#" className="text-main-600 hover:text-main-900">
-                      Edit
+                      {t('edit')}
                     </a>
                   </td>
                 </tr>
@@ -188,5 +190,11 @@ Swaps.getLayout = function getLayout(page: ReactElement) {
       </Layout>
   )
 }
+
+export const getStaticProps = async ({ locale }: any) => ({
+  props: {
+    ...await serverSideTranslations(locale, localesList),
+  },
+})
 
 export default Swaps;
