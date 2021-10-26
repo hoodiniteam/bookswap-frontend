@@ -1,4 +1,5 @@
 import {createClient} from 'urql';
+import Cookies from "js-cookie";
 
 const isServerSide = typeof window === 'undefined';
 
@@ -8,7 +9,7 @@ const client = createClient({
   url: 'http://localhost:4000/graphql',
   fetchOptions: () => {
     if (!isServerSide){
-      const token = localStorage.getItem('token');
+      const token = Cookies.get('token');
       return {
         headers: { authorization: token ? `Bearer ${token}` : '' },
       };
