@@ -20,6 +20,8 @@ export const fragmentBook = `
           image
           title
           description
+          isbn_10
+          isbn_13
         }
     }
 `

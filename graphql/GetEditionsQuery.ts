@@ -8,6 +8,8 @@ query($search: String, $offset: Float, $limit: Float,){
       id
       image
       virtual
+      isbn_13
+      isbn_10
     }
   }
 }

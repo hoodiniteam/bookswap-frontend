@@ -16,12 +16,14 @@ const Create = () => {
     const client = useClient();
     const timer = useRef<any>();
 
-    const [book, setBook] = useState({
+    const [book, setBook] = useState<any>({
         editionId: '',
         title: '',
         description: '',
         image: '',
         userDescription: '',
+        isbn_13: null,
+        isbn_10: null,
         condition: 'LIKENEW',
     });
 
@@ -71,6 +73,8 @@ const Create = () => {
                                 title: edition.title,
                                 image: edition?.image,
                                 description: edition?.description,
+                                isbn_13: edition.isbn_13,
+                                isbn_10: edition.isbn_10,
                             },
                             label: (
                                 <div className="flex h-24 items-center border-b">
@@ -101,6 +105,8 @@ const Create = () => {
             title: string;
             image?: string;
             description?: string;
+            isbn_13?: string | null;
+            isbn_10?: string | null;
         }>;
     }) => {
         if (newValue.value) {
@@ -110,6 +116,8 @@ const Create = () => {
                 title: newValue.value.title,
                 description: newValue.value.description || '',
                 image: newValue.value.image || '',
+                isbn_13: newValue.value.isbn_13,
+                isbn_10: newValue.value.isbn_10,
             });
         } else {
             setBook({ ...book, title: '', description: '', image: '' });
