@@ -203,7 +203,7 @@ const Index = () => {
                                     name="firstName"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm"
                                 />
                                 {errors.firstName ? (
                                     <span className="text-red-500 text-xs">
@@ -231,7 +231,7 @@ const Index = () => {
                                     name="lastName"
                                     id="last-name"
                                     autoComplete="family-name"
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm"
                                 />
                                 {errors.lastName ? (
                                     <span className="text-red-500 text-xs">
@@ -256,7 +256,7 @@ const Index = () => {
                                     name="email"
                                     id="email-address"
                                     autoComplete="email"
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm"
                                 />
                                 {errors.email ? (
                                     <span className="text-red-500 text-xs">
@@ -280,7 +280,7 @@ const Index = () => {
                                     type="date"
                                     name="bDay"
                                     id="bDay"
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm"
                                 />
                             </div>
                         </div>
@@ -288,7 +288,7 @@ const Index = () => {
                     <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                         <button
                             type="submit"
-                            className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="bg-main-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500"
                         >
                             {t('save')}
                         </button>

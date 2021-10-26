@@ -77,7 +77,7 @@ const Book = () => {
           <button
             onClick={() => router.push(`${router.asPath}/change`)}
             type='button'
-            className='inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+            className='inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
           >
             Edit
           </button>
@@ -87,7 +87,7 @@ const Book = () => {
            book.swaps.length < 1 ?
             <button
               type='button'
-              className='inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+              className='inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
               onClick={createSwap}
             >
               Initial swap
@@ -109,14 +109,14 @@ const Book = () => {
                             <div className="flex justify-end">
                                 <button
                                     type='button'
-                                    className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                                    className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
                                     onClick={removeBookFromList}
                                 >
                                     Remove from waiting list
                                 </button>
                                 <button
                                     type='button'
-                                    className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                                    className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
                                     onClick={addBookToList}
                                 >
                                     Add to my waiting list
@@ -146,7 +146,7 @@ const Book = () => {
                                     <div className="block hover:bg-gray-50">
                                         <div className="px-6 py-4">
                                             <div className="flex items-center justify-between">
-                                                <p className="text-sm font-medium text-indigo-600 truncate">
+                                                <p className="text-sm font-medium text-main-600 truncate">
                                                     Держатель: {book.holder.email}
                                                 </p>
                                                 <div className="ml-2 flex-shrink-0 flex items-center">

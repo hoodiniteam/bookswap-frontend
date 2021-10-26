@@ -13,17 +13,17 @@ function classNames(...classes: any) {
 export default function Example() {
   return (
     <div className="min-h-screen bg-gray-100">
-      <div className="bg-indigo-600 pb-32">
-        <Disclosure as="nav" className="bg-indigo-600 border-b border-indigo-300 border-opacity-25 lg:border-none">
+      <div className="bg-main-600 pb-32">
+        <Disclosure as="nav" className="bg-main-600 border-b border-main-300 border-opacity-25 lg:border-none">
           {({ open }) => (
             <>
               <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
-                <div className="relative h-16 flex items-center justify-between lg:border-b lg:border-indigo-400 lg:border-opacity-25">
+                <div className="relative h-16 flex items-center justify-between lg:border-b lg:border-main-400 lg:border-opacity-25">
                   <div className="px-2 flex items-center lg:px-0">
                     <div className="flex-shrink-0">
                       <img
                         className="block h-8 w-8"
-                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-300.svg"
+                        src="https://tailwindui.com/img/logos/workflow-mark-main-300.svg"
                         alt="Workflow"
                       />
                     </div>
@@ -32,8 +32,8 @@ export default function Example() {
                         {navigation.map((item, itemIdx) =>
                           itemIdx === 0 ? (
                             <Fragment key={item}>
-                              {/* Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" */}
-                              <a href="#" className="bg-indigo-700 text-white rounded-md py-2 px-3 text-sm font-medium">
+                              {/* Current: "bg-main-700 text-white", Default: "text-white hover:bg-main-500 hover:bg-opacity-75" */}
+                              <a href="#" className="bg-main-700 text-white rounded-md py-2 px-3 text-sm font-medium">
                                 {item}
                               </a>
                             </Fragment>
@@ -41,7 +41,7 @@ export default function Example() {
                             <a
                               key={item}
                               href="#"
-                              className="text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium"
+                              className="text-white hover:bg-main-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium"
                             >
                               {item}
                             </a>
@@ -61,7 +61,7 @@ export default function Example() {
                         </div>
                         <input
                           id="search"
-                          className="block w-full bg-white py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
+                          className="block w-full bg-white py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white focus:border-white sm:text-sm"
                           placeholder="Search"
                           type="search"
                           name="search"
@@ -71,7 +71,7 @@ export default function Example() {
                   </div>
                   <div className="flex lg:hidden">
                     {/* Mobile menu button */}
-                    <Disclosure.Button className="bg-indigo-600 p-2 rounded-md inline-flex items-center justify-center text-indigo-200 hover:text-white hover:bg-indigo-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white">
+                    <Disclosure.Button className="bg-main-600 p-2 rounded-md inline-flex items-center justify-center text-main-200 hover:text-white hover:bg-main-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
                       <span className="sr-only">Open main menu</span>
                       {open ? (
                         <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -82,7 +82,7 @@ export default function Example() {
                   </div>
                   <div className="hidden lg:block lg:ml-4">
                     <div className="flex items-center">
-                      <button className="bg-indigo-600 flex-shrink-0 rounded-full p-1 text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white">
+                      <button className="bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
                         <span className="sr-only">View notifications</span>
                         <BellIcon className="h-6 w-6" aria-hidden="true" />
                       </button>
@@ -92,7 +92,7 @@ export default function Example() {
                         {({ open }) => (
                           <>
                             <div>
-                              <Menu.Button className="bg-indigo-600 rounded-full flex text-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white">
+                              <Menu.Button className="bg-main-600 rounded-full flex text-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
                                 <span className="sr-only">Open user menu</span>
                                 <img
                                   className="rounded-full h-8 w-8"
@@ -145,10 +145,10 @@ export default function Example() {
                   {navigation.map((item, itemIdx) =>
                     itemIdx === 0 ? (
                       <Fragment key={item}>
-                        {/* Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" */}
+                        {/* Current: "bg-main-700 text-white", Default: "text-white hover:bg-main-500 hover:bg-opacity-75" */}
                         <a
                           href="#"
-                          className="bg-indigo-700 text-white block rounded-md py-2 px-3 text-base font-medium"
+                          className="bg-main-700 text-white block rounded-md py-2 px-3 text-base font-medium"
                         >
                           {item}
                         </a>
@@ -157,14 +157,14 @@ export default function Example() {
                       <a
                         key={item}
                         href="#"
-                        className="text-white hover:bg-indigo-500 hover:bg-opacity-75 block rounded-md py-2 px-3 text-base font-medium"
+                        className="text-white hover:bg-main-500 hover:bg-opacity-75 block rounded-md py-2 px-3 text-base font-medium"
                       >
                         {item}
                       </a>
                     )
                   )}
                 </div>
-                <div className="pt-4 pb-3 border-t border-indigo-700">
+                <div className="pt-4 pb-3 border-t border-main-700">
                   <div className="px-5 flex items-center">
                     <div className="flex-shrink-0">
                       <img
@@ -175,9 +175,9 @@ export default function Example() {
                     </div>
                     <div className="ml-3">
                       <div className="text-base font-medium text-white">Tom Cook</div>
-                      <div className="text-sm font-medium text-indigo-300">tom@example.com</div>
+                      <div className="text-sm font-medium text-main-300">tom@example.com</div>
                     </div>
-                    <button className="ml-auto bg-indigo-600 flex-shrink-0 rounded-full p-1 text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white">
+                    <button className="ml-auto bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
                       <span className="sr-only">View notifications</span>
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
@@ -187,7 +187,7 @@ export default function Example() {
                       <a
                         key={item}
                         href="#"
-                        className="block rounded-md py-2 px-3 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
+                        className="block rounded-md py-2 px-3 text-base font-medium text-white hover:bg-main-500 hover:bg-opacity-75"
                       >
                         {item}
                       </a>

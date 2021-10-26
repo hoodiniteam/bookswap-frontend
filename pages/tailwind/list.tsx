@@ -92,7 +92,7 @@ export default function Example() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{person.role}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                    <a href="#" className="text-main-600 hover:text-main-900">
                       Edit
                     </a>
                   </td>

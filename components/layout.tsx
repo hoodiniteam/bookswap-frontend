@@ -18,6 +18,7 @@ import { useTranslation } from 'next-i18next';
 import {GetEditionsQuery} from "../graphql/GetEditionsQuery";
 import {CreateBookMutation} from "../graphql/CreateBookMutation";
 import {CreateEmptyEditionMutation} from "../graphql/CreateEmptyEditionMutation";
+import {Logo} from "./Logo";
 
 function classNames(...classes: any) {
     return classes.filter(Boolean).join(' ');
@@ -139,52 +140,34 @@ const Layout = ({ children, title }: LayoutProps) => {
 
     const profile = [
         { title: 'profile', href: '/profile' },
-        { title: 'settings' },
         {
             title: 'sign-out',
             function: LogOut,
         },
     ];
+
     return (
         <>
             <Head>
                 <title>{title}</title>
             </Head>
             <div className="min-h-screen bg-gray-100">
-                <div className="bg-indigo-600 pb-32">
+                <div className="bg-gradient-to-tr from-yellow-400 via-red-500 to-red-400 pb-32">
                     <Disclosure
                         as="nav"
-                        className="bg-indigo-600 border-b border-indigo-300 border-opacity-25 lg:border-none"
+                        className="border-b border-main-300 border-opacity-25 lg:border-none"
                     >
                         {({ open }) => (
                             <>
                                 <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
-                                    <div className="relative h-16 flex items-center justify-between lg:border-b lg:border-indigo-400 lg:border-opacity-25">
+                                    <div className="relative h-16 flex items-center justify-between lg:border-b lg:border-main-400 lg:border-opacity-25">
                                         <div className="px-2 flex items-center lg:px-0">
                                             <div className="flex-shrink-0">
                                                 <Link href="/home">
-                                                    <a>Logo</a>
+                                                    <a>
+                                                        <Logo />
+                                                    </a>
                                                 </Link>
-                                            </div>
-                                            <div className="hidden lg:block lg:ml-10">
-                                                <div className="flex space-x-4">
-                                                    {navigation.map((item) => (
-                                                        <Link
-                                                            key={item.title}
-                                                            href={item.href}
-                                                        >
-                                                            <a
-                                                                className={
-                                                                    item.current
-                                                                        ? 'bg-indigo-700 text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium'
-                                                                        : 'text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium'
-                                                                }
-                                                            >
-                                                                {t(item.title)}
-                                                            </a>
-                                                        </Link>
-                                                    ))}
-                                                </div>
                                             </div>
                                         </div>
                                         <div className="flex-1 px-2 flex justify-center lg:ml-6 lg:justify-end">
@@ -206,7 +189,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                                                         />
                                                     </div>
                                                     <input
-                                                        className="layout-search-input block w-full bg-white py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white focus:border-white sm:text-sm"
+                                                        className="layout-search-input block w-full bg-white py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white focus:border-white sm:text-sm"
                                                         placeholder={t('book-search', {ns: 'common'})}
                                                         type="search"
                                                         value={searchString}
@@ -234,7 +217,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                                                                                     {edition.title}
                                                                                 </div>
                                                                             ) : (
-                                                                                <Link href={`/books/${edition.id}`} key={edition.id}>
+                                                                                <Link href={`/book/${edition.id}`} key={edition.id}>
                                                                                     <a className="flex bg-white hover:bg-gray-100 py-1 cursor-pointer items-center border-b">
                                                                                         <div className="mr-2 bg-gray-100">
                                                                                             <div className="w-10">
@@ -259,7 +242,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                                         </div>
                                         <div className="flex lg:hidden">
                                             {/* Mobile menu button */}
-                                            <Disclosure.Button className="bg-indigo-600 p-2 rounded-md inline-flex items-center justify-center text-indigo-200 hover:text-white hover:bg-indigo-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white">
+                                            <Disclosure.Button className="bg-main-600 p-2 rounded-md inline-flex items-center justify-center text-main-200 hover:text-white hover:bg-main-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
                                                 <span className="sr-only">
                                                     Open main menu
                                                 </span>
@@ -278,7 +261,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                                         </div>
                                         <div className="hidden lg:block lg:ml-4">
                                             <div className="flex items-center">
-                                                <button className="bg-indigo-600 flex-shrink-0 rounded-full p-1 text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white">
+                                                <button className="bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
                                                     <span className="sr-only">
                                                         View notifications
                                                     </span>
@@ -296,7 +279,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                                                     {({ open }) => (
                                                         <>
                                                             <div>
-                                                                <Menu.Button className="bg-indigo-600 rounded-full flex text-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white">
+                                                                <Menu.Button className="bg-main-600 rounded-full flex text-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
                                                                     <span className="sr-only">
                                                                         Open
                                                                         user
@@ -378,13 +361,35 @@ const Layout = ({ children, title }: LayoutProps) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="py-4 flex justify-end">
+                                    <div className="py-4 flex justify-between">
+                                        <div className="flex">
+                                            <div className="hidden lg:block">
+                                                <div className="flex space-x-4">
+                                                    {navigation.map((item) => (
+                                                        <Link
+                                                            key={item.title}
+                                                            href={item.href}
+                                                        >
+                                                            <a
+                                                                className={
+                                                                    item.current
+                                                                        ? 'bg-main-700 text-white hover:bg-main-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium'
+                                                                        : 'text-white hover:bg-main-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium'
+                                                                }
+                                                            >
+                                                                {t(item.title)}
+                                                            </a>
+                                                        </Link>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
                                         <button
                                             onClick={() =>
                                                 router.push('/books/create')
                                             }
                                             type="button"
-                                            className="inline-flex items-center px-4 py-1.5 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                            className="inline-flex items-center px-4 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500"
                                         >
                                             {t('create')}
                                         </button>
@@ -396,10 +401,10 @@ const Layout = ({ children, title }: LayoutProps) => {
                                         {navigation.map((item, itemIdx) =>
                                             itemIdx === 0 ? (
                                                 <Fragment key={item.title}>
-                                                    {/* Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" */}
+                                                    {/* Current: "bg-main-700 text-white", Default: "text-white hover:bg-main-500 hover:bg-opacity-75" */}
                                                     <a
                                                         href="#"
-                                                        className="bg-indigo-700 text-white block rounded-md py-2 px-3 text-base font-medium"
+                                                        className="bg-main-700 text-white block rounded-md py-2 px-3 text-base font-medium"
                                                     >
                                                         {item}
                                                     </a>
@@ -408,14 +413,14 @@ const Layout = ({ children, title }: LayoutProps) => {
                                                 <a
                                                     key={item.title}
                                                     href="#"
-                                                    className="text-white hover:bg-indigo-500 hover:bg-opacity-75 block rounded-md py-2 px-3 text-base font-medium"
+                                                    className="text-white hover:bg-main-500 hover:bg-opacity-75 block rounded-md py-2 px-3 text-base font-medium"
                                                 >
                                                     {item}
                                                 </a>
                                             )
                                         )}
                                     </div>
-                                    <div className="pt-4 pb-3 border-t border-indigo-700">
+                                    <div className="pt-4 pb-3 border-t border-main-700">
                                         <div className="px-5 flex items-center">
                                             <div className="flex-shrink-0">
                                                 <Image
@@ -431,11 +436,11 @@ const Layout = ({ children, title }: LayoutProps) => {
                                                 <div className="text-base font-medium text-white">
                                                     Tom Cook
                                                 </div>
-                                                <div className="text-sm font-medium text-indigo-300">
+                                                <div className="text-sm font-medium text-main-300">
                                                     tom@example.com
                                                 </div>
                                             </div>
-                                            <button className="ml-auto bg-indigo-600 flex-shrink-0 rounded-full p-1 text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white">
+                                            <button className="ml-auto bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
                                                 <span className="sr-only">
                                                     View notifications
                                                 </span>
@@ -450,7 +455,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                                                 <a
                                                     key={item.title}
                                                     href="#"
-                                                    className="block rounded-md py-2 px-3 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
+                                                    className="block rounded-md py-2 px-3 text-base font-medium text-white hover:bg-main-500 hover:bg-opacity-75"
                                                 >
                                                     {item}
                                                 </a>
@@ -480,7 +485,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                                     }
                                 >
                                     <button
-                                        className="relative inline-flex items-center px-4 py-2 border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                                        className="relative inline-flex items-center px-4 py-2 border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-main-500 focus:border-main-500"
                                         style={{
                                             fontWeight:
                                                 i18n.language === lng

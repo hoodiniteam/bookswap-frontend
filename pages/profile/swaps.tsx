@@ -166,7 +166,7 @@ const Swaps = () => {
                       </span>
                   </td>
                   <td className="pl-4 pr-8 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                    <a href="#" className="text-main-600 hover:text-main-900">
                       Edit
                     </a>
                   </td>

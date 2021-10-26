@@ -183,7 +183,7 @@ const Change = () => {
                       type="text"
                       name="title"
                       id="title"
-                      className="focus:ring-indigo-500 focus:border-indigo-500 flex-grow block w-full min-w-0 border py-1.5 px-2 rounded-none rounded-md sm:text-sm border-gray-300"
+                      className="focus:ring-main-500 focus:border-main-500 flex-grow block w-full min-w-0 border py-1.5 px-2 rounded-none rounded-md sm:text-sm border-gray-300"
                     />
                   </div>
                   {errors.title ? <span className="text-red-500 text-xs">enter title</span> : ''}
@@ -201,7 +201,7 @@ const Change = () => {
                       id="description"
                       name="description"
                       rows={3}
-                      className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md"
+                      className="shadow-sm focus:ring-main-500 focus:border-main-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md"
                     />
                   </div>
                   {errors.description ? <span className="text-red-500 text-xs">enter description</span> : ''}
@@ -217,7 +217,7 @@ const Change = () => {
                       onChange={onChangeHandler}
                       id="condition"
                       name="condition"
-                      className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md"
+                      className="shadow-sm focus:ring-main-500 focus:border-main-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md"
                     >
                       <option value="BRANDNEW">BRANDNEW</option>
                       <option value="LIKENEW">LIKENEW</option>
@@ -262,7 +262,7 @@ const Change = () => {
                   </div>
                   <button
                       onClick={() => setEditing(true)}
-                      className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      className="bg-main-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500"
                   >
                     {t('edit')}
                   </button>
@@ -273,7 +273,7 @@ const Change = () => {
             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
               <button
                 type="submit"
-                className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="bg-main-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500"
               >
                 { t('save') }
               </button>
