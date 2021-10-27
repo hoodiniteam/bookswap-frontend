@@ -169,6 +169,7 @@ const Create = () => {
                                         placeholder={t('book-search')}
                                         loadOptions={loadOptions}
                                         onChange={handleSelectChange as any}
+                                        noOptionsMessage={ () => t('no-options') }
                                     />
                                 </div>
                                 <div className="text-xs text-gray-600 mt-1">

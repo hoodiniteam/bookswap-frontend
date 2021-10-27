@@ -33,5 +33,14 @@
   "sender": "Отправитель",
   "recipient": "Получатель",
   "status": "Статус",
-  "edit": "Изменить"
+  "edit": "Изменить",
+  "remove-from-waiting-list": "Удалить из списка ожидания",
+  "add-to-my-waiting-list": "Добавить в список ожидания",
+  "start-swap": "Начать swap",
+  "no-options": "Ничего не найдено",
+  "ABSENT": "Отсутствует",
+  "HOLD": "На удержании",
+  "OPEN": "Доступно",
+  "SWAPPING": "Обмен",
+  "EXTRACTED": "Извлеченна"
 }
