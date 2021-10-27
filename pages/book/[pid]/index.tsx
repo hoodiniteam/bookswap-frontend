@@ -13,14 +13,9 @@ import {getStaticEditions} from '../../../helpers/staticRequest'
 import {ClipboardListIcon} from '@heroicons/react/outline';
 import {AddBookToMyWaitingListMutation} from "../../../graphql/AddBookToMyWaitingListMutation";
 import {RemoveBookFromMyWaitingList} from "../../../graphql/RemoveBookFromMyWaitingList";
+import {BooksStatus} from "../../../types/Book";
+import {CreateMySwapMutation} from "../../../graphql/CreateMySwapMutation";
 
-const InitialMySwapMutation = `
-mutation($bookId: String!){
-   createMySwap(bookId: $bookId){
-    status
-  }
-}
-`
 
 const Book = () => {
     const router = useRouter()
@@ -40,7 +35,7 @@ const Book = () => {
 
     const [, addToMyWaitingList] = useMutation(AddBookToMyWaitingListMutation)
     const [, removeFromMyWaitingList] = useMutation(RemoveBookFromMyWaitingList)
-    const [, initialSwap] = useMutation(InitialMySwapMutation)
+    const [, createSwap] = useMutation(CreateMySwapMutation)
 
     const addBookToList = async () => {
         const variables = {
@@ -56,43 +51,25 @@ const Book = () => {
         await removeFromMyWaitingList(variables);
     };
 
-    const createSwap = () => {
+    const startSwap = () => {
         const variables = {
             bookId: pid,
         }
-        initialSwap(variables).then(res => console.log(res))
+        createSwap(variables).then(res => console.log(res))
     }
 
     if (fetchingEdition || fetchingMe) return <p>Loading...</p>
     console.log(fetchingEdition, fetchingMe);
     const {edition} = editionData.getEdition;
     const {user} = meData.me;
-    console.log(user);
+
+    const hasOpenBooks = !!edition.books.find((book: any) => book.status === BooksStatus.OPEN);
+
     return (
         <div className="space-y-5">
             <Head>
                 <title>{edition.title}</title>
             </Head>
-            {/* {book.creator.id === userId ?
-          <button
-            onClick={() => router.push(`${router.asPath}/change`)}
-            type='button'
-            className='inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
-          >
-            Edit
-          </button>
-          : ''}
-        */}
-            {/* {
-           book.swaps.length < 1 ?
-            <button
-              type='button'
-              className='inline-flex m-5 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
-              onClick={createSwap}
-            >
-              Initial swap
-            </button> : <div className="px-5 inline-flex py-3 rounded-full mb-5 bg-gray-200 text-gray-500 font-bold">Added to swap</div>
-        } */}
             <div className='grid gap-6 grid-cols-5 grid-rows-1 border p-10'>
                 <div className='col-span-1'>
                     <img src={edition.image} alt={edition.title}/>
@@ -107,20 +84,36 @@ const Book = () => {
                     {
                         (
                             <div className="flex justify-end">
-                                <button
-                                    type='button'
-                                    className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
-                                    onClick={removeBookFromList}
-                                >
-                                    Remove from waiting list
-                                </button>
-                                <button
-                                    type='button'
-                                    className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
-                                    onClick={addBookToList}
-                                >
-                                    Add to my waiting list
-                                </button>
+                                {
+                                    hasOpenBooks && <button
+                                        type='button'
+                                        className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
+                                        onClick={startSwap}
+                                    >
+                                        Начать Swap
+                                    </button>
+                                }
+                                {
+                                    !hasOpenBooks && (
+                                        <>
+                                            <button
+                                                type='button'
+                                                className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
+                                                onClick={removeBookFromList}
+                                            >
+                                                Remove from waiting list
+                                            </button>
+                                            <button
+                                                type='button'
+                                                className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
+                                                onClick={addBookToList}
+                                            >
+                                                Add to my waiting list
+                                            </button>
+                                        </>
+                                    )
+                                }
+
                             </div>
                         )
                     }
