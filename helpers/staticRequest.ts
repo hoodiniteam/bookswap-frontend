@@ -1,4 +1,3 @@
-require('dotenv').config();
 import axios from "axios";
 import { GetStaticEditions } from "../graphql/GetStaticEditions";
 import { GetStaticBooks } from "../graphql/GetStaticBooks";

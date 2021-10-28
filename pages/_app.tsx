@@ -28,7 +28,8 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 }
 
 export default withUrqlClient((_ssrExchange, ctx) => ({
-    url: 'http://localhost:4000/graphql',
+    // url: 'https://bookswap-api-2-627cm.ondigitalocean.app/graphql',
+    url: process.env.API_URL || '',
     fetchOptions: () => {
         const token = Cookies.get('token');
         return {

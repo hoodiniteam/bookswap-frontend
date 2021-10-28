@@ -62,6 +62,9 @@ const Book = () => {
     console.log(fetchingEdition, fetchingMe);
     const {edition} = editionData.getEdition;
     const {user} = meData.me;
+    if (!edition) {
+        return null;
+    }
 
     const hasOpenBooks = !!edition.books.find((book: any) => book.status === BooksStatus.OPEN);
 
