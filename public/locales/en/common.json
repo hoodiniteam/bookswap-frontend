@@ -32,6 +32,15 @@
   "user-description": "User description",
   "sender": "Sender",
   "recipient": "Recipient",
-  "status": "Статус",
-  "edit": "Edit"
+  "status": "Status",
+  "edit": "Edit",
+  "remove-from-waiting-list": "Remove from waiting list",
+  "add-to-my-waiting-list": "Add to my waiting list",
+  "start-swap": "Start swap",
+  "no-options": "No options",
+  "ABSENT": "Absent",
+  "HOLD": "Hold",
+  "OPEN": "Open",
+  "SWAPPING": "Swapping",
+  "EXTRACTED": "Extracted"
 }

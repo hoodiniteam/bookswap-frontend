@@ -1,4 +1,4 @@
-import React, {ReactElement, useState} from 'react'
+import React, {ReactElement} from 'react'
 import {useMutation} from 'urql'
 import {useRouter} from 'next/router'
 import Layout from '../../../components/layout'
@@ -15,7 +15,6 @@ import {AddBookToMyWaitingListMutation} from "../../../graphql/AddBookToMyWaitin
 import {RemoveBookFromMyWaitingList} from "../../../graphql/RemoveBookFromMyWaitingList";
 import {BooksStatus} from "../../../types/Book";
 import {CreateMySwapMutation} from "../../../graphql/CreateMySwapMutation";
-
 
 const Book = () => {
     const router = useRouter()
@@ -59,7 +58,7 @@ const Book = () => {
     }
 
     if (fetchingEdition || fetchingMe) return <p>Loading...</p>
-    console.log(fetchingEdition, fetchingMe);
+
     const {edition} = editionData.getEdition;
     const {user} = meData.me;
     if (!edition) {
@@ -93,7 +92,7 @@ const Book = () => {
                                         className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
                                         onClick={startSwap}
                                     >
-                                        Начать Swap
+                                        {t('start-swap')}
                                     </button>
                                 }
                                 {
@@ -104,14 +103,14 @@ const Book = () => {
                                                 className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
                                                 onClick={removeBookFromList}
                                             >
-                                                Remove from waiting list
+                                                {t('remove-from-waiting-list')}
                                             </button>
                                             <button
                                                 type='button'
                                                 className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
                                                 onClick={addBookToList}
                                             >
-                                                Add to my waiting list
+                                                {t('add-to-my-waiting-list')}
                                             </button>
                                         </>
                                     )
