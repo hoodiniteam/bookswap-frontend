@@ -8,6 +8,7 @@ export const GetMe = `
           title
           id
         }
+        points
         books{
           id
           title

@@ -43,7 +43,7 @@ const Create = () => {
             console.log('book', book);
             createBook(book).then((res) => {
                 console.log(res);
-                router.push(`/books/${res.data.createBook.book.id}`).then();
+                router.push(`/book/${res.data.createBook.book.edition.id}`).then();
             });
         }
     });

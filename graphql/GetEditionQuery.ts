@@ -11,6 +11,7 @@ export const GetEditionQuery = `
           id
           description
           holder {
+            id
             email
           }
           status

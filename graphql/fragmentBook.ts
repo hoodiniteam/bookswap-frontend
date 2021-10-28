@@ -6,6 +6,7 @@ export const fragmentBook = `
         condition
         status
         swaps{
+          id
           status
         }
         creator{
@@ -17,6 +18,7 @@ export const fragmentBook = `
           email
         }
         edition {
+          id
           image
           title
           description
