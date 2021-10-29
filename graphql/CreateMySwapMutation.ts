@@ -5,7 +5,9 @@ export const CreateMySwapMutation = `
 mutation($editionId: String!){
   createMySwap(editionId: $editionId) {
     ${fragmentBase}
-    ${fragmentSwap}
+    swap {
+        ${fragmentSwap}
+    }
   }
 }
 `

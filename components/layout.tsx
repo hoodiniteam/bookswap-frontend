@@ -7,7 +7,7 @@ import React, {
 import Link from 'next/link';
 import {Disclosure, Menu, Transition} from '@headlessui/react';
 import {SearchIcon} from '@heroicons/react/solid';
-import {BellIcon, MenuIcon, XIcon} from '@heroicons/react/outline';
+import {BellIcon, MenuIcon, XIcon, SwitchHorizontalIcon} from '@heroicons/react/outline';
 import Image from 'next/image';
 import LogOut from '../helpers/LogOut';
 import {useRouter} from 'next/router';
@@ -241,9 +241,9 @@ const Layout = ({children, title}: any) => {
                         <div className="flex items-center">
                           <button
                             className="bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
-                                                    <span className="sr-only">
-                                                        View notifications
-                                                    </span>
+                            <span className="sr-only">
+                                View notifications
+                            </span>
                             <BellIcon
                               className="h-6 w-6"
                               aria-hidden="true"
@@ -299,6 +299,13 @@ const Layout = ({children, title}: any) => {
                                       <Link href="/profile">
                                         <a className="block overflow-hidden overflow-ellipsis py-2 px-4 text-sm text-gray-700">
                                           {t("profile")} <span className="italic text-gray-500">({user.email})</span>
+                                        </a>
+                                      </Link>
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                      <Link href="/profile/swaps">
+                                        <a className="block overflow-hidden overflow-ellipsis py-2 px-4 text-sm text-gray-700">
+                                          Текущие свопы: ({user.swaps.length} / {user.sends.length})
                                         </a>
                                       </Link>
                                     </Menu.Item>
