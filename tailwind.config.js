@@ -18,9 +18,9 @@ module.exports = {
         }
       },
       outline: {
-        main: ['2px solid #2563EB'],
-        red: ['2px solid rgb(220, 38, 38)'],
-        green: ['2px solid rgb(5, 150, 105)']
+        main: ['1px solid #2563EB'],
+        red: ['1px solid rgb(220, 38, 38)'],
+        green: ['1px solid rgb(5, 150, 105)']
       }
     },
   },
