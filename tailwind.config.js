@@ -16,6 +16,11 @@ module.exports = {
           600: '#2563EB',
           700: '#1D4ED8',
         }
+      },
+      outline: {
+        main: ['2px solid #2563EB'],
+        red: ['2px solid rgb(220, 38, 38)'],
+        green: ['2px solid rgb(5, 150, 105)']
       }
     },
   },

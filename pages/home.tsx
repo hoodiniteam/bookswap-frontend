@@ -15,7 +15,7 @@ const Home = () => {
                 <title>Home</title>
             </Head>
             <h1>{t('home')}</h1>
-            <Button variant='dangerOutline'>Something</Button>
+            <Button variant='primary'>Something</Button>
             <div className="flex justify-between items-center w-72 mt-5 px-5"/>
         </>
     )
