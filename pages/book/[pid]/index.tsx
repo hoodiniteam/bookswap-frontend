@@ -55,7 +55,7 @@ const Book = () => {
 
   const startSwap = async () => {
     await createSwap({
-      bookId: pid,
+      editionId: pid,
     });
   }
 

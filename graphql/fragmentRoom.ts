@@ -3,8 +3,12 @@ import {fragmentSender} from "./fragmentSender";
 
 export const fragmentRoom = `
     room {
-        ${fragmentRecipient}
-        ${fragmentSender}
+        recipient {    
+          ${fragmentRecipient}
+        }
+        sender {
+          ${fragmentSender}
+        }
         swap {
             id
         }

@@ -6,8 +6,12 @@ import {fragmentRoom} from "./fragmentRoom";
 export const fragmentSwap = `
     swap {
         ${fragmentBook}
-        ${fragmentRecipient}
-        ${fragmentSender}
+        recipient {    
+          ${fragmentRecipient}
+        }
+        sender {
+          ${fragmentSender}
+        }
         ${fragmentRoom}
         status
     }
