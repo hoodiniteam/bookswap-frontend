@@ -2,11 +2,15 @@ import React, {ReactElement, useEffect, useState} from 'react';
 import Layout from "../../components/layout";
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { localesList } from '../../helpers/locales';
+import {useTranslation} from 'next-i18next';
+import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
+import {localesList} from '../../helpers/locales';
 import {GetMe} from "../../graphql/GetMe";
 import {SwapStatus} from "../../types/Swap";
+import Button from "../../components/UI/Button";
+import {useMutation} from "urql";
+import {SetToDeliveringMutation} from "../../graphql/SetToDeliveringMutation";
+import Link from 'next/link';
 
 const people = [
   {
@@ -24,12 +28,51 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
+const CreatedSwap = ({swap}: any) => {
+  const [, setToDelivering] = useMutation(SetToDeliveringMutation);
+
+  const confirmSwap = async (swapId: string) => {
+    await setToDelivering({
+      swapId,
+    })
+  };
+
+  return (
+    <div className="py-3 px-4 border rounded-md">
+      <div className="text-lg">
+        {swap.book.title}
+      </div>
+      {swap.status === SwapStatus[SwapStatus.CREATED] && (
+        <Button variant='primary' onClick={() => confirmSwap(swap.id)}>
+          Подтвердить обмен
+        </Button>
+      )}
+    </div>
+  )
+};
+
+const ActiveSwap = ({swap}: any) => {
+  console.log(swap);
+  return (
+    <Link href={`/room/${swap.room.id}`}>
+      <a className="block py-3 px-4 border rounded-md">
+        <div className="text-lg">
+          {swap.book.title}
+        </div>
+        {swap.room?.messages.map((message: any, idx: number) => (
+          <div key={idx} className="italic text-gray-500 text-sm">{message.message}</div>
+        ))}
+      </a>
+    </Link>
+  )
+}
+
 const Swaps = () => {
   const [{data: meData, fetching: fetchingMe}] = useQueryWrapper({
     query: GetMe,
   });
 
-  const { t } = useTranslation("common");
+  const {t} = useTranslation("common");
   const [activeTab, setActiveTab] = useState("receive");
 
   if (fetchingMe) {
@@ -43,8 +86,8 @@ const Swaps = () => {
     console.log(user);
 
     const tabs = [
-      { name: 'receive', label: "Получить", count: user.swaps.length },
-      { name: 'send', label: "Отдать",  count: user.sends.length },
+      {name: 'receive', label: "Получить", count: user.swaps.length},
+      {name: 'send', label: "Отдать", count: user.sends.length},
     ];
 
     return (
@@ -72,7 +115,9 @@ const Swaps = () => {
                 {tabs.map((tab) => (
                   <div
                     key={tab.name}
-                    onClick={() => {setActiveTab(tab.name)}}
+                    onClick={() => {
+                      setActiveTab(tab.name)
+                    }}
                     className={classNames(
                       tab.name === activeTab
                         ? 'border-indigo-500 text-indigo-600'
@@ -115,12 +160,18 @@ const Swaps = () => {
             <div>
               <div className="text-xl py-4">Отдать</div>
               {
-                user.sends.map((swap: any) => (<div key={swap.id}>
-                  {swap.book.title}
-                  {swap.status === SwapStatus[SwapStatus.CREATED] && (
-                    <button type='button' className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'>Начать обмен</button>
-                  )}
-                </div>))
+                user.sends.map((swap: any) => {
+                  if (swap.status === SwapStatus[SwapStatus.CREATED]) {
+                    return (
+                        <CreatedSwap key={swap.id} swap={swap}/>
+                    )
+                  }
+                  else {
+                    return (
+                        <ActiveSwap key={swap.id} swap={swap}/>
+                    )
+                  }
+                })
               }
             </div>
           )
@@ -218,13 +269,13 @@ const Swaps = () => {
 
 Swaps.getLayout = function getLayout(page: ReactElement) {
   return (
-      <Layout title={'Swaps'}>
-        <SidebarForProfile>{page}</SidebarForProfile>
-      </Layout>
+    <Layout title={'Swaps'}>
+      <SidebarForProfile>{page}</SidebarForProfile>
+    </Layout>
   )
 }
 
-export const getStaticProps = async ({ locale }: any) => ({
+export const getStaticProps = async ({locale}: any) => ({
   props: {
     ...await serverSideTranslations(locale, localesList),
   },
