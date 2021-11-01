@@ -6,70 +6,97 @@
 
 html,
 body {
-  padding: 0;
-  margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .pagItem {
-  @apply cursor-pointer;
-  @apply bg-white;
-  @apply border-gray-300;
-  @apply text-gray-500;
-  @apply inline-flex;
-  @apply relative;
-  @apply items-center;
-  @apply px-4;
-  @apply py-2;
-  @apply border;
-  @apply text-sm;
-  @apply font-medium;
+    @apply cursor-pointer;
+    @apply bg-white;
+    @apply border-gray-300;
+    @apply text-gray-500;
+    @apply inline-flex;
+    @apply relative;
+    @apply items-center;
+    @apply px-4;
+    @apply py-2;
+    @apply border;
+    @apply text-sm;
+    @apply font-medium;
 }
 
 .pagItem:hover {
-  @apply bg-gray-50;
+    @apply bg-gray-50;
 }
 
 .pagItem.active:hover {
-  @apply bg-gray-50;
+    @apply bg-gray-50;
 }
 
 .pagItem.active {
-  @apply z-10;
-  @apply bg-main-50;
-  @apply border-main-500;
-  @apply text-main-600;
-  @apply relative;
-  @apply inline-flex;
-  @apply items-center;
-  @apply px-4;
-  @apply py-2;
-  @apply border;
-  @apply text-sm;
-  @apply font-medium;
-  @apply cursor-pointer;
+    @apply z-10;
+    @apply bg-main-50;
+    @apply border-main-500;
+    @apply text-main-600;
+    @apply relative;
+    @apply inline-flex;
+    @apply items-center;
+    @apply px-4;
+    @apply py-2;
+    @apply border;
+    @apply text-sm;
+    @apply font-medium;
+    @apply cursor-pointer;
 }
 
 .badge-open {
-  @apply bg-green-200 text-gray-600;
+    @apply bg-green-200 text-gray-600;
 }
 
 .badge-hold {
-  @apply bg-yellow-100 text-gray-800;
+    @apply bg-yellow-100 text-gray-800;
 }
 
 .badge-swapping {
-  @apply bg-blue-300 text-white;
+    @apply bg-blue-300 text-white;
 }
 
 .badge-extracted {
-  @apply bg-gray-500 text-white;
+    @apply bg-gray-500 text-white;
+}
+
+.notificationItem {
+  animation: SlideLeft 0.3s;
+  animation-fill-mode: forwards;
+}
+
+.notificationItem.exit {
+    animation: SlideRight 0.3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes SlideLeft {
+    0% {
+        margin-left: 120%;
+    }
+    100% {
+       margin-left: 0;
+    }
+}
+@keyframes SlideRight {
+    0% {
+        margin-left: 0;
+    }
+    100% {
+        margin-left: 120%;
+    }
 }
