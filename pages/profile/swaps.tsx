@@ -148,9 +148,18 @@ const Swaps = () => {
             <div>
               <div className="text-xl py-4">Получить</div>
               {
-                user.swaps.map((swap: any) => (<div key={swap.id}>
-                  {swap.book.title}
-                </div>))
+                user.swaps.map((swap: any) => {
+                  if (swap.status === SwapStatus[SwapStatus.CREATED]) {
+                    return (
+                      <CreatedSwap key={swap.id} swap={swap}/>
+                    )
+                  }
+                  else if (swap.room) {
+                    return (
+                      <ActiveSwap key={swap.id} swap={swap}/>
+                    )
+                  }
+                })
               }
             </div>
           )
@@ -166,7 +175,7 @@ const Swaps = () => {
                         <CreatedSwap key={swap.id} swap={swap}/>
                     )
                   }
-                  else {
+                  else if (swap.room) {
                     return (
                         <ActiveSwap key={swap.id} swap={swap}/>
                     )
