@@ -1,3 +1,5 @@
+import {fragmentSwap} from "./fragmentSwap";
+
 export const GetMe = `
   query{
     me{
@@ -9,6 +11,12 @@ export const GetMe = `
           id
         }
         points
+        sends {
+          ${fragmentSwap}
+        }
+        swaps {
+          ${fragmentSwap}
+        }
         books{
           id
           title

@@ -6,6 +6,7 @@ import { allOptions } from './options'
 import {useContext, useEffect} from "react";
 import OptionContext from "./options/OptionContext";
 import { sample } from 'lodash';
+import Button from '../UI/Button';
 
 export interface Props {
   avatarStyle: string
@@ -82,13 +83,13 @@ export const AvatarComponent = (props: Props) => {
   return (
       <div>
         <Avatar avatarStyle={avatarStyle as AvatarStyle} style={style} className={className} />
-        <button
-            type="button"
-            onClick={onRandom}
-            className="bg-main-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500"
+
+        <Button
+        variant='primary'
+        onClick={onRandom}
         >
           Random
-        </button>
+        </Button>
       </div>
   )
 }

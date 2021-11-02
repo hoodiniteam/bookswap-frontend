@@ -18,6 +18,7 @@ import {CreateMySwapMutation} from "../../../graphql/CreateMySwapMutation";
 import {SetBookOpenMutaion} from "../../../graphql/SetBookOpenMutaion";
 import {SetBookHoldMutaion} from "../../../graphql/SetBookHoldMutation";
 import {Badge} from "../../../components/Badge";
+import Button from '../../../components/UI/Button';
 
 const Book = () => {
   const router = useRouter()
@@ -55,7 +56,7 @@ const Book = () => {
 
   const startSwap = async () => {
     await createSwap({
-      bookId: pid,
+      editionId: pid,
     });
   }
 
@@ -102,31 +103,28 @@ const Book = () => {
             !isOwnerOfAny && (
               <div className="flex justify-center">
                 {
-                  openBooks.length > 0 && <button
-                      type='button'
-                      className='inline-flex items-center px-4 py-2 border border-transparent font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
+                  openBooks.length > 0 && <Button
+                      variant='primary'
                       onClick={startSwap}
                   >
                     {t('start-swap')}
-                  </button>
+                  </Button>
                 }
                 {
                   openBooks === 0 && (
                     <>
-                      <button
-                        type='button'
-                        className='inline-flex items-center px-4 py-2 border border-transparent font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
+                      <Button
+                        variant='primary'
                         onClick={removeBookFromList}
                       >
                         {t('remove-from-waiting-list')}
-                      </button>
-                      <button
-                        type='button'
-                        className='inline-flex items-center px-4 py-2 border border-transparent font-medium rounded-md shadow-sm text-white bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
+                      </Button>
+                      <Button
+                        variant='primary'
                         onClick={addBookToList}
                       >
                         {t('add-to-my-waiting-list')}
-                      </button>
+                      </Button>
                     </>
                   )
                 }

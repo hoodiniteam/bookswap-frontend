@@ -4,11 +4,14 @@ import {fragmentSender} from "./fragmentSender";
 import {fragmentRoom} from "./fragmentRoom";
 
 export const fragmentSwap = `
-    swap {
-        ${fragmentBook}
-        ${fragmentRecipient}
-        ${fragmentSender}
-        ${fragmentRoom}
-        status
+    id
+    ${fragmentBook}
+    recipient {    
+      ${fragmentRecipient}
     }
+    sender {
+      ${fragmentSender}
+    }
+    ${fragmentRoom}
+    status
 `;
