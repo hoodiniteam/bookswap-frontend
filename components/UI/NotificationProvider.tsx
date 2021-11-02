@@ -21,7 +21,6 @@ const NotificationProvider = ({children}: PropsProvider) => {
         return [...state, {...action.payload}]
       case 'REMOVE_NOTIFICATION':
         return state.filter(el => {
-          console.log(el.id, action)
           return el.id !== action.id
         })
       default:
