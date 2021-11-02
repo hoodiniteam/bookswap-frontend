@@ -75,8 +75,17 @@ a {
 }
 
 .notificationItem {
-  animation: SlideLeft 0.3s;
-  animation-fill-mode: forwards;
+    @apply flex w-96 h-20 my-3 p-5 shadow-md rounded-md;
+    animation: SlideLeft 0.3s;
+    animation-fill-mode: forwards;
+}
+
+.notificationItem.success {
+    @apply bg-green-200 text-green-700;
+}
+
+.notificationItem.error {
+    @apply bg-red-200 text-red-700;
 }
 
 .notificationItem.exit {
@@ -89,9 +98,10 @@ a {
         margin-left: 120%;
     }
     100% {
-       margin-left: 0;
+        margin-left: 0;
     }
 }
+
 @keyframes SlideRight {
     0% {
         margin-left: 0;

@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react';
+import React, { Dispatch, ReactElement, useContext } from 'react';
 import Layout from '../components/layout';
 import Head from 'next/head';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -9,13 +9,19 @@ import { GetMe } from '../graphql/GetMe';
 import { NotificationContext } from '../components/UI/NotificationProvider';
 import { v4 } from 'uuid';
 
-type Stack = {
-  name: string
+type Note = {
   id: string
-  exit: boolean
+  type: string
+  message: string
 }
+
+type DispatchType = {
+  type: string
+  payload: Note
+}
+
 const Home = () => {
-  const dispatch = useContext(NotificationContext)
+  const dispatch: Dispatch<DispatchType> = useContext(NotificationContext)
   const { t } = useTranslation(localesList);
   const [{ data }] = useQueryWrapper({
     query: GetMe,
