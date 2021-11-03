@@ -115,6 +115,9 @@ const Layout = ({children, title}: any) => {
   if (fetchingMe) {
     return null;
   }
+  if (!meData) {
+    return null;
+  }
 
   if (meData?.me) {
     const {user} = meData.me;
