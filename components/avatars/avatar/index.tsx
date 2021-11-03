@@ -18,7 +18,8 @@ export interface Props {
   style?: React.CSSProperties
 }
 
-export const Avatar = ({avatarStyle, style, className}: Props) => {
+export const Avatar = (props: Props) => {
+  const {avatarStyle, style, className} = props;
   const path1 = uniqueId('react-path-');
   const path2 = uniqueId('react-path-');
   const path3 = uniqueId('react-path-');

@@ -77,19 +77,19 @@ export const AvatarComponent = (props: Props) => {
 
   useEffect(() => {
     updateOptionContext(props);
-    onRandom();
+    // onRandom();
   }, [props])
 
   return (
       <div>
-        <Avatar avatarStyle={avatarStyle as AvatarStyle} style={style} className={className} />
+        <Avatar {...props} avatarStyle={avatarStyle as AvatarStyle} style={style} className={className} />
 
-        <Button
+        {/*<Button
         variant='primary'
         onClick={onRandom}
         >
           Random
-        </Button>
+        </Button>*/}
       </div>
   )
 }

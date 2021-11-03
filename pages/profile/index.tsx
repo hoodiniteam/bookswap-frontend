@@ -11,6 +11,7 @@ import { useTranslation } from 'next-i18next';
 import { localesList } from '../../helpers/locales';
 import { AvatarComponent } from '../../components/avatars';
 import Button from '../../components/UI/Button';
+import Link from 'next/link';
 
 const GetMe = `
 query{
@@ -179,6 +180,9 @@ const Index = () => {
                 <AvatarComponent
                   avatarStyle='Circle'
                 />
+                <Link href="/profile/avatar">
+                  <Button type="button">Настроить аватар</Button>
+                </Link>
               </div>
               <div className='col-span-6 sm:col-span-3'>
                 <label
