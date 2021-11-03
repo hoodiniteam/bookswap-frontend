@@ -8,7 +8,7 @@ import { localesList } from '../helpers/locales';
 import { useQueryWrapper } from '../helpers/useQueryWrapper';
 import { GetMe } from '../graphql/GetMe';
 import { NotificationContext } from '../components/UI/NotificationProvider';
-import { v4 } from 'uuid';
+import {nanoid} from 'nanoid';
 
 type Note = {
   id: string
@@ -32,7 +32,7 @@ const Home = () => {
     dispatch({
       type: "ADD_NOTIFICATION",
       payload: {
-        id: v4(),
+        id: nanoid(),
         type: "SUCCESS",
         message: "new notification"
       },

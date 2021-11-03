@@ -17,6 +17,7 @@
     "i18next": "^21.1.0",
     "i18next-browser-languagedetector": "^6.1.2",
     "js-cookie": "^3.0.1",
+    "nanoid": "^3.1.30",
     "next": "11.0.1",
     "next-i18next": "^8.8.0",
     "next-urql": "^3.2.1",
@@ -26,8 +27,7 @@
     "react-i18next": "^11.12.0",
     "react-is": "^17.0.2",
     "react-select": "^5.1.0",
-    "urql": "^2.0.5",
-    "uuidv4": "^6.2.12"
+    "urql": "^2.0.5"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.0",
