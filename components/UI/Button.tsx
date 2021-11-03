@@ -1,18 +1,20 @@
 import React, { ReactChildren } from 'react';
 
 type ButtonProps = {
-  children: string | ReactChildren | string & ReactChildren
-  variant: 'primary' | 'primaryOutline' | 'secondary' | 'secondaryOutline' | 'danger' | 'dangerOutline'
+  className?: string
+  children?: string | ReactChildren | string & ReactChildren
+  variant?: 'primary' | 'primaryOutline' | 'secondary' | 'secondaryOutline' | 'danger' | 'dangerOutline'
   disabled?: boolean
-  onClick?: () => void
-  type?: string
+  type?: "button" | "submit" | "reset" | undefined
+  [key: string]: any
 }
 
 type VocabularyType = {
   [key: string]: string
 }
 
-const Button = ({ children, variant, disabled, onClick, type='button' }: ButtonProps) => {
+const Button = (props: ButtonProps) => {
+  const { children, variant = "primary", disabled, type = 'button' } = props;
   const vocabulary: VocabularyType = {
     primary: 'bg-main-600 text-white hover:bg-main-700 outline-main border-transparent ',
     primaryOutline: 'outline-main text-main-500 hover:bg-main-600 hover:text-white',
@@ -26,9 +28,8 @@ const Button = ({ children, variant, disabled, onClick, type='button' }: ButtonP
 
   return (
     <button
-      className={styles()}
-      disabled={disabled}
-      onClick={onClick}
+      {...props}
+      className={`${styles()} ${props.className}`}
     >
       {children}
     </button>
