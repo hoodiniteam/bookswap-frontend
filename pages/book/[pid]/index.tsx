@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, { ReactElement, useContext } from 'react';
 import {useMutation} from 'urql'
 import {useRouter} from 'next/router'
 import Layout from '../../../components/layout'
@@ -19,6 +19,9 @@ import {SetBookOpenMutaion} from "../../../graphql/SetBookOpenMutaion";
 import {SetBookHoldMutaion} from "../../../graphql/SetBookHoldMutation";
 import {Badge} from "../../../components/Badge";
 import Button from '../../../components/UI/Button';
+import { result } from 'lodash';
+import { NotificationContext } from '../../../components/UI/NotificationProvider';
+import { nanoid } from 'nanoid';
 
 const Book = () => {
   const router = useRouter()
@@ -35,7 +38,7 @@ const Book = () => {
   });
 
   const {t} = useTranslation('common');
-
+  const dispatch = useContext(NotificationContext)
   const [, addToMyWaitingList] = useMutation(AddBookToMyWaitingListMutation);
   const [, removeFromMyWaitingList] = useMutation(RemoveBookFromMyWaitingList);
   const [, createSwap] = useMutation(CreateMySwapMutation);
@@ -57,7 +60,16 @@ const Book = () => {
   const startSwap = async () => {
     await createSwap({
       editionId: pid,
-    });
+    }).then(res => {
+      dispatch({
+        type: "ADD_NOTIFICATION",
+        payload: {
+          id: nanoid(),
+          type: res.data.createMySwap.status,
+          message: res.data.createMySwap.status
+        },
+      })
+    })
   }
 
   const setBookOpen = async (id: string) => {

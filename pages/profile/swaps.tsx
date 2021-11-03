@@ -11,6 +11,7 @@ import Button from "../../components/UI/Button";
 import {useMutation} from "urql";
 import {SetToDeliveringMutation} from "../../graphql/SetToDeliveringMutation";
 import Link from 'next/link';
+import { AbortSwapMutation } from '../../graphql/AbortSwapMutation';
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
@@ -40,7 +41,6 @@ const CreatedSwap = ({swap}: any) => {
 };
 
 const ActiveSwap = ({swap, children}: any) => {
-  console.log(swap);
   const roomMembers = {
     [swap.room.sender.id]: swap.room.sender.email,
     [swap.room.recipient.id]: swap.room.recipient.email,
@@ -70,6 +70,7 @@ const Swaps = () => {
   const [{data: meData, fetching: fetchingMe}] = useQueryWrapper({
     query: GetMe,
   });
+  const [,abortSwapMutation ] = useMutation(AbortSwapMutation)
 
   const {t} = useTranslation("common");
   const [activeTab, setActiveTab] = useState("receive");
@@ -77,12 +78,17 @@ const Swaps = () => {
   if (fetchingMe) {
     return null;
   }
+  const cancelSwap = (swapId: string) => {
+    abortSwapMutation({
+      id: swapId
+    }).then(res => console.log(res))
+  }
 
   if (meData.me) {
 
     const {user} = meData.me;
 
-    console.log(user);
+    console.log(user.swaps, SwapStatus[SwapStatus.CREATED]);
 
     const tabs = [
       {name: 'receive', label: "Получить", count: user.swaps.length},
@@ -156,7 +162,12 @@ const Swaps = () => {
                     return (
                       <ActiveSwap key={swap.id} swap={swap}>
                         <Button>Подтвердить получение</Button>
-                        <Button variant="dangerOutline">Отменить своп</Button>
+                        <Button
+                          variant="dangerOutline"
+                          onClick={() => cancelSwap(swap.id)}
+                        >
+                          Отменить своп
+                        </Button>
                       </ActiveSwap>
                     )
                   }
@@ -179,7 +190,12 @@ const Swaps = () => {
                     return (
                       <ActiveSwap key={swap.id} swap={swap}>
                         <Button>Подтвердить отправку</Button>
-                        <Button variant="dangerOutline">Отменить своп</Button>
+                        <Button
+                          onClick={() => cancelSwap(swap.id)}
+                          variant="dangerOutline"
+                        >
+                          Отменить своп
+                        </Button>
                       </ActiveSwap>
                     )
                   }
