@@ -12,60 +12,9 @@ import { localesList } from '../../helpers/locales';
 import { AvatarComponent } from '../../components/avatars';
 import Button from '../../components/UI/Button';
 import Link from 'next/link';
+import {UpdateUserMutation} from "../../graphql/UpdateUserMutation";
+import {GetMe} from "../../graphql/GetMe";
 
-const GetMe = `
-query{
-  me{
-    user{
-      apartment
-      bDay
-      city  
-      country
-      gender
-      email
-      firstName
-      gender
-      id
-      lastName
-      phone
-      region
-      street
-      zipcode
-      waiting{
-        title
-        id
-      }
-    }
-  }
-}
-`;
-const UpdateUserMutation = `
-mutation($email: String!, $firstName: String!, $lastName:String!, $country: String!,
-$region: String!, $city:String!, $street: String!, $apartment: String!, $bDay:DateTime!,
-$phone: String!, $gender: Gender, $zipcode: Float){
-  updateMe(options:{email:$email, firstName:$firstName, lastName:$lastName, country:$country
-  region:$region, city:$city, street:$street, apartment:$apartment, bDay: $bDay, phone: $phone, gender: $gender, zipcode: $zipcode}){
-      status
-      errors{
-        message
-      }
-    user{
-      apartment
-      bDay
-      city
-      country
-      email
-      firstName
-      lastName
-      phone
-      region
-      street
-      zipcode
-      gender
-    }
-  }
-}
-`;
 type WaitingList = [
   {
     title: string;
