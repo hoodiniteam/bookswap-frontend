@@ -8,11 +8,72 @@ import Select from "react-select";
 const Avatar = () => {
 
   const [avatarOptions, setAvatarOptions] = useState({});
-  const context = useContext(MyOptionContext);
+
   const hairOptions = [
     { value: 'NoHair', label: 'Без волос' },
     { value: 'Hat', label: 'Шляпа' },
   ];
+
+  const eyeOptions = [
+    { value: 'Close', label: 'Закрытые' },
+    { value: 'Cry', label: 'Слеза' },
+  ];
+
+  const eyebrowOptions = [
+    { value: 'Angry', label: 'Злые' },
+    { value: 'AngryNatural', label: 'Злые натуральные' },
+  ];
+
+  const mouthOptions = [
+    { value: 'Concerned', label: 'Обеспокоенный' },
+    { value: 'Disbelief', label: 'Недоверчивый' },
+  ];
+
+  const facialHairTypeOptions = [
+    { value: 'Blank', label: '-' },
+    { value: 'BeardMedium', label: 'Борода средняя' },
+  ];
+
+  const facialHairColorOptions = [
+    { value: 'Auburn', label: 'Каштановый' },
+    { value: 'Black', label: 'Черный' },
+    { value: 'Blonde', label: 'Блонди' },
+  ];
+
+  const hairColorOptions = [
+    { value: 'Auburn', label: 'Каштановый' },
+    { value: 'Black', label: 'Черный' },
+    { value: 'Blonde', label: 'Блонди' },
+  ];
+
+  const hatColorOptions = [
+    { value: 'Black', label: 'Черный' },
+    { value: 'Blue01', label: 'Черный 1' },
+    { value: 'Blue02', label: 'Черный 2' },
+  ];
+
+  const skinColorOptions = [
+    { value: 'Tanned', label: 'Загорелый' },
+    { value: 'Yellow', label: 'Желтый' },
+    { value: 'Pale', label: 'Бледный' },
+  ];
+
+  const clotheColorOptions = [
+    { value: 'Black', label: 'Черный' },
+    { value: 'Blue01', label: 'Черный 1' },
+    { value: 'Blue02', label: 'Черный 2' },
+  ];
+
+  const clotheTypeOptions = [
+    { value: 'BlazerShirt', label: 'Блейзер' },
+    { value: 'BlazerSweater', label: 'Блейзер-свитер' },
+  ];
+
+  const accessoriesTypeOptions = [
+    { value: 'Blank', label: '-' },
+    { value: 'Kurt', label: 'Курт' },
+  ];
+
 
   const handleOptionChange = ({value}: any, {name}: any) => {
     setAvatarOptions({...avatarOptions, [name]: value});
@@ -37,7 +98,138 @@ const Avatar = () => {
           onChange={handleOptionChange}
         />
       </div>
-    </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Глаза</label>
+        <Select
+          placeholder="Глаза"
+          classNamePrefix="select"
+          isSearchable
+          name="eyeType"
+          options={eyeOptions}
+          onChange={handleOptionChange}
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Брови</label>
+        <Select
+          placeholder="Брови"
+          classNamePrefix="select"
+          isSearchable
+          name="eyebrowType"
+          options={eyebrowOptions}
+          onChange={handleOptionChange}
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Рот</label>
+        <Select
+          placeholder="Рот"
+          classNamePrefix="select"
+          isSearchable
+          name="mouthType"
+          options={mouthOptions}
+          onChange={handleOptionChange}
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Волосы на лице</label>
+        <Select
+          placeholder="Волосы на лице"
+          classNamePrefix="select"
+          isSearchable
+          name="facialHairType"
+          options={facialHairTypeOptions}
+          onChange={handleOptionChange}
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Цвет волос на лице</label>
+        <Select
+          placeholder="Цвет волос на лице"
+          classNamePrefix="select"
+          isSearchable
+          name="facialHairColor"
+          options={facialHairColorOptions}
+          onChange={handleOptionChange}
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Цвет волос на голове</label>
+        <Select
+          placeholder="Цвет волос на голове"
+          classNamePrefix="select"
+          isSearchable
+          name="hairColor"
+          options={hairColorOptions}
+          onChange={handleOptionChange}
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Цвет головного убора</label>
+        <Select
+          placeholder="Цвет головного убора"
+          classNamePrefix="select"
+          isSearchable
+          name="hatColor"
+          options={hatColorOptions}
+          onChange={handleOptionChange}
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Цвет кожи</label>
+        <Select
+          placeholder="Цвет кожи"
+          classNamePrefix="select"
+          isSearchable
+          name="skinColor"
+          options={skinColorOptions}
+          onChange={handleOptionChange}
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Цвет одежды</label>
+        <Select
+          placeholder="Цвет одежды"
+          classNamePrefix="select"
+          isSearchable
+          name="clotheColor"
+          options={clotheColorOptions}
+          onChange={handleOptionChange}
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Одежда</label>
+        <Select
+          placeholder="Одежда"
+          classNamePrefix="select"
+          isSearchable
+          name="clotheType"
+          options={clotheTypeOptions}
+          onChange={handleOptionChange}
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Аксессуары</label>
+        <Select
+          placeholder="Аксессуары"
+          classNamePrefix="select"
+          isSearchable
+          name="accessoriesType"
+          options={accessoriesTypeOptions}
+          onChange={handleOptionChange}
+        />
+      </div>
+
+  </div>
   </div>
   )
 }
