@@ -161,6 +161,7 @@ const Swaps = () => {
                   } else if (swap.room) {
                     return (
                       <ActiveSwap key={swap.id} swap={swap}>
+                        {swap.status}
                         <Button>Подтвердить получение</Button>
                         <Button
                           variant="dangerOutline"
@@ -189,6 +190,7 @@ const Swaps = () => {
                   } else if (swap.room) {
                     return (
                       <ActiveSwap key={swap.id} swap={swap}>
+                        {swap.status}
                         <Button>Подтвердить отправку</Button>
                         <Button
                           onClick={() => cancelSwap(swap.id)}

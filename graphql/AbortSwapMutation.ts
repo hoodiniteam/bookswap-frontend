@@ -1,12 +1,12 @@
+import {fragmentSwap} from "./fragmentSwap";
+import {fragmentBase} from "./fragmentBase";
+
 export const AbortSwapMutation = `
 mutation($id: String!){
   abortSwap(swapId:$id){
-    errors{
-      message
-    }
-    status
-    swap{
-      status    
+    ${fragmentBase}
+    swap {
+        ${fragmentSwap}
     }
   }
 }
