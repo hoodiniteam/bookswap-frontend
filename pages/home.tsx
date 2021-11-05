@@ -7,36 +7,18 @@ import { useTranslation } from 'next-i18next';
 import { localesList } from '../helpers/locales';
 import { useQueryWrapper } from '../helpers/useQueryWrapper';
 import { GetMe } from '../graphql/GetMe';
-import { NotificationContext } from '../components/UI/NotificationProvider';
-import {nanoid} from 'nanoid';
+import {useNotification} from "../helpers/notificationHelper";
 
-type Note = {
-  id: string
-  type: string
-  message: string
-}
-
-type DispatchType = {
-  type: string
-  payload: Note
-}
 
 const Home = () => {
-  const dispatch: Dispatch<DispatchType> = useContext(NotificationContext)
+  const {successNotification} = useNotification();
   const { t } = useTranslation(localesList);
   const [{ data }] = useQueryWrapper({
     query: GetMe,
   });
 
   const open = () => {
-    dispatch({
-      type: "ADD_NOTIFICATION",
-      payload: {
-        id: nanoid(),
-        type: "SUCCESS",
-        message: "new notification"
-      },
-    })
+    successNotification("Test");
   };
 
   return (

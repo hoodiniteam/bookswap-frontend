@@ -20,7 +20,7 @@ const NotificationItem = ({ message, dispatch, id, type }: NotificationItemProps
   const handleStart = () => {
     const id = setInterval(() => {
       setLifeTime((prev) => prev + 1)
-    }, 1000)
+    }, 3000)
     setIntervalId(id)
   }
   const handleStop = () => {
