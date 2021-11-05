@@ -15,23 +15,15 @@ const Avatar = () => {
   const [{data: meData, fetching}] = useQueryWrapper({
     query: GetMe,
   });
-  const [defaultAvatarOptions, setDefaultAvatarOptions] = useState<any>({});
-  const [avatarOptions, setAvatarOptions] = useState({});
+  const [avatarSelectOptions, setAvatarSelectOptions] = useState<any>({});
+  const [avatarDisplayOptions, setAvatarDisplayOptions] = useState<any>(null);
   const [, updateUser] = useMutation(UpdateUserMutation);
 
   const saveAvatarHandler = async () => {
     await updateUser({
-      avatar: avatarOptions
+      avatar: avatarDisplayOptions
     })
   };
-
-  useEffect(() => {
-    const {user} = meData.me;
-    if (user) {
-      setDefaultAvatarOptions(user.avatar);
-      setAvatarOptions(user.avatar);
-    }
-  }, [meData])
 
   const hairOptions = [
     {value: 'NoHair', label: 'Без волос'},
@@ -98,43 +90,79 @@ const Avatar = () => {
     {value: 'Kurt', label: 'Курт'},
   ];
 
+  const setSelectValues = (values:any) => {
+    const topType = hairOptions.find(option => option.value === values['topType']);
+    const eyeType = eyeOptions.find(option => option.value === values['eyeType']);
+    const eyebrowType = eyeOptions.find(option => option.value === values['eyebrowType']);
+    const mouthType = mouthOptions.find(option => option.value === values['mouthType']);
+    const facialHairType = facialHairTypeOptions.find(option => option.value === values['facialHairType']);
+    const facialHairColor = facialHairColorOptions.find(option => option.value === values['facialHairColor']);
+    const hairColor = hairColorOptions.find(option => option.value === values['hairColor']);
+    const hatColor = hatColorOptions.find(option => option.value === values['hatColor']);
+    const skinColor = skinColorOptions.find(option => option.value === values['skinColor']);
+    const clotheColor = clotheColorOptions.find(option => option.value === values['clotheColor']);
+    const clotheType = clotheTypeOptions.find(option => option.value === values['clotheType']);
+    const accessoriesType = accessoriesTypeOptions.find(option => option.value === values['accessoriesType']);
+    const options = {
+      topType,
+      eyeType,
+      eyebrowType,
+      mouthType,
+      facialHairType,
+      facialHairColor,
+      hairColor,
+      hatColor,
+      skinColor,
+      clotheColor,
+      clotheType,
+      accessoriesType,
+    }
+    console.log(options);
+    setAvatarSelectOptions(options);
+  }
 
-  const handleOptionChange = ({value}: any, {name}: any) => {
-    setAvatarOptions({...avatarOptions, [name]: value});
+  useEffect(() => {
+    const {user} = meData.me;
+    if (user) {
+      setAvatarDisplayOptions(user.avatar);
+      setSelectValues(user.avatar);
+    }
+  }, [meData])
+
+  const handleOptionChange = ({value, label}: any, {name}: any) => {
+    setAvatarDisplayOptions({...(avatarDisplayOptions || {}), [name]: value});
+    setAvatarSelectOptions({...avatarSelectOptions, [name]: {value, label}});
+  };
+
+  const randomChangedHandler = (values: any) => {
+    setAvatarDisplayOptions(values);
+    setSelectValues(values);
   };
 
   if (fetching) return <p>Loading...</p>;
 
   if (meData.me) {
 
-    const defaultTop = hairOptions.find(option => option.value === defaultAvatarOptions['topType']);
-    const defaultEye = eyeOptions.find(option => option.value === defaultAvatarOptions['eyeType'])
-    const defaultEyebrow = eyeOptions.find(option => option.value === defaultAvatarOptions['eyebrowType'])
-    const defaultMouthType = mouthOptions.find(option => option.value === defaultAvatarOptions['mouthType'])
-    const defaultFacialHairType = facialHairTypeOptions.find(option => option.value === defaultAvatarOptions['facialHairType'])
-    const defaultFacialHairColor = facialHairColorOptions.find(option => option.value === defaultAvatarOptions['facialHairColor'])
-    const defaultHairColor = hairColorOptions.find(option => option.value === defaultAvatarOptions['hairColor'])
-    const defaultHatColor = hatColorOptions.find(option => option.value === defaultAvatarOptions['hatColor'])
-    const defaultSkinColor = skinColorOptions.find(option => option.value === defaultAvatarOptions['skinColor'])
-    const defaultClotheColor = clotheColorOptions.find(option => option.value === defaultAvatarOptions['clotheColor'])
-    const defaultClotheType = clotheTypeOptions.find(option => option.value === defaultAvatarOptions['clotheType'])
-    const defaultAccessoriesType = accessoriesTypeOptions.find(option => option.value === defaultAvatarOptions['accessoriesType'])
-
     return (
       <div>
-        <AvatarComponent
-          className="mx-auto"
-          avatarStyle='Circle'
-          {...avatarOptions}
-        />
-        <div className="grid gap-4 pt-4 grid-cols-3">
+        {
+          avatarDisplayOptions && <AvatarComponent
+              className="mx-auto max-w-lg"
+              avatarStyle='Circle'
+              random={true}
+              customizable={true}
+              onRandomChanged={randomChangedHandler}
+              {...avatarDisplayOptions}
+          />
+        }
+        <div className="avatar-selectors overflow-auto sm:overflow-visible grid gap-4 pt-4 sm:grid-cols-3">
           <div>
             <label className="block text-sm font-medium text-gray-700">Волосы и Головные уборы</label>
             <Select
               placeholder="Волосы и Головные уборы"
               classNamePrefix="select"
               isSearchable
-              defaultValue={defaultTop}
+              value={avatarSelectOptions["topType"]}
               name="topType"
               options={hairOptions}
               onChange={handleOptionChange}
@@ -146,7 +174,7 @@ const Avatar = () => {
               placeholder="Глаза"
               classNamePrefix="select"
               isSearchable
-              defaultValue={defaultEye}
+              value={avatarSelectOptions["eyeType"]}
               name="eyeType"
               options={eyeOptions}
               onChange={handleOptionChange}
@@ -158,7 +186,7 @@ const Avatar = () => {
               placeholder="Брови"
               classNamePrefix="select"
               isSearchable
-              defaultValue={defaultEyebrow}
+              value={avatarSelectOptions["eyebrowType"]}
               name="eyebrowType"
               options={eyebrowOptions}
               onChange={handleOptionChange}
@@ -170,7 +198,7 @@ const Avatar = () => {
               placeholder="Рот"
               classNamePrefix="select"
               isSearchable
-              defaultValue={defaultMouthType}
+              value={avatarSelectOptions["mouthType"]}
               name="mouthType"
               options={mouthOptions}
               onChange={handleOptionChange}
@@ -182,7 +210,7 @@ const Avatar = () => {
               placeholder="Волосы на лице"
               classNamePrefix="select"
               isSearchable
-              defaultValue={defaultFacialHairType}
+              value={avatarSelectOptions["facialHairType"]}
               name="facialHairType"
               options={facialHairTypeOptions}
               onChange={handleOptionChange}
@@ -194,7 +222,7 @@ const Avatar = () => {
               placeholder="Цвет волос на лице"
               classNamePrefix="select"
               isSearchable
-              defaultValue={defaultFacialHairColor}
+              value={avatarSelectOptions["facialHairColor"]}
               name="facialHairColor"
               options={facialHairColorOptions}
               onChange={handleOptionChange}
@@ -206,7 +234,7 @@ const Avatar = () => {
               placeholder="Цвет волос на голове"
               classNamePrefix="select"
               isSearchable
-              defaultValue={defaultHairColor}
+              value={avatarSelectOptions["hairColor"]}
               name="hairColor"
               options={hairColorOptions}
               onChange={handleOptionChange}
@@ -218,7 +246,7 @@ const Avatar = () => {
               placeholder="Цвет головного убора"
               classNamePrefix="select"
               isSearchable
-              defaultValue={defaultHatColor}
+              value={avatarSelectOptions["hatColor"]}
               name="hatColor"
               options={hatColorOptions}
               onChange={handleOptionChange}
@@ -230,7 +258,7 @@ const Avatar = () => {
               placeholder="Цвет кожи"
               classNamePrefix="select"
               isSearchable
-              defaultValue={defaultSkinColor}
+              value={avatarSelectOptions["skinColor"]}
               name="skinColor"
               options={skinColorOptions}
               onChange={handleOptionChange}
@@ -242,7 +270,7 @@ const Avatar = () => {
               placeholder="Цвет одежды"
               classNamePrefix="select"
               isSearchable
-              defaultValue={defaultClotheColor}
+              value={avatarSelectOptions["clotheColor"]}
               name="clotheColor"
               options={clotheColorOptions}
               onChange={handleOptionChange}
@@ -254,7 +282,7 @@ const Avatar = () => {
               placeholder="Одежда"
               classNamePrefix="select"
               isSearchable
-              defaultValue={defaultClotheType}
+              value={avatarSelectOptions["clotheType"]}
               name="clotheType"
               options={clotheTypeOptions}
               onChange={handleOptionChange}
@@ -266,7 +294,7 @@ const Avatar = () => {
               placeholder="Аксессуары"
               classNamePrefix="select"
               isSearchable
-              defaultValue={defaultAccessoriesType}
+              value={avatarSelectOptions["accessoriesType"]}
               name="accessoriesType"
               options={accessoriesTypeOptions}
               onChange={handleOptionChange}

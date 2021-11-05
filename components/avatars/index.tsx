@@ -7,6 +7,7 @@ import {useContext, useEffect} from "react";
 import OptionContext from "./options/OptionContext";
 import { sample } from 'lodash';
 import Button from '../UI/Button';
+import {useRouter} from "next/router";
 
 export interface Props {
   avatarStyle: string
@@ -27,10 +28,15 @@ export interface Props {
   pieceType?:string
   pieceSize?:string
   viewBox?:string
+  random?: boolean
+  onRandomChanged?: (values: any) => void
+  customizable?: boolean
 }
+
 export const MyOptionContext = React.createContext(new OptionContext(allOptions));
 
 export const AvatarComponent = (props: Props) => {
+  const router = useRouter();
   const { avatarStyle, style, className } = props;
   const context = useContext(MyOptionContext);
 
@@ -39,6 +45,7 @@ export const AvatarComponent = (props: Props) => {
   }
 
   const updateOptionContext = (props: any) => {
+    console.log("update", props);
     const data: { [index: string]: string } = {}
     for (const option of allOptions) {
       const value = props[option.key]
@@ -51,6 +58,7 @@ export const AvatarComponent = (props: Props) => {
   }
 
   const onRandom = () => {
+    console.log("random");
     let values: { [index: string]: string } = {
       avatarStyle,
     }
@@ -73,23 +81,34 @@ export const AvatarComponent = (props: Props) => {
       values[option.key] = sample(optionState.options)!
     }
     context.setData(values);
+    if (props.onRandomChanged) {
+      props.onRandomChanged(values);
+    }
   }
 
   useEffect(() => {
-    updateOptionContext(props);
-    // onRandom();
+    if(router.pathname === "/profile/avatar") {
+      if (props.customizable) {
+        updateOptionContext(props);
+      }
+    } else {
+      updateOptionContext(props);
+    }
   }, [props])
 
   return (
       <div>
-        <Avatar {...props} avatarStyle={avatarStyle as AvatarStyle} style={style} className={className} />
-
-        {/*<Button
-        variant='primary'
-        onClick={onRandom}
-        >
-          Random
-        </Button>*/}
+          <Avatar {...props} avatarStyle={avatarStyle as AvatarStyle} style={style} className={className} />
+          {
+            props.random && <div className="flex justify-center p-6">
+                <Button
+                    variant='primary'
+                    onClick={onRandom}
+                >
+                    Рандомно
+                </Button>
+            </div>
+          }
       </div>
   )
 }

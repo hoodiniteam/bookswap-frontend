@@ -110,3 +110,7 @@ a {
         margin-left: 120%;
     }
 }
+
+.avatar-selectors {
+    max-height: 25vh;
+}

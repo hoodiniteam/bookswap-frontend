@@ -47,12 +47,14 @@ type UserData = {
   street: string;
   waiting: WaitingList;
   zipcode: number;
+  avatar: any;
 };
 
 const Index = () => {
-  const [{ data, error, fetching }] = useQueryWrapper({
+  const [{ data: meData, error, fetching }] = useQueryWrapper({
     query: GetMe,
   });
+
   const [, updateUser] = useMutation(UpdateUserMutation);
   const [user, setUser] = useState<UserData | ''>('');
   const router = useRouter();
@@ -63,11 +65,14 @@ const Index = () => {
     formState: { errors },
   } = useForm();
   const { t } = useTranslation(localesList);
+
   useEffect(() => {
-    if (data) {
-      setUser(data.me.user);
+    console.log(meData);
+    if (meData) {
+      setUser(meData.me.user);
     }
-  }, [data]);
+  }, [meData]);
+
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
@@ -103,7 +108,8 @@ const Index = () => {
     }
     clearErrors(name);
   };
-  if (!fetching && user) {
+  if (!fetching && meData && user) {
+
     return (
       <form action='#' method='POST' onSubmit={submitHandler}>
         <Head>
@@ -126,12 +132,18 @@ const Index = () => {
                 >
                   {t('avatar')}
                 </label>
+                <div className="text-center">
                 <AvatarComponent
+                  className="sm:w-1/2 inline-block"
                   avatarStyle='Circle'
+                  {...user.avatar}
                 />
                 <Link href="/profile/avatar">
-                  <Button type="button">Настроить аватар</Button>
+                  <a>
+                    <Button className="mt-6" type="button">Настроить аватар</Button>
+                  </a>
                 </Link>
+                </div>
               </div>
               <div className='col-span-6 sm:col-span-3'>
                 <label
