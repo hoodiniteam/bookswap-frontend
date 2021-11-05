@@ -1,13 +1,13 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Script from 'next/script'
-import React, { useContext } from 'react';
+import React  from 'react';
 import type { ReactElement, ReactNode } from 'react'
 import type { NextPage } from 'next'
 import { appWithTranslation } from 'next-i18next';
 import { withUrqlClient } from 'next-urql';
 import Cookies from "js-cookie";
-import NotificationProvider, { NotificationContext } from '../components/UI/NotificationProvider';
+import NotificationProvider  from '../components/UI/NotificationProvider';
 
 type NextPageWithLayout = NextPage & {
     getLayout?: (page: ReactElement) => ReactNode
@@ -18,10 +18,7 @@ type AppPropsWithLayout = AppProps & {
 }
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-    const contextValue = useContext(NotificationContext)
-
-    const getLayout = Component.getLayout ?? ((page) => page)
-
+    const getLayout = Component.getLayout ?? ((page) => page);
     return (
         <>
             <Script src='https://upload-widget.cloudinary.com/global/all.js' strategy='beforeInteractive' />

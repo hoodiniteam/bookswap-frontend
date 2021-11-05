@@ -1,4 +1,4 @@
-import React, {ReactElement, useState} from 'react';
+import React, {ReactElement, useEffect, useState} from 'react';
 import Layout from "../../components/layout";
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
@@ -94,6 +94,8 @@ const Swaps = () => {
 
     const {user} = meData.me;
 
+    console.log(user.swaps, SwapStatus[SwapStatus.CREATED]);
+
     const tabs = [
       {name: 'receive', label: "Получить", count: user.swaps.length},
       {name: 'send', label: "Отдать", count: user.sends.length},
@@ -170,6 +172,8 @@ const Swaps = () => {
                         >
                           Подтвердить получение
                         </Button>
+                        {swap.status}
+                        <Button>Подтвердить получение</Button>
                         <Button
                           variant="dangerOutline"
                           onClick={() => cancelSwap(swap.id)}
@@ -202,6 +206,8 @@ const Swaps = () => {
                         >
                           Подтвердить отправку
                         </Button>
+                        {swap.status}
+                        <Button>Подтвердить отправку</Button>
                         <Button
                           onClick={() => cancelSwap(swap.id)}
                           variant="dangerOutline"

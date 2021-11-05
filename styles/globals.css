@@ -75,8 +75,8 @@ a {
 }
 
 .notificationItem {
-    @apply flex w-96 h-20 my-3 p-5 shadow-md rounded-md;
-    animation: SlideLeft 0.3s;
+    @apply flex w-80 max-w-full mb-4 p-4 shadow-md rounded-md;
+    animation: SlideLeft 0.5s;
     animation-fill-mode: forwards;
 }
 
@@ -89,7 +89,7 @@ a {
 }
 
 .notificationItem.exit {
-    animation: SlideRight 0.3s;
+    animation: SlideRight 0.5s;
     animation-fill-mode: forwards;
 }
 
@@ -109,4 +109,8 @@ a {
     100% {
         margin-left: 120%;
     }
+}
+
+.avatar-selectors {
+    max-height: 25vh;
 }

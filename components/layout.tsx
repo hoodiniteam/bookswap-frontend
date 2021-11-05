@@ -19,6 +19,7 @@ import {CreateEmptyEditionMutation} from "../graphql/CreateEmptyEditionMutation"
 import {Logo} from "./Logo";
 import {useQueryWrapper} from "../helpers/useQueryWrapper";
 import {GetMe} from "../graphql/GetMe";
+import {AvatarComponent} from "./avatars";
 
 const Layout = ({children, title}: any) => {
   const router = useRouter();
@@ -261,21 +262,12 @@ const Layout = ({children, title}: any) => {
                             {({open}) => (
                               <>
                                 <div>
-                                  <Menu.Button
-                                    className="bg-main-600 rounded-full flex text-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
+                                  <Menu.Button>
                                     <span className="sr-only"> Open user menu</span>
-                                    <Image
-                                      className="rounded-full"
-                                      height={
-                                        '40px' as any
-                                      }
-                                      width={
-                                        '40px' as any
-                                      }
-                                      src={
-                                        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80' as any
-                                      }
-                                      alt=""
+                                    <AvatarComponent
+                                      className="w-10"
+                                      avatarStyle='Circle'
+                                      {...user.avatar}
                                     />
                                   </Menu.Button>
                                 </div>
@@ -390,28 +382,13 @@ const Layout = ({children, title}: any) => {
                     <div className="pt-4 pb-3 border-t border-main-700">
                       <div className="px-5 flex items-center">
                         <div className="flex-shrink-0">
-                          <Image
-                            height={'80px' as any}
-                            width={'80px' as any}
-                            src={
-                              'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80' as any
-                            }
-                            alt=""
-                          />
-                        </div>
-                        <div className="ml-3">
-                          <div className="text-base font-medium text-white">
-                            Tom Cook
-                          </div>
-                          <div className="text-sm font-medium text-main-300">
-                            tom@example.com
-                          </div>
+                          avatar
                         </div>
                         <button
                           className="ml-auto bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
-                                                <span className="sr-only">
-                                                    View notifications
-                                                </span>
+                            <span className="sr-only">
+                                View notifications
+                            </span>
                           <BellIcon
                             className="h-6 w-6"
                             aria-hidden="true"

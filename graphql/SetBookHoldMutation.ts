@@ -5,7 +5,7 @@ export const SetBookHoldMutaion = `
     mutation($id: String!){
       setBookHold(id: $id) {
         ${fragmentBase}
-        ${fragmentBook}
+        ${fragmentBook} 
       }
     }
 `;

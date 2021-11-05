@@ -1,45 +1,314 @@
-import React, {ReactElement, useContext, useState} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import Layout from "../../components/layout";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {localesList} from "../../helpers/locales";
-import {AvatarComponent, MyOptionContext} from "../../components/avatars";
+import {AvatarComponent} from "../../components/avatars";
 import Select from "react-select";
+import Button from "../../components/UI/Button";
+import {useMutation} from "urql";
+import {UpdateUserMutation} from "../../graphql/UpdateUserMutation";
+import {useQueryWrapper} from "../../helpers/useQueryWrapper";
+import {GetMe} from "../../graphql/GetMe";
 
 const Avatar = () => {
 
-  const [avatarOptions, setAvatarOptions] = useState({});
-  const context = useContext(MyOptionContext);
-  const hairOptions = [
-    { value: 'NoHair', label: 'Без волос' },
-    { value: 'Hat', label: 'Шляпа' },
-  ];
+  const [{data: meData, fetching}] = useQueryWrapper({
+    query: GetMe,
+  });
+  const [avatarSelectOptions, setAvatarSelectOptions] = useState<any>({});
+  const [avatarDisplayOptions, setAvatarDisplayOptions] = useState<any>(null);
+  const [, updateUser] = useMutation(UpdateUserMutation);
 
-  const handleOptionChange = ({value}: any, {name}: any) => {
-    setAvatarOptions({...avatarOptions, [name]: value});
+  const saveAvatarHandler = async () => {
+    await updateUser({
+      avatar: avatarDisplayOptions
+    })
   };
 
-  return (
-  <div>
-    <AvatarComponent
-      className="mx-auto"
-      avatarStyle='Circle'
-      {...avatarOptions}
-    />
-    <div className="grid gap-4 pt-4 grid-cols-3">
+  const hairOptions = [
+    {value: 'NoHair', label: 'Без волос'},
+    {value: 'Hat', label: 'Шляпа'},
+  ];
+
+  const eyeOptions = [
+    {value: 'Close', label: 'Закрытые'},
+    {value: 'Cry', label: 'Слеза'},
+  ];
+
+  const eyebrowOptions = [
+    {value: 'Angry', label: 'Злые'},
+    {value: 'AngryNatural', label: 'Злые натуральные'},
+  ];
+
+  const mouthOptions = [
+    {value: 'Concerned', label: 'Обеспокоенный'},
+    {value: 'Disbelief', label: 'Недоверчивый'},
+  ];
+
+  const facialHairTypeOptions = [
+    {value: 'Blank', label: '-'},
+    {value: 'BeardMedium', label: 'Борода средняя'},
+  ];
+
+  const facialHairColorOptions = [
+    {value: 'Auburn', label: 'Каштановый'},
+    {value: 'Black', label: 'Черный'},
+    {value: 'Blonde', label: 'Блонди'},
+  ];
+
+  const hairColorOptions = [
+    {value: 'Auburn', label: 'Каштановый'},
+    {value: 'Black', label: 'Черный'},
+    {value: 'Blonde', label: 'Блонди'},
+  ];
+
+  const hatColorOptions = [
+    {value: 'Black', label: 'Черный'},
+    {value: 'Blue01', label: 'Черный 1'},
+    {value: 'Blue02', label: 'Черный 2'},
+  ];
+
+  const skinColorOptions = [
+    {value: 'Tanned', label: 'Загорелый'},
+    {value: 'Yellow', label: 'Желтый'},
+    {value: 'Pale', label: 'Бледный'},
+  ];
+
+  const clotheColorOptions = [
+    {value: 'Black', label: 'Черный'},
+    {value: 'Blue01', label: 'Черный 1'},
+    {value: 'Blue02', label: 'Черный 2'},
+  ];
+
+  const clotheTypeOptions = [
+    {value: 'BlazerShirt', label: 'Блейзер'},
+    {value: 'BlazerSweater', label: 'Блейзер-свитер'},
+  ];
+
+  const accessoriesTypeOptions = [
+    {value: 'Blank', label: '-'},
+    {value: 'Kurt', label: 'Курт'},
+  ];
+
+  const setSelectValues = (values:any) => {
+    const topType = hairOptions.find(option => option.value === values['topType']);
+    const eyeType = eyeOptions.find(option => option.value === values['eyeType']);
+    const eyebrowType = eyeOptions.find(option => option.value === values['eyebrowType']);
+    const mouthType = mouthOptions.find(option => option.value === values['mouthType']);
+    const facialHairType = facialHairTypeOptions.find(option => option.value === values['facialHairType']);
+    const facialHairColor = facialHairColorOptions.find(option => option.value === values['facialHairColor']);
+    const hairColor = hairColorOptions.find(option => option.value === values['hairColor']);
+    const hatColor = hatColorOptions.find(option => option.value === values['hatColor']);
+    const skinColor = skinColorOptions.find(option => option.value === values['skinColor']);
+    const clotheColor = clotheColorOptions.find(option => option.value === values['clotheColor']);
+    const clotheType = clotheTypeOptions.find(option => option.value === values['clotheType']);
+    const accessoriesType = accessoriesTypeOptions.find(option => option.value === values['accessoriesType']);
+    const options = {
+      topType,
+      eyeType,
+      eyebrowType,
+      mouthType,
+      facialHairType,
+      facialHairColor,
+      hairColor,
+      hatColor,
+      skinColor,
+      clotheColor,
+      clotheType,
+      accessoriesType,
+    }
+    console.log(options);
+    setAvatarSelectOptions(options);
+  }
+
+  useEffect(() => {
+    const {user} = meData.me;
+    if (user) {
+      setAvatarDisplayOptions(user.avatar);
+      setSelectValues(user.avatar);
+    }
+  }, [meData])
+
+  const handleOptionChange = ({value, label}: any, {name}: any) => {
+    setAvatarDisplayOptions({...(avatarDisplayOptions || {}), [name]: value});
+    setAvatarSelectOptions({...avatarSelectOptions, [name]: {value, label}});
+  };
+
+  const randomChangedHandler = (values: any) => {
+    setAvatarDisplayOptions(values);
+    setSelectValues(values);
+  };
+
+  if (fetching) return <p>Loading...</p>;
+
+  if (meData.me) {
+
+    return (
       <div>
-        <label className="block text-sm font-medium text-gray-700">Волосы и Головные уборы</label>
-        <Select
-          placeholder="Волосы и Головные уборы"
-          classNamePrefix="select"
-          isSearchable
-          name="topType"
-          options={hairOptions}
-          onChange={handleOptionChange}
-        />
+        {
+          avatarDisplayOptions && <AvatarComponent
+              className="mx-auto max-w-lg"
+              avatarStyle='Circle'
+              random={true}
+              customizable={true}
+              onRandomChanged={randomChangedHandler}
+              {...avatarDisplayOptions}
+          />
+        }
+        <div className="avatar-selectors overflow-auto sm:overflow-visible grid gap-4 pt-4 sm:grid-cols-3">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Волосы и Головные уборы</label>
+            <Select
+              placeholder="Волосы и Головные уборы"
+              classNamePrefix="select"
+              isSearchable
+              value={avatarSelectOptions["topType"]}
+              name="topType"
+              options={hairOptions}
+              onChange={handleOptionChange}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Глаза</label>
+            <Select
+              placeholder="Глаза"
+              classNamePrefix="select"
+              isSearchable
+              value={avatarSelectOptions["eyeType"]}
+              name="eyeType"
+              options={eyeOptions}
+              onChange={handleOptionChange}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Брови</label>
+            <Select
+              placeholder="Брови"
+              classNamePrefix="select"
+              isSearchable
+              value={avatarSelectOptions["eyebrowType"]}
+              name="eyebrowType"
+              options={eyebrowOptions}
+              onChange={handleOptionChange}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Рот</label>
+            <Select
+              placeholder="Рот"
+              classNamePrefix="select"
+              isSearchable
+              value={avatarSelectOptions["mouthType"]}
+              name="mouthType"
+              options={mouthOptions}
+              onChange={handleOptionChange}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Волосы на лице</label>
+            <Select
+              placeholder="Волосы на лице"
+              classNamePrefix="select"
+              isSearchable
+              value={avatarSelectOptions["facialHairType"]}
+              name="facialHairType"
+              options={facialHairTypeOptions}
+              onChange={handleOptionChange}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Цвет волос на лице</label>
+            <Select
+              placeholder="Цвет волос на лице"
+              classNamePrefix="select"
+              isSearchable
+              value={avatarSelectOptions["facialHairColor"]}
+              name="facialHairColor"
+              options={facialHairColorOptions}
+              onChange={handleOptionChange}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Цвет волос на голове</label>
+            <Select
+              placeholder="Цвет волос на голове"
+              classNamePrefix="select"
+              isSearchable
+              value={avatarSelectOptions["hairColor"]}
+              name="hairColor"
+              options={hairColorOptions}
+              onChange={handleOptionChange}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Цвет головного убора</label>
+            <Select
+              placeholder="Цвет головного убора"
+              classNamePrefix="select"
+              isSearchable
+              value={avatarSelectOptions["hatColor"]}
+              name="hatColor"
+              options={hatColorOptions}
+              onChange={handleOptionChange}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Цвет кожи</label>
+            <Select
+              placeholder="Цвет кожи"
+              classNamePrefix="select"
+              isSearchable
+              value={avatarSelectOptions["skinColor"]}
+              name="skinColor"
+              options={skinColorOptions}
+              onChange={handleOptionChange}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Цвет одежды</label>
+            <Select
+              placeholder="Цвет одежды"
+              classNamePrefix="select"
+              isSearchable
+              value={avatarSelectOptions["clotheColor"]}
+              name="clotheColor"
+              options={clotheColorOptions}
+              onChange={handleOptionChange}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Одежда</label>
+            <Select
+              placeholder="Одежда"
+              classNamePrefix="select"
+              isSearchable
+              value={avatarSelectOptions["clotheType"]}
+              name="clotheType"
+              options={clotheTypeOptions}
+              onChange={handleOptionChange}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Аксессуары</label>
+            <Select
+              placeholder="Аксессуары"
+              classNamePrefix="select"
+              isSearchable
+              value={avatarSelectOptions["accessoriesType"]}
+              name="accessoriesType"
+              options={accessoriesTypeOptions}
+              onChange={handleOptionChange}
+            />
+          </div>
+
+        </div>
+        <div className="flex mt-4 justify-end">
+          <Button onClick={saveAvatarHandler}>Сохранить</Button>
+        </div>
       </div>
-    </div>
-  </div>
-  )
+    )
+  }
+  return null;
 }
 
 Avatar.getLayout = function getLayout(page: ReactElement) {
@@ -50,7 +319,7 @@ Avatar.getLayout = function getLayout(page: ReactElement) {
   )
 }
 
-export const getServerSideProps = async ({ locale }: any) => ({
+export const getServerSideProps = async ({locale}: any) => ({
   props: {
     ...await serverSideTranslations(locale, localesList),
   },
