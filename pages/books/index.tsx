@@ -1,5 +1,4 @@
 import React, {ReactElement, useEffect, useState} from "react";
-import  {WithAuth} from "../../components/withAuth";
 import {useRouter} from "next/router";
 import Pagination from "../../components/pagination";
 import Layout from "../../components/layout";
@@ -79,7 +78,7 @@ const Index = () => {
   if(editions !== null){
       return (
         <>
-          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 mt-5">
+          <ul className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 mt-5">
             {editions.map((edition) => (
               <BookWrapper key={edition.id} book={edition} />
             ))}
