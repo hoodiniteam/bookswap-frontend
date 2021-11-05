@@ -47,12 +47,11 @@ const ActiveSwap = ({swap, children}: any) => {
     [swap.room.recipient.id]: swap.room.recipient.email,
   }
   return (
-
+    <div>
       <div className="relative block py-3 px-4 border rounded-md">
         <div className="text-lg mb-2">
           {swap.book.title}
         </div>
-        Чат:
         <Link href={`/room/${swap.room.id}`}>
           <a className="block bg-gray-100 rounded-lg border p-2 max-w-lg">
             {swap.room?.messages.slice(-2).map((message: any, idx: number) => (
@@ -60,10 +59,11 @@ const ActiveSwap = ({swap, children}: any) => {
             ))}
           </a>
         </Link>
-        <div className="absolute right-4 top-4">
-          {children}
-        </div>
       </div>
+      <div className="flex mt-4 mb-6 justify-between">
+        {children}
+      </div>
+    </div>
   )
 }
 
