@@ -1,4 +1,4 @@
-import React, {ReactElement, useEffect, useState} from 'react';
+import React, {ReactElement, useState} from 'react';
 import Layout from "../../components/layout";
 import SidebarForProfile from "../../components/sidebar-for-profile";
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
@@ -12,6 +12,7 @@ import {useMutation} from "urql";
 import {SetToDeliveringMutation} from "../../graphql/SetToDeliveringMutation";
 import Link from 'next/link';
 import { AbortSwapMutation } from '../../graphql/AbortSwapMutation';
+import { AcceptTradeMutation } from '../../graphql/AcceptTrade';
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
@@ -71,7 +72,7 @@ const Swaps = () => {
     query: GetMe,
   });
   const [,abortSwapMutation ] = useMutation(AbortSwapMutation)
-
+  const [,acceptTradeMutation ] = useMutation(AcceptTradeMutation)
   const {t} = useTranslation("common");
   const [activeTab, setActiveTab] = useState("receive");
 
@@ -83,12 +84,15 @@ const Swaps = () => {
       id: swapId
     }).then(res => console.log(res))
   }
+  const acceptTrade = (swapId: string) => {
+    acceptTradeMutation({
+      id: swapId
+    }).then(res => console.log(res))
+  }
 
   if (meData.me) {
 
     const {user} = meData.me;
-
-    console.log(user.swaps, SwapStatus[SwapStatus.CREATED]);
 
     const tabs = [
       {name: 'receive', label: "Получить", count: user.swaps.length},
@@ -161,7 +165,11 @@ const Swaps = () => {
                   } else if (swap.room) {
                     return (
                       <ActiveSwap key={swap.id} swap={swap}>
-                        <Button>Подтвердить получение</Button>
+                        <Button
+                          onClick={() => acceptTrade(swap.id)}
+                        >
+                          Подтвердить получение
+                        </Button>
                         <Button
                           variant="dangerOutline"
                           onClick={() => cancelSwap(swap.id)}
@@ -189,7 +197,11 @@ const Swaps = () => {
                   } else if (swap.room) {
                     return (
                       <ActiveSwap key={swap.id} swap={swap}>
-                        <Button>Подтвердить отправку</Button>
+                        <Button
+                          onClick={() => acceptTrade(swap.id)}
+                        >
+                          Подтвердить отправку
+                        </Button>
                         <Button
                           onClick={() => cancelSwap(swap.id)}
                           variant="dangerOutline"
