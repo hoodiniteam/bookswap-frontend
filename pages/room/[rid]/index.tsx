@@ -26,7 +26,6 @@ const Room = () => {
     }, 6000)
   }, []);
 
-
   if (!roomData?.getRoom) {
     return null;
   }
@@ -34,7 +33,6 @@ const Room = () => {
 
   const onEnterHandler = async (event: any) => {
     if(event.key === 'Enter') {
-      console.log(event.target.value);
       await sendMessage({
         id: rid,
         message: event.target.value,

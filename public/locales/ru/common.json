@@ -42,5 +42,7 @@
   "HOLD": "На удержании",
   "OPEN": "Доступно",
   "SWAPPING": "Обмен",
-  "EXTRACTED": "Извлеченна"
+  "EXTRACTED": "Извлеченна",
+  "success-notification-msg": "Ура! Вы инициализировали своп",
+  "error-notification-msg": " Оййойой...Что-то пошло не так"
 }

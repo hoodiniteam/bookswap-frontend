@@ -42,5 +42,7 @@
   "HOLD": "Hold",
   "OPEN": "Open",
   "SWAPPING": "Swapping",
-  "EXTRACTED": "Extracted"
+  "EXTRACTED": "Extracted",
+  "error-notification-msg": "Ooops...Something goes wrong",
+  "success-notification-msg": "Hooray! You have initialized the swap."
 }
