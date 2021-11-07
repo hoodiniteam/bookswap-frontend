@@ -28,66 +28,182 @@ const Avatar = () => {
   const hairOptions = [
     {value: 'NoHair', label: 'Без волос'},
     {value: 'Hat', label: 'Шляпа'},
+    {value: 'Hijab', label: 'Hijab'},
+    {value: 'Eyepatch', label: 'Eyepatch'},
+    {value: 'LongHairBigHair', label: 'LongHairBigHair'},
+    {value: 'LongHairBob', label: 'LongHairBob'},
+    {value: 'LongHairBun', label: 'LongHairBun'},
+    {value: 'LongHairCurly', label: 'LongHairCurly'},
+    {value: 'LongHairCurvy', label: 'LongHairCurvy'},
+    {value: 'LongHairDreads', label: 'LongHairDreads'},
+    {value: 'LongHairFrida', label: 'LongHairFrida'},
+    {value: 'LongHairFro', label: 'LongHairFro'},
+    {value: 'LongHairFroBand', label: 'LongHairFroBand'},
+    {value: 'LongHairMiaWallace', label: 'LongHairMiaWallace'},
+    {value: 'LongHairShavedSides', label: 'LongHairShavedSides'},
+    {value: 'LongHairStraight', label: 'LongHairStraight'},
+    {value: 'LongHairStraight2', label: 'LongHairStraight2'},
+    {value: 'LongHairStraightStrand', label: 'LongHairStraightStrand'},
+    {value: 'ShortHairDreads01', label: 'ShortHairDreads01'},
+    {value: 'ShortHairDreads02', label: 'ShortHairDreads02'},
+    {value: 'ShortHairFrizzle', label: 'ShortHairFrizzle'},
+    {value: 'ShortHairShaggyMullet', label: 'ShortHairShaggyMullet'},
+    {value: 'ShortHairShortCurly', label: 'ShortHairShortCurly'},
+    {value: 'ShortHairShortFlat', label: 'ShortHairShortFlat'},
+    {value: 'ShortHairShortRound', label: 'ShortHairShortRound'},
+    {value: 'ShortHairShortWaved', label: 'ShortHairShortWaved'},
+    {value: 'ShortHairSides', label: 'ShortHairSides'},
+    {value: 'ShortHairTheCaesar', label: 'ShortHairTheCaesar'},
+    {value: 'ShortHairTheCaesarSidePart', label: 'ShortHairTheCaesarSidePart'},
+    {value: 'WinterHat1', label: 'WinterHat1'},
+    {value: 'WinterHat2', label: 'WinterHat2'},
+    {value: 'WinterHat3', label: 'WinterHat3'},
+    {value: 'WinterHat4', label: 'WinterHat4'},
   ];
 
   const eyeOptions = [
     {value: 'Close', label: 'Закрытые'},
     {value: 'Cry', label: 'Слеза'},
+    {value: 'Dizzy', label: 'Dizzy'},
+    {value: 'EyeRoll', label: 'EyeRoll'},
+    {value: 'Happy', label: 'Happy'},
+    {value: 'Hearts', label: 'Hearts'},
+    {value: 'Side', label: 'Side'},
+    {value: 'Squint', label: 'Squint'},
+    {value: 'Surprised', label: 'Surprised'},
+    {value: 'Wink', label: 'Wink'},
+    {value: 'WinkWacky', label: 'WinkWacky'},
   ];
 
   const eyebrowOptions = [
     {value: 'Angry', label: 'Злые'},
     {value: 'AngryNatural', label: 'Злые натуральные'},
+    {value: 'DefaultNatural', label: 'DefaultNatural'},
+    {value: 'FlatNatural', label: 'FlatNatural'},
+    {value: 'FrownNatural', label: 'FrownNatural'},
+    {value: 'RaisedExcited', label: 'RaisedExcited'},
+    {value: 'RaisedExcitedNatural', label: 'RaisedExcitedNatural'},
+    {value: 'SadConcerned', label: 'SadConcerned'},
+    {value: 'SadConcernedNatural', label: 'SadConcernedNatural'},
+    {value: 'UnibrowNatural', label: 'UnibrowNatural'},
+    {value: 'UpDown', label: 'UpDown'},
+    {value: 'UpDownNatural', label: 'UpDownNatural'},
   ];
 
   const mouthOptions = [
     {value: 'Concerned', label: 'Обеспокоенный'},
     {value: 'Disbelief', label: 'Недоверчивый'},
+    {value: 'Eating', label: 'Eating'},
+    {value: 'Grimace', label: 'Grimace'},
+    {value: 'Sad', label: 'Sad'},
+    {value: 'ScreamOpen', label: 'ScreamOpen'},
+    {value: 'Serious', label: 'Serious'},
+    {value: 'Smile', label: 'Smile'},
+    {value: 'Tongue', label: 'Tongue'},
+    {value: 'Twinkle', label: 'Twinkle'},
+    {value: 'Vomit', label: 'Vomit'},
   ];
 
   const facialHairTypeOptions = [
     {value: 'Blank', label: '-'},
     {value: 'BeardMedium', label: 'Борода средняя'},
+    {value: 'BeardLight', label: 'BeardLight'},
+    {value: 'BeardMajestic', label: 'BeardMajestic'},
+    {value: 'MoustacheFancy', label: 'MoustacheFancy'},
+    {value: 'MoustacheMagnum', label: 'MoustacheMagnum'},
   ];
 
   const facialHairColorOptions = [
     {value: 'Auburn', label: 'Каштановый'},
     {value: 'Black', label: 'Черный'},
     {value: 'Blonde', label: 'Блонди'},
+    {value: 'BlondeGolden', label: 'BlondeGolden'},
+    {value: 'Brown', label: 'Brown'},
+    {value: 'BrownDark', label: 'BrownDark'},
+    {value: 'Platinum', label: 'Platinum'},
+    {value: 'Red', label: 'Red'},
   ];
 
   const hairColorOptions = [
     {value: 'Auburn', label: 'Каштановый'},
     {value: 'Black', label: 'Черный'},
     {value: 'Blonde', label: 'Блонди'},
+    {value: 'BlondeGolden', label: 'BlondeGolden'},
+    {value: 'Brown', label: 'Brown'},
+    {value: 'BrownDark', label: 'BrownDark'},
+    {value: 'PastelPink', label: 'PastelPink'},
+    {value: 'Red', label: 'Red'},
+    {value: 'Blue', label: 'Blue'},
+    {value: 'Platinum', label: 'Platinum'},
+    {value: 'SilverGray', label: 'SilverGray'},
   ];
 
   const hatColorOptions = [
     {value: 'Black', label: 'Черный'},
     {value: 'Blue01', label: 'Черный 1'},
     {value: 'Blue02', label: 'Черный 2'},
+    {value: 'Blue03', label: 'Черный 3'},
+    {value: 'Gray01', label: 'Gray01'},
+    {value: 'Gray02', label: 'Gray02'},
+    {value: 'Heather', label: 'Heather'},
+    {value: 'PastelBlue', label: 'PastelBlue'},
+    {value: 'PastelGreen', label: 'PastelGreen'},
+    {value: 'PastelOrange', label: 'PastelOrange'},
+    {value: 'PastelRed', label: 'PastelRed'},
+    {value: 'PastelYellow', label: 'PastelYellow'},
+    {value: 'Pink', label: 'Pink'},
+    {value: 'Red', label: 'Red'},
+    {value: 'White', label: 'White'},
   ];
 
   const skinColorOptions = [
     {value: 'Tanned', label: 'Загорелый'},
     {value: 'Yellow', label: 'Желтый'},
     {value: 'Pale', label: 'Бледный'},
+    {value: 'Light', label: 'Light'},
+    {value: 'Brown', label: 'Brown'},
+    {value: 'DarkBrown', label: 'DarkBrown'},
+    {value: 'Black', label: 'Black'},
   ];
 
   const clotheColorOptions = [
     {value: 'Black', label: 'Черный'},
     {value: 'Blue01', label: 'Черный 1'},
     {value: 'Blue02', label: 'Черный 2'},
+    {value: 'Blue03', label: 'Черный 3'},
+    {value: 'Gray01', label: 'Gray01'},
+    {value: 'Gray02', label: 'Gray02'},
+    {value: 'Heather', label: 'Heather'},
+    {value: 'PastelBlue', label: 'PastelBlue'},
+    {value: 'PastelGreen', label: 'PastelGreen'},
+    {value: 'PastelOrange', label: 'PastelOrange'},
+    {value: 'PastelRed', label: 'PastelRed'},
+    {value: 'PastelYellow', label: 'PastelYellow'},
+    {value: 'Pink', label: 'Pink'},
+    {value: 'Red', label: 'Red'},
+    {value: 'White', label: 'White'},
   ];
 
   const clotheTypeOptions = [
     {value: 'BlazerShirt', label: 'Блейзер'},
     {value: 'BlazerSweater', label: 'Блейзер-свитер'},
+    {value: 'CollarSweater', label: 'CollarSweater'},
+    {value: 'SkullOutline', label: 'SkullOutline'},
+    {value: 'Hoodie', label: 'Hoodie'},
+    {value: 'Overall', label: 'Overall'},
+    {value: 'ShirtCrewNeck', label: 'ShirtCrewNeck'},
+    {value: 'ShirtScoopNeck', label: 'ShirtScoopNeck'},
+    {value: 'ShirtVNeck', label: 'ShirtVNeck'},
   ];
 
   const accessoriesTypeOptions = [
     {value: 'Blank', label: '-'},
     {value: 'Kurt', label: 'Курт'},
+    {value: 'Prescription01', label: 'Prescription01'},
+    {value: 'Prescription02', label: 'Prescription02'},
+    {value: 'Round', label: 'Round'},
+    {value: 'Sunglasses', label: 'Sunglasses'},
+    {value: 'Wayfarers', label: 'Wayfarers'},
   ];
 
   const setSelectValues = (values:any) => {
@@ -124,6 +240,9 @@ const Avatar = () => {
   useEffect(() => {
     const {user} = meData.me;
     if (user) {
+      // if(!user.avatar) {
+      //   randomChangedHandler({topType: 'Hijab', eyeType: 'Happy' })
+      // }
       setAvatarDisplayOptions(user.avatar);
       setSelectValues(user.avatar);
     }
