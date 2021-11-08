@@ -9,12 +9,14 @@ import {useMutation} from "urql";
 import {UpdateUserMutation} from "../../graphql/UpdateUserMutation";
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
 import {GetMe} from "../../graphql/GetMe";
+import { useTranslation } from 'next-i18next';
 
 const Avatar = () => {
 
   const [{data: meData, fetching}] = useQueryWrapper({
     query: GetMe,
   });
+  const { t } = useTranslation(localesList);
   const [avatarSelectOptions, setAvatarSelectOptions] = useState<any>({});
   const [avatarDisplayOptions, setAvatarDisplayOptions] = useState<any>(null);
   const [, updateUser] = useMutation(UpdateUserMutation);
