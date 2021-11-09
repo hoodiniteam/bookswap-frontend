@@ -13,6 +13,7 @@ import {SetToDeliveringMutation} from "../../graphql/SetToDeliveringMutation";
 import Link from 'next/link';
 import { AbortSwapMutation } from '../../graphql/AbortSwapMutation';
 import { AcceptTradeMutation } from '../../graphql/AcceptTrade';
+import { SetToSwappedMutation } from '../../graphql/SetToSwappedMutation';
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
@@ -73,6 +74,7 @@ const Swaps = () => {
   });
   const [,abortSwapMutation ] = useMutation(AbortSwapMutation)
   const [,acceptTradeMutation ] = useMutation(AcceptTradeMutation)
+  const [,setToSwappedMutation] = useMutation(SetToSwappedMutation)
   const {t} = useTranslation("common");
   const [activeTab, setActiveTab] = useState("receive");
 
@@ -87,6 +89,11 @@ const Swaps = () => {
   const acceptTrade = (swapId: string) => {
     acceptTradeMutation({
       id: swapId
+    }).then(res => console.log(res))
+  }
+  const setToSwapped = (swapId: string) => {
+    setToSwappedMutation({
+      swapId: swapId
     }).then(res => console.log(res))
   }
 
@@ -166,7 +173,7 @@ const Swaps = () => {
                     return (
                       <ActiveSwap key={swap.id} swap={swap}>
                         <Button
-                          onClick={() => acceptTrade(swap.id)}
+                          onClick={() => setToSwapped(swap.id)}
                         >
                           Подтвердить получение
                         </Button>
@@ -199,7 +206,7 @@ const Swaps = () => {
                     return (
                       <ActiveSwap key={swap.id} swap={swap}>
                         <Button
-                          onClick={() => acceptTrade(swap.id)}
+                          onClick={() => setToSwapped(swap.id)}
                         >
                           Подтвердить отправку
                         </Button>
