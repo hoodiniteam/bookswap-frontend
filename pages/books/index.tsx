@@ -33,7 +33,7 @@ const Index = () => {
       offset: offset,
       limit: booksPerPage,
       status: status,
-      withBooks: true,
+      hasBooks: true,
     }
   })
 
