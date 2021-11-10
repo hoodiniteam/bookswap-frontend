@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import { useMutation } from 'urql'
 import Link from 'next/link'
 import Cookies from 'js-cookie';
+import {Logo} from "../components/Logo";
+import {LogoLogin} from "../components/LogoLogin";
 const LoginMutation = `
   mutation($email: String!, $password: String!){
     login(options:{email:$email, password:$password}){
@@ -70,12 +72,8 @@ const Login = () => {
         <div className="min-h-screen bg-white flex">
             <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
                 <div className="mx-auto w-full max-w-sm lg:w-96">
-                    <div>
-                        <img
-                            className="h-12 w-auto"
-                            src="https://tailwindui.com/img/logos/workflow-mark-main-600.svg"
-                            alt="Workflow"
-                        />
+                    <div className="text-center">
+                        <LogoLogin />
                         <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
                             Войти в аккаунт
                         </h2>

@@ -7,8 +7,7 @@ import React, {
 import Link from 'next/link';
 import {Disclosure, Menu, Transition} from '@headlessui/react';
 import {SearchIcon} from '@heroicons/react/solid';
-import {BellIcon, MenuIcon, XIcon, SwitchHorizontalIcon} from '@heroicons/react/outline';
-import Image from 'next/image';
+import {BellIcon, MenuIcon, XIcon} from '@heroicons/react/outline';
 import LogOut from '../helpers/LogOut';
 import {useRouter} from 'next/router';
 import {useClient, useMutation} from 'urql';
@@ -306,7 +305,7 @@ const Layout = ({children, title}: any) => {
                                     </Menu.Item>
                                     <Menu.Item>
                                     <span
-                                      className="block py-2 px-4 text-sm text-gray-700"
+                                      className="block cursor-pointer py-2 px-4 text-sm text-gray-700"
                                       onClick={LogOut}
                                     >
                                       {t("sign-out")}
