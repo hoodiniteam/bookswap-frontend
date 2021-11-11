@@ -37,7 +37,6 @@ export const Avatar = (props: Props) => {
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink">
-      <desc>Created with getavataaars.com</desc>
       <defs>
         <circle id={path1} cx="120" cy="120" r="120" />
         <path

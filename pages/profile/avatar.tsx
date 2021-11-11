@@ -242,11 +242,8 @@ const Avatar = () => {
   useEffect(() => {
     const {user} = meData.me;
     if (user) {
-      if(!user.avatar) {
-        randomChangedHandler({topType: 'Hijab', eyeType: 'Happy' })
-      }
-      // setAvatarDisplayOptions(user.avatar);
-      // setSelectValues(user.avatar);
+      setAvatarDisplayOptions(user.avatar);
+      setSelectValues(user.avatar);
     }
   }, [meData])
 
@@ -266,16 +263,14 @@ const Avatar = () => {
 
     return (
       <div>
-        {
-          avatarDisplayOptions && <AvatarComponent
-              className="mx-auto max-w-lg"
-              avatarStyle='Circle'
-              random={true}
-              customizable={true}
-              onRandomChanged={randomChangedHandler}
-              {...avatarDisplayOptions}
-          />
-        }
+        <AvatarComponent
+          className="mx-auto max-w-lg"
+          avatarStyle='Circle'
+          random={true}
+          customizable={true}
+          onRandomChanged={randomChangedHandler}
+          {...avatarDisplayOptions}
+        />
         <div className="avatar-selectors overflow-auto sm:overflow-visible grid gap-4 pt-4 sm:grid-cols-3">
           <div>
             <label className="block text-sm font-medium text-gray-700">Волосы и Головные уборы</label>

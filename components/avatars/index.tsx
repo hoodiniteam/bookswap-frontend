@@ -45,7 +45,7 @@ export const AvatarComponent = (props: Props) => {
   }
 
   const updateOptionContext = (props: any) => {
-    console.log("update", props);
+    // console.log("update", props);
     const data: { [index: string]: string } = {}
     for (const option of allOptions) {
       const value = props[option.key]

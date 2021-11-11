@@ -7,7 +7,7 @@ import React, {
 import Link from 'next/link';
 import {Disclosure, Menu, Transition} from '@headlessui/react';
 import {SearchIcon} from '@heroicons/react/solid';
-import {BellIcon, MenuIcon, XIcon} from '@heroicons/react/outline';
+import {BellIcon, MenuIcon, RefreshIcon, XIcon} from '@heroicons/react/outline';
 import LogOut from '../helpers/LogOut';
 import {useRouter} from 'next/router';
 import {useClient, useMutation} from 'urql';
@@ -26,6 +26,8 @@ const Layout = ({children, title}: any) => {
   const [books, setBooks] = useState<any[]>([]);
   const [navigation, setNavigation] = useState([
     {title: 'books', href: '/books', current: false},
+    {title: 'Популярные', href: '/books', current: false},
+    {title: 'Недавно добавленные', href: '/books', current: false},
   ]);
   const myRef = useRef();
   const [, createEdition] = useMutation(CreateEmptyEditionMutation);
@@ -127,7 +129,7 @@ const Layout = ({children, title}: any) => {
         <Head>
           <title>{title}</title>
         </Head>
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-gray-200">
           <div className="bg-gradient-to-tr from-yellow-400 via-red-500 to-red-400 pb-32">
             <Disclosure
               as="nav"
@@ -224,9 +226,9 @@ const Layout = ({children, title}: any) => {
                         {/* Mobile menu button */}
                         <Disclosure.Button
                           className="bg-main-600 p-2 rounded-md inline-flex items-center justify-center text-main-200 hover:text-white hover:bg-main-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
-                                                <span className="sr-only">
-                                                    Open main menu
-                                                </span>
+                            <span className="sr-only">
+                                Open main menu
+                            </span>
                           {open ? (
                             <XIcon
                               className="block h-6 w-6"
@@ -242,6 +244,25 @@ const Layout = ({children, title}: any) => {
                       </div>
                       <div className="hidden lg:block lg:ml-4">
                         <div className="flex items-center">
+
+
+                          <Link href="/profile/swaps">
+                            <a
+                              className="bg-green-500 py-1 px-2 mr-4 flex text-sm items-center flex-shrink-0 rounded-md p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
+                              <span className="sr-only">
+                                  Текущие свопы:
+                              </span>
+                              <RefreshIcon
+                                className="h-6 w-6"
+                                aria-hidden="true"
+                              />
+                              <div className="ml-1">
+                              ({user.swaps.length} / {user.sends.length})
+                              </div>
+                            </a>
+                          </Link>
+
+
                           <button
                             className="bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
                             <span className="sr-only">
@@ -319,7 +340,7 @@ const Layout = ({children, title}: any) => {
                         </div>
                       </div>
                     </div>
-                    <div className="py-4 flex justify-between">
+                    <div className="py-4 flex items-center justify-between">
                       <div className="flex">
                         <div className="hidden lg:block">
                           <div className="flex space-x-4">
@@ -404,10 +425,7 @@ const Layout = ({children, title}: any) => {
           </div>
           <main className="-mt-32">
             <div className="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
-              {/* Replace with your content */}
-              <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
-                {children}
-              </div>
+              {children}
             </div>
           </main>
         </div>

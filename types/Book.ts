@@ -21,7 +21,8 @@ export type Book = {
     title: string,
     description: string
     id: string
-    status: BooksStatus,
-    condition: BooksCondition,
-    image?: CloudinaryImage
+    authors?: string[]
+    status: BooksStatus
+    condition: BooksCondition
+    image?: string
 }
