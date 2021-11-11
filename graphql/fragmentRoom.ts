@@ -1,6 +1,5 @@
 import {fragmentRecipient} from "./fragmentRecipient";
 import {fragmentSender} from "./fragmentSender";
-import {fragmentSwap} from "./fragmentSwap";
 import {fragmentBook} from "./fragmentBook";
 
 export const fragmentRoom = `
@@ -20,6 +19,7 @@ export const fragmentRoom = `
             createdAt
             message
             userId
+            isRead
         }
     }
 `;

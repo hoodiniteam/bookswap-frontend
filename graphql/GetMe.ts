@@ -6,6 +6,11 @@ export const GetMe = `
       user{
         id
         email
+        notifications{
+          isRead
+          message
+          createdAt
+        }
         waiting{
           title
           id

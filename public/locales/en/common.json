@@ -157,5 +157,7 @@
   "prescription2": "Prescription2",
   "round": "Round",
   "sunglasses": "Sunglasses",
-  "wayfarers": "Wayfarers"
+  "wayfarers": "Wayfarers",
+  "no-new-notification": "No new notification",
+  "new-notification": "New notification"
 }
