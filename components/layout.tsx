@@ -247,7 +247,7 @@ const Layout = ({children, title}: any) => {
 
 
                           <div className="flex ml-4 items-center">
-                            <img className="w-9" src="/images/origami-c.png"/>
+                            <img className="w-8" src="/images/origami-c.png"/>
                             <div className="bg-white w-5 h-5 text-center rounded-full text-sm">
                               <span style={{top: 1}} className="relative">{user.points}</span>
                             </div>
@@ -257,7 +257,7 @@ const Layout = ({children, title}: any) => {
                             {({open}) => (
                               <>
                                 <Popover.Button
-                                  className={`${open ? '' : 'text-opacity-90'} text-white relative group bg-orange-700 ml-4 px-3 pl-14 py-2 rounded-md inline-flex items-center text-sm font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                                  className={`${open ? '' : 'text-opacity-90'} text-white relative group bg-black bg-opacity-10 ml-4 px-3 pl-14 py-2 rounded-md inline-flex items-center text-sm font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
                                 >
                                   <AvatarComponent
                                     className="w-10 absolute left-2 bottom-1"
