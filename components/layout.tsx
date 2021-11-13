@@ -79,12 +79,6 @@ const Layout = ({children, title}: any) => {
     });
   }, [router.asPath]);
 
-  const testArr = [
-    {message: "lorem ipsum dolor sit amet consectetur adipiscing elit lorem ipsum dolor sit amet consectetur adipiscing elit", createdAt: '2021-11-11 15:24:30', isRead: false},
-    {message: "lorem ipsum dolor sit amet consectetur adipiscing elit lorem ipsum dolor sit amet consectetur adipiscing elit", createdAt: '2021-11-11 15:24:30', isRead: false},
-    {message: "lorem ipsum dolor sit amet consectetur adipiscing elit lorem ipsum dolor sit amet consectetur adipiscing elit", createdAt: '2021-11-11 15:24:30', isRead: false},
-  ]
-
   const notificationAmount = (arr: {isRead: boolean, message: string, createdAt: string}[]) => arr.filter(item => !item.isRead).length
 
   const inputSearchHandler = (e: any) => {
