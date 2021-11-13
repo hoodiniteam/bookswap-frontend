@@ -5,9 +5,9 @@ import React, {
   useState,
 } from 'react';
 import Link from 'next/link';
-import {Disclosure, Menu, Transition} from '@headlessui/react';
-import {SearchIcon} from '@heroicons/react/solid';
-import {BellIcon, MenuIcon, XIcon} from '@heroicons/react/outline';
+import {Disclosure, Menu, Transition, Popover} from '@headlessui/react';
+import {SearchIcon, ChevronDownIcon} from '@heroicons/react/solid';
+import {BellIcon, MenuIcon, RefreshIcon, XIcon} from '@heroicons/react/outline';
 import LogOut from '../helpers/LogOut';
 import {useRouter} from 'next/router';
 import {useClient, useMutation} from 'urql';
@@ -26,6 +26,8 @@ const Layout = ({children, title}: any) => {
   const [books, setBooks] = useState<any[]>([]);
   const [navigation, setNavigation] = useState([
     {title: 'books', href: '/books', current: false},
+    {title: 'Популярные', href: '/books', current: false},
+    {title: 'Недавно добавленные', href: '/books', current: false},
   ]);
   const myRef = useRef();
   const [, createEdition] = useMutation(CreateEmptyEditionMutation);
@@ -129,8 +131,8 @@ const Layout = ({children, title}: any) => {
         <Head>
           <title>{title}</title>
         </Head>
-        <div className="min-h-screen bg-gray-100">
-          <div className="bg-gradient-to-tr from-yellow-400 via-red-500 to-red-400 pb-32">
+        <div className="min-h-screen bg-gray-200">
+          <div className="bg-gradient-to-r from-orange-400 to-pink-500 pb-32">
             <Disclosure
               as="nav"
               className="border-b border-main-300 border-opacity-25 lg:border-none"
@@ -295,73 +297,141 @@ const Layout = ({children, title}: any) => {
                             )}
                           </Menu>
 
-                          {/* Profile dropdown */}
-                          <Menu
-                            as="div"
-                            className="ml-3 relative flex-shrink-0"
-                          >
+                          <div className="flex ml-4 items-center">
+                            <img className="w-8" src="/images/origami-c.png"/>
+                            <div className="bg-white w-5 h-5 text-center rounded-full text-sm">
+                              <span style={{top: 1}} className="relative">{user.points}</span>
+                            </div>
+                          </div>
+
+                          <Popover className="relative">
                             {({open}) => (
                               <>
-                                <div>
-                                  <Menu.Button>
-                                    <span className="sr-only"> Open user menu</span>
-                                    <AvatarComponent
-                                      className="w-10"
-                                      avatarStyle='Circle'
-                                      {...user.avatar}
-                                    />
-                                  </Menu.Button>
-                                </div>
-                                <Transition
-                                  show={open}
-                                  as={Fragment}
-                                  enter="transition ease-out duration-100"
-                                  enterFrom="transform opacity-0 scale-95"
-                                  enterTo="transform opacity-100 scale-100"
-                                  leave="transition ease-in duration-75"
-                                  leaveFrom="transform opacity-100 scale-100"
-                                  leaveTo="transform opacity-0 scale-95"
+                                <Popover.Button
+                                  className={`${open ? '' : 'text-opacity-90'} text-white relative group bg-black bg-opacity-10 ml-4 px-3 pl-14 py-2 rounded-md inline-flex items-center text-sm font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
                                 >
-                                  <Menu.Items
-                                    static
-                                    className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                                  >
-                                    <Menu.Item>
-                                      <div className="block overflow-hidden border-b overflow-ellipsis py-2 px-4 text-sm text-gray-700">
-                                        Книжный лимит: {user.points}
+                                  <AvatarComponent
+                                    className="w-10 absolute left-2 bottom-1"
+                                    avatarStyle='Circle'
+                                    {...user.avatar}
+                                  />
+                                  <span>{user.email}</span>
+                                  <ChevronDownIcon
+                                    className={`${open ? '' : 'text-opacity-70'} ml-2 h-5 w-5 text-orange-300 group-hover:text-opacity-80 transition ease-in-out duration-150`}
+                                    aria-hidden="true"
+                                  />
+                                </Popover.Button>
+                                <Transition
+                                  as={Fragment}
+                                  enter="transition ease-out duration-200"
+                                  enterFrom="opacity-0 translate-y-1"
+                                  enterTo="opacity-100 translate-y-0"
+                                  leave="transition ease-in duration-150"
+                                  leaveFrom="opacity-100 translate-y-0"
+                                  leaveTo="opacity-0 translate-y-1"
+                                >
+                                  <Popover.Panel
+                                    className="absolute z-10 w-screen max-w-sm px-4 mt-3 transform -translate-x-1/2 left-1/2 sm:px-0">
+                                    <div
+                                      className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                                      <div className="relative grid gap-8 bg-white p-7">
+                                        <div
+                                          className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                        >
+                                          <div
+                                            className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                            <img className="w-10" src="/images/origami-c.png"/>
+                                          </div>
+                                          <div className="ml-4">
+                                            <p className="text-sm font-medium text-gray-900">
+                                              {user.points} BST
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                              Книжный лимит
+                                            </p>
+                                          </div>
+                                        </div>
+                                        <Link href="/profile">
+                                          <a
+                                            className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                          >
+                                            <div
+                                              className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                              <AvatarComponent
+                                                className="w-10"
+                                                avatarStyle='Circle'
+                                                {...user.avatar}
+                                              />
+                                            </div>
+                                            <div className="ml-4">
+                                              <p className="text-sm font-medium text-gray-900">
+                                                {user.email}
+                                              </p>
+                                              <p className="text-sm text-gray-500">
+                                                Профиль
+                                              </p>
+                                            </div>
+                                          </a>
+                                        </Link>
+                                        <Link href="/profile/swaps">
+                                          <a
+                                            className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                          >
+                                            <div
+                                              className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                              <RefreshIcon
+                                                className="h-10 w-10 text-green-600"
+                                                aria-hidden="true"
+                                              />
+                                            </div>
+                                            <div className="ml-4">
+                                              <p className="text-sm font-medium text-gray-900">
+                                                {user.swaps.length} / {user.sends.length}
+                                              </p>
+                                              <p className="text-sm text-gray-500">
+                                                Текущие свопы
+                                              </p>
+                                            </div>
+                                          </a>
+                                        </Link>
                                       </div>
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                      <Link href="/profile">
-                                        <a className="block overflow-hidden overflow-ellipsis py-2 px-4 text-sm text-gray-700">
-                                          {t("profile")} <span className="italic text-gray-500">({user.email})</span>
+                                      <div className="p-4 bg-gray-50">
+                                        <a
+                                          href="##"
+                                          className="flow-root px-2 py-2 transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                        >
+                                          <span className="flex items-center">
+                                            <span className="text-sm font-medium text-gray-900">
+                                              Documentation
+                                            </span>
+                                          </span>
+                                          <span className="block text-sm text-gray-500">
+                                            Start integrating products and tools
+                                          </span>
                                         </a>
-                                      </Link>
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                      <Link href="/profile/swaps">
-                                        <a className="block overflow-hidden overflow-ellipsis py-2 px-4 text-sm text-gray-700">
-                                          Текущие свопы: ({user.swaps.length} / {user.sends.length})
-                                        </a>
-                                      </Link>
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                    <span
-                                      className="block cursor-pointer py-2 px-4 text-sm text-gray-700"
-                                      onClick={LogOut}
-                                    >
-                                      {t("sign-out")}
-                                    </span>
-                                    </Menu.Item>
-                                  </Menu.Items>
+                                      </div>
+                                    </div>
+                                  </Popover.Panel>
                                 </Transition>
                               </>
                             )}
-                          </Menu>
+                          </Popover>
+
+                          <button
+                            className="bg-main-600 flex-shrink-0 ml-4 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
+                            <span className="sr-only">
+                                View notifications
+                            </span>
+                            <BellIcon
+                              className="h-6 w-6"
+                              aria-hidden="true"
+                            />
+                          </button>
+
                         </div>
                       </div>
                     </div>
-                    <div className="py-4 flex justify-between">
+                    <div className="py-4 flex items-center justify-between">
                       <div className="flex">
                         <div className="hidden lg:block">
                           <div className="flex space-x-4">
@@ -446,10 +516,7 @@ const Layout = ({children, title}: any) => {
           </div>
           <main className="-mt-32">
             <div className="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
-              {/* Replace with your content */}
-              <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
-                {children}
-              </div>
+              {children}
             </div>
           </main>
         </div>

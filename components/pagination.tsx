@@ -12,8 +12,8 @@ type AppProps = {
 const Pagination = ({ booksPerPage, totalBooks, paginate, current, href }: AppProps) => {
     const pageNumbers = new Array(Math.ceil(totalBooks / booksPerPage)).fill(true).map((_, idx) => idx + 1);
     return (
-        <div className='bg-white px-4 py-3 flex items-center mt-5 justify-between border-gray-200 sm:px-6'>
-            <div className='hidden sm:flex-1 sm:flex sm:items-center sm:justify-center'>
+        <div className='bg-white mt-4 rounded-lg shadow px-5 py-6 sm:px-6'>
+            <div className='sm:flex-1 sm:flex sm:items-center sm:justify-center'>
                 <div>
                     <nav className='relative z-0 inline-flex rounded-md shadow-sm -space-x-px' aria-label='Pagination'>
                         <button
