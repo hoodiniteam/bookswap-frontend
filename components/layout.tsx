@@ -416,18 +416,6 @@ const Layout = ({children, title}: any) => {
                               </>
                             )}
                           </Popover>
-
-                          <button
-                            className="bg-main-600 flex-shrink-0 ml-4 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
-                            <span className="sr-only">
-                                View notifications
-                            </span>
-                            <BellIcon
-                              className="h-6 w-6"
-                              aria-hidden="true"
-                            />
-                          </button>
-
                         </div>
                       </div>
                     </div>
