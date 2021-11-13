@@ -396,19 +396,12 @@ const Layout = ({children, title}: any) => {
                                         </Link>
                                       </div>
                                       <div className="p-4 bg-gray-50">
-                                        <a
-                                          href="##"
-                                          className="flow-root px-2 py-2 transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                        <span
+                                          className="block cursor-pointer py-2 px-4 text-sm text-gray-700"
+                                          onClick={LogOut}
                                         >
-                                          <span className="flex items-center">
-                                            <span className="text-sm font-medium text-gray-900">
-                                              Documentation
-                                            </span>
-                                          </span>
-                                          <span className="block text-sm text-gray-500">
-                                            Start integrating products and tools
-                                          </span>
-                                        </a>
+                                          {t("sign-out")}
+                                        </span>
                                       </div>
                                     </div>
                                   </Popover.Panel>
