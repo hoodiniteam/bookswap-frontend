@@ -157,5 +157,7 @@
   "prescription2": "Прозрачные2",
   "round": "Круглые",
   "sunglasses": "Солнечные",
-  "wayfarers": "Очки Wayfarers"
+  "wayfarers": "Очки Wayfarers",
+  "no-new-notification": "Новых уведомлений нет",
+  "new-notification": "Новое уведомление"
 }

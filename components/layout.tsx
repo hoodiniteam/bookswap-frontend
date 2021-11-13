@@ -81,6 +81,8 @@ const Layout = ({children, title}: any) => {
     });
   }, [router.asPath]);
 
+  const notificationAmount = (arr: {isRead: boolean, message: string, createdAt: string}[]) => arr.filter(item => !item.isRead).length
+
   const inputSearchHandler = (e: any) => {
     const search = e.target.value;
     setSearchString(search);
@@ -244,7 +246,56 @@ const Layout = ({children, title}: any) => {
                       </div>
                       <div className="hidden lg:block lg:ml-4">
                         <div className="flex items-center">
-
+                          <Menu
+                            as="div"
+                            className="ml-3 relative flex-shrink-0"
+                          >
+                            {({open}) => (
+                              <>
+                                <div>
+                                  <Menu.Button>
+                                    <span className="sr-only"> Open user menu</span>
+                                    <button
+                                      className="bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
+                                      <BellIcon
+                                        className="h-6 w-6"
+                                        aria-hidden="true"
+                                      />
+                                      {notificationAmount(user.notifications) > 0 ? <span className="absolute text-xs w-4 h-4 -my-1 rounded-full bg-red-600 text-white">{notificationAmount(user.notifications)}</span> : ''}
+                                    </button>
+                                  </Menu.Button>
+                                </div>
+                                <Transition
+                                  show={open}
+                                  as={Fragment}
+                                  enter="transition ease-out duration-100"
+                                  enterFrom="transform opacity-0 scale-95"
+                                  enterTo="transform opacity-100 scale-100"
+                                  leave="transition ease-in duration-75"
+                                  leaveFrom="transform opacity-100 scale-100"
+                                  leaveTo="transform opacity-0 scale-95"
+                                >
+                                  <Menu.Items
+                                    static
+                                    className="origin-top-right absolute w-96 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                  >
+                                    <Menu.Item>
+                                      <div className="flex-col max-h-64 overflow-y-scroll border-b py-2 px-4 text-sm text-gray-700">
+                                        {user.notifications.length > 1 ? user.notifications.map((notif: {isRead: boolean, message: string, createdAt: string}) => {
+                                          return <div key={Math.random()} className="flex bg-gray-200 p-5 flex-col overflow-hidden my-2">
+                                            <h3>{t('new-notification')}</h3>
+                                            <span className="text-gray-500">{notif.message}</span>
+                                            <span className="text-gray-500">{notif.createdAt}</span>
+                                          </div>
+                                        }): <span>{t('no-new-notification')}</span>
+                                        }
+                                      </div>
+                                    </Menu.Item>
+                                  </Menu.Items>
+                                </Transition>
+                              </>
+                            )}
+                          </Menu>
 
                           <div className="flex ml-4 items-center">
                             <img className="w-8" src="/images/origami-c.png"/>
@@ -365,18 +416,6 @@ const Layout = ({children, title}: any) => {
                               </>
                             )}
                           </Popover>
-
-                          <button
-                            className="bg-main-600 flex-shrink-0 ml-4 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
-                            <span className="sr-only">
-                                View notifications
-                            </span>
-                            <BellIcon
-                              className="h-6 w-6"
-                              aria-hidden="true"
-                            />
-                          </button>
-
                         </div>
                       </div>
                     </div>
