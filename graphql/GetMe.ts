@@ -1,4 +1,5 @@
 import {fragmentSwap} from "./fragmentSwap";
+import { fragmentEdition } from './fragmentEdition';
 
 export const GetMe = `
   query{
@@ -43,7 +44,7 @@ export const GetMe = `
           status
           condition
           edition {
-            image
+            ${fragmentEdition}
           }
         }
       }

@@ -17,6 +17,12 @@ export enum BooksCondition {
     TERRIBLE
 }
 
+export type BookEdition = {
+    id: string
+    createdAd: string
+    title:string
+    image: string
+}
 export type Book = {
     title: string,
     description: string
@@ -25,4 +31,5 @@ export type Book = {
     status: BooksStatus
     condition: BooksCondition
     image?: string
+    edition: BookEdition
 }

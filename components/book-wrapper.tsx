@@ -21,7 +21,7 @@ const BookWrapper = ({book}: {book: Book}) => {
                         <h3 className='mt-6 text-gray-900 font-medium'>{title}</h3>
                         <div className="flex mt-2">
                             {authors && authors.map((author, idx) => (
-                              <span className='text-gray-500 text-sm'>{author}{idx === authors.length - 1 ? '' : ', '}</span>
+                              <span key={id} className='text-gray-500 text-sm'>{author}{idx === authors.length - 1 ? '' : ', '}</span>
                             ))}
                         </div>
                     </div>
