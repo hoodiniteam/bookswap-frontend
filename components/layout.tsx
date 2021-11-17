@@ -7,8 +7,7 @@ import React, {
 import Link from 'next/link';
 import {Disclosure, Menu, Transition, Popover} from '@headlessui/react';
 import {SearchIcon, ChevronDownIcon} from '@heroicons/react/solid';
-import {BellIcon, MenuIcon, RefreshIcon, XIcon} from '@heroicons/react/outline';
-import LogOut from '../helpers/LogOut';
+import {MailIcon, MenuIcon, RefreshIcon, XIcon} from '@heroicons/react/outline';
 import {useRouter} from 'next/router';
 import {useClient, useMutation} from 'urql';
 import Head from 'next/head';
@@ -253,17 +252,16 @@ const Layout = ({children, title}: any) => {
                             {({open}) => (
                               <>
                                 <div>
-                                  <Menu.Button>
+                                  <Menu.Button className="bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
                                     <span className="sr-only"> Open user menu</span>
-                                    <button
-                                      className="bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
-                                      <BellIcon
-                                        className="h-6 w-6"
-                                        aria-hidden="true"
-                                      />
-                                      {notificationAmount(user.notifications) > 0 ? <span className="absolute text-xs w-4 h-4 -my-1 rounded-full bg-red-600 text-white">{notificationAmount(user.notifications)}</span> : ''}
-                                    </button>
+                                    <MailIcon
+                                      className="h-6 w-6"
+                                      aria-hidden="true"
+                                    />
                                   </Menu.Button>
+                                  {
+                                    notificationAmount(user.notifications) > 0 && <span className="absolute text-xs w-4 h-4 -my-1 rounded-full bg-red-600 text-white">{notificationAmount(user.notifications)}</span>
+                                  }
                                 </div>
                                 <Transition
                                   show={open}
@@ -280,14 +278,16 @@ const Layout = ({children, title}: any) => {
                                     className="origin-top-right absolute w-96 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                                   >
                                     <Menu.Item>
-                                      <div className="flex-col max-h-64 overflow-y-scroll border-b py-2 px-4 text-sm text-gray-700">
-                                        {user.notifications.length > 1 ? user.notifications.map((notif: {isRead: boolean, message: string, createdAt: string}) => {
-                                          return <div key={Math.random()} className="flex bg-gray-200 p-5 flex-col overflow-hidden my-2">
-                                            <h3>{t('new-notification')}</h3>
-                                            <span className="text-gray-500">{notif.message}</span>
-                                            <span className="text-gray-500">{notif.createdAt}</span>
-                                          </div>
-                                        }): <span>{t('no-new-notification')}</span>
+                                      <div className="flex-col max-h-64 overflow-auto border-b py-2 px-4 text-sm text-gray-700">
+                                        {
+                                          user.notifications.length > 1 ?
+                                            user.notifications.map((notification: {isRead: boolean, message: string, createdAt: string}) => (
+                                              <div key={notification.createdAt} className="flex bg-gray-200 p-5 flex-col overflow-hidden my-2">
+                                                <span className="text-gray-500">{notification.message}</span>
+                                                <span className="text-gray-500">{notification.createdAt}</span>
+                                              </div>
+                                            )):
+                                            <span>Нет сообщений</span>
                                         }
                                       </div>
                                     </Menu.Item>
@@ -488,7 +488,7 @@ const Layout = ({children, title}: any) => {
                             <span className="sr-only">
                                 View notifications
                             </span>
-                          <BellIcon
+                          <MailIcon
                             className="h-6 w-6"
                             aria-hidden="true"
                           />

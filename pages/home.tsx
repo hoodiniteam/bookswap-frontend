@@ -27,7 +27,6 @@ const Home = () => {
         <title>Home</title>
       </Head>
       <h1>{t('home')}</h1>
-      <button onClick={open}>Open</button>
       <div className='flex justify-between items-center w-72 mt-5 px-5' />
     </>
   );

@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { useMutation } from 'urql'
 import Link from 'next/link'
 import Cookies from 'js-cookie';
-import {Logo} from "../components/Logo";
 import {LogoLogin} from "../components/LogoLogin";
 const LoginMutation = `
   mutation($email: String!, $password: String!){
@@ -242,9 +241,10 @@ const Login = () => {
             <div className="hidden lg:block relative w-0 flex-1">
                 <img
                     className="absolute inset-0 h-full w-full object-cover"
-                    src="https://images.unsplash.com/photo-1505904267569-f02eaeb45a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
-                    alt=""
+                    src="/images/login.jpg"
+                    alt="login"
                 />
+                <div className="absolute right-5 bottom-5 text-white">Photo by <a className="underline" href="https://unsplash.com/@leoand1?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Andrii Leonov</a> on <a className="underline" href="https://unsplash.com/t/architecture?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></div>
             </div>
         </div>
     )
