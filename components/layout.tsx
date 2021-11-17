@@ -280,7 +280,7 @@ const Layout = ({children, title}: any) => {
                                     <Menu.Item>
                                       <div className="flex-col max-h-64 overflow-auto border-b py-2 px-4 text-sm text-gray-700">
                                         {
-                                          user.notifications.length > 1 ?
+                                          user.notifications.length > 0 ?
                                             user.notifications.map((notification: {isRead: boolean, message: string, createdAt: string}) => (
                                               <div key={notification.createdAt} className="flex bg-gray-200 p-5 flex-col overflow-hidden my-2">
                                                 <span className="text-gray-500">{notification.message}</span>

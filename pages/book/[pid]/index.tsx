@@ -59,7 +59,7 @@ const Book = () => {
     await createSwap({
       editionId: pid,
     }).then(res => {
-      const {status} = res.data.createSwap
+      const {status} = res.data.createMySwap
       if(status === 'ERROR') {
         errorNotification(t('error-notification-msg'))
       }

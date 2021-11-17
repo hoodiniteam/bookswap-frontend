@@ -29,7 +29,7 @@ const CreatedSwap = ({ swap }: any) => {
   };
 
   return (
-    <div className='py-3 px-4 border rounded-md'>
+    <div className='bg-white py-3 px-4 border rounded-md'>
       <div className='text-lg'>
         {swap.book.title}
       </div>
@@ -55,7 +55,7 @@ const ActiveSwap = ({ swap, children, myId }: any) => {
 
   return (
     <div>
-      <div className='relative block py-3 px-4 border rounded-md'>
+      <div className='relative bg-white block py-3 px-4 border rounded-md'>
         <div className='text-lg mb-2'>
           {swap.book.title}
         </div>
@@ -179,7 +179,12 @@ const Swaps = () => {
                 user.swaps.map((swap: any) => {
                   if (swap.status === SwapStatus[SwapStatus.CREATED]) {
                     return (
-                      <CreatedSwap key={swap.id} swap={swap} />
+                        <div key={swap.id} className='bg-white py-3 px-4 border rounded-md'>
+                          <div className='text-lg'>
+                            {swap.book.title}
+                          </div>
+                          <div className="italic">Ждем пока держатель подтвердит обмен</div>
+                        </div>
                     );
                   } else if (swap.room) {
                     return (
