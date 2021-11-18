@@ -21,6 +21,7 @@ export const fragmentBook = `
           id
           image
           title
+          authors
           description
           isbn_10
           isbn_13
