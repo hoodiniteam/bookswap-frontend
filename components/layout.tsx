@@ -7,7 +7,7 @@ import React, {
 import Link from 'next/link';
 import {Disclosure, Menu, Transition, Popover} from '@headlessui/react';
 import {SearchIcon, ChevronDownIcon} from '@heroicons/react/solid';
-import {MailIcon, MenuIcon, RefreshIcon, XIcon} from '@heroicons/react/outline';
+import { MailIcon, MenuIcon, RefreshIcon, SupportIcon, XIcon } from '@heroicons/react/outline';
 import {useRouter} from 'next/router';
 import {useClient, useMutation} from 'urql';
 import Head from 'next/head';
@@ -342,6 +342,26 @@ const Layout = ({children, title}: any) => {
                                             </div>
                                           </a>
                                         </Link>
+                                        <Link href="https://t.me/joinchat/jOVQHloO7ApiMDIy">
+                                          <a
+                                              className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                          >
+                                            <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                              <SupportIcon
+                                                  className="h-10 w-10 text-blue-500"
+                                                  aria-hidden="true"
+                                              />
+                                            </div>
+                                            <div className="ml-4">
+                                              <p className="text-sm font-medium text-gray-900">
+                                                Поддержка
+                                              </p>
+                                              <p className="text-sm text-gray-500">
+                                                Ссылка на Телеграмм чат
+                                              </p>
+                                            </div>
+                                          </a>
+                                        </Link>
                                       </div>
                                       <div className="p-4 bg-gray-50">
                                         <a
@@ -350,11 +370,11 @@ const Layout = ({children, title}: any) => {
                                         >
                                           <span className="flex items-center">
                                             <span className="text-sm font-medium text-gray-900">
-                                              Documentation
+                                              О проекте
                                             </span>
                                           </span>
                                           <span className="block text-sm text-gray-500">
-                                            Start integrating products and tools
+                                            Как мы работаем? Зачем все это нужно?
                                           </span>
                                         </a>
                                       </div>

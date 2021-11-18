@@ -123,7 +123,7 @@ const Index = () => {
               </div>
             </div>
           </div>
-          <div>
+          {/*<div>
             <div className="border-b py-1 text-gray-700 font-medium uppercase text-sm">Категории</div>
             <div className="space-y-3 mt-4">
               <div>
@@ -155,7 +155,7 @@ const Index = () => {
                 </label>
               </div>
             </div>
-          </div>
+          </div>*/}
         </div>
         <div className="col-span-9">
           <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">

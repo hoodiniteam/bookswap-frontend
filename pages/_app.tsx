@@ -12,6 +12,7 @@ import {makeOperation} from "urql";
 import { createClient, dedupExchange, cacheExchange, fetchExchange, Provider } from 'urql';
 import LogOut from "../helpers/LogOut";
 import {RefreshMutation} from "../graphql/RefreshMutation";
+import Head from 'next/head';
 
 const getAuth = async ({ authState, mutate } :any) => {
     if (!authState) {
@@ -85,7 +86,6 @@ const client = createClient({
     ],
 });
 
-
 type NextPageWithLayout = NextPage & {
     getLayout?: (page: ReactElement) => ReactNode
 }
@@ -98,6 +98,15 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     const getLayout = Component.getLayout ?? ((page) => page);
     return (
         <Provider value={client}>
+            <Head>
+                <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"/>
+                <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"/>
+                <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"/>
+                <link rel="manifest" href="/favicon/site.webmanifest"/>
+                <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5"/>
+                <meta name="msapplication-TileColor" content="#da532c"/>
+                <meta name="theme-color" content="#ffffff"/>
+            </Head>
             <Script src='https://upload-widget.cloudinary.com/global/all.js' strategy='beforeInteractive' />
             <NotificationProvider>
                 {getLayout(<Component {...pageProps} />)}
@@ -105,6 +114,5 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         </Provider>
     )
 }
-
 
 export default appWithTranslation(MyApp);
