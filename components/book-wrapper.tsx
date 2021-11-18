@@ -14,7 +14,7 @@ const BookWrapper = ({book}: {book: Book}) => {
                 <a className='w-full h-full'>
                     <div className='bg-gray-100 rounded-md py-4 relative h-40 lg:h-52'>
                         <div className="relative h-full w-full">
-                            {src ? (<Image src={src} layout="fill" alt={`${title} poster`} className='object-contain pointer-events-none group-hover:opacity-75' />) : (<div className="h-full w-full bg-gray-100"></div>)}
+                            {src ? (<Image src={src} layout="fill" alt={`${title} poster`} className='object-contain pointer-events-none group-hover:opacity-75' />) : (<div className="h-full w-full bg-gray-100"/>)}
                         </div>
                     </div>
                     <div className=''>

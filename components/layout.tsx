@@ -245,58 +245,6 @@ const Layout = ({children, title}: any) => {
                       </div>
                       <div className="hidden lg:block lg:ml-4">
                         <div className="flex items-center">
-                          <Menu
-                            as="div"
-                            className="ml-3 relative flex-shrink-0"
-                          >
-                            {({open}) => (
-                              <>
-                                <div>
-                                  <Menu.Button className="bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
-                                    <span className="sr-only"> Open user menu</span>
-                                    <MailIcon
-                                      className="h-6 w-6"
-                                      aria-hidden="true"
-                                    />
-                                  </Menu.Button>
-                                  {
-                                    notificationAmount(user.notifications) > 0 && <span className="absolute text-xs w-4 h-4 -my-1 rounded-full bg-red-600 text-white">{notificationAmount(user.notifications)}</span>
-                                  }
-                                </div>
-                                <Transition
-                                  show={open}
-                                  as={Fragment}
-                                  enter="transition ease-out duration-100"
-                                  enterFrom="transform opacity-0 scale-95"
-                                  enterTo="transform opacity-100 scale-100"
-                                  leave="transition ease-in duration-75"
-                                  leaveFrom="transform opacity-100 scale-100"
-                                  leaveTo="transform opacity-0 scale-95"
-                                >
-                                  <Menu.Items
-                                    static
-                                    className="origin-top-right absolute w-96 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                                  >
-                                    <Menu.Item>
-                                      <div className="flex-col max-h-64 overflow-auto border-b py-2 px-4 text-sm text-gray-700">
-                                        {
-                                          user.notifications.length > 0 ?
-                                            user.notifications.map((notification: {isRead: boolean, message: string, createdAt: string}) => (
-                                              <div key={notification.createdAt} className="flex bg-gray-200 p-5 flex-col overflow-hidden my-2">
-                                                <span className="text-gray-500">{notification.message}</span>
-                                                <span className="text-gray-500">{notification.createdAt}</span>
-                                              </div>
-                                            )):
-                                            <span>Нет сообщений</span>
-                                        }
-                                      </div>
-                                    </Menu.Item>
-                                  </Menu.Items>
-                                </Transition>
-                              </>
-                            )}
-                          </Menu>
-
                           <div className="flex ml-4 items-center">
                             <img className="w-8" src="/images/origami-c.png"/>
                             <div className="bg-white w-5 h-5 text-center rounded-full text-sm">
@@ -416,6 +364,54 @@ const Layout = ({children, title}: any) => {
                               </>
                             )}
                           </Popover>
+
+                          <Menu
+                              as="div"
+                              className="ml-3 relative flex-shrink-0"
+                          >
+                            {({open}) => (
+                                <>
+                                  <div>
+                                    <Menu.Button className="bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
+                                      <span className="sr-only"> Open user menu</span>
+                                      <MailIcon
+                                          className="h-6 w-6"
+                                          aria-hidden="true"
+                                      />
+                                    </Menu.Button>
+                                    {
+                                      notificationAmount(user.notifications) > 0 && <span className="absolute text-xs w-4 h-4 -my-1 rounded-full bg-red-600 text-white">{notificationAmount(user.notifications)}</span>
+                                    }
+                                  </div>
+                                  <Transition
+                                      show={open}
+                                      as={Fragment}
+                                      enter="transition ease-out duration-100"
+                                      enterFrom="transform opacity-0 scale-95"
+                                      enterTo="transform opacity-100 scale-100"
+                                      leave="transition ease-in duration-75"
+                                      leaveFrom="transform opacity-100 scale-100"
+                                      leaveTo="transform opacity-0 scale-95"
+                                  >
+                                    <div className="notifications-panel z-10 rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white fixed right-3 top-3 overflow-auto">
+                                      <div className="font-medium mb-2">Уведомления</div>
+                                      <div className="space-y-2 divide-y">
+                                        {
+                                          user.notifications.length > 0 ?
+                                              user.notifications.map((notification: {isRead: boolean, message: string, createdAt: string}) => (
+                                                  <div key={notification.createdAt} className="text-sm py-2">
+                                                    <div className="text-gray-500">{notification.message}</div>
+                                                    <div className="text-gray-500">{notification.createdAt}</div>
+                                                  </div>
+                                              )):
+                                              <span>Нет сообщений</span>
+                                        }
+                                      </div>
+                                    </div>
+                                  </Transition>
+                                </>
+                            )}
+                          </Menu>
                         </div>
                       </div>
                     </div>
