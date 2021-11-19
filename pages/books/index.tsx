@@ -34,7 +34,7 @@ const Index = () => {
       search: search,
       offset: offset,
       limit: booksPerPage,
-      status: status,
+      status: "HOLD",
       hasBooks: true,
     }
   })
@@ -74,7 +74,7 @@ const Index = () => {
 
   if (editions !== null) {
     return (
-      <div className="lg:grid lg:grid-cols-12 lg:gap-x-5">
+      <div className="lg:grid items-start lg:grid-cols-12 lg:gap-x-5">
         <div className="bg-white space-y-5 rounded-lg shadow px-5 py-6 sm:px-6 col-span-3">
           <div>
             <div className="border-b py-1 text-gray-700 font-medium uppercase text-sm">Статус</div>

@@ -97,12 +97,15 @@ const Book = () => {
       <Head>
         <title>{edition.title}</title>
       </Head>
-      <div className='grid gap-6 grid-cols-5 grid-rows-1 border p-10'>
+      <div className='grid bg-white shadow sm:rounded-md gap-6 grid-cols-5 grid-rows-1 border p-10'>
         <div className='col-span-1'>
           <img src={edition.image} alt={edition.title}/>
         </div>
         <div className='col-span-5'>
           <h1 className='text-2xl'>{edition.title}</h1>
+          {edition.authors && edition.authors.map((author: string, idx: number) => (
+              <span key={author} className='text-gray-500 text-sm'>{author}{idx === edition.authors.length - 1 ? '' : ', '}</span>
+          ))}
           <p>{edition.views}</p>
           <p className="mt-2 text-sm">{edition.description}</p>
           {/* <h2 className='text-center mt-8'>Creator: {book.creator.email}</h2> */}
@@ -151,7 +154,7 @@ const Book = () => {
             &&
             <div>
                 <p>Пока здесь нет доступных книг.</p>
-                {/*<p>Добавьтесь в список ожидания и тогда книга быстрее появится на сервисе.</p>*/}
+                <p>Подпишитесь на книгу и тогда она быстрее появится на сервисе.</p>
             </div>
           }
         </div>

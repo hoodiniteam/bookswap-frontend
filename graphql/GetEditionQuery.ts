@@ -5,6 +5,7 @@ export const GetEditionQuery = `
         id
         title
         description
+        authors
         image
         views
         books {
