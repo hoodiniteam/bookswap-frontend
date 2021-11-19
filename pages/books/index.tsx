@@ -12,65 +12,23 @@ import {BooksStatus} from "../../types/Book";
 
 const Index = () => {
   const [status, setStatus] = useState<string | null>(null);
-  const [search] = useState<string | null>(null);
-  const [total, setTotal] = useState(0)
-  const [editions, setEditions] = useState<any[]>([]);
-  const [booksPerPage] = useState(30);
-  const [currentPage, setCurrentPage] = useState(1)
-  const [offset, setOffset] = useState(0)
-  const router = useRouter()
-
-  const href = (page: number) => {
-    if (status === '') {
-      return `books?page=${page}`
-    } else {
-      return `books?page=${page}&status=${status}`
-    }
-  }
+  const router = useRouter();
+  const {query} = router;
+  const currentPage = query.page ? Number(query.page) : 0;
+  const limit = 2;
 
   const [{data}] = useQueryWrapper({
     query: GetEditionsQuery,
     variables: {
-      search: search,
-      offset: offset,
-      limit: booksPerPage,
-      status: "HOLD",
+      offset: limit * (currentPage - 1),
+      limit: limit,
+      status: status,
       hasBooks: true,
     }
   })
 
-  useEffect(() => {
-    if (data) {
-      setEditions(data.getEditions.editions)
-      setTotal(data.getEditions.count)
-    }
-  }, [data])
-
-  const paginate = (page: number | string) => {
-    let current = currentPage;
-    if (page === 'previous' && currentPage > 1) {
-      current--
-      setCurrentPage(current)
-      router.push(`${href(current)}`)
-    }
-    if (page === 'next' && currentPage <= total / booksPerPage) {
-      current++
-      setCurrentPage(current)
-      router.push(`${href(current)}`)
-    }
-  }
-
-  useEffect(() => {
-    router.push({query: {page: 1}})
-  }, [])
-
-  useEffect(() => {
-    if (router.query.page && data) {
-      setCurrentPage(+router.query.page)
-      setStatus(`${router.query.status || ''}`)
-    }
-    setOffset((currentPage - 1) * booksPerPage)
-  }, [router.query, data, currentPage, booksPerPage])
+  const editions = data?.getEditions?.editions || [];
+  const total = data?.getEditions?.count || 0;
 
   if (editions !== null) {
     return (
@@ -160,17 +118,14 @@ const Index = () => {
         <div className="col-span-9">
           <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
             <ul className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-5">
-              {editions.map((edition) => (
+              {editions.map((edition: any) => (
                 <BookWrapper key={edition.id} book={edition}/>
               ))}
             </ul>
           </div>
           <Pagination
-            current={currentPage}
-            href={href}
-            booksPerPage={booksPerPage}
-            totalBooks={total}
-            paginate={paginate}
+            limit={limit}
+            total={total}
           />
         </div>
       </div>
