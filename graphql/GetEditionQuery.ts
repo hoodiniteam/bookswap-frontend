@@ -1,23 +1,12 @@
+import { fragmentBase } from './fragmentBase';
+import { fragmentEditionExposed } from './fragmentEditionExposed';
+
 export const GetEditionQuery = `
   query($id:String!){
     getEdition(id:$id){
-      edition{
-        id
-        title
-        description
-        authors
-        image
-        views
-        books {
-          id
-          description
-          holder {
-            id
-            email
-          }
-          status
-          condition
-        }
+      ${fragmentBase}
+      edition {
+        ${fragmentEditionExposed}
       }
     }
   }

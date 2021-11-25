@@ -3,7 +3,7 @@ import * as React from 'react'
 import {Avatar, AvatarStyle} from './avatar'
 import { allOptions } from './options'
 
-import {useContext, useEffect} from "react";
+import { useContext, useEffect, useState } from 'react';
 import OptionContext from "./options/OptionContext";
 import { sample } from 'lodash';
 import Button from '../UI/Button';
@@ -32,20 +32,13 @@ export interface Props {
   onRandomChanged?: (values: any) => void
   customizable?: boolean
 }
-
-export const MyOptionContext = React.createContext(new OptionContext(allOptions));
+export const MyOptionContext = React.createContext({});
 
 export const AvatarComponent = (props: Props) => {
-  const router = useRouter();
   const { avatarStyle, style, className } = props;
-  const context = useContext(MyOptionContext);
-
-  const getContext = () => {
-    return { context }
-  }
+  const [context] = useState(new OptionContext(allOptions));
 
   const updateOptionContext = (props: any) => {
-    // console.log("update", props);
     const data: { [index: string]: string } = {}
     for (const option of allOptions) {
       const value = props[option.key]
@@ -59,7 +52,7 @@ export const AvatarComponent = (props: Props) => {
 
   const onRandom = () => {
     console.log("random");
-    let values: { [index: string]: string } = {
+    const values: { [index: string]: string } = {
       avatarStyle,
     }
 
@@ -87,17 +80,11 @@ export const AvatarComponent = (props: Props) => {
   }
 
   useEffect(() => {
-    if(router.pathname === "/profile/avatar") {
-      if (props.customizable) {
-        updateOptionContext(props);
-      }
-    } else {
-      updateOptionContext(props);
-    }
+    updateOptionContext(props);
   }, [props])
 
   return (
-      <div>
+      <MyOptionContext.Provider value={context}>
           <Avatar {...props} avatarStyle={avatarStyle as AvatarStyle} style={style} className={className} />
           {
             props.random && <div className="flex justify-center p-6">
@@ -109,6 +96,6 @@ export const AvatarComponent = (props: Props) => {
                 </Button>
             </div>
           }
-      </div>
+      </MyOptionContext.Provider>
   )
 }

@@ -57,7 +57,6 @@ const Index = () => {
 
   const [, updateUser] = useMutation(UpdateUserMutation);
   const [user, setUser] = useState<UserData | ''>('');
-  const router = useRouter();
   const {
     register,
     clearErrors,
@@ -125,122 +124,122 @@ const Index = () => {
               </h3>
             </div>
             <div className='grid grid-cols-6 gap-6'>
-              <div className='col-span-6'>
+              <div className='col-span-6 sm:col-span-3'>
                 <label
                   htmlFor='first-name'
                   className='block text-sm font-medium text-gray-700'
                 >
                   {t('avatar')}
                 </label>
-                <div className="text-center">
-                <AvatarComponent
-                  className="sm:w-1/2 inline-block"
-                  avatarStyle='Circle'
-                  {...user.avatar}
-                />
-                <Link href="/profile/avatar">
-                  <a>
-                    <Button className="mt-6" type="button">Настроить аватар</Button>
-                  </a>
-                </Link>
+                <div className="flex flex-col items-center">
+                  <AvatarComponent
+                    className="sm:w-40"
+                    avatarStyle='Circle'
+                    {...user.avatar}
+                  />
+                  <Link href="/profile/avatar">
+                    <a>
+                      <Button className="mt-6 ml-2" type="button">Настроить аватар</Button>
+                    </a>
+                  </Link>
                 </div>
               </div>
-              <div className='col-span-6 sm:col-span-3'>
-                <label
-                  htmlFor='first-name'
-                  className='block text-sm font-medium text-gray-700'
-                >
-                  {t('first-name')}
-                </label>
-                <input
-                  {...register('firstName', {
-                    required: true,
-                  })}
-                  onChange={onChangeHandler}
-                  value={user.firstName || ''}
-                  type='text'
-                  name='firstName'
-                  id='first-name'
-                  autoComplete='given-name'
-                  className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm'
-                />
-                {errors.firstName ? (
-                  <span className='text-red-500 text-xs'>
+              <div className='space-y-4 col-span-6 sm:col-span-3'>
+                <div>
+                  <label
+                      htmlFor='first-name'
+                      className='block text-sm font-medium text-gray-700'
+                  >
+                    {t('first-name')}
+                  </label>
+                  <input
+                      {...register('firstName', {
+                        required: true,
+                      })}
+                      onChange={onChangeHandler}
+                      value={user.firstName || ''}
+                      type='text'
+                      name='firstName'
+                      id='first-name'
+                      autoComplete='given-name'
+                      className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm'
+                  />
+                  {errors.firstName ? (
+                      <span className='text-red-500 text-xs'>
                                         enter first name
                                     </span>
-                ) : (
-                  ''
-                )}
-              </div>
-
-              <div className='col-span-6 sm:col-span-3'>
-                <label
-                  htmlFor='last-name'
-                  className='block text-sm font-medium text-gray-700'
-                >
-                  {t('last-name')}
-                </label>
-                <input
-                  {...register('lastName', {
-                    required: true,
-                  })}
-                  onChange={onChangeHandler}
-                  value={user.lastName || ''}
-                  type='text'
-                  name='lastName'
-                  id='last-name'
-                  autoComplete='family-name'
-                  className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm'
-                />
-                {errors.lastName ? (
-                  <span className='text-red-500 text-xs'>
+                  ) : (
+                      ''
+                  )}
+                </div>
+                <div>
+                  <label
+                      htmlFor='last-name'
+                      className='block text-sm font-medium text-gray-700'
+                  >
+                    {t('last-name')}
+                  </label>
+                  <input
+                      {...register('lastName', {
+                        required: true,
+                      })}
+                      onChange={onChangeHandler}
+                      value={user.lastName || ''}
+                      type='text'
+                      name='lastName'
+                      id='last-name'
+                      autoComplete='family-name'
+                      className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm'
+                  />
+                  {errors.lastName ? (
+                      <span className='text-red-500 text-xs'>
                                         enter last name
                                     </span>
-                ) : (
-                  ''
-                )}
-              </div>
-              <div className='col-span-6 sm:col-span-3'>
-                <label
-                  htmlFor='email-address'
-                  className='block text-sm font-medium text-gray-700'
-                >
-                  {t('email')}
-                </label>
-                <input
-                  {...register('email', { required: true })}
-                  onChange={onChangeHandler}
-                  value={user.email || ''}
-                  type='email'
-                  name='email'
-                  id='email-address'
-                  autoComplete='email'
-                  className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm'
-                />
-                {errors.email ? (
-                  <span className='text-red-500 text-xs'>
+                  ) : (
+                      ''
+                  )}
+                </div>
+                <div>
+                  <label
+                      htmlFor='email-address'
+                      className='block text-sm font-medium text-gray-700'
+                  >
+                    {t('email')}
+                  </label>
+                  <input
+                      {...register('email', { required: true })}
+                      onChange={onChangeHandler}
+                      value={user.email || ''}
+                      type='email'
+                      name='email'
+                      id='email-address'
+                      autoComplete='email'
+                      className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm'
+                  />
+                  {errors.email ? (
+                      <span className='text-red-500 text-xs'>
                                         enter your email
                                     </span>
-                ) : (
-                  ''
-                )}
-              </div>
-
-              <div className='col-span-6 sm:col-span-3'>
-                <label
-                  htmlFor='bDay'
-                  className='block text-sm font-medium text-gray-700'
-                >
-                  {t('birthday')}
-                </label>
-                <input
-                  onChange={onChangeHandler}
-                  value={user.bDay || ''}
-                  type='date'
-                  name='bDay'
-                  id='bDay'
-                  className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm'
-                />
+                  ) : (
+                      ''
+                  )}
+                </div>
+                <div>
+                  <label
+                      htmlFor='bDay'
+                      className='block text-sm font-medium text-gray-700'
+                  >
+                    {t('birthday')}
+                  </label>
+                  <input
+                      onChange={onChangeHandler}
+                      value={user.bDay || ''}
+                      type='date'
+                      name='bDay'
+                      id='bDay'
+                      className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm'
+                  />
+                </div>
               </div>
             </div>
           </div>

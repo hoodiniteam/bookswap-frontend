@@ -20,6 +20,8 @@ import {SetBookHoldMutaion} from "../../../graphql/SetBookHoldMutation";
 import {Badge} from "../../../components/Badge";
 import Button from '../../../components/UI/Button';
 import {useNotification} from '../../../helpers/notificationHelper';
+import Image from 'next/image';
+import { AvatarComponent } from '../../../components/avatars';
 
 const Book = () => {
   const router = useRouter()
@@ -90,63 +92,85 @@ const Book = () => {
   }
 
   const openBooks = edition.books.filter((book: any) => book.status === BooksStatus[BooksStatus.OPEN]);
-  const isOwnerOfAny = !!edition.books.find((book: any) => book.holder.id === user.id);
+  const isHolderOfAny = !!edition.books.find((book: any) => book.holder.id === user.id);
+  const inMyWaitingList = user.waiting.find((myEdition: any) => myEdition.id === edition.id);
 
   return (
     <div className="space-y-5">
       <Head>
         <title>{edition.title}</title>
       </Head>
-      <div className='grid bg-white relative shadow font-serif sm:rounded-md gap-6 grid-cols-5 grid-rows-1 border p-10'>
-        <div className='col-span-1'>
-          <img src={edition.image} alt={edition.title}/>
-        </div>
-        <div className='col-span-5'>
-          <h1 className='text-2xl font-semibold'>{edition.title}</h1>
-          {edition.authors && edition.authors.map((author: string, idx: number) => (
-              <span key={author} className='text-gray-500 text-sm'>{author}{idx === edition.authors.length - 1 ? '' : ', '}</span>
-          ))}
-          <p className="absolute text-xs text-gray-400 flex items-center right-4 top-4">
-            <EyeIcon className="h-4 w-4 mr-1" />
-            {edition.views}
-          </p>
-          <p className="mt-2.5 text-sm">{edition.description}</p>
-          {/* <h2 className='text-center mt-8'>Creator: {book.creator.email}</h2> */}
-        </div>
-        <div className="col-span-6">
+      <div className='grid gap-6 grid-cols-5'>
+        <div className="flex bg-white col-span-4 relative shadow font-serif sm:rounded-md border p-6">
           {
-            !isOwnerOfAny && (
-              <div className="flex justify-center">
-                {
-                  openBooks.length > 0 && <Button
-                      variant='primary'
-                      onClick={startSwap}
-                  >
-                    {t('start-swap')}
-                  </Button>
-                }
-                {
-                  openBooks === 0 && (
-                    <>
-                      <Button
-                        variant='primary'
-                        onClick={removeBookFromList}
-                      >
-                        {t('remove-from-waiting-list')}
-                      </Button>
-                      <Button
-                        variant='primary'
-                        onClick={addBookToList}
-                      >
-                        {t('add-to-my-waiting-list')}
-                      </Button>
-                    </>
-                  )
-                }
-
-              </div>
+            edition.image && (
+                <div className='mr-6'>
+                  <div className='bg-gray-100 rounded-md py-4 relative w-40 h-40 lg:h-52'>
+                    <div className="relative h-full w-full">
+                      {edition.image ? (<Image src={edition.image} layout="fill" alt={`${edition.title} poster`} className='object-contain pointer-events-none group-hover:opacity-75' />) : (<div className="h-full w-full bg-gray-100"/>)}
+                    </div>
+                  </div>
+                </div>
             )
           }
+          <div>
+            <h1 className='text-2xl font-semibold'>{edition.title}</h1>
+            {edition.authors && edition.authors.map((author: string, idx: number) => (
+                <span key={author} className='text-gray-500 text-sm'>{author}{idx === edition.authors.length - 1 ? '' : ', '}</span>
+            ))}
+            <p className="absolute text-xs text-gray-400 flex items-center right-4 top-4">
+              <EyeIcon className="h-4 w-4 mr-1" />
+              {edition.views}
+            </p>
+            <p className="mt-2.5 text-sm">{edition.description}</p>
+          </div>
+        </div>
+        <div className="flex flex-col">
+          <div className="bg-white flex-grow p-4 shadow sm:rounded-md border">
+            <p className="font-medium">Подписчики</p>
+          </div>
+            {
+              !isHolderOfAny && (
+                <div className="mt-2">
+                  {
+                    openBooks.length > 0 && <Button
+                        variant='primary'
+                        onClick={startSwap}
+                    >
+                      {t('start-swap')}
+                    </Button>
+                  }
+                  {
+                    openBooks.length === 0 && (
+                      <>
+                        {
+                          inMyWaitingList && (
+                            <Button
+                                className="w-full"
+                                variant='primary'
+                                onClick={removeBookFromList}
+                            >
+                              {t('remove-from-waiting-list')}
+                            </Button>
+                          )
+                        }
+                        {
+                          !inMyWaitingList && (
+                            <Button
+                                className="w-full"
+                                variant='primary'
+                                onClick={addBookToList}
+                            >
+                              {t('add-to-my-waiting-list')}
+                            </Button>
+                          )
+                        }
+                      </>
+                    )
+                  }
+                </div>
+              )
+            }
         </div>
       </div>
       <div>
@@ -161,26 +185,19 @@ const Book = () => {
             </div>
           }
         </div>
-        <div className="bg-white shadow mt-2 overflow-hidden sm:rounded-md">
-          <ul role="list" className="divide-y divide-gray-200">
+        <div>
+          <ul role="list" className="grid grid-cols-3 divide-y divide-gray-200">
             {
               edition.books.map((book: any) => (
-                <li key={book.id}>
+                <li className="bg-white shadow mt-2 overflow-hidden sm:rounded-md" key={book.id}>
                   <div className="block hover:bg-gray-50">
                     <div className="px-6 py-4">
                       <div className="flex items-center pt-2 justify-between">
-                        <div className="flex-shrink-0 flex items-center">
-                          <Badge status={book.status}/>
-                          <p className="flex items-center text-gray-500">
-                            <ClipboardListIcon className="w-6 h-6"/>
-                            <span className="ml-0.5 -mb-0.5">{t(book.condition)}</span>
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-main-600 truncate">
-                            Держатель: {book.holder.id === user.id ? 'Вы' : book.holder.email}
-                          </p>
-                        </div>
+                        <p className="flex items-center text-gray-500">
+                          <ClipboardListIcon className="w-6 h-6"/>
+                          <span className="ml-0.5 -mb-0.5">{t(book.condition)}</span>
+                        </p>
+                        <Badge status={book.status}/>
                       </div>
                       <div className="flex justify-between border-t mt-2 pt-2">
                         {
@@ -206,6 +223,16 @@ const Book = () => {
                             </>
                           )}
                         </div>
+                      </div>
+                      <div className="flex items-center justify-between mt-2">
+                        <p className="text-sm font-medium text-main-600 truncate">
+                          Держатель: {book.holder.id === user.id ? 'Вы' : book.holder.email}
+                        </p>
+                        <AvatarComponent
+                            className="w-10"
+                            avatarStyle='Circle'
+                            {...book.holder.avatar}
+                        />
                       </div>
                     </div>
                   </div>

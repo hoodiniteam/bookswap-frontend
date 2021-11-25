@@ -1,24 +1,12 @@
+import { fragmentBase } from './fragmentBase';
+import { fragmentEditionExposed } from './fragmentEditionExposed';
+
 export const AddBookToMyWaitingListMutation = `
   mutation($id:String!){
     addBookToMyWaitingList(id: $id){
+      ${fragmentBase}
       edition {
-        id
-        title
-        description
-        image
-        views
-        books {
-          id
-          description
-          holder {
-            email
-          }
-          status
-          condition
-        }
-      }
-      errors{
-        message
+        ${fragmentEditionExposed}
       }
     }
   }
