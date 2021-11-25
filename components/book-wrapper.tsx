@@ -8,7 +8,7 @@ const BookWrapper = ({book}: {book: Book}) => {
     const src = image ? image : '';
     return (
         <li
-            className='col-span-1 flex flex-col justify-between items-center bg-white'
+            className='font-serif col-span-1 flex flex-col justify-between items-center bg-white'
         >
             <Link href={`/book/${id}`}>
                 <a className='w-full h-full'>
@@ -18,7 +18,7 @@ const BookWrapper = ({book}: {book: Book}) => {
                         </div>
                     </div>
                     <div className=''>
-                        <h3 className='mt-6 text-gray-900 font-medium'>{title}</h3>
+                        <h3 className='mt-6 text-gray-900 font-semibold'>{title}</h3>
                         <div className="flex mt-2">
                             {authors && authors.map((author, idx) => (
                               <span key={author} className='text-gray-500 text-sm'>{author}{idx === authors.length - 1 ? '' : ', '}</span>

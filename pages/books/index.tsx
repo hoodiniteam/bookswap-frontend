@@ -1,4 +1,4 @@
-import React, {ReactElement, useEffect, useState} from "react";
+import React, {ReactElement, useState} from "react";
 import {useRouter} from "next/router";
 import Pagination from "../../components/pagination";
 import Layout from "../../components/layout";
@@ -11,21 +11,38 @@ import {Badge} from "../../components/Badge";
 import {BooksStatus} from "../../types/Book";
 
 const Index = () => {
-  const [status, setStatus] = useState<string | null>(null);
+  const [status, setStatus] = useState<Set<string> | null>(null);
   const router = useRouter();
   const {query} = router;
-  const currentPage = query.page ? Number(query.page) : 0;
-  const limit = 2;
+  const currentPage = query.page ? Number(query.page) : 1;
+  const limit = 24;
 
   const [{data}] = useQueryWrapper({
     query: GetEditionsQuery,
     variables: {
       offset: limit * (currentPage - 1),
       limit: limit,
-      status: status,
+      status: status ? Array.from(status) : null,
       hasBooks: true,
     }
   })
+
+  const statusChangeHandler = async (ev: any) => {
+    await router.push("/books")
+    if (!status) {
+      setStatus(new Set([BooksStatus[ev.target.value]]));
+    } else {
+      if (ev.target.checked) {
+        const clonedSet = new Set(status);
+        clonedSet.add(BooksStatus[ev.target.value])
+        setStatus(clonedSet);
+      } else {
+        const clonedSet = new Set(status);
+        clonedSet.delete(BooksStatus[ev.target.value]);
+        setStatus(clonedSet.size > 0 ? clonedSet : null);
+      }
+    }
+  }
 
   const editions = data?.getEditions?.editions || [];
   const total = data?.getEditions?.count || 0;
@@ -44,6 +61,7 @@ const Index = () => {
                     name="status"
                     type="checkbox"
                     value={BooksStatus.OPEN}
+                    onChange={statusChangeHandler}
                     className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                   />
                   <div className="ml-3">
@@ -57,6 +75,7 @@ const Index = () => {
                     id="status"
                     name="status"
                     type="checkbox"
+                    onChange={statusChangeHandler}
                     value={BooksStatus.HOLD}
                     className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                   />
@@ -71,6 +90,7 @@ const Index = () => {
                     id="status"
                     name="status"
                     type="checkbox"
+                    onChange={statusChangeHandler}
                     value={BooksStatus.SWAPPING}
                     className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                   />

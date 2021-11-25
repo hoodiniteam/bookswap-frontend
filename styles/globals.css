@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -20,54 +23,42 @@ a {
 }
 
 .pagItem {
+    @apply w-10 h-10 flex justify-center items-center;
     @apply cursor-pointer;
     @apply bg-white;
-    @apply border-gray-300;
+    @apply border-gray-200;
     @apply text-gray-500;
     @apply inline-flex;
     @apply relative;
     @apply items-center;
-    @apply px-4;
-    @apply py-2;
     @apply border;
     @apply text-sm;
     @apply font-medium;
-}
-
-.pagItem:hover {
-    @apply bg-gray-50;
-}
-
-.pagItem.active:hover {
-    @apply bg-gray-50;
-}
-
-.pagItem.active {
-    @apply z-10;
-    @apply bg-main-50;
-    @apply border-main-500;
-    @apply text-main-600;
-    @apply relative;
-    @apply inline-flex;
-    @apply items-center;
-    @apply px-4;
-    @apply py-2;
-    @apply border;
-    @apply text-sm;
-    @apply font-medium;
-    @apply cursor-pointer;
+    margin: 0 -1px;
+    &:hover {
+         @apply bg-gray-50;
+    }
+    &.active {
+        @apply z-10;
+        @apply bg-main-50;
+        @apply border-main-500;
+        @apply text-main-600;
+        &:hover {
+            @apply bg-gray-50;
+        }
+    }
 }
 
 .badge-open {
-    @apply bg-green-200 text-gray-600;
+    @apply bg-green-400 text-white;
 }
 
 .badge-hold {
-    @apply bg-yellow-100 text-gray-800;
+    @apply bg-blue-400 text-white;
 }
 
 .badge-swapping {
-    @apply bg-blue-300 text-white;
+    @apply bg-yellow-400 text-white;
 }
 
 .badge-extracted {

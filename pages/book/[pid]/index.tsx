@@ -10,7 +10,7 @@ import {useTranslation} from 'react-i18next'
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
 import {localesList} from '../../../helpers/locales'
 import {getStaticEditions} from '../../../helpers/staticRequest'
-import {ClipboardListIcon} from '@heroicons/react/outline';
+import { ClipboardListIcon, EyeIcon } from '@heroicons/react/outline';
 import {AddBookToMyWaitingListMutation} from "../../../graphql/AddBookToMyWaitingListMutation";
 import {RemoveBookFromMyWaitingList} from "../../../graphql/RemoveBookFromMyWaitingList";
 import {BooksStatus} from "../../../types/Book";
@@ -97,17 +97,20 @@ const Book = () => {
       <Head>
         <title>{edition.title}</title>
       </Head>
-      <div className='grid bg-white shadow sm:rounded-md gap-6 grid-cols-5 grid-rows-1 border p-10'>
+      <div className='grid bg-white relative shadow font-serif sm:rounded-md gap-6 grid-cols-5 grid-rows-1 border p-10'>
         <div className='col-span-1'>
           <img src={edition.image} alt={edition.title}/>
         </div>
         <div className='col-span-5'>
-          <h1 className='text-2xl'>{edition.title}</h1>
+          <h1 className='text-2xl font-semibold'>{edition.title}</h1>
           {edition.authors && edition.authors.map((author: string, idx: number) => (
               <span key={author} className='text-gray-500 text-sm'>{author}{idx === edition.authors.length - 1 ? '' : ', '}</span>
           ))}
-          <p>{edition.views}</p>
-          <p className="mt-2 text-sm">{edition.description}</p>
+          <p className="absolute text-xs text-gray-400 flex items-center right-4 top-4">
+            <EyeIcon className="h-4 w-4 mr-1" />
+            {edition.views}
+          </p>
+          <p className="mt-2.5 text-sm">{edition.description}</p>
           {/* <h2 className='text-center mt-8'>Creator: {book.creator.email}</h2> */}
         </div>
         <div className="col-span-6">

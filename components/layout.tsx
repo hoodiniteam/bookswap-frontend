@@ -7,7 +7,7 @@ import React, {
 import Link from 'next/link';
 import {Disclosure, Menu, Transition, Popover} from '@headlessui/react';
 import {SearchIcon, ChevronDownIcon} from '@heroicons/react/solid';
-import { MailIcon, MenuIcon, RefreshIcon, SupportIcon, XIcon } from '@heroicons/react/outline';
+import { MailIcon, MenuIcon, PlusCircleIcon, RefreshIcon, SupportIcon, XIcon } from '@heroicons/react/outline';
 import {useRouter} from 'next/router';
 import {useClient, useMutation} from 'urql';
 import Head from 'next/head';
@@ -130,7 +130,7 @@ const Layout = ({children, title}: any) => {
         <Head>
           <title>{title}</title>
         </Head>
-        <div className="min-h-screen bg-gray-200">
+        <div className="min-h-screen bg-gray-100">
           <div className="bg-gradient-to-r from-orange-400 to-pink-500 pb-32">
             <Disclosure
               as="nav"
@@ -140,7 +140,7 @@ const Layout = ({children, title}: any) => {
                 <>
                   <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
                     <div
-                      className="relative h-16 flex items-center justify-between lg:border-b lg:border-main-400 lg:border-opacity-25">
+                      className="relative h-16 flex items-center justify-between lg:border-b lg:border-gray-100 lg:border-opacity-25">
                       <div className="px-2 flex items-center lg:px-0">
                         <div className="flex-shrink-0">
                           <Link href="/home">
@@ -245,18 +245,12 @@ const Layout = ({children, title}: any) => {
                       </div>
                       <div className="hidden lg:block lg:ml-4">
                         <div className="flex items-center">
-                          <div className="flex ml-4 items-center">
-                            <img className="w-8" src="/images/origami-c.png"/>
-                            <div className="bg-white w-5 h-5 text-center rounded-full text-sm">
-                              <span style={{top: 1}} className="relative">{user.points}</span>
-                            </div>
-                          </div>
 
                           <Popover className="relative">
                             {({open}) => (
                               <>
                                 <Popover.Button
-                                  className={`${open ? '' : 'text-opacity-90'} text-white relative group bg-black bg-opacity-10 ml-4 px-3 pl-14 py-2 rounded-md inline-flex items-center text-sm font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                                  className={`${open ? '' : 'text-opacity-90'} text-white relative group bg-black bg-opacity-10 px-3 pl-14 py-2 rounded-md inline-flex items-center text-sm font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
                                 >
                                   <AvatarComponent
                                     className="w-10 absolute left-2 bottom-1"
@@ -291,7 +285,7 @@ const Layout = ({children, title}: any) => {
                                             <img className="w-10" src="/images/origami-c.png"/>
                                           </div>
                                           <div className="ml-4">
-                                            <p className="text-sm font-medium text-gray-900">
+                                            <p className="font-serif text-sm font-bold text-gray-900">
                                               {user.points} BST
                                             </p>
                                             <p className="text-sm text-gray-500">
@@ -312,7 +306,7 @@ const Layout = ({children, title}: any) => {
                                               />
                                             </div>
                                             <div className="ml-4">
-                                              <p className="text-sm font-medium text-gray-900">
+                                              <p className="font-serif text-sm font-bold text-gray-900">
                                                 {user.email}
                                               </p>
                                               <p className="text-sm text-gray-500">
@@ -333,7 +327,7 @@ const Layout = ({children, title}: any) => {
                                               />
                                             </div>
                                             <div className="ml-4">
-                                              <p className="text-sm font-medium text-gray-900">
+                                              <p className="font-serif text-sm font-bold text-gray-900">
                                                 {user.swaps.length} / {user.sends.length}
                                               </p>
                                               <p className="text-sm text-gray-500">
@@ -353,7 +347,7 @@ const Layout = ({children, title}: any) => {
                                               />
                                             </div>
                                             <div className="ml-4">
-                                              <p className="text-sm font-medium text-gray-900">
+                                              <p className="font-serif text-sm font-bold text-gray-900">
                                                 Поддержка
                                               </p>
                                               <p className="text-sm text-gray-500">
@@ -366,10 +360,10 @@ const Layout = ({children, title}: any) => {
                                       <div className="p-4 bg-gray-50">
                                         <a
                                           href="##"
-                                          className="flow-root px-2 py-2 transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                          className="flow-root px-5 py-2 font-serif transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                                         >
                                           <span className="flex items-center">
-                                            <span className="text-sm font-medium text-gray-900">
+                                            <span className="text-sm font-bold text-gray-900">
                                               О проекте
                                             </span>
                                           </span>
@@ -387,22 +381,20 @@ const Layout = ({children, title}: any) => {
 
                           <Menu
                               as="div"
-                              className="ml-3 relative flex-shrink-0"
+                              className="ml-3 relative flex items-center flex-shrink-0"
                           >
                             {({open}) => (
                                 <>
-                                  <div>
-                                    <Menu.Button className="bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
-                                      <span className="sr-only"> Open user menu</span>
-                                      <MailIcon
-                                          className="h-6 w-6"
-                                          aria-hidden="true"
-                                      />
-                                    </Menu.Button>
-                                    {
-                                      notificationAmount(user.notifications) > 0 && <span className="absolute text-xs w-4 h-4 -my-1 rounded-full bg-red-600 text-white">{notificationAmount(user.notifications)}</span>
-                                    }
-                                  </div>
+                                  <Menu.Button className="bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
+                                    <span className="sr-only">Уведомления</span>
+                                    <MailIcon
+                                        className="h-6 w-6"
+                                        aria-hidden="true"
+                                    />
+                                  </Menu.Button>
+                                  {
+                                    notificationAmount(user.notifications) > 0 && <span className="absolute text-xs w-4 h-4 -my-1 rounded-full bg-red-600 text-white">{notificationAmount(user.notifications)}</span>
+                                  }
                                   <Transition
                                       show={open}
                                       as={Fragment}
@@ -447,8 +439,8 @@ const Layout = ({children, title}: any) => {
                                 <a
                                   className={
                                     item.current
-                                      ? 'bg-main-700 text-white hover:bg-main-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium'
-                                      : 'text-white hover:bg-main-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium'
+                                      ? 'bg-main-700 text-white border border-main-700 hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium'
+                                      : 'text-white border border-white hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium'
                                   }
                                 >
                                   {t(item.title)}
@@ -458,15 +450,14 @@ const Layout = ({children, title}: any) => {
                           </div>
                         </div>
                       </div>
-                      <button
-                        onClick={() =>
-                          router.push('/books/create')
-                        }
-                        type="button"
-                        className="inline-flex items-center px-4 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500"
-                      >
-                        {t('create')}
-                      </button>
+                      <Link href='/books/create'>
+                        <a
+                          className="inline-flex items-center px-4 py-2 shadow-sm text-sm font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500"
+                        >
+                          <PlusCircleIcon className="h-5 w-5 mr-1"/>
+                          {t('create')}
+                        </a>
+                      </Link>
                     </div>
                   </div>
 

@@ -73,9 +73,6 @@ const Login = () => {
                 <div className="mx-auto w-full max-w-sm lg:w-96">
                     <div className="text-center">
                         <LogoLogin />
-                        <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
-                            Войти в аккаунт
-                        </h2>
                         {/* <p className="mt-2 text-sm text-gray-600">
                 Or{' '}
                 <a href="#" className="font-medium text-main-600 hover:text-main-500">

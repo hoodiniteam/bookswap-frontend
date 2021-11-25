@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 const Pagination = ({ limit, total }: any) => {
     const router = useRouter();
     const {query, pathname} = router;
-    const currentPage = query.page ? Number(query.page) : 0;
+    const currentPage = query.page ? Number(query.page) : 1;
     const max = Math.ceil(total / limit);
     const pages = new Array(max).fill(true).map((_, idx) => idx + 1);
     return (
@@ -17,19 +17,19 @@ const Pagination = ({ limit, total }: any) => {
                             currentPage > 1 && <Link
                                 href={`${pathname}?page=${currentPage - 1}`}>
                                 <a
-                                    className='relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50'
+                                    className='relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-200 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50'
                                 >
                                     <span className='sr-only'>Previous</span>
                                     <ChevronLeftIcon className='h-5 w-5' aria-hidden='true' />
                                 </a>
                             </Link>
                         }
-                        <div className="mx-4">
+                        <div>
                             {pages.map((page) => (
                                 <Link
                                     href={`${pathname}?page=${page}`}
                                     key={page}>
-                                    <a className={currentPage === page ? 'active pagItem' : 'pagItem'}>
+                                    <a className={`pagItem${currentPage === page ? ' active' : ''}`}>
                                         {page}
                                     </a>
                                 </Link>
@@ -39,7 +39,7 @@ const Pagination = ({ limit, total }: any) => {
                             currentPage < max && <Link
                                 href={`${pathname}?page=${currentPage + 1}`}>
                                 <a
-                                    className='relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50'
+                                    className='relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-200 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50'
                                 >
                                     <span className='sr-only'>Next</span>
                                     <ChevronRightIcon className='h-5 w-5' aria-hidden='true' />
