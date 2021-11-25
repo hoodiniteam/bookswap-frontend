@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { forwardRef, ReactElement } from 'react';
 import {useMutation} from 'urql'
 import {useRouter} from 'next/router'
 import Layout from '../../../components/layout'
@@ -22,6 +22,8 @@ import Button from '../../../components/UI/Button';
 import {useNotification} from '../../../helpers/notificationHelper';
 import Image from 'next/image';
 import { AvatarComponent } from '../../../components/avatars';
+import Tippy from '@tippyjs/react';
+import { userName } from '../../../helpers/parseUserName';
 
 const Book = () => {
   const router = useRouter()
@@ -128,6 +130,22 @@ const Book = () => {
         <div className="flex flex-col">
           <div className="bg-white flex-grow p-4 shadow sm:rounded-md border">
             <p className="font-medium">Подписчики</p>
+            <div className="grid grid-cols-4 mt-2">
+              {
+                edition.expects.map((user: any) => (
+                  <div key={user.id}>
+                    <Tippy content={`${userName(user)}`}>
+                      <div>
+                        <AvatarComponent
+                            avatarStyle='Circle'
+                            {...user.avatar}
+                        />
+                      </div>
+                    </Tippy>
+                  </div>
+                ))
+              }
+            </div>
           </div>
             {
               !isHolderOfAny && (

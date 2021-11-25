@@ -5,6 +5,26 @@ export const fragmentEditionExposed = `
     authors
     image
     views
+    expects {
+        id
+        firstName
+        lastName
+        email
+        avatar {
+          topType
+          eyeType
+          eyebrowType
+          mouthType
+          facialHairType
+          facialHairColor
+          hairColor
+          hatColor
+          skinColor
+          clotheColor
+          clotheType
+          accessoriesType
+        }
+    }
     books {
       id
       description

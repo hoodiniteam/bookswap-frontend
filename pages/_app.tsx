@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import 'tippy.js/dist/tippy.css';
 import type { AppProps } from 'next/app'
 import Script from 'next/script'
 import React  from 'react';
