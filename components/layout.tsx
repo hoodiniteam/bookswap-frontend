@@ -28,6 +28,7 @@ import { userName } from '../helpers/parseUserName';
 import { usePopper } from 'react-popper';
 import format from 'date-fns/format';
 import { NotificationLinkParser } from '../helpers/notificationLinkParser';
+import Button from './UI/Button';
 
 const Layout = ({children, title}: any) => {
   const router = useRouter();
@@ -423,6 +424,7 @@ const Layout = ({children, title}: any) => {
                             >
                               <div className="font-serif notifications-panel z-10 rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white fixed right-3 top-3 overflow-auto">
                                 <div className="font-semibold mb-2">Уведомления</div>
+                                <Button variant="primaryOutline" className="absolute right-4 top-4">Очистить</Button>
                                 <div className="space-y-2 divide-y">
                                   {
                                     user.notifications.length > 0 ?
