@@ -26,6 +26,8 @@ import {GetMe} from "../graphql/GetMe";
 import {AvatarComponent} from "./avatars";
 import { userName } from '../helpers/parseUserName';
 import { usePopper } from 'react-popper';
+import format from 'date-fns/format';
+import { NotificationLinkParser } from '../helpers/notificationLinkParser';
 
 const Layout = ({children, title}: any) => {
   const router = useRouter();
@@ -43,8 +45,6 @@ const Layout = ({children, title}: any) => {
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement: 'top',
   });
-
-  console.log(styles);
 
   const [, createEdition] = useMutation(CreateEmptyEditionMutation);
 
@@ -236,7 +236,7 @@ const Layout = ({children, title}: any) => {
                       </div>
                     </div>
                   </div>
-                  <div className="hidden lg:block lg:ml-4">
+                  <div className="hidden sm:block lg:ml-4">
                     <div className="flex items-center">
 
                       <Popover className="relative">
@@ -409,7 +409,7 @@ const Layout = ({children, title}: any) => {
                               />
                             </Menu.Button>
                             {
-                              notificationAmount(user.notifications) > 0 && <span className="absolute text-xs w-4 h-4 -my-1 rounded-full bg-red-600 text-white">{notificationAmount(user.notifications)}</span>
+                              notificationAmount(user.notifications) > 0 && <span className="absolute -right-1 -bottom-1 flex justify-center items-center text-xs w-4 h-4 -my-1 rounded-full bg-white text-red-600 font-medium">{notificationAmount(user.notifications)}</span>
                             }
                             <Transition
                               show={open}
@@ -421,15 +421,16 @@ const Layout = ({children, title}: any) => {
                               leaveFrom="transform opacity-100 scale-100"
                               leaveTo="transform opacity-0 scale-95"
                             >
-                              <div className="notifications-panel z-10 rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white fixed right-3 top-3 overflow-auto">
-                                <div className="font-medium mb-2">Уведомления</div>
+                              <div className="font-serif notifications-panel z-10 rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white fixed right-3 top-3 overflow-auto">
+                                <div className="font-semibold mb-2">Уведомления</div>
                                 <div className="space-y-2 divide-y">
                                   {
                                     user.notifications.length > 0 ?
                                       user.notifications.map((notification: {isRead: boolean, message: string, createdAt: string}) => (
                                         <div key={notification.createdAt} className="text-sm py-2">
-                                          <div className="text-gray-500">{notification.message}</div>
-                                          <div className="text-gray-500">{notification.createdAt}</div>
+                                          <NotificationLinkParser message={notification.message}>
+                                            <div className="text-gray-500">{format(new Date(notification.createdAt), "dd.MM.yyyy mm:ss")}</div>
+                                          </NotificationLinkParser>
                                         </div>
                                       )):
                                       <span>Нет сообщений</span>
@@ -474,7 +475,7 @@ const Layout = ({children, title}: any) => {
               </div>
             </nav>
           </div>
-          <div className="z-10 shadow border-t fixed flex items-center justify-between w-full h-14 bg-white left-0 bottom-0">
+          <div className="z-10 sm:hidden shadow border-t fixed flex items-center justify-between w-full h-14 bg-white left-0 bottom-0">
             <div className="grid divide-x grid-cols-2 flex-grow">
               <Link href="/books">
                 <a className="flex flex-col text-xs items-center justify-center">
@@ -674,7 +675,7 @@ const Layout = ({children, title}: any) => {
             </div>
           </div>
           <main className="sm:-mt-32">
-            <div className="max-w-7xl mx-auto pb-12 p-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto pb-24 sm:pb-12 p-4 sm:px-6 lg:px-8">
               {children}
             </div>
           </main>

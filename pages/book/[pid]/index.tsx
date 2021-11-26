@@ -102,12 +102,12 @@ const Book = () => {
       <Head>
         <title>{edition.title}</title>
       </Head>
-      <div className='grid gap-6 grid-cols-5'>
-        <div className="flex bg-white col-span-4 relative shadow font-serif sm:rounded-md border p-6">
+      <div className='sm:grid gap-6 sm:grid-cols-5'>
+        <div className="flex flex-wrap space-y-4 sm:flex-nowrap bg-white col-span-4 relative shadow font-serif sm:rounded-md border p-6">
           {
             edition.image && (
-              <div className='mr-6'>
-                <div className='bg-gray-100 rounded-md py-4 relative w-40 h-40 lg:h-52'>
+              <div className='sm:mr-6 flex-grow'>
+                <div className='bg-gray-100 rounded-md py-4 relative w-full h-60 sm:w-40 sm:h-40 lg:h-52'>
                   <div className="relative h-full w-full">
                     {edition.image ? (<Image src={edition.image} layout="fill" alt={`${edition.title} poster`} className='object-contain pointer-events-none group-hover:opacity-75' />) : (<div className="h-full w-full bg-gray-100"/>)}
                   </div>
@@ -129,7 +129,7 @@ const Book = () => {
             <p className="mt-2.5 text-sm">{edition.description}</p>
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col mt-4 sm:mt-0">
           <div className="bg-white flex-grow p-4 shadow sm:rounded-md border">
             <p className="font-medium">Подписчики</p>
             {
@@ -197,7 +197,7 @@ const Book = () => {
           }
         </div>
         <div>
-          <ul role="list" className="grid grid-cols-3 divide-y divide-gray-200">
+          <ul role="list" className="sm:grid grid-cols-3 divide-y divide-gray-200">
             {
               edition.books.map((book: any) => (
                 <li className="bg-white shadow mt-2 overflow-hidden sm:rounded-md" key={book.id}>
