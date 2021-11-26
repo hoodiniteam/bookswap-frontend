@@ -25,6 +25,7 @@ import {useQueryWrapper} from "../helpers/useQueryWrapper";
 import {GetMe} from "../graphql/GetMe";
 import {AvatarComponent} from "./avatars";
 import { userName } from '../helpers/parseUserName';
+import { usePopper } from 'react-popper';
 
 const Layout = ({children, title}: any) => {
   const router = useRouter();
@@ -36,6 +37,15 @@ const Layout = ({children, title}: any) => {
     {title: 'Недавно добавленные', href: '/books', current: false},
   ]);
   const myRef = useRef();
+
+  const [referenceElement, setReferenceElement] = useState<HTMLButtonElement | null>();
+  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>();
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: 'top',
+  });
+
+  console.log(styles);
+
   const [, createEdition] = useMutation(CreateEmptyEditionMutation);
 
   const [{data: meData, fetching: fetchingMe}] = useQueryWrapper({
@@ -464,20 +474,59 @@ const Layout = ({children, title}: any) => {
               </div>
             </nav>
           </div>
-          <div className="fixed flex items-center justify-between w-full h-14 bg-white left-0 bottom-0">
+          <div className="z-10 shadow border-t fixed flex items-center justify-between w-full h-14 bg-white left-0 bottom-0">
             <div className="grid divide-x grid-cols-2 flex-grow">
-              <div className="flex justify-center">
-                <BookOpenIcon className="w-6 h-6 text-gray-500" />
-              </div>
-              <div className="flex justify-center">
-                <MailIcon className="w-6 h-6 text-gray-500" />
-              </div>
+              <Link href="/books">
+                <a className="flex flex-col text-xs items-center justify-center">
+                  <BookOpenIcon className="w-6 h-6 text-gray-500" />
+                  Книги
+                </a>
+              </Link>
+              <Menu
+                as={Fragment}
+              >
+                {({open}) => (
+                  <>
+                    <Menu.Button className="flex flex-col text-xs items-center justify-center">
+                      <MailIcon className="w-6 h-6 text-gray-500" />
+                      Сообщ.
+                    </Menu.Button>
+                    <Transition
+                      show={open}
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <div className="notifications-panel z-10 rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white fixed right-3 top-3 overflow-auto">
+                        <div className="font-medium mb-2">Уведомления</div>
+                        <div className="space-y-2 divide-y">
+                          {
+                            user.notifications.length > 0 ?
+                              user.notifications.map((notification: {isRead: boolean, message: string, createdAt: string}) => (
+                                <div key={notification.createdAt} className="text-sm py-2">
+                                  <div className="text-gray-500">{notification.message}</div>
+                                  <div className="text-gray-500">{notification.createdAt}</div>
+                                </div>
+                              )):
+                              <span>Нет сообщений</span>
+                          }
+                        </div>
+                      </div>
+                    </Transition>
+                  </>
+                )}
+              </Menu>
             </div>
             <div className="px-2">
               <Popover className="relative">
                 {({open}) => (
                   <>
                     <Popover.Button
+                      ref={setReferenceElement}
                       className={`${open ? '' : 'text-opacity-90'} text-white relative group bg-gradient-to-r from-orange-400 to-pink-500 px-3 pl-14 py-2 rounded-md inline-flex items-center text-sm font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
                     >
                       <AvatarComponent
@@ -491,141 +540,134 @@ const Layout = ({children, title}: any) => {
                         aria-hidden="true"
                       />
                     </Popover.Button>
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-200"
-                      enterFrom="opacity-0 translate-y-1"
-                      enterTo="opacity-100 translate-y-0"
-                      leave="transition ease-in duration-150"
-                      leaveFrom="opacity-100 translate-y-0"
-                      leaveTo="opacity-0 translate-y-1"
+                    <Popover.Panel
+                      ref={setPopperElement}
+                      style={styles.popper}
+                      {...attributes.popper}
                     >
-                      <Popover.Panel
-                        className="absolute z-10 w-screen max-w-sm px-4 mt-3 transform -translate-x-1/2 left-1/2 sm:px-0">
-                        <div
-                          className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                          <div className="relative grid gap-8 bg-white p-7">
-                            <Link href="/profile/books">
-                              <a
-                                className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                              >
-                                <div
-                                  className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                  <img className="w-10" src="/images/origami-c.png"/>
-                                </div>
-                                <div className="ml-4">
-                                  <p className="font-serif text-sm font-bold text-gray-900">
-                                    Мои книги
-                                  </p>
-                                  <p className="text-sm text-gray-500">
-                                    {user.points} BST
-                                  </p>
-                                </div>
-                              </a>
-                            </Link>
-                            <Link href="/profile">
-                              <a
-                                className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                              >
-                                <div
-                                  className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                  <AvatarComponent
-                                    className="w-10"
-                                    avatarStyle='Circle'
-                                    {...user.avatar}
-                                  />
-                                </div>
-                                <div className="ml-4">
-                                  <p className="font-serif text-sm font-bold text-gray-900">
-                                    Профиль
-                                  </p>
-                                  <p className="text-sm text-gray-500">
-                                    {userName(user)}
-                                  </p>
-                                </div>
-                              </a>
-                            </Link>
-                            <Link href="/profile/swaps">
-                              <a
-                                className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                              >
-                                <div
-                                  className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                  <RefreshIcon
-                                    className="h-10 w-10 text-green-600"
-                                    aria-hidden="true"
-                                  />
-                                </div>
-                                <div className="ml-4">
-                                  <p className="font-serif text-sm font-bold text-gray-900">
-                                    Активные свопы
-                                  </p>
-                                  <p className="text-sm text-gray-500">
-                                    {user.swaps.length} / {user.sends.length}
-                                  </p>
-                                </div>
-                              </a>
-                            </Link>
-                            <Link href="/profile/waiting">
-                              <a
-                                className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                              >
-                                <div
-                                  className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                  <BookmarkIcon
-                                    className="h-10 w-10 text-orange-400"
-                                    aria-hidden="true"
-                                  />
-                                </div>
-                                <div className="ml-4">
-                                  <p className="font-serif text-sm font-bold text-gray-900">
-                                    Подписки
-                                  </p>
-                                  <p className="text-sm text-gray-500">
-                                    Книги которые вы ждете
-                                  </p>
-                                </div>
-                              </a>
-                            </Link>
-                            <Link href="https://t.me/joinchat/jOVQHloO7ApiMDIy">
-                              <a
-                                className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                              >
-                                <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                  <SupportIcon
-                                    className="h-10 w-10 text-blue-500"
-                                    aria-hidden="true"
-                                  />
-                                </div>
-                                <div className="ml-4">
-                                  <p className="font-serif text-sm font-bold text-gray-900">
-                                    Поддержка
-                                  </p>
-                                  <p className="text-sm text-gray-500">
-                                    Ссылка на Телеграмм чат
-                                  </p>
-                                </div>
-                              </a>
-                            </Link>
-                          </div>
-                          <div className="p-4 bg-gray-50">
+                      <div
+                        className="-top-3.5 w-screen relative overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                        <div className="relative grid gap-8 bg-white p-7">
+                          <Link href="/profile/books">
                             <a
-                              href="#"
-                              className="flow-root px-5 py-2 font-serif transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                              className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                             >
+                              <div
+                                className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                <img className="w-10" src="/images/origami-c.png"/>
+                              </div>
+                              <div className="ml-4">
+                                <p className="font-serif text-sm font-bold text-gray-900">
+                                  Мои книги
+                                </p>
+                                <p className="text-sm text-gray-500">
+                                  {user.points} BST
+                                </p>
+                              </div>
+                            </a>
+                          </Link>
+                          <Link href="/profile">
+                            <a
+                              className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                            >
+                              <div
+                                className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                <AvatarComponent
+                                  className="w-10"
+                                  avatarStyle='Circle'
+                                  {...user.avatar}
+                                />
+                              </div>
+                              <div className="ml-4">
+                                <p className="font-serif text-sm font-bold text-gray-900">
+                                  Профиль
+                                </p>
+                                <p className="text-sm text-gray-500">
+                                  {userName(user)}
+                                </p>
+                              </div>
+                            </a>
+                          </Link>
+                          <Link href="/profile/swaps">
+                            <a
+                              className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                            >
+                              <div
+                                className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                <RefreshIcon
+                                  className="h-10 w-10 text-green-600"
+                                  aria-hidden="true"
+                                />
+                              </div>
+                              <div className="ml-4">
+                                <p className="font-serif text-sm font-bold text-gray-900">
+                                  Активные свопы
+                                </p>
+                                <p className="text-sm text-gray-500">
+                                  {user.swaps.length} / {user.sends.length}
+                                </p>
+                              </div>
+                            </a>
+                          </Link>
+                          <Link href="/profile/waiting">
+                            <a
+                              className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                            >
+                              <div
+                                className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                <BookmarkIcon
+                                  className="h-10 w-10 text-orange-400"
+                                  aria-hidden="true"
+                                />
+                              </div>
+                              <div className="ml-4">
+                                <p className="font-serif text-sm font-bold text-gray-900">
+                                  Подписки
+                                </p>
+                                <p className="text-sm text-gray-500">
+                                  Книги которые вы ждете
+                                </p>
+                              </div>
+                            </a>
+                          </Link>
+                          <Link href="https://t.me/joinchat/jOVQHloO7ApiMDIy">
+                            <a
+                              className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                            >
+                              <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                <SupportIcon
+                                  className="h-10 w-10 text-blue-500"
+                                  aria-hidden="true"
+                                />
+                              </div>
+                              <div className="ml-4">
+                                <p className="font-serif text-sm font-bold text-gray-900">
+                                  Поддержка
+                                </p>
+                                <p className="text-sm text-gray-500">
+                                  Ссылка на Телеграмм чат
+                                </p>
+                              </div>
+                            </a>
+                          </Link>
+                        </div>
+                        <div className="p-4 bg-gray-50">
+                          <a
+                            href="#"
+                            className="flow-root px-5 py-2 font-serif transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                          >
                                           <span className="flex items-center">
                                             <span className="text-sm font-bold text-gray-900">
                                               О проекте
                                             </span>
                                           </span>
-                              <span className="block text-sm text-gray-500">
+                            <span className="block text-sm text-gray-500">
                                             Как мы работаем? Зачем все это нужно?
                                           </span>
-                            </a>
-                          </div>
+                          </a>
                         </div>
-                      </Popover.Panel>
-                    </Transition>
+                      </div>
+                    </Popover.Panel>
                   </>
                 )}
               </Popover>
