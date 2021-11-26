@@ -1,26 +1,12 @@
-
-import React, { Dispatch, ReactElement, useContext } from 'react';
+import React, { ReactElement } from 'react';
 import Layout from '../components/layout';
 import Head from 'next/head';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { localesList } from '../helpers/locales';
-import { useQueryWrapper } from '../helpers/useQueryWrapper';
-import { GetMe } from '../graphql/GetMe';
-import {useNotification} from "../helpers/notificationHelper";
-
 
 const Home = () => {
-  const {successNotification} = useNotification();
   const { t } = useTranslation(localesList);
-  const [{ data }] = useQueryWrapper({
-    query: GetMe,
-  });
-
-  const open = () => {
-    successNotification("Test");
-  };
-
   return (
     <>
       <Head>

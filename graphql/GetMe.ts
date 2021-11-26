@@ -6,6 +6,8 @@ export const GetMe = `
     me{
       user{
         id
+        firstName
+        lastName
         email
         notifications{
           isRead

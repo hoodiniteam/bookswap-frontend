@@ -10,8 +10,8 @@ export interface OptionState {
 export type OptionContextState = { [index: string]: OptionState }
 
 export default class OptionContext {
-  private stateChangeListeners = new Set<Function>()
-  private valueChangeListeners = new Set<Function>()
+  private stateChangeListeners = new Set<(...args: any[]) => void>()
+  private valueChangeListeners = new Set<(...args: any[]) => void>()
   private _state: OptionContextState = {}
   private _data: { [index: string]: string } = {}
   private readonly _options: Array<Option>

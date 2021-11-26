@@ -12,7 +12,6 @@ type Note = {
   message: string
 }
 
-// @ts-ignore
 export const NotificationContext = createContext<Dispatch<DispatchType> | null>(null)
 
 const NotificationProvider = ({children}: PropsProvider) => {

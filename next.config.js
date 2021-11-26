@@ -10,14 +10,5 @@ module.exports = {
     domains: ["images.unsplash.com", "res.cloudinary.com", "books.google.com"],
   },
   reactStrictMode: true,
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/home',
-        permanent: true,
-      },
-    ]
-  },
   i18n,
 }

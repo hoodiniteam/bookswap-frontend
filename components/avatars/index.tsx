@@ -32,7 +32,7 @@ export interface Props {
   onRandomChanged?: (values: any) => void
   customizable?: boolean
 }
-export const MyOptionContext = React.createContext({});
+export const MyOptionContext = React.createContext(new OptionContext(allOptions));
 
 export const AvatarComponent = (props: Props) => {
   const { avatarStyle, style, className } = props;

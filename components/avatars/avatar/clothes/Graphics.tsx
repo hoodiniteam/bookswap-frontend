@@ -5,7 +5,7 @@ import { GraphicOption } from '../../options'
 import {Selector} from "../../options/Selector";
 
 export interface Props {
-  maskID: string
+  maskID?: string
 }
 
 export class Skull extends React.Component<Props> {
