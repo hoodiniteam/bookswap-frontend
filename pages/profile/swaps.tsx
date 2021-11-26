@@ -1,6 +1,5 @@
 import React, { ReactElement, useState } from 'react';
 import Layout from '../../components/layout';
-import SidebarForProfile from '../../components/sidebar-for-profile';
 import { useQueryWrapper } from '../../helpers/useQueryWrapper';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { localesList } from '../../helpers/locales';
@@ -123,7 +122,7 @@ const Swaps = () => {
         <div>
           <div className='sm:hidden'>
             <label htmlFor='tabs' className='sr-only'>
-              Select a tab
+              Выберете таб
             </label>
             {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}
             <select
@@ -178,11 +177,19 @@ const Swaps = () => {
                 user.swaps.map((swap: any) => {
                   if (swap.status === SwapStatus[SwapStatus.CREATED]) {
                     return (
-                      <div key={swap.id} className='bg-white py-3 px-4 border rounded-md'>
-                        <div className='text-lg'>
-                          {swap.book.title}
+                      <div key={swap.id} className='bg-white flex justify-between items-center py-3 px-4 border rounded-md'>
+                        <div>
+                          <div className='font-serif font-semibold text-lg'>
+                            {swap.book.title}
+                          </div>
+                          <div className="italic text-gray-500">Ждем пока держатель подтвердит обмен</div>
                         </div>
-                        <div className="italic text-gray-500">Ждем пока держатель подтвердит обмен</div>
+                        <Button
+                          variant='dangerOutline'
+                          onClick={() => cancelSwap(swap.id)}
+                        >
+                          Отменить своп (+1 BST)
+                        </Button>
                       </div>
                     );
                   } else if (swap.room) {
@@ -253,7 +260,7 @@ const Swaps = () => {
 Swaps.getLayout = function getLayout(page: ReactElement) {
   return (
     <Layout title={'Swaps'}>
-      <SidebarForProfile>{page}</SidebarForProfile>
+      {page}
     </Layout>
   );
 };

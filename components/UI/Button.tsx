@@ -23,7 +23,7 @@ const Button = (props: ButtonProps) => {
     danger: 'bg-red-600 text-white outline-red hover:bg-red-700',
     dangerOutline: 'outline-red text-red-600 hover:bg-red-600 hover:text-white',
   };
-  const based = 'inline-flex justify-center px-4 py-2 rounded-md cursor-pointer text-sm font-medium'
+  const based = 'inline-flex justify-center px-4 translate duration-300 py-2 rounded-md cursor-pointer text-sm font-medium'
   const styles = () => `${based} ${disabled ? 'filter grayscale cursor-not-allowed' : ''} ${vocabulary[variant]}`;
 
   return (

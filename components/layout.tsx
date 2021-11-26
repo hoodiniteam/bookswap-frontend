@@ -7,7 +7,15 @@ import React, {
 import Link from 'next/link';
 import {Disclosure, Menu, Transition, Popover} from '@headlessui/react';
 import {SearchIcon, ChevronDownIcon} from '@heroicons/react/solid';
-import { MailIcon, MenuIcon, PlusCircleIcon, RefreshIcon, SupportIcon, XIcon } from '@heroicons/react/outline';
+import {
+  BookmarkIcon,
+  MailIcon,
+  MenuIcon,
+  PlusCircleIcon,
+  RefreshIcon,
+  SupportIcon,
+  XIcon,
+} from '@heroicons/react/outline';
 import {useRouter} from 'next/router';
 import {useClient, useMutation} from 'urql';
 import Head from 'next/head';
@@ -18,6 +26,7 @@ import {Logo} from "./Logo";
 import {useQueryWrapper} from "../helpers/useQueryWrapper";
 import {GetMe} from "../graphql/GetMe";
 import {AvatarComponent} from "./avatars";
+import { userName } from '../helpers/parseUserName';
 
 const Layout = ({children, title}: any) => {
   const router = useRouter();
@@ -277,22 +286,24 @@ const Layout = ({children, title}: any) => {
                                     <div
                                       className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                                       <div className="relative grid gap-8 bg-white p-7">
-                                        <div
-                                          className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                                        >
-                                          <div
-                                            className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                            <img className="w-10" src="/images/origami-c.png"/>
-                                          </div>
-                                          <div className="ml-4">
-                                            <p className="font-serif text-sm font-bold text-gray-900">
-                                              {user.points} BST
-                                            </p>
-                                            <p className="text-sm text-gray-500">
-                                              Книжный лимит
-                                            </p>
-                                          </div>
-                                        </div>
+                                        <Link href="/profile/books">
+                                          <a
+                                            className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                          >
+                                            <div
+                                              className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                              <img className="w-10" src="/images/origami-c.png"/>
+                                            </div>
+                                            <div className="ml-4">
+                                              <p className="font-serif text-sm font-bold text-gray-900">
+                                                Мои книги
+                                              </p>
+                                              <p className="text-sm text-gray-500">
+                                                {user.points} BST
+                                              </p>
+                                            </div>
+                                          </a>
+                                        </Link>
                                         <Link href="/profile">
                                           <a
                                             className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
@@ -307,10 +318,10 @@ const Layout = ({children, title}: any) => {
                                             </div>
                                             <div className="ml-4">
                                               <p className="font-serif text-sm font-bold text-gray-900">
-                                                {user.email}
+                                                Профиль
                                               </p>
                                               <p className="text-sm text-gray-500">
-                                                Профиль
+                                                {userName(user)}
                                               </p>
                                             </div>
                                           </a>
@@ -328,10 +339,31 @@ const Layout = ({children, title}: any) => {
                                             </div>
                                             <div className="ml-4">
                                               <p className="font-serif text-sm font-bold text-gray-900">
-                                                {user.swaps.length} / {user.sends.length}
+                                                Активные свопы
                                               </p>
                                               <p className="text-sm text-gray-500">
-                                                Текущие свопы
+                                                {user.swaps.length} / {user.sends.length}
+                                              </p>
+                                            </div>
+                                          </a>
+                                        </Link>
+                                        <Link href="/profile/waiting">
+                                          <a
+                                            className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                          >
+                                            <div
+                                              className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                              <BookmarkIcon
+                                                className="h-10 w-10 text-orange-400"
+                                                aria-hidden="true"
+                                              />
+                                            </div>
+                                            <div className="ml-4">
+                                              <p className="font-serif text-sm font-bold text-gray-900">
+                                                Подписки
+                                              </p>
+                                              <p className="text-sm text-gray-500">
+                                                Книги которые вы ждете
                                               </p>
                                             </div>
                                           </a>

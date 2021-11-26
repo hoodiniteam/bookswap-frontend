@@ -1,4 +1,5 @@
 import {fragmentSwap} from "./fragmentSwap";
+import { fragmentEdition } from './fragmentEdition';
 
 export const GetMe = `
   query{
@@ -11,9 +12,8 @@ export const GetMe = `
           message
           createdAt
         }
-        waiting{
-          title
-          id
+        waiting {
+          ${fragmentEdition}
         }
         avatar {
           topType
@@ -43,7 +43,7 @@ export const GetMe = `
           status
           condition
           edition {
-            image
+            ${fragmentEdition}
           }
         }
       }

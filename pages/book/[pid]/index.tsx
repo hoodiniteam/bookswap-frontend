@@ -106,19 +106,21 @@ const Book = () => {
         <div className="flex bg-white col-span-4 relative shadow font-serif sm:rounded-md border p-6">
           {
             edition.image && (
-                <div className='mr-6'>
-                  <div className='bg-gray-100 rounded-md py-4 relative w-40 h-40 lg:h-52'>
-                    <div className="relative h-full w-full">
-                      {edition.image ? (<Image src={edition.image} layout="fill" alt={`${edition.title} poster`} className='object-contain pointer-events-none group-hover:opacity-75' />) : (<div className="h-full w-full bg-gray-100"/>)}
-                    </div>
+              <div className='mr-6'>
+                <div className='bg-gray-100 rounded-md py-4 relative w-40 h-40 lg:h-52'>
+                  <div className="relative h-full w-full">
+                    {edition.image ? (<Image src={edition.image} layout="fill" alt={`${edition.title} poster`} className='object-contain pointer-events-none group-hover:opacity-75' />) : (<div className="h-full w-full bg-gray-100"/>)}
                   </div>
                 </div>
+              </div>
             )
           }
           <div>
             <h1 className='text-2xl font-semibold'>{edition.title}</h1>
             {edition.authors && edition.authors.map((author: string, idx: number) => (
-                <span key={author} className='text-gray-500 text-sm'>{author}{idx === edition.authors.length - 1 ? '' : ', '}</span>
+              <span key={author} className='text-gray-500 text-sm'>
+                {author}{idx === edition.authors.length - 1 ? '' : ', '}
+              </span>
             ))}
             <p className="absolute text-xs text-gray-400 flex items-center right-4 top-4">
               <EyeIcon className="h-4 w-4 mr-1" />
@@ -157,24 +159,24 @@ const Book = () => {
                 <div className="mt-2">
                   {
                     inMyWaitingList && (
-                        <Button
-                            className="w-full"
-                            variant='primary'
-                            onClick={removeBookFromList}
-                        >
-                          {t('remove-from-waiting-list')}
-                        </Button>
+                      <Button
+                          className="w-full"
+                          variant='primaryOutline'
+                          onClick={removeBookFromList}
+                      >
+                        {t('remove-from-waiting-list')}
+                      </Button>
                     )
                   }
                   {
                     !inMyWaitingList && (
-                        <Button
-                            className="w-full"
-                            variant='primary'
-                            onClick={addBookToList}
-                        >
-                          {t('add-to-my-waiting-list')}
-                        </Button>
+                      <Button
+                          className="w-full"
+                          variant='primary'
+                          onClick={addBookToList}
+                      >
+                        {t('add-to-my-waiting-list')}
+                      </Button>
                     )
                   }
                 </div>
@@ -233,14 +235,14 @@ const Book = () => {
                         </div>
                       }
                       {book.holder.id === user.id && (
-                          <div>
-                            {book.status === BooksStatus[BooksStatus.HOLD] && (
-                              <Button variant="secondary" className="w-full" onClick={() => setBookOpen(book.id)}>Сделать доступной для заказа</Button>
-                              )}
-                            {book.status === BooksStatus[BooksStatus.OPEN] && (
-                                <Button variant="secondaryOutline" className="w-full" onClick={() => setBookHold(book.id)}>Убрать из доступных</Button>
+                        <div>
+                          {book.status === BooksStatus[BooksStatus.HOLD] && (
+                            <Button variant="secondary" className="w-full" onClick={() => setBookOpen(book.id)}>Сделать доступной для заказа</Button>
                             )}
-                          </div>
+                          {book.status === BooksStatus[BooksStatus.OPEN] && (
+                              <Button variant="secondaryOutline" className="w-full" onClick={() => setBookHold(book.id)}>Убрать из доступных</Button>
+                          )}
+                        </div>
                       )}
                     </div>
                   </div>

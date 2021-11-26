@@ -1,8 +1,6 @@
 import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react';
 import { useMutation } from 'urql';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
-import SidebarForProfile from '../../components/sidebar-for-profile';
 import Layout from '../../components/layout';
 import { useQueryWrapper } from '../../helpers/useQueryWrapper';
 import Head from 'next/head';
@@ -133,7 +131,7 @@ const Index = () => {
                 </label>
                 <div className="flex flex-col items-center">
                   <AvatarComponent
-                    className="sm:w-40"
+                    className="sm:w-52"
                     avatarStyle='Circle'
                     {...user.avatar}
                   />
@@ -260,7 +258,7 @@ const Index = () => {
 Index.getLayout = function getLayout(page: ReactElement) {
   return (
     <Layout>
-      <SidebarForProfile>{page}</SidebarForProfile>
+      {page}
     </Layout>
   );
 };

@@ -7,10 +7,10 @@ import {useTranslation} from "next-i18next";
 const SidebarForProfile = (props: any) => {
   const router = useRouter()
   const [sideNav, setSideNav] = useState([
-    {name: 'profile', href: '/profile', icon: UserCircleIcon, current: true,},
     {name: 'my-books', href: '/profile/books', icon: BookOpenIcon, current: false,},
-    {name: 'waiting-list', href: '/profile/waitingList', icon: BookmarkIcon, current: false,},
+    {name: 'profile', href: '/profile', icon: UserCircleIcon, current: true,},
     {name: 'swaps', href: '/profile/swaps', icon: RefreshIcon, current: false,},
+    {name: 'waiting', href: '/profile/waiting', icon: BookmarkIcon, current: false,},
   ]);
   const { t } = useTranslation("nav");
   const pathForCompare = () => {

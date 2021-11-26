@@ -143,10 +143,12 @@ const Index = () => {
               ))}
             </ul>
           </div>
-          <Pagination
-            limit={limit}
-            total={total}
-          />
+          {
+            total > limit && <Pagination
+                limit={limit}
+                total={total}
+            />
+          }
         </div>
       </div>
     )
