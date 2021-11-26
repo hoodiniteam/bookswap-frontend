@@ -1,19 +1,18 @@
 import React, {useEffect, useState} from "react";
 import Link from "next/link";
-import {KeyIcon, UserCircleIcon} from "@heroicons/react/outline";
+import { BookOpenIcon, UserCircleIcon, BookmarkIcon, RefreshIcon } from '@heroicons/react/outline';
 import {useRouter} from "next/router";
-import {BookmarkAltIcon, BookmarkIcon} from "@heroicons/react/solid";
 import {useTranslation} from "next-i18next";
 
 const SidebarForProfile = (props: any) => {
   const router = useRouter()
   const [sideNav, setSideNav] = useState([
     {name: 'profile', href: '/profile', icon: UserCircleIcon, current: true,},
-    {name: 'my-books', href: '/profile/books', icon: BookmarkAltIcon, current: false,},
+    {name: 'my-books', href: '/profile/books', icon: BookOpenIcon, current: false,},
     {name: 'waiting-list', href: '/profile/waitingList', icon: BookmarkIcon, current: false,},
-    {name: 'swaps', href: '/profile/swaps', icon: BookmarkIcon, current: false,},
+    {name: 'swaps', href: '/profile/swaps', icon: RefreshIcon, current: false,},
   ]);
-  const { t, i18n } = useTranslation("nav");
+  const { t } = useTranslation("nav");
   const pathForCompare = () => {
     const end = router.asPath.indexOf('?')
     if(router.asPath.includes('page' || 'status')){
@@ -48,9 +47,9 @@ const SidebarForProfile = (props: any) => {
                 <a
                   className={classNames(
                       item.current
-                          ? 'bg-gray-50 text-main-700 hover:text-main-700 hover:bg-white'
-                          : 'text-gray-900 hover:text-gray-900 hover:bg-gray-50',
-                      'group rounded-md px-3 py-2 flex items-center text-sm font-medium'
+                          ? 'text-main-700 hover:text-main-700 hover:bg-white'
+                          : 'text-gray-900 hover:text-gray-900 hover:bg-gray-100',
+                      'bg-white shadow group rounded-md px-3 py-2 transition duration-300 flex items-center text-sm font-medium'
                   )}
                   aria-current={item.current ? 'page' : undefined}
                 >
@@ -59,7 +58,7 @@ const SidebarForProfile = (props: any) => {
                         item.current
                             ? 'text-main-500 group-hover:text-main-500'
                             : 'text-gray-400 group-hover:text-gray-500',
-                        'flex-shrink-0 -ml-1 mr-3 h-6 w-6'
+                        'flex-shrink-0 transition duration-300 -ml-1 mr-3 h-6 w-6'
                     )}
                     aria-hidden="true"
                   />

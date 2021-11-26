@@ -13,7 +13,6 @@ import Link from 'next/link';
 import { AbortSwapMutation } from '../../graphql/AbortSwapMutation';
 import { SetToSwappedMutation } from '../../graphql/SetToSwappedMutation';
 import { SetToDeliveredMutation } from '../../graphql/SetToDeliveredMutation';
-import Image from 'next/image';
 import BookWrapper from '../../components/book-wrapper';
 
 function classNames(...classes: any) {
@@ -120,7 +119,7 @@ const Swaps = () => {
     ];
 
     return (
-      <div>
+      <div className="bg-white py-6 px-4 space-y-6 sm:p-6 shadow rounded-md">
         <div>
           <div className='sm:hidden'>
             <label htmlFor='tabs' className='sr-only'>
@@ -175,7 +174,6 @@ const Swaps = () => {
         {
           activeTab === 'receive' && (
             <div>
-              <div className='text-xl py-4'>Получить</div>
               {
                 user.swaps.map((swap: any) => {
                   if (swap.status === SwapStatus[SwapStatus.CREATED]) {
@@ -184,7 +182,7 @@ const Swaps = () => {
                         <div className='text-lg'>
                           {swap.book.title}
                         </div>
-                        <div className="italic">Ждем пока держатель подтвердит обмен</div>
+                        <div className="italic text-gray-500">Ждем пока держатель подтвердит обмен</div>
                       </div>
                     );
                   } else if (swap.room) {
@@ -217,7 +215,6 @@ const Swaps = () => {
         {
           activeTab === 'send' && (
             <div>
-              <div className='text-xl py-4'>Отдать</div>
               {
                 user.sends.map((swap: any) => {
                   if (swap.status === SwapStatus[SwapStatus.CREATED]) {

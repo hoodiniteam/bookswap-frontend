@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import {useMutation} from 'urql'
 import {useRouter} from 'next/router'
 import Layout from '../../../components/layout'
@@ -10,7 +10,7 @@ import {useTranslation} from 'react-i18next'
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
 import {localesList} from '../../../helpers/locales'
 import {getStaticEditions} from '../../../helpers/staticRequest'
-import { ClipboardListIcon, EyeIcon } from '@heroicons/react/outline';
+import { EyeIcon } from '@heroicons/react/outline';
 import {AddBookToMyWaitingListMutation} from "../../../graphql/AddBookToMyWaitingListMutation";
 import {RemoveBookFromMyWaitingList} from "../../../graphql/RemoveBookFromMyWaitingList";
 import {BooksStatus} from "../../../types/Book";
@@ -130,6 +130,11 @@ const Book = () => {
         <div className="flex flex-col">
           <div className="bg-white flex-grow p-4 shadow sm:rounded-md border">
             <p className="font-medium">Подписчики</p>
+            {
+              edition.expects.length === 0 && (
+                  <div className="text-gray-500">Пока нет подписчиков</div>
+              )
+            }
             <div className="grid grid-cols-4 mt-2">
               {
                 edition.expects.map((user: any) => (
@@ -148,42 +153,28 @@ const Book = () => {
             </div>
           </div>
             {
-              !isHolderOfAny && (
+              !isHolderOfAny && openBooks.length === 0 && (
                 <div className="mt-2">
                   {
-                    openBooks.length > 0 && <Button
-                        variant='primary'
-                        onClick={startSwap}
-                    >
-                      {t('start-swap')}
-                    </Button>
+                    inMyWaitingList && (
+                        <Button
+                            className="w-full"
+                            variant='primary'
+                            onClick={removeBookFromList}
+                        >
+                          {t('remove-from-waiting-list')}
+                        </Button>
+                    )
                   }
                   {
-                    openBooks.length === 0 && (
-                      <>
-                        {
-                          inMyWaitingList && (
-                            <Button
-                                className="w-full"
-                                variant='primary'
-                                onClick={removeBookFromList}
-                            >
-                              {t('remove-from-waiting-list')}
-                            </Button>
-                          )
-                        }
-                        {
-                          !inMyWaitingList && (
-                            <Button
-                                className="w-full"
-                                variant='primary'
-                                onClick={addBookToList}
-                            >
-                              {t('add-to-my-waiting-list')}
-                            </Button>
-                          )
-                        }
-                      </>
+                    !inMyWaitingList && (
+                        <Button
+                            className="w-full"
+                            variant='primary'
+                            onClick={addBookToList}
+                        >
+                          {t('add-to-my-waiting-list')}
+                        </Button>
                     )
                   }
                 </div>
@@ -209,40 +200,18 @@ const Book = () => {
               edition.books.map((book: any) => (
                 <li className="bg-white shadow mt-2 overflow-hidden sm:rounded-md" key={book.id}>
                   <div className="block hover:bg-gray-50">
-                    <div className="px-6 py-4">
+                    <div className="px-6 py-4 space-y-3">
                       <div className="flex items-center pt-2 justify-between">
                         <p className="flex items-center text-gray-500">
-                          <ClipboardListIcon className="w-6 h-6"/>
+                          Состояние:
                           <span className="ml-0.5 -mb-0.5">{t(book.condition)}</span>
                         </p>
                         <Badge status={book.status}/>
                       </div>
-                      <div className="flex justify-between border-t mt-2 pt-2">
-                        {
-                          book.description && <div className="text-sm italic mt-2">{book.description}</div>
-                        }
-                        <div>
-                          {book.holder.id === user.id && (
-                            <>
-                              {book.status === BooksStatus[BooksStatus.HOLD] && (
-                                <button
-                                  type='button'
-                                  className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
-                                  onClick={() => setBookOpen(book.id)}
-                                >Сделать доступной для заказа</button>
-                              )}
-                              {book.status === BooksStatus[BooksStatus.OPEN] && (
-                                <button
-                                  type='button'
-                                  className='inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500'
-                                  onClick={() => setBookHold(book.id)}
-                                >Убрать из доступных</button>
-                              )}
-                            </>
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between mt-2">
+                      {
+                        book.description && <div className="text-sm italic mt-2">{book.description}</div>
+                      }
+                      <div className="flex items-center border-t pt-1 justify-between">
                         <p className="text-sm font-medium text-main-600 truncate">
                           Держатель: {book.holder.id === user.id ? 'Вы' : book.holder.email}
                         </p>
@@ -252,6 +221,27 @@ const Book = () => {
                             {...book.holder.avatar}
                         />
                       </div>
+                      {
+                        !isHolderOfAny && book.status === BooksStatus[BooksStatus.OPEN] && <div>
+                          <Button
+                            className="w-full"
+                            variant='primary'
+                            onClick={startSwap}
+                          >
+                            {t('start-swap')}
+                          </Button>
+                        </div>
+                      }
+                      {book.holder.id === user.id && (
+                          <div>
+                            {book.status === BooksStatus[BooksStatus.HOLD] && (
+                              <Button variant="secondary" className="w-full" onClick={() => setBookOpen(book.id)}>Сделать доступной для заказа</Button>
+                              )}
+                            {book.status === BooksStatus[BooksStatus.OPEN] && (
+                                <Button variant="secondaryOutline" className="w-full" onClick={() => setBookHold(book.id)}>Убрать из доступных</Button>
+                            )}
+                          </div>
+                      )}
                     </div>
                   </div>
                 </li>

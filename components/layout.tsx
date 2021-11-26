@@ -359,7 +359,7 @@ const Layout = ({children, title}: any) => {
                                       </div>
                                       <div className="p-4 bg-gray-50">
                                         <a
-                                          href="##"
+                                          href="#"
                                           className="flow-root px-5 py-2 font-serif transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                                         >
                                           <span className="flex items-center">
