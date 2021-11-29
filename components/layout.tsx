@@ -29,6 +29,7 @@ import { usePopper } from 'react-popper';
 import format from 'date-fns/format';
 import { NotificationLinkParser } from '../helpers/notificationLinkParser';
 import Button from './UI/Button';
+import { ClearNotificationsMutation } from '../graphql/ClearNotificationsMutation';
 
 const Layout = ({children, title}: any) => {
   const router = useRouter();
@@ -48,6 +49,7 @@ const Layout = ({children, title}: any) => {
   });
 
   const [, createEdition] = useMutation(CreateEmptyEditionMutation);
+  const [, clearNotifications] = useMutation(ClearNotificationsMutation);
 
   const [{data: meData, fetching: fetchingMe}] = useQueryWrapper({
     query: GetMe,
@@ -55,6 +57,10 @@ const Layout = ({children, title}: any) => {
 
   const client = useClient();
   const timer = useRef<any>();
+
+  const onClearNotifications = async () => {
+    await clearNotifications();
+  }
 
   const {t} = useTranslation(['nav', 'common']);
 
@@ -86,6 +92,13 @@ const Layout = ({children, title}: any) => {
     })
   };
 
+  const parsedDate = (date: string) => {
+    if (date) {
+      return `, ${format(new Date(date), "yyyy")}`;
+    }
+    return "";
+  }
+
   useEffect(() => {
     const newArr = [...navigation];
     navigation.map((item, index) => {
@@ -103,6 +116,9 @@ const Layout = ({children, title}: any) => {
   const inputSearchHandler = (e: any) => {
     const search = e.target.value;
     setSearchString(search);
+    if (search.length === 0) {
+      setBooks([]);
+    }
     if (search.length > 3) {
       clearTimeout(timer.current);
       timer.current = setTimeout(() => {
@@ -119,6 +135,8 @@ const Layout = ({children, title}: any) => {
                 title: edition.title,
                 image: edition?.image,
                 description: edition?.description,
+                authors: edition?.authors.join(', '),
+                publishedDate: edition?.publishedDate,
                 id: edition?.id,
                 virtual: edition?.virtual,
               }));
@@ -149,7 +167,7 @@ const Layout = ({children, title}: any) => {
           <title>{title}</title>
         </Head>
         <div className="min-h-screen bg-gray-100">
-          <div className="bg-gradient-to-r from-orange-400 to-pink-500 sm:pb-32">
+          <div className="mobile-layout bg-gradient-to-r from-orange-400 to-pink-500 sm:pb-32">
             <nav
               className="border-b border-main-300 border-opacity-25 lg:border-none"
             >
@@ -174,34 +192,35 @@ const Layout = ({children, title}: any) => {
                       </label>
                       <div
                         ref={myRef as any}
-                        className="relative text-gray-400 flex flex-col focus-within:text-gray-600"
+                        className="sm:relative text-gray-400 flex flex-col focus-within:text-gray-600"
                       >
-                        <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                          <SearchIcon
-                            className="h-5 w-5"
-                            aria-hidden="true"
+                        <div className="relative">
+                          <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                            <SearchIcon
+                              className="h-5 w-5"
+                              aria-hidden="true"
+                            />
+                          </div>
+                          <input
+                            className="layout-search-input block w-full bg-white py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white focus:border-white sm:text-sm"
+                            placeholder={t('book-search', {ns: 'common'})}
+                            type="search"
+                            value={searchString}
+                            onInput={inputSearchHandler}
                           />
                         </div>
-                        <input
-                          className="layout-search-input block w-full bg-white py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white focus:border-white sm:text-sm"
-                          placeholder={t('book-search', {ns: 'common'})}
-                          type="search"
-                          value={searchString}
-                          onInput={inputSearchHandler}
-                        />
                         {books.length > 0 && (
-                          <div style={{maxHeight: 250}}
-                               className="dropDown overflow-auto bg-white absolute w-full shadow-md top-11 z-20 flex flex-col border rounded-md p-4">
+                          <div
+                               className="overflow-auto divide-y max-h-96 bg-white absolute w-full shadow-md left-0 top-14 sm:top-11 z-20 flex flex-col border rounded-md p-4">
                             {books.map(
                               (
                                 edition,
-                                index
                               ) => (
                                 <>
                                   {
                                     edition.virtual ? (
                                       <div onClick={() => createEmptyAndGo(edition)} key={edition.id}
-                                           className="flex bg-white hover:bg-gray-100 py-1 cursor-pointer items-center border-b">
+                                           className="flex bg-white hover:bg-gray-100 py-1 cursor-pointer items-center">
                                         <div className="mr-2 bg-gray-100">
                                           <div className="w-10">
                                             <img
@@ -210,12 +229,15 @@ const Layout = ({children, title}: any) => {
                                             />
                                           </div>
                                         </div>
-                                        {edition.title}
+                                        <div>
+                                          <p className="leading-5">{edition.title}</p>
+                                          <span className="text-xs">{edition.authors}{parsedDate(edition.publishedDate)}</span>
+                                        </div>
                                       </div>
                                     ) : (
                                       <Link href={`/book/${edition.id}`} key={edition.id}>
                                         <a
-                                          className="flex bg-white hover:bg-gray-100 py-1 cursor-pointer items-center border-b">
+                                          className="flex bg-white hover:bg-gray-100 py-1 cursor-pointer items-center">
                                           <div className="mr-2 bg-gray-100">
                                             <div className="w-10">
                                               <img
@@ -224,7 +246,10 @@ const Layout = ({children, title}: any) => {
                                               />
                                             </div>
                                           </div>
-                                          {edition.title}
+                                          <div>
+                                            <p>{edition.title}</p>
+                                            <span className="text-xs">{edition.authors}{parsedDate(edition.publishedDate)}</span>
+                                          </div>
                                         </a>
                                       </Link>
                                     )
@@ -379,14 +404,14 @@ const Layout = ({children, title}: any) => {
                                       href="#"
                                       className="flow-root px-5 py-2 font-serif transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                                     >
-                                          <span className="flex items-center">
-                                            <span className="text-sm font-bold text-gray-900">
-                                              О проекте
-                                            </span>
-                                          </span>
+                                      <span className="flex items-center">
+                                        <span className="text-sm font-bold text-gray-900">
+                                          О проекте
+                                        </span>
+                                      </span>
                                       <span className="block text-sm text-gray-500">
-                                            Как мы работаем? Зачем все это нужно?
-                                          </span>
+                                        Как мы работаем? Зачем все это нужно?
+                                      </span>
                                     </a>
                                   </div>
                                 </div>
@@ -424,7 +449,7 @@ const Layout = ({children, title}: any) => {
                             >
                               <div className="font-serif notifications-panel z-10 rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white fixed right-3 top-3 overflow-auto">
                                 <div className="font-semibold mb-2">Уведомления</div>
-                                <Button variant="primaryOutline" className="absolute right-4 top-4">Очистить</Button>
+                                <Button onClick={onClearNotifications} variant="primaryOutline" className="absolute right-4 top-4">Очистить</Button>
                                 <div className="space-y-2 divide-y">
                                   {
                                     user.notifications.length > 0 ?
@@ -659,14 +684,14 @@ const Layout = ({children, title}: any) => {
                             href="#"
                             className="flow-root px-5 py-2 font-serif transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                           >
-                                          <span className="flex items-center">
-                                            <span className="text-sm font-bold text-gray-900">
-                                              О проекте
-                                            </span>
-                                          </span>
+                            <span className="flex items-center">
+                              <span className="text-sm font-bold text-gray-900">
+                                О проекте
+                              </span>
+                            </span>
                             <span className="block text-sm text-gray-500">
-                                            Как мы работаем? Зачем все это нужно?
-                                          </span>
+                              Как мы работаем? Зачем все это нужно?
+                            </span>
                           </a>
                         </div>
                       </div>
@@ -677,7 +702,7 @@ const Layout = ({children, title}: any) => {
             </div>
           </div>
           <main className="sm:-mt-32">
-            <div className="max-w-7xl mx-auto pb-24 sm:pb-12 p-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto pb-24 pt-20 sm:pt-4 sm:pb-12 p-4 sm:px-6 lg:px-8">
               {children}
             </div>
           </main>

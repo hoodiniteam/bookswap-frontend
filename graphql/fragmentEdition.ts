@@ -3,6 +3,7 @@ export const fragmentEdition = `
   title
   description
   image
+  publishedDate
   authors
   virtual
   isbn_13

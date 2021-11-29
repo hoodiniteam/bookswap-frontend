@@ -4,6 +4,7 @@ export const fragmentEditionExposed = `
     description
     authors
     image
+    publishedDate
     views
     expects {
         id

@@ -105,3 +105,9 @@ a {
         margin-left: 120%;
     }
 }
+
+.mobile-layout {
+    @media (max-width: 640px) {
+        @apply fixed left-0 top-0 w-full z-10;
+    }
+}

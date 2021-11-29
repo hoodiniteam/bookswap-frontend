@@ -53,7 +53,7 @@ const Index = () => {
         <div className="bg-white space-y-5 rounded-lg shadow px-5 py-6 sm:px-6 col-span-3">
           <div>
             <div className="border-b py-1 text-gray-700 font-medium uppercase text-sm">Статус</div>
-            <div className="space-y-3 mt-4">
+            <div className="sm:space-y-3 sm:block mt-4 grid gap-3 grid-cols-2">
               <div>
                 <label className="cursor-pointer inline-flex items-center h-5">
                   <input
@@ -135,7 +135,7 @@ const Index = () => {
             </div>
           </div>*/}
         </div>
-        <div className="col-span-9">
+        <div className="col-span-9 mt-4 sm:mt-0">
           <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
             <ul className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-5">
               {editions.map((edition: any) => (
