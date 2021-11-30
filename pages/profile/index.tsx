@@ -12,6 +12,7 @@ import Button from '../../components/UI/Button';
 import Link from 'next/link';
 import {UpdateUserMutation} from "../../graphql/UpdateUserMutation";
 import {GetMe} from "../../graphql/GetMe";
+import LogOut from '../../helpers/LogOut';
 
 type WaitingList = [
   {
@@ -111,16 +112,12 @@ const Index = () => {
       <form action='#' method='POST' onSubmit={submitHandler}>
         <Head>
           <title>
-            Profile {user.firstName} {user.lastName}
+            {t('profile', { ns: 'nav' })}
           </title>
         </Head>
-        <div className='shadow sm:rounded-md sm:overflow-hidden'>
+        <p className="font-serif sm:text-white font-bold text-lg mb-3">{t('profile', { ns: 'nav' })}</p>
+        <div className="shadow rounded-md overflow-hidden">
           <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
-            <div>
-              <h3 className='text-lg leading-6 font-medium text-gray-900'>
-                {t('profile', { ns: 'nav' })}
-              </h3>
-            </div>
             <div className='grid grid-cols-6 gap-6'>
               <div className='col-span-6 sm:col-span-3'>
                 <label
@@ -241,7 +238,14 @@ const Index = () => {
               </div>
             </div>
           </div>
-          <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>
+          <div className='flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6'>
+            <Button
+              type='button'
+              onClick={LogOut}
+              variant='dangerOutline'
+            >
+              Выйти
+            </Button>
             <Button
               type='submit'
               variant='primary'

@@ -145,8 +145,8 @@ const Create = () => {
         <>
             <form
                 method="POST"
-                style={{ width: '800px', margin: 'auto' }}
                 onSubmit={submit}
+                className="mx-auto max-w-4xl"
             >
                 <div className="shadow sm:rounded-md sm:overflow-hidden">
                     <div className="bg-white py-6 px-4 space-y-6 sm:p-6">

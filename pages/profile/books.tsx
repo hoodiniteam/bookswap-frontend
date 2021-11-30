@@ -11,6 +11,7 @@ import Button from '../../components/UI/Button';
 import { useMutation } from 'urql';
 import { SetBookOpenMutaion } from '../../graphql/SetBookOpenMutaion';
 import { SetBookHoldMutaion } from '../../graphql/SetBookHoldMutation';
+import Head from 'next/head';
 
 const MyBooks = () => {
   const [{data} ] = useQueryWrapper({
@@ -38,7 +39,11 @@ const MyBooks = () => {
     const myBooks = user.books?.map((book: any) => ({...book.edition, status: book.status})) || [];
     console.log(myBooks);
     return(
-      <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6 space-y-4 divide-y">
+      <>
+        <Head>
+          <title>Мои книги</title>
+        </Head>
+        <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6 space-y-4 divide-y">
         <div>
           <div className="flex font-medium items-center">
             <div className="text-2xl">Баланс:</div>
@@ -73,6 +78,7 @@ const MyBooks = () => {
           </ul>
         </div>
       </div>
+      </>
     )
   }
   return null

@@ -1,4 +1,3 @@
-import {fragmentBook} from "./fragmentBook";
 import {fragmentBase} from "./fragmentBase";
 import {fragmentRoom} from "./fragmentRoom";
 
