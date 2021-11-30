@@ -8,7 +8,7 @@ import Link from 'next/link';
 import {Menu, Transition, Popover} from '@headlessui/react';
 import {SearchIcon, ChevronDownIcon} from '@heroicons/react/solid';
 import {
-  BookmarkIcon, BookOpenIcon,
+  BookmarkIcon, BookOpenIcon, ChevronUpIcon,
   MailIcon,
   PlusCircleIcon,
   RefreshIcon,
@@ -352,7 +352,7 @@ const Layout = ({children, title}: any) => {
                                             Активные свопы
                                           </p>
                                           <p className="text-sm text-gray-500">
-                                            {user.swaps.length} / {user.sends.length}
+                                            {user.swaps.length} получить / {user.sends.length} отдать
                                           </p>
                                         </div>
                                       </a>
@@ -448,19 +448,18 @@ const Layout = ({children, title}: any) => {
                               leaveTo="transform opacity-0 scale-95"
                             >
                               <div className="font-serif notifications-panel z-10 rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white fixed right-3 top-3 overflow-auto">
-                                <div className="font-semibold mb-2">Уведомления</div>
-                                <Button onClick={onClearNotifications} variant="primaryOutline" className="absolute right-4 top-4">Очистить</Button>
+                                <div className="font-medium mb-4">Уведомления</div>
+                                <Button onClick={onClearNotifications} variant="primaryOutline" className="absolute right-5 top-4">Очистить</Button>
                                 <div className="space-y-2 divide-y">
                                   {
                                     user.notifications.length > 0 ?
                                       user.notifications.map((notification: {isRead: boolean, message: string, createdAt: string}) => (
                                         <div key={notification.createdAt} className="text-sm py-2">
-                                          <NotificationLinkParser message={notification.message}>
-                                            <div className="text-gray-500">{format(new Date(notification.createdAt), "dd.MM.yyyy mm:ss")}</div>
-                                          </NotificationLinkParser>
+                                          <div className="text-gray-500">{notification.message}</div>
+                                          <div className="text-gray-500">{notification.createdAt}</div>
                                         </div>
                                       )):
-                                      <span>Нет сообщений</span>
+                                      <div className="text-center">Нет сообщений</div>
                                   }
                                 </div>
                               </div>
@@ -529,8 +528,9 @@ const Layout = ({children, title}: any) => {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <div className="notifications-panel z-10 rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white fixed right-3 top-3 overflow-auto">
-                        <div className="font-medium mb-2">Уведомления</div>
+                      <div className="notifications-panel font-serif z-10 border rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white fixed right-2 bottom-16 overflow-auto">
+                        <div className="font-medium mb-4">Уведомления</div>
+                        <Button onClick={onClearNotifications} variant="primaryOutline" className="absolute right-5 top-4">Очистить</Button>
                         <div className="space-y-2 divide-y">
                           {
                             user.notifications.length > 0 ?
@@ -540,7 +540,7 @@ const Layout = ({children, title}: any) => {
                                   <div className="text-gray-500">{notification.createdAt}</div>
                                 </div>
                               )):
-                              <span>Нет сообщений</span>
+                              <div className="text-center">Нет сообщений</div>
                           }
                         </div>
                       </div>
@@ -563,7 +563,7 @@ const Layout = ({children, title}: any) => {
                         {...user.avatar}
                       />
                       <span>{userName(user)}</span>
-                      <ChevronDownIcon
+                      <ChevronUpIcon
                         className={`${open ? '' : 'text-opacity-70'} ml-2 h-5 w-5 text-orange-300 group-hover:text-opacity-80 transition ease-in-out duration-150`}
                         aria-hidden="true"
                       />
@@ -632,7 +632,7 @@ const Layout = ({children, title}: any) => {
                                   Активные свопы
                                 </p>
                                 <p className="text-sm text-gray-500">
-                                  {user.swaps.length} / {user.sends.length}
+                                  {user.swaps.length} получить / {user.sends.length} отдать
                                 </p>
                               </div>
                             </a>

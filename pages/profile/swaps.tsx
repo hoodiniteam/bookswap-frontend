@@ -118,138 +118,125 @@ const Swaps = () => {
     ];
 
     return (
-      <div className="bg-white py-6 px-4 space-y-6 sm:p-6 shadow rounded-md">
-        <div>
-          <div className='sm:hidden'>
-            <label htmlFor='tabs' className='sr-only'>
-              Выберете таб
-            </label>
-            {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}
-            <select
-              id='tabs'
-              name='tabs'
-              className='block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'
-              defaultValue={activeTab}
-            >
-              {tabs.map((tab) => (
-                <option key={tab.name}>{tab.name}</option>
-              ))}
-            </select>
-          </div>
-          <div className='hidden sm:block'>
-            <div className='border-b border-gray-200'>
-              <nav className='-mb-px flex space-x-8' aria-label='Tabs'>
-                {tabs.map((tab) => (
-                  <div
-                    key={tab.name}
-                    onClick={() => {
-                      setActiveTab(tab.name);
-                    }}
-                    className={classNames(
-                      tab.name === activeTab
-                        ? 'border-indigo-500 text-indigo-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200',
-                      'whitespace-nowrap cursor-pointer flex py-4 px-1 border-b-2 font-medium text-sm',
-                    )}
-                    aria-current={tab.name === activeTab ? 'page' : undefined}
-                  >
-                    {tab.label}
-                    {tab.count ? (
-                      <span
-                        className={classNames(
-                          tab.name === activeTab ? 'bg-indigo-100 text-indigo-600' : 'bg-gray-100 text-gray-900',
-                          'hidden ml-3 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block',
-                        )}
-                      >
-                    {tab.count}
-                  </span>
-                    ) : null}
-                  </div>
-                ))}
-              </nav>
+      <div>
+        <p className="font-serif sm:text-white font-bold text-lg mb-3">Активные свопы</p>
+        <div className="bg-white py-6 px-4 space-y-6 sm:p-6 shadow rounded-md">
+          <div>
+            <div>
+              <div className='border-b border-gray-200'>
+                <nav className='-mb-px flex space-x-8' aria-label='Tabs'>
+                  {tabs.map((tab) => (
+                    <div
+                      key={tab.name}
+                      onClick={() => {
+                        setActiveTab(tab.name);
+                      }}
+                      className={classNames(
+                        tab.name === activeTab
+                          ? 'border-indigo-500 text-indigo-600'
+                          : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200',
+                        'whitespace-nowrap cursor-pointer flex py-4 px-1 border-b-2 font-medium text-sm',
+                      )}
+                      aria-current={tab.name === activeTab ? 'page' : undefined}
+                    >
+                      {tab.label}
+                      {tab.count ? (
+                        <span
+                          className={classNames(
+                            tab.name === activeTab ? 'bg-indigo-100 text-indigo-600' : 'bg-gray-100 text-gray-900',
+                            'hidden ml-3 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block',
+                          )}
+                        >
+                      {tab.count}
+                    </span>
+                      ) : null}
+                    </div>
+                  ))}
+                </nav>
+              </div>
             </div>
           </div>
-        </div>
-        {
-          activeTab === 'receive' && (
-            <div>
-              {
-                user.swaps.map((swap: any) => {
-                  if (swap.status === SwapStatus[SwapStatus.CREATED]) {
-                    return (
-                      <div key={swap.id} className='bg-white flex justify-between items-center py-3 px-4 border rounded-md'>
-                        <div>
-                          <div className='font-serif font-semibold text-lg'>
-                            {swap.book.title}
+          {
+            activeTab === 'receive' && (
+              <div>
+                {
+                  user.swaps.map((swap: any) => {
+                    if (swap.status === SwapStatus[SwapStatus.CREATED]) {
+                      return (
+                        <div key={swap.id} className='bg-white flex justify-between items-center py-3 px-4 border rounded-md'>
+                          <div>
+                            <div className='font-serif font-semibold text-lg'>
+                              {swap.book.title}
+                            </div>
+                            <div className="italic text-gray-500">Ждем пока держатель подтвердит обмен</div>
                           </div>
-                          <div className="italic text-gray-500">Ждем пока держатель подтвердит обмен</div>
+                          <Button
+                            variant='dangerOutline'
+                            onClick={() => cancelSwap(swap.id)}
+                          >
+                            Отменить своп (+1 BST)
+                          </Button>
                         </div>
-                        <Button
-                          variant='dangerOutline'
-                          onClick={() => cancelSwap(swap.id)}
-                        >
-                          Отменить своп (+1 BST)
-                        </Button>
-                      </div>
-                    );
-                  } else if (swap.room) {
-                    return (
-                      <ActiveSwap key={swap.id} swap={swap} myId={user.id}>
-                        <Button
-                            variant='dangerOutline'
-                            onClick={() => cancelSwap(swap.id)}
-                        >
-                          Отменить своп
-                        </Button>
-                        <div/>
-                        {
-                          swap.status === SwapStatus[SwapStatus.DELIVERED] && (
-                            <Button
-                                onClick={() => setToSwapped(swap.id)}
-                            >
-                              Книга у меня!
-                            </Button>
-                          )
-                        }
-                      </ActiveSwap>
-                    );
-                  }
-                })
-              }
-            </div>
-          )
-        }
-        {
-          activeTab === 'send' && (
-            <div>
-              {
-                user.sends.map((swap: any) => {
-                  if (swap.status === SwapStatus[SwapStatus.CREATED]) {
-                    return (
-                      <CreatedSwap key={swap.id} swap={swap} />
-                    );
-                  } else if (swap.room) {
-                    return (
-                      <ActiveSwap key={swap.id} swap={swap}>
-                        <Button
-                            onClick={() => cancelSwap(swap.id)}
-                            variant='dangerOutline'
-                        >
-                          Отменить своп
-                        </Button>
-                        <Button
-                          onClick={() => setToDelivered(swap.id)}
-                        >
-                          Отдать книгу
-                        </Button>
-                      </ActiveSwap>
-                    );
-                  }
-                })
-              }
-            </div>
-          )
-        }
+                      );
+                    } else if (swap.room) {
+                      return (
+                        <ActiveSwap key={swap.id} swap={swap} myId={user.id}>
+                          <Button
+                              variant='dangerOutline'
+                              onClick={() => cancelSwap(swap.id)}
+                          >
+                            Отменить своп
+                          </Button>
+                          <div/>
+                          {
+                            swap.status === SwapStatus[SwapStatus.DELIVERED] && (
+                              <Button
+                                  onClick={() => setToSwapped(swap.id)}
+                              >
+                                Книга у меня!
+                              </Button>
+                            )
+                          }
+                        </ActiveSwap>
+                      );
+                    }
+                  })
+                }
+              </div>
+            )
+          }
+          {
+            activeTab === 'send' && (
+              <div>
+                {
+                  user.sends.map((swap: any) => {
+                    if (swap.status === SwapStatus[SwapStatus.CREATED]) {
+                      return (
+                        <CreatedSwap key={swap.id} swap={swap} />
+                      );
+                    } else if (swap.room) {
+                      return (
+                        <ActiveSwap key={swap.id} swap={swap}>
+                          <Button
+                              onClick={() => cancelSwap(swap.id)}
+                              variant='dangerOutline'
+                          >
+                            Отменить своп
+                          </Button>
+                          <Button
+                            onClick={() => setToDelivered(swap.id)}
+                          >
+                            Отдать книгу
+                          </Button>
+                        </ActiveSwap>
+                      );
+                    }
+                  })
+                }
+              </div>
+            )
+          }
+        </div>
       </div>
     );
   }

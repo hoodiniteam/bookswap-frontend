@@ -31,7 +31,7 @@ const NotificationProvider = ({children}: PropsProvider) => {
   return(
    <NotificationContext.Provider value={dispatch}>
      <div>
-       <div className='fixed z-10 top-6 right-4'>
+       <div className='fixed z-10 top-20 sm:top-6 right-4'>
          {state.map(note => {
            return <NotificationItem dispatch={dispatch} message={note.message} type={note.type} key={note.id} id={note.id} />
          })}

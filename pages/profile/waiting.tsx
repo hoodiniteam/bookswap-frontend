@@ -10,6 +10,7 @@ import Button from '../../components/UI/Button';
 import { useMutation } from 'urql';
 import { RemoveBookFromMyWaitingList } from '../../graphql/RemoveBookFromMyWaitingList';
 import { useTranslation } from 'react-i18next';
+import Head from 'next/head';
 
 const Waiting = () => {
   const [books, setBooks] = useState<Book[]>([])
@@ -34,22 +35,33 @@ const Waiting = () => {
 
   if(books){
     return(
-      <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6 space-y-4 divide-y">
-        <ul className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mt-5">
-          {books.map((book) => (
-            <div key={book.id}>
-              <BookWrapper  book={book}/>
-              <Button
-                className="w-full mt-2"
-                variant='primaryOutline'
-                onClick={() => {removeBookFromList(book.id)}}
-              >
-                {t('remove-from-waiting-list')}
-              </Button>
-            </div>
-          ))}
-        </ul>
-      </div>
+      <>
+        <Head>
+          <title>
+            Подписки
+          </title>
+        </Head>
+        <p className="font-serif sm:text-white font-bold text-lg mb-3">Подписки</p>
+        <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6 space-y-4 divide-y">
+          {
+            books.length === 0 && <div>Пока нет подписок.</div>
+          }
+          <ul className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mt-5">
+            {books.map((book) => (
+              <div key={book.id}>
+                <BookWrapper  book={book}/>
+                <Button
+                  className="w-full mt-2"
+                  variant='primaryOutline'
+                  onClick={() => {removeBookFromList(book.id)}}
+                >
+                  {t('remove-from-waiting-list')}
+                </Button>
+              </div>
+            ))}
+          </ul>
+        </div>
+      </>
     )
   }
   return null;
