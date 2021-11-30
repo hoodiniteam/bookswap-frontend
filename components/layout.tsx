@@ -592,7 +592,7 @@ const Layout = ({children, title}: any) => {
                                 className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
                                 <img className="w-10" src="/images/origami-c.png"/>
                               </div>
-                              <div className="ml-4">
+                              <div className="ml-4 flex flex-col items-start">
                                 <p className="font-serif text-sm font-bold text-gray-900">
                                   Мои книги
                                 </p>
@@ -614,7 +614,7 @@ const Layout = ({children, title}: any) => {
                                   {...user.avatar}
                                 />
                               </div>
-                              <div className="ml-4">
+                              <div className="ml-4 flex flex-col items-start">
                                 <p className="font-serif text-sm font-bold text-gray-900">
                                   Профиль
                                 </p>
@@ -635,7 +635,7 @@ const Layout = ({children, title}: any) => {
                                   aria-hidden="true"
                                 />
                               </div>
-                              <div className="ml-4">
+                              <div className="ml-4 flex flex-col items-start">
                                 <p className="font-serif text-sm font-bold text-gray-900">
                                   Активные свопы
                                 </p>
@@ -656,7 +656,7 @@ const Layout = ({children, title}: any) => {
                                   aria-hidden="true"
                                 />
                               </div>
-                              <div className="ml-4">
+                              <div className="ml-4 flex flex-col items-start">
                                 <p className="font-serif text-sm font-bold text-gray-900">
                                   Подписки
                                 </p>
@@ -676,7 +676,7 @@ const Layout = ({children, title}: any) => {
                                   aria-hidden="true"
                                 />
                               </div>
-                              <div className="ml-4">
+                              <div className="ml-4 flex flex-col items-start">
                                 <p className="font-serif text-sm font-bold text-gray-900">
                                   Поддержка
                                 </p>
