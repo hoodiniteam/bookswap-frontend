@@ -296,6 +296,7 @@ const Layout = ({children, title}: any) => {
                                 <div
                                   className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                                   <div className="relative grid gap-8 bg-white p-7">
+                                    <Popover.Button>
                                     <Link href="/profile/books">
                                       <a
                                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
@@ -314,6 +315,8 @@ const Layout = ({children, title}: any) => {
                                         </div>
                                       </a>
                                     </Link>
+                                  </Popover.Button>
+                                  <Popover.Button>
                                     <Link href="/profile">
                                       <a
                                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
@@ -336,6 +339,8 @@ const Layout = ({children, title}: any) => {
                                         </div>
                                       </a>
                                     </Link>
+                                  </Popover.Button>
+                                  <Popover.Button>
                                     <Link href="/profile/swaps">
                                       <a
                                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
@@ -357,6 +362,8 @@ const Layout = ({children, title}: any) => {
                                         </div>
                                       </a>
                                     </Link>
+                                  </Popover.Button>
+                                  <Popover.Button>
                                     <Link href="/profile/waiting">
                                       <a
                                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
@@ -368,7 +375,7 @@ const Layout = ({children, title}: any) => {
                                             aria-hidden="true"
                                           />
                                         </div>
-                                        <div className="ml-4">
+                                        <div className="ml-4 flex flex-col items-start">
                                           <p className="font-serif text-sm font-bold text-gray-900">
                                             Подписки
                                           </p>
@@ -378,6 +385,7 @@ const Layout = ({children, title}: any) => {
                                         </div>
                                       </a>
                                     </Link>
+                                  </Popover.Button>
                                     <Link href="https://t.me/joinchat/jOVQHloO7ApiMDIy">
                                       <a
                                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
