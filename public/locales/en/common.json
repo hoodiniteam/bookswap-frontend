@@ -34,6 +34,7 @@
   "recipient": "Recipient",
   "status": "Status",
   "edit": "Edit",
+  "send": "Send",
   "remove-from-waiting-list": "Remove from waiting list",
   "add-to-my-waiting-list": "Add to my waiting list",
   "start-swap": "Start swap",

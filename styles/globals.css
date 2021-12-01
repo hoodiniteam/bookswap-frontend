@@ -106,6 +106,19 @@ a {
     }
 }
 
+.message{
+    animation: Message forwards 0.5s;
+}
+
+@keyframes Message {
+    0% {
+        margin-top: 120%;
+    }
+    100% {
+        margin-top: 0;
+    }
+}
+
 .mobile-layout {
     @media (max-width: 640px) {
         @apply fixed left-0 top-0 w-full z-10;
