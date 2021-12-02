@@ -16,6 +16,7 @@ const Room = () => {
   const { rid } = router.query;
   const {t} = useTranslation()
   const [text, setText] = useState('')
+  const [length, setLength] = useState(1)
 
   const [{ data: roomData, fetching: fetchingRoom }, reexecuteQuery] = useQueryWrapper({
     query: GetRoomQuery,
@@ -37,13 +38,19 @@ const Room = () => {
         top: ref.current.scrollHeight,
       });
     }
-  })
+  }, [length])
 
   useEffect(() => {
     setInterval(async () => {
       await reexecuteQuery({ requestPolicy: 'network-only' });
     }, 6000);
   }, []);
+
+  useEffect(() => {
+    if(roomData?.getRoom.room){
+      setLength(roomData.getRoom.room.messages.length)
+    }
+  }, [roomData?.getRoom])
 
   if (!roomData?.getRoom) {
     return null;
