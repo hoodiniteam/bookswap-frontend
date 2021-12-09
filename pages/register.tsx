@@ -3,6 +3,7 @@ import {useRouter} from "next/router";
 import {useMutation} from "urql";
 import { LockClosedIcon } from '@heroicons/react/solid'
 import {LogoLogin} from "../components/LogoLogin";
+import Cookies from 'js-cookie';
 const RegisterMutation = `
 mutation($email: String!, $password: String!){
   registerUser(options:{email: $email, password: $password}){
@@ -49,11 +50,11 @@ const Register = () => {
           const token = res.data.registerUser.credentials?.token;
           const refreshToken = res.data.registerUser.credentials?.refreshToken;
           if (token && refreshToken) {
-            localStorage.setItem("token", token);
-            localStorage.setItem("refreshToken", refreshToken);
+            Cookies.set("token", token);
+            Cookies.set("refreshToken", refreshToken);
             setErrorMsg('');
             setField('');
-            router.push('/home').then();
+            router.push('/create_user').then();
           }else{
             setErrorMsg(res.data.registerUser.errors[0].message);
             setField(res.data.registerUser.errors[0].field);

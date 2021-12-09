@@ -110,6 +110,19 @@ a {
     animation: Message forwards 0.5s;
 }
 
+.appear {
+    animation: Appear forwards 0.8s;
+}
+
+@keyframes Appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 100;
+    }
+}
+
 @keyframes Message {
     0% {
         margin-top: 120%;
