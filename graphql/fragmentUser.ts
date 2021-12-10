@@ -35,6 +35,13 @@ export const fragmentUser = `
   swaps {
     ${fragmentSwap}
   }
+  trades {
+    book {
+      id
+    }
+    status
+    endingDate
+  }
   books{
     id
     title
