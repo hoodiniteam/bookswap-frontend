@@ -34,6 +34,10 @@ const Waiting = () => {
   }, [data])
 
   if(books){
+    const activeTradesDict = new Set<string>([]);
+    data?.me.user.trades?.filter((trade: any) => (trade.status === "NOTIFIED" || trade.status === "LASTNOTIFICATION")).forEach((activeTrade: any) => {
+      activeTradesDict.add(activeTrade.book.edition.id);
+    })
     return(
       <>
         <Head>
@@ -49,7 +53,7 @@ const Waiting = () => {
           <ul className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mt-5">
             {books.map((book) => (
               <div key={book.id}>
-                <BookWrapper  book={book}/>
+                <BookWrapper book={book}/>
                 <Button
                   className="w-full mt-2"
                   variant='primaryOutline'
@@ -57,6 +61,9 @@ const Waiting = () => {
                 >
                   {t('remove-from-waiting-list')}
                 </Button>
+                {
+                  activeTradesDict.has(book.id) && <Button className="w-full mt-2">Начать Своп</Button>
+                }
               </div>
             ))}
           </ul>

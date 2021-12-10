@@ -38,6 +38,9 @@ export const fragmentUser = `
   trades {
     book {
       id
+      edition {
+        id
+      }
     }
     status
     endingDate
