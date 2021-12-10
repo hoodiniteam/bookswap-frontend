@@ -30,6 +30,7 @@ import format from 'date-fns/format';
 import { NotificationLinkParser } from '../helpers/notificationLinkParser';
 import Button from './UI/Button';
 import { ClearNotificationsMutation } from '../graphql/ClearNotificationsMutation';
+import { dateTimeToHuman } from '../helpers/dateTime';
 
 const Layout = ({children, title}: any) => {
   const router = useRouter();
@@ -160,6 +161,7 @@ const Layout = ({children, title}: any) => {
 
   if (meData?.me) {
     const {user} = meData.me;
+    if (!user) return null;
 
     return (
       <>
@@ -296,7 +298,6 @@ const Layout = ({children, title}: any) => {
                                 <div
                                   className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                                   <div className="relative grid gap-8 bg-white p-7">
-                                    <Popover.Button>
                                     <Link href="/profile/books">
                                       <a
                                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
@@ -315,8 +316,6 @@ const Layout = ({children, title}: any) => {
                                         </div>
                                       </a>
                                     </Link>
-                                  </Popover.Button>
-                                  <Popover.Button>
                                     <Link href="/profile">
                                       <a
                                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
@@ -339,8 +338,6 @@ const Layout = ({children, title}: any) => {
                                         </div>
                                       </a>
                                     </Link>
-                                  </Popover.Button>
-                                  <Popover.Button>
                                     <Link href="/profile/swaps">
                                       <a
                                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
@@ -362,8 +359,6 @@ const Layout = ({children, title}: any) => {
                                         </div>
                                       </a>
                                     </Link>
-                                  </Popover.Button>
-                                  <Popover.Button>
                                     <Link href="/profile/waiting">
                                       <a
                                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
@@ -375,7 +370,7 @@ const Layout = ({children, title}: any) => {
                                             aria-hidden="true"
                                           />
                                         </div>
-                                        <div className="ml-4 flex flex-col items-start">
+                                        <div className="ml-4">
                                           <p className="font-serif text-sm font-bold text-gray-900">
                                             Подписки
                                           </p>
@@ -385,7 +380,6 @@ const Layout = ({children, title}: any) => {
                                         </div>
                                       </a>
                                     </Link>
-                                  </Popover.Button>
                                     <Link href="https://t.me/joinchat/jOVQHloO7ApiMDIy">
                                       <a
                                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
@@ -455,21 +449,22 @@ const Layout = ({children, title}: any) => {
                               leaveFrom="transform opacity-100 scale-100"
                               leaveTo="transform opacity-0 scale-95"
                             >
-                              <div className="font-serif notifications-panel z-10 rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white fixed right-3 top-3 overflow-auto">
-                                <div className="font-medium mb-4">Уведомления</div>
-                                <Button onClick={onClearNotifications} variant="primaryOutline" className="absolute right-5 top-4">Очистить</Button>
-                                <div className="space-y-2 divide-y">
-                                  {
-                                    user.notifications.length > 0 ?
-                                      user.notifications.map((notification: {isRead: boolean, message: string, createdAt: string}) => (
-                                        <div key={notification.createdAt} className="text-sm py-2">
-                                          <div className="text-gray-500">{notification.message}</div>
-                                          <div className="text-gray-500">{notification.createdAt}</div>
-                                        </div>
-                                      )):
-                                      <div className="text-center">Нет сообщений</div>
-                                  }
+                              <div className="notifications-panel fixed flex flex-col right-3 top-3 font-serif z-10 rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white ">
+                                <div className="flex-grow overflow-auto">
+                                  <div className="font-medium mb-4">Уведомления</div>
+                                  <div className="space-y-3 divide-y">
+                                    {
+                                      user.notifications.length > 0 ?
+                                        user.notifications.map((notification: {isRead: boolean, message: string, createdAt: string}) => (
+                                          <NotificationLinkParser message={notification.message} key={notification.createdAt} className="text-sm space-y-1 pt-3">
+                                            <div className="text-gray-500 text-xs">{dateTimeToHuman(notification.createdAt)}</div>
+                                          </NotificationLinkParser>
+                                        )):
+                                        <div className="text-center">Нет сообщений</div>
+                                    }
+                                  </div>
                                 </div>
+                                <div className="text-center"><Button onClick={onClearNotifications} variant="primaryOutline" className="">Очистить</Button></div>
                               </div>
                             </Transition>
                           </>
@@ -592,7 +587,7 @@ const Layout = ({children, title}: any) => {
                                 className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
                                 <img className="w-10" src="/images/origami-c.png"/>
                               </div>
-                              <div className="ml-4 flex flex-col items-start">
+                              <div className="ml-4">
                                 <p className="font-serif text-sm font-bold text-gray-900">
                                   Мои книги
                                 </p>
@@ -614,7 +609,7 @@ const Layout = ({children, title}: any) => {
                                   {...user.avatar}
                                 />
                               </div>
-                              <div className="ml-4 flex flex-col items-start">
+                              <div className="ml-4">
                                 <p className="font-serif text-sm font-bold text-gray-900">
                                   Профиль
                                 </p>
@@ -635,7 +630,7 @@ const Layout = ({children, title}: any) => {
                                   aria-hidden="true"
                                 />
                               </div>
-                              <div className="ml-4 flex flex-col items-start">
+                              <div className="ml-4">
                                 <p className="font-serif text-sm font-bold text-gray-900">
                                   Активные свопы
                                 </p>
@@ -656,7 +651,7 @@ const Layout = ({children, title}: any) => {
                                   aria-hidden="true"
                                 />
                               </div>
-                              <div className="ml-4 flex flex-col items-start">
+                              <div className="ml-4">
                                 <p className="font-serif text-sm font-bold text-gray-900">
                                   Подписки
                                 </p>
@@ -676,7 +671,7 @@ const Layout = ({children, title}: any) => {
                                   aria-hidden="true"
                                 />
                               </div>
-                              <div className="ml-4 flex flex-col items-start">
+                              <div className="ml-4">
                                 <p className="font-serif text-sm font-bold text-gray-900">
                                   Поддержка
                                 </p>

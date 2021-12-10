@@ -35,9 +35,7 @@ const MyBooks = () => {
 
   if (data) {
     const user = data.me.user;
-    console.log(user);
-    const myBooks = user.books?.map((book: any) => ({...book.edition, status: book.status})) || [];
-    console.log(myBooks);
+    const myBooks = user.books;
     return(
       <>
         <Head>
@@ -62,7 +60,7 @@ const MyBooks = () => {
             {myBooks.map((book: any) => (
               <div key={book.id} className="relative flex flex-col">
                 <div className="flex-grow">
-                  <BookWrapper book={book} />
+                  <BookWrapper book={book.edition} />
                   <Badge className="absolute right-2 top-2" status={book.status}/>
                 </div>
                 <div className="mt-2">

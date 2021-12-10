@@ -86,6 +86,7 @@ const Book = () => {
   }
 
   if (fetchingEdition || fetchingMe) return <p>Loading...</p>
+  if (!editionData) return null;
 
   const {edition} = editionData.getEdition;
   const {user} = meData.me;
@@ -155,7 +156,7 @@ const Book = () => {
             </div>
           </div>
             {
-              !isHolderOfAny && openBooks.length === 0 && (
+              !isHolderOfAny && (openBooks.length === 0 || edition.expects.length > 0) && (
                 <div className="mt-2">
                   {
                     inMyWaitingList && (
@@ -224,7 +225,7 @@ const Book = () => {
                         />
                       </div>
                       {
-                        !isHolderOfAny && book.status === BooksStatus[BooksStatus.OPEN] && <div>
+                        !isHolderOfAny && book.status === BooksStatus[BooksStatus.OPEN] && edition.expects.length === 0 && <div>
                           <Button
                             className="w-full"
                             variant='primary'
