@@ -11,6 +11,7 @@ import { SingleValue } from 'react-select';
 import { BooksCondition } from '../../types/Book';
 import { CreateBookMutation } from '../../graphql/CreateBookMutation';
 import { localesList } from '../../helpers/locales';
+import { dateParsedYear } from '../../helpers/dateTime';
 
 const Create = () => {
     const client = useClient();
@@ -24,7 +25,9 @@ const Create = () => {
         userDescription: '',
         isbn_13: null,
         isbn_10: null,
+        authors: [],
         condition: 'LIKENEW',
+        publishedDate: '',
     });
 
     const {
@@ -72,22 +75,27 @@ const Create = () => {
                                 editionId: !edition.virtual ? edition.id : null,
                                 title: edition.title,
                                 image: edition?.image,
+                                authors: edition?.authors,
                                 description: edition?.description,
                                 isbn_13: edition.isbn_13,
                                 isbn_10: edition.isbn_10,
+                                publishedDate: edition.publishedDate,
                             },
                             label: (
-                                <div className="flex h-24 items-center border-b">
-                                    <div className="mr-2 bg-gray-100">
-                                        <div className="w-16">
-                                            <img
-                                                className="h-24 w-16 object-contain"
-                                                src={edition?.image}
-                                            />
-                                        </div>
-                                    </div>
-                                    {edition.title}
-                                </div>
+                              <div className="flex bg-white hover:bg-gray-100 py-1 cursor-pointer items-center">
+                                  <div className="mr-2 bg-gray-100">
+                                      <div className="w-20">
+                                          <img
+                                            className="h-28 w-20 object-contain"
+                                            src={edition?.image}
+                                          />
+                                      </div>
+                                  </div>
+                                  <div>
+                                      <p className="leading-5">{edition.title}</p>
+                                      <span className="text-xs">{edition.authors}, {dateParsedYear(edition.publishedDate)}</span>
+                                  </div>
+                              </div>
                             ),
                         }));
                         console.log(editions);
@@ -104,9 +112,11 @@ const Create = () => {
         value: SingleValue<{
             title: string;
             image?: string;
+            authors: [];
             description?: string;
             isbn_13?: string | null;
             isbn_10?: string | null;
+            publishedDate: string;
         }>;
     }) => {
         if (newValue.value) {
@@ -115,9 +125,11 @@ const Create = () => {
                 ...book,
                 title: newValue.value.title,
                 description: newValue.value.description || '',
+                authors: newValue.value.authors || [],
                 image: newValue.value.image || '',
                 isbn_13: newValue.value.isbn_13,
                 isbn_10: newValue.value.isbn_10,
+                publishedDate: newValue.value.publishedDate || '',
             });
         } else {
             setBook({ ...book, title: '', description: '', image: '' });
@@ -182,6 +194,24 @@ const Create = () => {
                                     {book.description}
                                 </p>
                             )}
+
+                            {book.authors && book.authors.length > 0 && (<div>
+                                <div className="block text-sm font-medium text-gray-700">
+                                    Авторы
+                                </div>
+                                <div className="flex">
+                                    {book.authors && book.authors.map((author: string, idx: number) => (
+                                      <span key={author} className='text-gray-500 text-sm'>{author}{idx === book.authors.length - 1 ? '' : ', '}</span>
+                                    ))}
+                                </div>
+                            </div>)}
+
+                            {book.publishedDate && (<div>
+                                <div className="block text-sm font-medium text-gray-700">
+                                    Публикация
+                                </div>
+                                <span className='text-gray-500 text-sm'>{dateParsedYear(book.publishedDate)}</span>
+                            </div>)}
 
                             <div className="col-span-3">
                                 <label

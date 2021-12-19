@@ -32,6 +32,8 @@ export const fragmentEditionExposed = `
       holder {
         id
         email
+        firstName
+        lastName
         avatar {
           topType
           eyeType

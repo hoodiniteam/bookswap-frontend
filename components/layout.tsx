@@ -30,7 +30,7 @@ import format from 'date-fns/format';
 import { NotificationLinkParser } from '../helpers/notificationLinkParser';
 import Button from './UI/Button';
 import { ClearNotificationsMutation } from '../graphql/ClearNotificationsMutation';
-import { dateTimeToHuman } from '../helpers/dateTime';
+import { dateParsedYear, dateTimeToHuman } from '../helpers/dateTime';
 
 const Layout = ({children, title}: any) => {
   const router = useRouter();
@@ -92,13 +92,6 @@ const Layout = ({children, title}: any) => {
       });
     })
   };
-
-  const parsedDate = (date: string) => {
-    if (date) {
-      return `, ${format(new Date(date), "yyyy")}`;
-    }
-    return "";
-  }
 
   useEffect(() => {
     const newArr = [...navigation];
@@ -233,7 +226,7 @@ const Layout = ({children, title}: any) => {
                                         </div>
                                         <div>
                                           <p className="leading-5">{edition.title}</p>
-                                          <span className="text-xs">{edition.authors}{parsedDate(edition.publishedDate)}</span>
+                                          <span className="text-xs">{edition.authors}, {dateParsedYear(edition.publishedDate)}</span>
                                         </div>
                                       </div>
                                     ) : (
@@ -250,7 +243,7 @@ const Layout = ({children, title}: any) => {
                                           </div>
                                           <div>
                                             <p>{edition.title}</p>
-                                            <span className="text-xs">{edition.authors}{parsedDate(edition.publishedDate)}</span>
+                                            <span className="text-xs">{edition.authors}, {dateParsedYear(edition.publishedDate)}</span>
                                           </div>
                                         </a>
                                       </Link>
@@ -423,19 +416,19 @@ const Layout = ({children, title}: any) => {
                         )}
                       </Popover>
 
-                      <Menu
+                      <Popover
                         as="div"
                         className="ml-3 relative flex items-center flex-shrink-0"
                       >
                         {({open}) => (
                           <>
-                            <Menu.Button className="bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
+                            <Popover.Button className="bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
                               <span className="sr-only">Уведомления</span>
                               <MailIcon
                                 className="h-6 w-6"
                                 aria-hidden="true"
                               />
-                            </Menu.Button>
+                            </Popover.Button>
                             {
                               notificationAmount(user.notifications) > 0 && <span className="absolute -right-1 -bottom-1 flex justify-center items-center text-xs w-4 h-4 -my-1 rounded-full bg-white text-red-600 font-medium">{notificationAmount(user.notifications)}</span>
                             }
@@ -449,7 +442,7 @@ const Layout = ({children, title}: any) => {
                               leaveFrom="transform opacity-100 scale-100"
                               leaveTo="transform opacity-0 scale-95"
                             >
-                              <div className="notifications-panel fixed flex flex-col right-3 top-3 font-serif z-10 rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white ">
+                              <Popover.Panel className="notifications-panel fixed flex flex-col right-3 top-3 font-serif z-10 rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white ">
                                 <div className="flex-grow overflow-auto">
                                   <div className="font-medium mb-4">Уведомления</div>
                                   <div className="space-y-3 divide-y">
@@ -464,12 +457,14 @@ const Layout = ({children, title}: any) => {
                                     }
                                   </div>
                                 </div>
-                                <div className="text-center"><Button onClick={onClearNotifications} variant="primaryOutline" className="">Очистить</Button></div>
-                              </div>
+                                <div className="text-center">
+                                  <Button onClick={onClearNotifications} variant="primaryOutline" className="">Очистить</Button>
+                                </div>
+                              </Popover.Panel>
                             </Transition>
                           </>
                         )}
-                      </Menu>
+                      </Popover>
                     </div>
                   </div>
                 </div>

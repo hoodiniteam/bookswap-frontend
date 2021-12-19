@@ -99,7 +99,7 @@ const Book = () => {
   const inMyWaitingList = user.waiting.find((myEdition: any) => myEdition.id === edition.id);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-10">
       <Head>
         <title>{edition.title}</title>
       </Head>
@@ -157,7 +157,7 @@ const Book = () => {
           </div>
             {
               !isHolderOfAny && (openBooks.length === 0 || edition.expects.length > 0) && (
-                <div className="mt-2">
+                <div className="mt-2 relative">
                   {
                     inMyWaitingList && (
                       <Button
@@ -171,13 +171,16 @@ const Book = () => {
                   }
                   {
                     !inMyWaitingList && (
-                      <Button
+                      <>
+                        <Button
                           className="w-full"
                           variant='primary'
                           onClick={addBookToList}
-                      >
-                        {t('add-to-my-waiting-list')}
-                      </Button>
+                        >
+                          {t('add-to-my-waiting-list')}
+                        </Button>
+                        <p className="text-gray-500 absolute transform translate-y-2 text-center text-xs top-full">Чтобы встать в очередь и узнать, когда книга станет доступна</p>
+                      </>
                     )
                   }
                 </div>
@@ -216,7 +219,7 @@ const Book = () => {
                       }
                       <div className="flex items-center border-t pt-1 justify-between">
                         <p className="text-sm font-medium text-main-600 truncate">
-                          Держатель: {book.holder.id === user.id ? 'Вы' : book.holder.email}
+                          Держатель: {book.holder.id === user.id ? 'Вы' : userName(book.holder)}
                         </p>
                         <AvatarComponent
                             className="w-10"
