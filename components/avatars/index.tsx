@@ -89,7 +89,7 @@ export const AvatarComponent = (props: Props) => {
           {
             props.random && <div className="flex justify-center p-6">
                 <Button
-                    variant='primary'
+                    variant='secondary'
                     onClick={onRandom}
                 >
                     Рандомно

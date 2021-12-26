@@ -2,7 +2,7 @@ import React, {FormEvent, useState} from "react";
 import {useRouter} from "next/router";
 import {useMutation} from "urql";
 import { LockClosedIcon } from '@heroicons/react/solid'
-import {LogoLogin} from "../components/LogoLogin";
+import {LogoLogin} from "../../components/LogoLogin";
 const RegisterMutation = `
 mutation($email: String!, $password: String!){
   registerUser(options:{email: $email, password: $password}){
@@ -22,7 +22,7 @@ type Auth = {
   email: string,
   password: string
 }
-const Register = () => {
+const Index = () => {
   const [auth, setAuth] = useState<Auth>({
     email:'',
     password: '',
@@ -148,4 +148,4 @@ const Register = () => {
         </div>
     )
 }
-export default Register
+export default Index

@@ -1,7 +1,6 @@
 import '../styles/globals.css'
 import 'tippy.js/dist/tippy.css';
 import type { AppProps } from 'next/app'
-import Script from 'next/script'
 import React  from 'react';
 import type { ReactElement, ReactNode } from 'react'
 import type { NextPage } from 'next'
@@ -108,7 +107,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                 <meta name="msapplication-TileColor" content="#da532c"/>
                 <meta name="theme-color" content="#ffffff"/>
             </Head>
-            <Script src='https://upload-widget.cloudinary.com/global/all.js' strategy='beforeInteractive' />
+            {/*<Script src='https://upload-widget.cloudinary.com/global/all.js' strategy='beforeInteractive' />*/}
             <NotificationProvider>
                 {getLayout(<Component {...pageProps} />)}
             </NotificationProvider>
