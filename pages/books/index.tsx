@@ -49,11 +49,10 @@ const Index = () => {
 
   if (editions !== null) {
     return (
-      <div className="lg:grid items-start lg:grid-cols-12 lg:gap-x-5">
-        <div className="bg-white space-y-5 rounded-lg shadow px-5 py-6 sm:px-6 col-span-3">
-          <div>
-            <div className="border-b py-1 text-gray-700 font-medium uppercase text-sm">Статус</div>
-            <div className="sm:space-y-3 sm:block mt-4 grid gap-3 grid-cols-2">
+      <div className="">
+        <div className="col-span-9 mt-4 sm:mt-0">
+          <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
+            <div className="flex space-x-4">
               <div>
                 <label className="cursor-pointer inline-flex items-center h-5">
                   <input
@@ -100,43 +99,6 @@ const Index = () => {
                 </label>
               </div>
             </div>
-          </div>
-          {/*<div>
-            <div className="border-b py-1 text-gray-700 font-medium uppercase text-sm">Категории</div>
-            <div className="space-y-3 mt-4">
-              <div>
-                <label className="cursor-pointer inline-flex items-center h-5">
-                  <input
-                    id="status"
-                    name="status"
-                    type="checkbox"
-                    value="Художественные"
-                    className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                  />
-                  <div className="ml-3">
-                    Художественные
-                  </div>
-                </label>
-              </div>
-              <div>
-                <label className="cursor-pointer inline-flex items-center h-5">
-                  <input
-                    id="status"
-                    name="status"
-                    type="checkbox"
-                    value="Бизнес"
-                    className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                  />
-                  <div className="ml-3">
-                    Бизнес
-                  </div>
-                </label>
-              </div>
-            </div>
-          </div>*/}
-        </div>
-        <div className="col-span-9 mt-4 sm:mt-0">
-          <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
             <ul className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-5">
               {editions.map((edition: any) => (
                 <BookWrapper key={edition.id} book={edition}/>

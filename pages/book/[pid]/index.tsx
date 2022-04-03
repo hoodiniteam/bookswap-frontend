@@ -103,8 +103,8 @@ const Book = () => {
       <Head>
         <title>{edition.title}</title>
       </Head>
-      <div className='sm:grid gap-6 sm:grid-cols-5'>
-        <div className="flex flex-wrap space-y-4 sm:flex-nowrap bg-white col-span-4 relative shadow font-serif sm:rounded-md border p-6">
+      <div className='sm:grid gap-6 sm:grid-cols-8'>
+        <div className="flex flex-wrap space-y-4 sm:flex-nowrap bg-white col-span-6 relative shadow font-serif sm:rounded-md border p-6">
           {
             edition.image && (
               <div className='sm:mr-6 flex-grow'>
@@ -130,7 +130,7 @@ const Book = () => {
             <p className="mt-2.5 text-sm">{edition.description}</p>
           </div>
         </div>
-        <div className="flex flex-col mt-4 sm:mt-0">
+        <div className="flex col-span-2 flex-col mt-4 sm:mt-0">
           <div className="bg-white flex-grow p-4 shadow sm:rounded-md border">
             <p className="font-medium">Подписчики</p>
             {

@@ -41,7 +41,7 @@ const Home = () => {
         </div>
       </div>
       <div className="pt-4">
-        <div className="text-2xl font-medium">Надавно добавленные</div>
+        <div className="text-2xl font-medium">Недавно добавленные</div>
 
       </div>
     </>
