@@ -45,7 +45,7 @@ const Waiting = () => {
             Подписки
           </title>
         </Head>
-        <p className="font-serif sm:text-white font-bold text-lg mb-3">Подписки</p>
+        <p className="sm:text-white font-bold text-lg mb-3">Подписки</p>
         <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6 space-y-4 divide-y">
           {
             books.length === 0 && <div>Пока нет подписок.</div>

@@ -12,9 +12,11 @@ import { Book, BooksCondition } from '../../types/Book';
 import { CreateBookMutation } from '../../graphql/CreateBookMutation';
 import { localesList } from '../../helpers/locales';
 import { dateParsedYear } from '../../helpers/dateTime';
+import { useNotification } from '../../helpers/notificationHelper';
 
 const Create = () => {
   const client = useClient();
+  const {successNotification} = useNotification();
   const timer = useRef<any>();
 
   type CreateBookForm = Omit<Book, 'status'> & {userDescription: string};
@@ -50,10 +52,9 @@ const Create = () => {
     if (book) {
       console.log('book', book);
       createBook(book)
-        .then((res) => {
-          console.log(res);
-          router.push(`/book/${res.data.createBook.book.edition.id}`)
-            .then();
+        .then(async (res) => {
+          successNotification("Книга добавлена");
+          await router.push(`/book/${res.data.createBook.book.edition.id}`);
         });
     }
   });

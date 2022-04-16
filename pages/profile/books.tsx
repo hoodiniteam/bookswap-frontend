@@ -42,40 +42,37 @@ const MyBooks = () => {
           <title>Мои книги</title>
         </Head>
         <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6 space-y-4 divide-y">
-        <div>
-          <div className="flex font-medium items-center">
-            <div className="text-2xl">Баланс:</div>
-            <div className="ml-2 flex items-center text-lg">
-              <img className="w-8" src="/images/origami-c.png"/>
-              {user.points} BST (Bookswap Token)</div>
-          </div>
-          <div className="text-gray-600 mt-2 bg-gray-50 shadow inline-block py-2 px-3 rounded-md">
-            <p>Каждый раз, когда вы <span className="text-red-400">берете</span> книгу <span className="text-red-400">вы тратите 1 BST</span></p>
-            <p>Каждый раз, когда вы <span className="text-green-500">отдаете</span> книгу <span className="text-green-500">вы получаете 1 BST</span></p>
-          </div>
-        </div>
-        <div className="pt-4">
-          <div className="text-2xl font-medium">Мои книги</div>
-          <ul className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mt-5">
-            {myBooks.map((book: any) => (
-              <div key={book.id} className="relative flex flex-col">
-                <div className="flex-grow">
-                  <BookWrapper book={book.edition} />
-                  <Badge className="absolute right-2 top-2" status={book.status}/>
-                </div>
-                <div className="mt-2">
-                  {book.status === BooksStatus[BooksStatus.HOLD] && (
-                    <Button variant="secondary" className="w-full" onClick={() => setBookOpen(book.id)}>Сделать доступной</Button>
-                  )}
-                  {book.status === BooksStatus[BooksStatus.OPEN] && (
-                    <Button variant="secondaryOutline" className="w-full" onClick={() => setBookHold(book.id)}>Убрать из доступных</Button>
-                  )}
-                </div>
+          <div>
+            <div className="flex font-medium items-center">
+              <div className="text-2xl">Баланс:</div>
+              <div className="ml-2 flex items-center text-lg">
+                <img className="w-8" src="/images/origami-c.png"/>
+                {user.points} BST (Bookswap Token)
               </div>
-            ))}
-          </ul>
+            </div>
+          </div>
+          <div className="pt-4">
+            <div className="text-2xl font-medium">Мои книги</div>
+            <ul className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mt-5">
+              {myBooks.map((book: any) => (
+                <div key={book.id} className="relative flex flex-col">
+                  <div className="flex-grow">
+                    <BookWrapper book={book.edition} />
+                    <Badge className="absolute right-2 top-2" status={book.status}/>
+                  </div>
+                  <div className="mt-2">
+                    {book.status === BooksStatus[BooksStatus.HOLD] && (
+                      <Button variant="secondary" className="w-full" onClick={() => setBookOpen(book.id)}>Сделать доступной</Button>
+                    )}
+                    {book.status === BooksStatus[BooksStatus.OPEN] && (
+                      <Button variant="secondaryOutline" className="w-full" onClick={() => setBookHold(book.id)}>Убрать из доступных</Button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
       </>
     )
   }

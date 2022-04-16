@@ -119,7 +119,7 @@ const Swaps = () => {
 
     return (
       <div>
-        <p className="font-serif sm:text-white font-bold text-lg mb-3">Активные свопы</p>
+        <p className="sm:text-white font-bold text-lg mb-3">Активные свопы</p>
         <div className="bg-white py-6 px-4 space-y-6 sm:p-6 shadow rounded-md">
           <div>
             <div>
@@ -165,7 +165,7 @@ const Swaps = () => {
                       return (
                         <div key={swap.id} className='bg-white flex justify-between items-center py-3 px-4 border rounded-md'>
                           <div>
-                            <div className='font-serif font-semibold text-lg'>
+                            <div className='font-semibold text-lg'>
                               {swap.book.title}
                             </div>
                             <div className="italic text-gray-500">Ждем пока держатель подтвердит обмен</div>

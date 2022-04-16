@@ -106,7 +106,7 @@ const Avatar = () => {
             <div className="flex justify-center">
               <LogoLogin />
             </div>
-            <h2 className="font-serif mt-6 text-center text-3xl font-semibold text-gray-900">Настройте свой аватар</h2>
+            <h2 className="mt-6 text-center text-3xl font-semibold text-gray-900">Настройте свой аватар</h2>
           </div>
           <div className="bg-white border rounded-md sm:grid grid-cols-2 items-center gap-4">
             <div className="sm:pl-10">

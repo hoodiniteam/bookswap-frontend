@@ -115,7 +115,7 @@ const Index = () => {
             {t('profile', { ns: 'nav' })}
           </title>
         </Head>
-        <p className="font-serif sm:text-white font-bold text-lg mb-3">{t('profile', { ns: 'nav' })}</p>
+        <p className="sm:text-white font-bold text-lg mb-3">{t('profile', { ns: 'nav' })}</p>
         <div className="shadow rounded-md overflow-hidden">
           <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
             <div className='grid grid-cols-6 gap-6'>

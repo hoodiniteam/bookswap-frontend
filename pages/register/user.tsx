@@ -16,7 +16,7 @@ const User = () => {
           <div className="flex justify-center">
             <LogoLogin />
           </div>
-          <h2 className="font-serif mt-6 text-center text-3xl font-semibold text-gray-900">Как вас зовут?</h2>
+          <h2 className="mt-6 text-center text-3xl font-semibold text-gray-900">Как вас зовут?</h2>
           <h3 className="italic mt-2">Если используете никнейм, придумайте что-нибудь интересное</h3>
         </div>
         <Formik

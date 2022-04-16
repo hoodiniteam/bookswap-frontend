@@ -300,7 +300,7 @@ const Layout = ({children, title}: any) => {
                                           <img className="w-10" src="/images/origami-c.png"/>
                                         </div>
                                         <div className="ml-4">
-                                          <p className="font-serif text-sm font-bold text-gray-900">
+                                          <p className="text-sm font-bold text-gray-900">
                                             Мои книги
                                           </p>
                                           <p className="text-sm text-gray-500">
@@ -322,7 +322,7 @@ const Layout = ({children, title}: any) => {
                                           />
                                         </div>
                                         <div className="ml-4">
-                                          <p className="font-serif text-sm font-bold text-gray-900">
+                                          <p className="text-sm font-bold text-gray-900">
                                             Профиль
                                           </p>
                                           <p className="text-sm text-gray-500">
@@ -343,7 +343,7 @@ const Layout = ({children, title}: any) => {
                                           />
                                         </div>
                                         <div className="ml-4">
-                                          <p className="font-serif text-sm font-bold text-gray-900">
+                                          <p className="text-sm font-bold text-gray-900">
                                             Активные свопы
                                           </p>
                                           <p className="text-sm text-gray-500">
@@ -364,7 +364,7 @@ const Layout = ({children, title}: any) => {
                                           />
                                         </div>
                                         <div className="ml-4">
-                                          <p className="font-serif text-sm font-bold text-gray-900">
+                                          <p className="text-sm font-bold text-gray-900">
                                             Подписки
                                           </p>
                                           <p className="text-sm text-gray-500">
@@ -384,7 +384,7 @@ const Layout = ({children, title}: any) => {
                                           />
                                         </div>
                                         <div className="ml-4">
-                                          <p className="font-serif text-sm font-bold text-gray-900">
+                                          <p className="text-sm font-bold text-gray-900">
                                             Поддержка
                                           </p>
                                           <p className="text-sm text-gray-500">
@@ -397,7 +397,7 @@ const Layout = ({children, title}: any) => {
                                   <div className="p-4 bg-gray-50">
                                     <a
                                       href="#"
-                                      className="flow-root px-5 py-2 font-serif transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                      className="flow-root px-5 py-2 transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                                     >
                                       <span className="flex items-center">
                                         <span className="text-sm font-bold text-gray-900">
@@ -442,7 +442,7 @@ const Layout = ({children, title}: any) => {
                               leaveFrom="transform opacity-100 scale-100"
                               leaveTo="transform opacity-0 scale-95"
                             >
-                              <Popover.Panel className="notifications-panel fixed flex flex-col right-3 top-3 font-serif z-10 rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white ">
+                              <Popover.Panel className="notifications-panel fixed flex flex-col right-3 top-3 z-10 rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white ">
                                 <div className="flex-grow overflow-auto">
                                   <div className="font-medium mb-4">Уведомления</div>
                                   <div className="space-y-3 divide-y">
@@ -526,7 +526,7 @@ const Layout = ({children, title}: any) => {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <div className="notifications-panel font-serif z-10 border rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white fixed right-2 bottom-16 overflow-auto">
+                      <div className="notifications-panel z-10 border rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white fixed right-2 bottom-16 overflow-auto">
                         <div className="font-medium mb-4">Уведомления</div>
                         <Button onClick={onClearNotifications} variant="primaryOutline" className="absolute right-5 top-4">Очистить</Button>
                         <div className="space-y-2 divide-y">
@@ -583,7 +583,7 @@ const Layout = ({children, title}: any) => {
                                 <img className="w-10" src="/images/origami-c.png"/>
                               </div>
                               <div className="ml-4">
-                                <p className="font-serif text-sm font-bold text-gray-900">
+                                <p className="text-sm font-bold text-gray-900">
                                   Мои книги
                                 </p>
                                 <p className="text-sm text-gray-500">
@@ -605,7 +605,7 @@ const Layout = ({children, title}: any) => {
                                 />
                               </div>
                               <div className="ml-4">
-                                <p className="font-serif text-sm font-bold text-gray-900">
+                                <p className="text-sm font-bold text-gray-900">
                                   Профиль
                                 </p>
                                 <p className="text-sm text-gray-500">
@@ -626,7 +626,7 @@ const Layout = ({children, title}: any) => {
                                 />
                               </div>
                               <div className="ml-4">
-                                <p className="font-serif text-sm font-bold text-gray-900">
+                                <p className="text-sm font-bold text-gray-900">
                                   Активные свопы
                                 </p>
                                 <p className="text-sm text-gray-500">
@@ -647,7 +647,7 @@ const Layout = ({children, title}: any) => {
                                 />
                               </div>
                               <div className="ml-4">
-                                <p className="font-serif text-sm font-bold text-gray-900">
+                                <p className="text-sm font-bold text-gray-900">
                                   Подписки
                                 </p>
                                 <p className="text-sm text-gray-500">
@@ -667,7 +667,7 @@ const Layout = ({children, title}: any) => {
                                 />
                               </div>
                               <div className="ml-4">
-                                <p className="font-serif text-sm font-bold text-gray-900">
+                                <p className="text-sm font-bold text-gray-900">
                                   Поддержка
                                 </p>
                                 <p className="text-sm text-gray-500">
@@ -680,7 +680,7 @@ const Layout = ({children, title}: any) => {
                         <div className="p-4 bg-gray-50">
                           <a
                             href="#"
-                            className="flow-root px-5 py-2 font-serif transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                            className="flow-root px-5 py-2 transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                           >
                             <span className="flex items-center">
                               <span className="text-sm font-bold text-gray-900">

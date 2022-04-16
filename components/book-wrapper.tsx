@@ -10,7 +10,7 @@ const BookWrapper = ({book}: {book: Book}) => {
   const src = image ? image : '';
   return (
     <li
-      className='font-serif col-span-1 flex flex-col justify-between items-center bg-white'
+      className='col-span-1 flex flex-col justify-between items-center bg-white'
     >
       <Link href={`/book/${id}`}>
         <a className='w-full h-full'>
