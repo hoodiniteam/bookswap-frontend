@@ -15,6 +15,7 @@ const Index = () => {
   const router = useRouter();
   const {query} = router;
   const currentPage = query.page ? Number(query.page) : 1;
+  const recent = query.recent ? query.recent === "true" : false;
   const limit = 24;
 
   const [{data}] = useQueryWrapper({
@@ -24,6 +25,7 @@ const Index = () => {
       limit: limit,
       status: status ? Array.from(status) : null,
       hasBooks: true,
+      recent,
     }
   })
 

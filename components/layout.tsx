@@ -37,9 +37,8 @@ const Layout = ({children, title}: any) => {
   const [searchString, setSearchString] = useState('');
   const [books, setBooks] = useState<any[]>([]);
   const [navigation, setNavigation] = useState([
-    {title: 'books', href: '/books', current: false},
-    {title: 'Популярные', href: '/books', current: false},
-    {title: 'Недавно добавленные', href: '/books', current: false},
+    {title: 'Популярные', href: '/books', params: 'popular=true', current: false},
+    {title: 'Недавно добавленные', href: '/books', params: 'recent=true', current: false},
   ]);
   const myRef = useRef();
 
@@ -94,15 +93,10 @@ const Layout = ({children, title}: any) => {
   };
 
   useEffect(() => {
-    const newArr = [...navigation];
-    navigation.map((item, index) => {
-      item.current = false;
-
-      if (router.route.includes(item.href)) {
-        newArr.splice(index, 1, {...item, current: true});
-        setNavigation(newArr);
-      }
+    const newArr = navigation.map((item) => {
+      return {...item, current: (router.asPath.includes(item.href) && router.asPath.includes(item.params))};
     });
+    setNavigation(newArr);
   }, [router.asPath]);
 
   const notificationAmount = (arr: {isRead: boolean, message: string, createdAt: string}[]) => arr.filter(item => !item.isRead).length
@@ -473,7 +467,7 @@ const Layout = ({children, title}: any) => {
                     {navigation.map((item) => (
                       <Link
                         key={item.title}
-                        href={item.href}
+                        href={`${item.href}?${item.params}`}
                       >
                         <a
                           className={
