@@ -265,6 +265,14 @@ const Layout = ({children, title}: any) => {
                       </div>
                     </div>
                   </div>
+                  <Link href='/books/create'>
+                    <a
+                      className="flex items-center px-4 py-2 shadow-sm text-sm font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500"
+                    >
+                      <PlusCircleIcon className="h-5 w-5 mr-1"/>
+                      {t('create')}
+                    </a>
+                  </Link>
                   <div className="hidden sm:block">
                     <div className="flex items-center">
                       <Popover className="">
@@ -466,14 +474,6 @@ const Layout = ({children, title}: any) => {
                       </Popover>
                     </div>
                   </div>
-                  <Link href='/books/create'>
-                    <a
-                      className="flex items-center px-4 py-2 shadow-sm text-sm font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500"
-                    >
-                      <PlusCircleIcon className="h-5 w-5 mr-1"/>
-                      {t('create')}
-                    </a>
-                  </Link>
                 </div>
                 <div className="hidden py-4 sm:flex items-center justify-between">
                   <div className="flex space-x-4">

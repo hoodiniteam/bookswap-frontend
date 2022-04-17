@@ -4,8 +4,25 @@ import Head from 'next/head';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { localesList } from '../helpers/locales';
+import { useQueryWrapper } from '../helpers/useQueryWrapper';
+import { GetEditionsQuery } from '../graphql/GetEditionsQuery';
+import BookWrapper from '../components/book-wrapper';
 
 const Home = () => {
+
+  const [{data}] = useQueryWrapper({
+    query: GetEditionsQuery,
+    variables: {
+      offset: 0,
+      limit: 5,
+      status: status ? Array.from(status) : null,
+      hasBooks: true,
+      recent: true,
+    }
+  })
+
+  const editions = data?.getEditions?.editions || [];
+
   const { t } = useTranslation(localesList);
   const stats = [
     { name: 'Забрать', stat: '0' },
@@ -42,7 +59,11 @@ const Home = () => {
       </div>
       <div className="pt-4">
         <div className="text-2xl font-medium">Недавно добавленные</div>
-
+        <ul className="grid grid-cols-2 gap-6 sm:grid-cols-5 mt-5">
+          {editions.map((edition: any) => (
+            <BookWrapper size="small" key={edition.id} book={edition}/>
+          ))}
+        </ul>
       </div>
     </>
   );
