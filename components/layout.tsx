@@ -6,13 +6,14 @@ import React, {
 } from 'react';
 import Link from 'next/link';
 import {Menu, Transition, Popover} from '@headlessui/react';
-import {SearchIcon, ChevronDownIcon} from '@heroicons/react/solid';
+import { SearchIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import {
   BookmarkIcon, BookOpenIcon, ChevronUpIcon,
   MailIcon,
   PlusCircleIcon,
   RefreshIcon,
   SupportIcon,
+  BellIcon,
 } from '@heroicons/react/outline';
 import {useRouter} from 'next/router';
 import {useClient, useMutation} from 'urql';
@@ -161,7 +162,7 @@ const Layout = ({children, title}: any) => {
               className="border-b border-main-300 border-opacity-25 lg:border-none"
             >
               <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
-                <div className="relative h-16 flex items-center justify-between lg:border-b lg:border-gray-100 lg:border-opacity-25">
+                <div className="relative space-x-4 h-16 flex items-center justify-between lg:border-b lg:border-gray-100 lg:border-opacity-25">
                   <div className="px-2 flex items-center lg:px-0">
                     <div className="flex-shrink-0">
                       <Link href="/home">
@@ -171,7 +172,20 @@ const Layout = ({children, title}: any) => {
                       </Link>
                     </div>
                   </div>
-                  <div className="flex-1 px-2 flex justify-center lg:ml-6 lg:justify-end">
+                  <div>
+                    <Link href='/books'>
+                      <a
+                        className={
+                          router.asPath.includes('/books')
+                            ? 'bg-main-700 text-white border border-main-700 hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium'
+                            : 'text-white border border-white hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium'
+                        }
+                      >
+                        Книги
+                      </a>
+                    </Link>
+                  </div>
+                  <div className="flex-1 flex justify-center lg:justify-end">
                     <div className="w-full">
                       <label
                         htmlFor="search"
@@ -251,10 +265,9 @@ const Layout = ({children, title}: any) => {
                       </div>
                     </div>
                   </div>
-                  <div className="hidden sm:block lg:ml-4">
+                  <div className="hidden sm:block">
                     <div className="flex items-center">
-
-                      <Popover className="relative">
+                      <Popover className="">
                         {({open}) => (
                           <>
                             <Popover.Button
@@ -281,9 +294,51 @@ const Layout = ({children, title}: any) => {
                               leaveTo="opacity-0 translate-y-1"
                             >
                               <Popover.Panel
-                                className="absolute z-10 w-screen max-w-sm px-4 mt-3 transform -translate-x-1/2 left-1/2 sm:px-0">
-                                <div
-                                  className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                                className="absolute top-14 right-0 flex z-10 w-screen max-w-2xl mt-3 transform">
+                                <div style={{minWidth: 300}} className="rounded-lg shadow-lg bg-white mr-1 ring-1 ring-black ring-opacity-5">
+                                  <div>
+                                    <div className="p-6">
+                                      <div
+                                        className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                      >
+                                        <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                          <BellIcon
+                                            className="h-10 w-10 text-green-600"
+                                            aria-hidden="true"
+                                          />
+                                        </div>
+                                        <div className="ml-4">
+                                          <p className="text-sm font-bold text-gray-900">
+                                            Уведомления
+                                          </p>
+                                          <p className="text-sm text-gray-500">
+                                            {
+                                              user.notifications.length > 0 ? user.notifications.length : "Нет уведомлений"
+                                            }
+                                          </p>
+                                        </div>
+                                        <div className="flex-grow"></div>
+                                        <div>
+                                          {
+                                            user.notifications.length === 0 && <div className="text-sm text-blue-500 cursor-pointer" onClick={onClearNotifications}>Очистить</div>
+                                          }
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="overflow-auto">
+                                      <div className="space-y-3 divide-y">
+                                      {
+                                        user.notifications.map((notification: {isRead: boolean, message: string, createdAt: string}) => (
+                                          <NotificationLinkParser message={notification.message} key={notification.createdAt} className="text-sm space-y-1 pt-3">
+                                            <div className="text-gray-500 text-xs">{dateTimeToHuman(notification.createdAt)}</div>
+                                          </NotificationLinkParser>
+                                        ))
+                                      }
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="overflow-hidden flex-grow rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                                   <div className="relative grid gap-8 bg-white p-7">
                                     <Link href="/profile/books">
                                       <a
@@ -409,58 +464,16 @@ const Layout = ({children, title}: any) => {
                           </>
                         )}
                       </Popover>
-
-                      <Popover
-                        as="div"
-                        className="ml-3 relative flex items-center flex-shrink-0"
-                      >
-                        {({open}) => (
-                          <>
-                            <Popover.Button className="bg-main-600 flex-shrink-0 rounded-full p-1 text-main-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-main-600 focus:ring-white">
-                              <span className="sr-only">Уведомления</span>
-                              <MailIcon
-                                className="h-6 w-6"
-                                aria-hidden="true"
-                              />
-                            </Popover.Button>
-                            {
-                              notificationAmount(user.notifications) > 0 && <span className="absolute -right-1 -bottom-1 flex justify-center items-center text-xs w-4 h-4 -my-1 rounded-full bg-white text-red-600 font-medium">{notificationAmount(user.notifications)}</span>
-                            }
-                            <Transition
-                              show={open}
-                              as={Fragment}
-                              enter="transition ease-out duration-100"
-                              enterFrom="transform opacity-0 scale-95"
-                              enterTo="transform opacity-100 scale-100"
-                              leave="transition ease-in duration-75"
-                              leaveFrom="transform opacity-100 scale-100"
-                              leaveTo="transform opacity-0 scale-95"
-                            >
-                              <Popover.Panel className="notifications-panel fixed flex flex-col right-3 top-3 z-10 rounded-md rounded-md w-full bg-gray-50 shadow-md max-w-xs p-6 bg-white ">
-                                <div className="flex-grow overflow-auto">
-                                  <div className="font-medium mb-4">Уведомления</div>
-                                  <div className="space-y-3 divide-y">
-                                    {
-                                      user.notifications.length > 0 ?
-                                        user.notifications.map((notification: {isRead: boolean, message: string, createdAt: string}) => (
-                                          <NotificationLinkParser message={notification.message} key={notification.createdAt} className="text-sm space-y-1 pt-3">
-                                            <div className="text-gray-500 text-xs">{dateTimeToHuman(notification.createdAt)}</div>
-                                          </NotificationLinkParser>
-                                        )):
-                                        <div className="text-center">Нет сообщений</div>
-                                    }
-                                  </div>
-                                </div>
-                                <div className="text-center">
-                                  <Button onClick={onClearNotifications} variant="primaryOutline" className="">Очистить</Button>
-                                </div>
-                              </Popover.Panel>
-                            </Transition>
-                          </>
-                        )}
-                      </Popover>
                     </div>
                   </div>
+                  <Link href='/books/create'>
+                    <a
+                      className="flex items-center px-4 py-2 shadow-sm text-sm font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500"
+                    >
+                      <PlusCircleIcon className="h-5 w-5 mr-1"/>
+                      {t('create')}
+                    </a>
+                  </Link>
                 </div>
                 <div className="hidden py-4 sm:flex items-center justify-between">
                   <div className="flex space-x-4">
@@ -481,14 +494,6 @@ const Layout = ({children, title}: any) => {
                       </Link>
                     ))}
                   </div>
-                  <Link href='/books/create'>
-                    <a
-                      className="flex items-center px-4 py-2 shadow-sm text-sm font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500"
-                    >
-                      <PlusCircleIcon className="h-5 w-5 mr-1"/>
-                      {t('create')}
-                    </a>
-                  </Link>
                 </div>
               </div>
             </nav>

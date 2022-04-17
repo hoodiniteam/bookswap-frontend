@@ -16,7 +16,8 @@ const Index = () => {
   const {query} = router;
   const currentPage = query.page ? Number(query.page) : 1;
   const recent = query.recent ? query.recent === "true" : false;
-  const limit = 24;
+  const popular = query.popular ? query.popular === "true" : false;
+  const limit = 30;
 
   const [{data}] = useQueryWrapper({
     query: GetEditionsQuery,
@@ -26,6 +27,7 @@ const Index = () => {
       status: status ? Array.from(status) : null,
       hasBooks: true,
       recent,
+      popular,
     }
   })
 
