@@ -16,6 +16,7 @@
     "@tippyjs/react": "^4.2.6",
     "@urql/exchange-auth": "^0.1.6",
     "axios": "^0.23.0",
+    "classnames": "^2.3.1",
     "date-fns": "^2.26.0",
     "formik": "^2.2.9",
     "graphql": "^15.6.1",

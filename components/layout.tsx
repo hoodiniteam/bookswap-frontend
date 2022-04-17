@@ -5,7 +5,7 @@ import React, {
   useState,
 } from 'react';
 import Link from 'next/link';
-import {Menu, Transition, Popover} from '@headlessui/react';
+import {Menu, Transition, Popover, Dialog} from '@headlessui/react';
 import { SearchIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import {
   BookmarkIcon, BookOpenIcon, ChevronUpIcon,
@@ -27,15 +27,16 @@ import {GetMe} from "../graphql/GetMe";
 import {AvatarComponent} from "./avatars";
 import { userName } from '../helpers/parseUserName';
 import { usePopper } from 'react-popper';
-import format from 'date-fns/format';
 import { NotificationLinkParser } from '../helpers/notificationLinkParser';
 import Button from './UI/Button';
 import { ClearNotificationsMutation } from '../graphql/ClearNotificationsMutation';
 import { dateParsedYear, dateTimeToHuman } from '../helpers/dateTime';
+import { CreateModal } from './CreateBookModal';
 
 const Layout = ({children, title}: any) => {
   const router = useRouter();
   const [searchString, setSearchString] = useState('');
+  const [createModal, setCreateModal] = useState(false)
   const [books, setBooks] = useState<any[]>([]);
   const [navigation, setNavigation] = useState([
     {title: 'Популярные', href: '/books', params: 'popular=true', current: false},
@@ -140,6 +141,10 @@ const Layout = ({children, title}: any) => {
     }
   }
 
+  const closeCreateModal = () => {
+    setCreateModal(false);
+  };
+
   if (fetchingMe) {
     return null;
   }
@@ -213,8 +218,7 @@ const Layout = ({children, title}: any) => {
                           />
                         </div>
                         {books.length > 0 && (
-                          <div
-                               className="overflow-auto divide-y max-h-96 bg-white absolute w-full shadow-md left-0 top-14 sm:top-11 z-20 flex flex-col border rounded-md p-4">
+                          <div className="overflow-auto divide-y max-h-96 bg-white absolute w-full shadow-md left-0 top-14 sm:top-11 z-20 flex flex-col border rounded-md p-4">
                             {books.map(
                               (
                                 edition,
@@ -234,7 +238,7 @@ const Layout = ({children, title}: any) => {
                                         </div>
                                         <div>
                                           <p className="leading-5">{edition.title}</p>
-                                          <span className="text-xs">{edition.authors}, {dateParsedYear(edition.publishedDate)}</span>
+                                          <div className="text-xs"><span>{edition.authors}</span><span>{dateParsedYear(edition.publishedDate)}</span></div>
                                         </div>
                                       </div>
                                     ) : (
@@ -251,7 +255,7 @@ const Layout = ({children, title}: any) => {
                                           </div>
                                           <div>
                                             <p>{edition.title}</p>
-                                            <span className="text-xs">{edition.authors}, {dateParsedYear(edition.publishedDate)}</span>
+                                            <div className="text-xs"><span>{edition.authors}</span><span>{dateParsedYear(edition.publishedDate)}</span></div>
                                           </div>
                                         </a>
                                       </Link>
@@ -265,14 +269,13 @@ const Layout = ({children, title}: any) => {
                       </div>
                     </div>
                   </div>
-                  <Link href='/books/create'>
-                    <a
-                      className="flex items-center px-4 py-2 shadow-sm text-sm font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500"
-                    >
-                      <PlusCircleIcon className="h-5 w-5 mr-1"/>
-                      {t('create')}
-                    </a>
-                  </Link>
+                  <div
+                    onClick={() => setCreateModal(true)}
+                    className="cursor-pointer flex items-center px-4 py-2 shadow-sm text-sm font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500"
+                  >
+                    <PlusCircleIcon className="h-5 w-5 mr-1"/>
+                    {t('create')}
+                  </div>
                   <div className="hidden sm:block">
                     <div className="flex items-center">
                       <Popover className="">
@@ -704,6 +707,53 @@ const Layout = ({children, title}: any) => {
             </div>
           </main>
         </div>
+        <Transition appear show={createModal} as={Fragment}>
+          <Dialog
+            as="div"
+            className="fixed inset-0 z-10 overflow-y-auto"
+            onClose={closeCreateModal}
+          >
+            <div className="min-h-screen px-4 text-center bg-black bg-opacity-30">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <Dialog.Overlay className="fixed inset-0" />
+              </Transition.Child>
+              <span
+                className="inline-block h-screen align-middle"
+                aria-hidden="true"
+              >
+              &#8203;
+            </span>
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <div className="inline-block w-full max-w-screen-sm p-6 my-8 text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                  <Dialog.Title
+                    as="h3"
+                    className="flex justify-between items-center text-lg font-medium text-gray-900 mb-2"
+                  >
+                    Добавить свою книгу
+                    <button onClick={closeCreateModal} type="button" className="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500">Закрыть</button>
+                  </Dialog.Title>
+                  <CreateModal />
+                </div>
+              </Transition.Child>
+            </div>
+          </Dialog>
+        </Transition>
       </>
     );
   }

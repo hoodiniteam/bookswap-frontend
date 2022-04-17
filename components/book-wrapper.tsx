@@ -1,8 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { Book } from '../types/Book'
 import { dateParsedYear } from '../helpers/dateTime';
+import classNames from 'classnames';
 
 const BookWrapper = ({book, size}: {book: Book, size?: string}) => {
   console.log(book);
@@ -11,7 +11,10 @@ const BookWrapper = ({book, size}: {book: Book, size?: string}) => {
   const isSmall = size === 'small';
   return (
     <li
-      className='group col-span-1 bg-white rounded'
+      className={classNames({
+        'group col-span-1 bg-white rounded': true,
+        'shadow': isSmall,
+      })}
     >
       <Link href={`/book/${id}`}>
         <a style={{width: isSmall ? 'auto' : 224}} className={`block max-w-full w-full h-full ${isSmall ? 'p-4' : ''}`}>

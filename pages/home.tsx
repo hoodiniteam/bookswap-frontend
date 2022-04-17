@@ -59,7 +59,7 @@ const Home = () => {
       </div>
       <div className="pt-4">
         <div className="text-2xl font-medium">Недавно добавленные</div>
-        <ul className="grid grid-cols-2 gap-6 sm:grid-cols-5 mt-5">
+        <ul className="grid grid-cols-2 gap-6 sm:grid-cols-5 mt-4">
           {editions.map((edition: any) => (
             <BookWrapper size="small" key={edition.id} book={edition}/>
           ))}
