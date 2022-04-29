@@ -42,7 +42,7 @@
   "ABSENT": "Отсутствует",
   "HOLD": "На полке",
   "OPEN": "Доступно",
-  "SWAPPING": "Идет обмен",
+  "SWAPPING": "Идет своп",
   "EXTRACTED": "Извлеченна",
   "success-notification-msg": "Ура! Вы инициализировали своп",
   "error-notification-msg": " Ой-йо-йой...Что-то пошло не так",

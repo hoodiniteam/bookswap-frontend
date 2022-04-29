@@ -5,6 +5,7 @@ import {fragmentBook} from "./fragmentBook";
 export const fragmentRoom = `
     room {
         id
+        ${fragmentBook}
         recipient {    
           ${fragmentRecipient}
         }

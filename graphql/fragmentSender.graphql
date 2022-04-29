@@ -1,0 +1,4 @@
+fragment Sender on User {
+    id
+    email
+}

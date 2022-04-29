@@ -55,4 +55,38 @@ export const fragmentUser = `
       ${fragmentEdition}
     }
   }
+  roomsSender {
+    id
+    book {
+      id
+      title
+    }
+    swap {
+      id
+      status
+    }
+    messages {
+      createdAt
+      message
+      userId
+      isRead
+    }
+  }
+  roomsRecipient {
+    id
+    book {
+      id
+      title
+    }
+    swap {
+      id
+      status
+    }
+    messages {
+      createdAt
+      message
+      userId
+      isRead
+    }
+  }
 `

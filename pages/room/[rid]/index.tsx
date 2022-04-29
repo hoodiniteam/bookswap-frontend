@@ -77,7 +77,7 @@ const Room = () => {
 
   return (
     <div className='bg-white p-10 rounded-t-lg'>
-      <div className='text-center text-2xl pb-8 border-b'>{room.swap.book.title}</div>
+      <div className='text-center text-2xl pb-8 border-b'>{room.book.title}</div>
       <div ref={ref as any} className='overflow-y-scroll max-h-96 mt-5 flex justify-between w-full'>
         <div className='flex flex-col w-full lg:px-5 sm:px-0'>
           {

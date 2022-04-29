@@ -1,6 +1,6 @@
 import React, {ReactElement, useEffect, useState} from "react";
 import Layout from "../../components/layout";
-import BookWrapper from "../../components/book-wrapper";
+import BookWrapper from "../../components/BookWrapper";
 import { Book } from '../../types/Book';
 import { GetMe } from '../../graphql/GetMe'
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";

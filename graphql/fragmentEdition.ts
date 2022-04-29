@@ -3,6 +3,7 @@ export const fragmentEdition = `
   title
   description
   image
+  booksCount
   publishedDate
   authors
   virtual

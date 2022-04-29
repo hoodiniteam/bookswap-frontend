@@ -1,0 +1,28 @@
+fragment Book on Book {
+    id
+    description
+    title
+    condition
+    status
+    swaps{
+        id
+        status
+    }
+    creator{
+        id
+        email
+    }
+    holder{
+        id
+        email
+    }
+    edition {
+        id
+        image
+        title
+        authors
+        description
+        isbn_10
+        isbn_13
+    }
+}

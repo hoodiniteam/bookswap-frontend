@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import Layout from '../../components/layout';
-import BookWrapper from '../../components/book-wrapper';
-import { GetMe } from '../../graphql/GetMe';
+import BookWrapper from '../../components/BookWrapper';
 import { useQueryWrapper } from '../../helpers/useQueryWrapper';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { localesList } from '../../helpers/locales';
@@ -12,9 +11,12 @@ import { useMutation } from 'urql';
 import { SetBookOpenMutaion } from '../../graphql/SetBookOpenMutaion';
 import { SetBookHoldMutaion } from '../../graphql/SetBookHoldMutation';
 import Head from 'next/head';
+import { loader } from 'graphql.macro';
+import { GetMeQuery } from '../../generated/graphql';
+const GetMe = loader("../../graphql/GetMe.graphql");
 
 const MyBooks = () => {
-  const [{data} ] = useQueryWrapper({
+  const [{data}] = useQueryWrapper<GetMeQuery>({
     query: GetMe
   })
 
@@ -33,9 +35,9 @@ const MyBooks = () => {
     });
   }
 
-  if (data) {
+  if (data && data.me && data.me.user) {
     const user = data.me.user;
-    const myBooks = user.books;
+    const myBooks = user.books || [];
     return(
       <>
         <Head>

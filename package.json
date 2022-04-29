@@ -7,9 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "port": "lt --port 3000"
+    "port": "lt --port 3000",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
+    "@graphql-codegen/cli": "^2.6.2",
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.2",
     "@tailwindcss/forms": "^0.3.3",
@@ -19,7 +21,8 @@
     "classnames": "^2.3.1",
     "date-fns": "^2.26.0",
     "formik": "^2.2.9",
-    "graphql": "^15.6.1",
+    "graphql": "^16.4.0",
+    "graphql.macro": "^1.4.2",
     "i18next": "^21.1.0",
     "i18next-browser-languagedetector": "^6.1.2",
     "js-cookie": "^3.0.1",
@@ -38,12 +41,20 @@
     "urql": "^2.0.5"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "2.6.2",
+    "@graphql-codegen/introspection": "2.1.1",
+    "@graphql-codegen/typescript": "2.4.8",
+    "@graphql-codegen/typescript-document-nodes": "2.2.8",
+    "@graphql-codegen/typescript-graphql-files-modules": "2.1.1",
+    "@graphql-codegen/typescript-operations": "2.3.5",
+    "@graphql-codegen/urql-introspection": "2.1.1",
     "@types/js-cookie": "^3.0.0",
     "@types/lodash": "^4.14.176",
     "@types/react": "17.0.11",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
     "autoprefixer": "^10.2.6",
+    "babel-plugin-preval": "^5.1.0",
     "eslint": "^7.32.0",
     "eslint-config-next": "11.0.1",
     "eslint-config-prettier": "^8.3.0",

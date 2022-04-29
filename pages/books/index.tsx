@@ -1,17 +1,17 @@
-import React, {ReactElement, useState} from "react";
+import React, {ReactElement/*, useState*/} from "react";
 import {useRouter} from "next/router";
 import Pagination from "../../components/pagination";
 import Layout from "../../components/layout";
-import BookWrapper from "../../components/book-wrapper";
+import BookWrapper from "../../components/BookWrapper";
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {GetEditionsQuery} from "../../graphql/GetEditionsQuery";
 import {localesList} from "../../helpers/locales";
-import {Badge} from "../../components/Badge";
-import {BooksStatus} from "../../types/Book";
+/*import {Badge} from "../../components/Badge";
+import {BooksStatus} from "../../types/Book";*/
 
 const Index = () => {
-  const [status, setStatus] = useState<Set<string> | null>(null);
+  // const [status, setStatus] = useState<Set<string> | null>(null);
   const router = useRouter();
   const {query} = router;
   const currentPage = query.page ? Number(query.page) : 1;
@@ -24,14 +24,14 @@ const Index = () => {
     variables: {
       offset: limit * (currentPage - 1),
       limit: limit,
-      status: status ? Array.from(status) : null,
+      // status: status ? Array.from(status) : null,
       hasBooks: true,
       recent,
       popular,
     }
   })
 
-  const statusChangeHandler = async (ev: any) => {
+  /*const statusChangeHandler = async (ev: any) => {
     await router.push("/books")
     if (!status) {
       setStatus(new Set([BooksStatus[ev.target.value]]));
@@ -46,7 +46,7 @@ const Index = () => {
         setStatus(clonedSet.size > 0 ? clonedSet : null);
       }
     }
-  }
+  }*/
 
   const editions = data?.getEditions?.editions || [];
   const total = data?.getEditions?.count || 0;
@@ -54,9 +54,10 @@ const Index = () => {
   if (editions !== null) {
     return (
       <div className="">
-        <div className="col-span-9 mt-4 sm:mt-0">
+        <h1 className='text-2xl text-center text-white font-semibold mb-10'>Книги</h1>
+        <div>
           <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
-            <div className="flex space-x-4">
+            {/*<div className="flex space-x-4">
               <div>
                 <label className="cursor-pointer inline-flex items-center h-5">
                   <input
@@ -102,8 +103,8 @@ const Index = () => {
                   </div>
                 </label>
               </div>
-            </div>
-            <ul className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-5">
+            </div>*/}
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {editions.map((edition: any) => (
                 <BookWrapper key={edition.id} book={edition}/>
               ))}

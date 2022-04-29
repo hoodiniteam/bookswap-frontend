@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { AbortSwapMutation } from '../../graphql/AbortSwapMutation';
 import { SetToSwappedMutation } from '../../graphql/SetToSwappedMutation';
 import { SetToDeliveredMutation } from '../../graphql/SetToDeliveredMutation';
-import BookWrapper from '../../components/book-wrapper';
+import BookWrapper from '../../components/BookWrapper';
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
@@ -28,7 +28,7 @@ const CreatedSwap = ({ swap }: any) => {
   };
 
   return (
-    <div className='relative grid grid-cols-4 gap-4 bg-white block py-6 px-4 border rounded-md'>
+    <ul className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <BookWrapper book={swap.book.edition}/>
       <div className="col-span-3 flex items-center justify-center">
         {swap.status === SwapStatus[SwapStatus.CREATED] && (
@@ -37,7 +37,7 @@ const CreatedSwap = ({ swap }: any) => {
           </Button>
         )}
       </div>
-    </div>
+    </ul>
   );
 };
 
@@ -85,7 +85,7 @@ const Swaps = () => {
   const [, abortSwapMutation] = useMutation(AbortSwapMutation);
   const [, setToSwappedMutation] = useMutation(SetToSwappedMutation);
   const [, setToDeliveredMutation] = useMutation(SetToDeliveredMutation);
-  const [activeTab, setActiveTab] = useState('receive');
+  const [activeTab, setActiveTab] = useState('all');
 
   if (fetchingMe) {
     return null;
@@ -113,13 +113,14 @@ const Swaps = () => {
     const { user } = meData.me;
 
     const tabs = [
+      { name: 'all', label: 'Все', count: user.swaps.length + user.sends.length },
       { name: 'receive', label: 'Получить', count: user.swaps.length },
       { name: 'send', label: 'Отдать', count: user.sends.length },
     ];
 
     return (
       <div>
-        <p className="sm:text-white font-bold text-lg mb-3">Активные свопы</p>
+        <p className="sm:text-white font-bold text-lg mb-3">Свопы</p>
         <div className="bg-white py-6 px-4 space-y-6 sm:p-6 shadow rounded-md">
           <div>
             <div>
@@ -157,7 +158,12 @@ const Swaps = () => {
             </div>
           </div>
           {
-            activeTab === 'receive' && (
+            user.roomsSender.map((room) => (
+              <div key={room.id}>{room.id}</div>
+            ))
+          }
+          {
+            (activeTab === 'receive' || activeTab === 'all') && (
               <div>
                 {
                   user.swaps.map((swap: any) => {
@@ -206,7 +212,7 @@ const Swaps = () => {
             )
           }
           {
-            activeTab === 'send' && (
+            (activeTab === 'send' || activeTab === 'all') && (
               <div>
                 {
                   user.sends.map((swap: any) => {

@@ -22,6 +22,7 @@ export type Book = {
   authors?: string[];
   status: BooksStatus;
   condition: BooksCondition;
+  booksCount: number;
   image?: string;
   isbn_13?: string | null;
   isbn_10?: string | null;

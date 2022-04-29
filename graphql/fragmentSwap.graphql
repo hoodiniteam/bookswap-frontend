@@ -1,0 +1,21 @@
+#import "./fragmentBook.graphql"
+#import "./fragmentRecipient.graphql"
+#import "./fragmentSender.graphql"
+#import "./fragmentRoom.graphql"
+
+fragment Swap on Swap {
+    id
+    book {
+        ...Book
+    }
+    recipient {
+        ...Recipient
+    }
+    sender {
+        ...Sender
+    }
+    room {
+        ...Room
+    }
+    status
+}

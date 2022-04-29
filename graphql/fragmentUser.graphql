@@ -1,0 +1,92 @@
+#import "./fragmentEdition.graphql"
+#import "./fragmentSwap.graphql"
+
+fragment User on User {
+    id
+    firstName
+    lastName
+    email
+    notifications{
+        isRead
+        message
+        createdAt
+    }
+    waiting {
+        ...Edition
+    }
+    avatar {
+        topType
+        eyeType
+        eyebrowType
+        mouthType
+        facialHairType
+        facialHairColor
+        hairColor
+        hatColor
+        skinColor
+        clotheColor
+        clotheType
+        accessoriesType
+    }
+    points
+    sends {
+        ...Swap
+    }
+    swaps {
+        ...Swap
+    }
+    trades {
+        book {
+            id
+            edition {
+                id
+            }
+        }
+        status
+        endingDate
+    }
+    books{
+        id
+        title
+        description
+        status
+        condition
+        edition {
+            ...Edition
+        }
+    }
+    roomsSender {
+        id
+        book {
+            id
+            title
+        }
+        swap {
+            id
+            status
+        }
+        messages {
+            createdAt
+            message
+            userId
+            isRead
+        }
+    }
+    roomsRecipient {
+        id
+        book {
+            id
+            title
+        }
+        swap {
+            id
+            status
+        }
+        messages {
+            createdAt
+            message
+            userId
+            isRead
+        }
+    }
+}

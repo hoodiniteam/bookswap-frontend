@@ -404,7 +404,7 @@ const Layout = ({children, title}: any) => {
                                         </div>
                                         <div className="ml-4">
                                           <p className="text-sm font-bold text-gray-900">
-                                            Активные свопы
+                                            Свопы
                                           </p>
                                           <p className="text-sm text-gray-500">
                                             {user.swaps.length} получить / {user.sends.length} отдать
