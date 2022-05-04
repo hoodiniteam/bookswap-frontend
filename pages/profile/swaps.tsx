@@ -159,12 +159,12 @@ const Swaps = () => {
             </div>
           </div>
           {
-            user.roomsRecipient.map((room) => (
+            user.chatRecipient.map((room) => (
               <div key={room.id}>{room.id}</div>
             ))
           }
           {
-            user.roomsSender.map((room) => (
+            user.chatSender.map((room) => (
               <div key={room.id}>{room.id}</div>
             ))
           }

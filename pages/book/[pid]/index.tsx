@@ -17,15 +17,14 @@ import { SetBookOpenMutaion } from '../../../graphql/SetBookOpenMutaion';
 import { SetBookHoldMutaion } from '../../../graphql/SetBookHoldMutation';
 import { Badge } from '../../../components/Badge';
 import Button from '../../../components/UI/Button';
-import { useNotification } from '../../../helpers/notificationHelper';
 import Image from 'next/image';
 import { AvatarComponent } from '../../../components/avatars';
 import Tippy from '@tippyjs/react';
 import { userName } from '../../../helpers/parseUserName';
-import { CreateRoomMutation } from '../../../graphql/CreateRoomMutation';
 import { loader } from 'graphql.macro';
-import { GetMeQuery } from '../../../generated/graphql';
+import { CreateRoomMutationMutation, GetMeQuery } from '../../../generated/graphql';
 const GetMe = loader("../../../graphql/GetMe.graphql");
+const CreateRoomMutation = loader("../../../graphql/CreateRoomMutation.graphql");
 
 const Book = () => {
   const router = useRouter();
@@ -42,10 +41,9 @@ const Book = () => {
   });
 
   const { t } = useTranslation('common');
-  const { errorNotification, successNotification } = useNotification();
   const [, addToMyWaitingList] = useMutation(AddBookToMyWaitingListMutation);
   const [, removeFromMyWaitingList] = useMutation(RemoveBookFromMyWaitingList);
-  const [, createRoom] = useMutation(CreateRoomMutation);
+  const [, createRoom] = useMutation<CreateRoomMutationMutation>(CreateRoomMutation);
   const [, setBookOpenMutation] = useMutation(SetBookOpenMutaion);
   const [, setBookHoldMutation] = useMutation(SetBookHoldMutaion);
 
@@ -65,11 +63,10 @@ const Book = () => {
     await createRoom({
       bookId,
     }).then(res => {
-      const {room, status} = res.data.createRoom;
-      if (status === 'ERROR') {
-        errorNotification(t('error-notification-msg'));
+      const {room} = res.data?.createRoom || {};
+      if (room) {
+        router.push(`/room/${room.id}`)
       }
-      router.push(`/room/${room.id}`)
     });
   };
 

@@ -55,15 +55,11 @@ fragment User on User {
             ...Edition
         }
     }
-    roomsSender {
+    chatSender {
         id
         book {
             id
             title
-        }
-        swaps {
-            id
-            status
         }
         messages {
             createdAt
@@ -72,15 +68,11 @@ fragment User on User {
             isRead
         }
     }
-    roomsRecipient {
+    chatRecipient {
         id
         book {
             id
             title
-        }
-        swaps {
-            id
-            status
         }
         messages {
             createdAt

@@ -1,0 +1,14 @@
+#import "./fragmentRoom.graphql"
+
+mutation CreateRoomMutation($bookId: String!){
+    createRoom(bookId: $bookId) {
+        status
+        errors {
+            field
+            message
+        }
+        room {
+            ...Room
+        }
+    }
+}
