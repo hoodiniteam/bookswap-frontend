@@ -12,7 +12,7 @@ export const fragmentRoom = `
         sender {
           ${fragmentSender}
         }
-        swap {
+        swaps {
             id
             ${fragmentBook}
         }

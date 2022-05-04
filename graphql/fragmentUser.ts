@@ -61,7 +61,7 @@ export const fragmentUser = `
       id
       title
     }
-    swap {
+    swaps {
       id
       status
     }
@@ -78,7 +78,7 @@ export const fragmentUser = `
       id
       title
     }
-    swap {
+    swaps {
       id
       status
     }

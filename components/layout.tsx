@@ -23,7 +23,6 @@ import {GetEditionsQuery} from "../graphql/GetEditionsQuery";
 import {CreateEmptyEditionMutation} from "../graphql/CreateEmptyEditionMutation";
 import {Logo} from "./Logo";
 import {useQueryWrapper} from "../helpers/useQueryWrapper";
-import {GetMe} from "../graphql/GetMe";
 import {AvatarComponent} from "./avatars";
 import { userName } from '../helpers/parseUserName';
 import { usePopper } from 'react-popper';
@@ -32,6 +31,9 @@ import Button from './UI/Button';
 import { ClearNotificationsMutation } from '../graphql/ClearNotificationsMutation';
 import { dateParsedYear, dateTimeToHuman } from '../helpers/dateTime';
 import { CreateModal } from './CreateBookModal';
+import { loader } from 'graphql.macro';
+import { GetMeQuery } from '../generated/graphql';
+const GetMe = loader("../graphql/GetMe.graphql");
 
 const Layout = ({children, title}: any) => {
   const router = useRouter();
@@ -53,7 +55,7 @@ const Layout = ({children, title}: any) => {
   const [, createEdition] = useMutation(CreateEmptyEditionMutation);
   const [, clearNotifications] = useMutation(ClearNotificationsMutation);
 
-  const [{data: meData, fetching: fetchingMe}] = useQueryWrapper({
+  const [{data: meData, fetching: fetchingMe}] = useQueryWrapper<GetMeQuery>({
     query: GetMe,
   });
 

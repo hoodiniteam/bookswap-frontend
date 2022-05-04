@@ -3,7 +3,6 @@ import Layout from '../../components/layout';
 import { useQueryWrapper } from '../../helpers/useQueryWrapper';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { localesList } from '../../helpers/locales';
-import { GetMe } from '../../graphql/GetMe';
 import { SwapStatus } from '../../types/Swap';
 import Button from '../../components/UI/Button';
 import { useMutation } from 'urql';
@@ -13,6 +12,9 @@ import { AbortSwapMutation } from '../../graphql/AbortSwapMutation';
 import { SetToSwappedMutation } from '../../graphql/SetToSwappedMutation';
 import { SetToDeliveredMutation } from '../../graphql/SetToDeliveredMutation';
 import BookWrapper from '../../components/BookWrapper';
+import { loader } from 'graphql.macro';
+import { GetMeQuery } from '../../generated/graphql';
+const GetMe = loader("../../graphql/GetMe.graphql");
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
@@ -79,7 +81,7 @@ const ActiveSwap = ({ swap, children, myId }: any) => {
 };
 
 const Swaps = () => {
-  const [{ data: meData, fetching: fetchingMe }] = useQueryWrapper({
+  const [{ data: meData, fetching: fetchingMe }] = useQueryWrapper<GetMeQuery>({
     query: GetMe,
   });
   const [, abortSwapMutation] = useMutation(AbortSwapMutation);
@@ -108,10 +110,9 @@ const Swaps = () => {
     });
   };
 
-  if (meData.me) {
+  const { user } = meData?.me || {};
 
-    const { user } = meData.me;
-
+  if (user) {
     const tabs = [
       { name: 'all', label: 'Все', count: user.swaps.length + user.sends.length },
       { name: 'receive', label: 'Получить', count: user.swaps.length },
@@ -157,6 +158,11 @@ const Swaps = () => {
               </div>
             </div>
           </div>
+          {
+            user.roomsRecipient.map((room) => (
+              <div key={room.id}>{room.id}</div>
+            ))
+          }
           {
             user.roomsSender.map((room) => (
               <div key={room.id}>{room.id}</div>

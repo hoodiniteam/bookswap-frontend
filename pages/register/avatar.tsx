@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useQueryWrapper } from '../../helpers/useQueryWrapper';
-import { GetMe } from '../../graphql/GetMe';
 import { useAvatarOptions } from '../../helpers/avatarOptions';
 import { useMutation } from 'urql';
 import { UpdateUserMutation } from '../../graphql/UpdateUserMutation';
@@ -11,10 +10,13 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { localesList } from '../../helpers/locales';
 import { LogoLogin } from '../../components/LogoLogin';
 import { useRouter } from 'next/router';
+import { loader } from 'graphql.macro';
+import { GetMeQuery } from '../../generated/graphql';
+const GetMe = loader("../../graphql/GetMe.graphql");
 
 const Avatar = () => {
   const Router = useRouter();
-  const [{data: meData, fetching}] = useQueryWrapper({
+  const [{data: meData, fetching}] = useQueryWrapper<GetMeQuery>({
     query: GetMe,
   });
   const { hairOptions,

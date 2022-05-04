@@ -11,8 +11,10 @@ import { AvatarComponent } from '../../components/avatars';
 import Button from '../../components/UI/Button';
 import Link from 'next/link';
 import {UpdateUserMutation} from "../../graphql/UpdateUserMutation";
-import {GetMe} from "../../graphql/GetMe";
 import LogOut from '../../helpers/LogOut';
+import { loader } from 'graphql.macro';
+import { GetMeQuery } from '../../generated/graphql';
+const GetMe = loader("../../graphql/GetMe.graphql");
 
 type WaitingList = [
   {
@@ -50,7 +52,7 @@ type UserData = {
 };
 
 const Index = () => {
-  const [{ data: meData, error, fetching }] = useQueryWrapper({
+  const [{ data: meData, error, fetching }] = useQueryWrapper<GetMeQuery>({
     query: GetMe,
   });
 

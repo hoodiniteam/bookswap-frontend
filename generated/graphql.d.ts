@@ -52,12 +52,6 @@ export type Avatar = {
   topType?: Maybe<Scalars['String']>;
 };
 
-export type BaseResponse = {
-  __typename?: 'BaseResponse';
-  errors?: Maybe<Array<FieldError>>;
-  status: ResponseStatus;
-};
-
 export type Book = {
   __typename?: 'Book';
   condition: BooksCondition;
@@ -185,7 +179,6 @@ export type Message = {
 export type Mutation = {
   __typename?: 'Mutation';
   abortSwap: SwapDoneResponse;
-  acceptTrade: BaseResponse;
   addBookToMyWaitingList?: Maybe<EditionResponse>;
   clearNotifications: UserResponse;
   createBook: BookResponse;
@@ -209,11 +202,6 @@ export type Mutation = {
 
 export type MutationAbortSwapArgs = {
   swapId: Scalars['String'];
-};
-
-
-export type MutationAcceptTradeArgs = {
-  id: Scalars['String'];
 };
 
 
@@ -376,7 +364,7 @@ export type Room = {
   messages: Array<Message>;
   recipient: User;
   sender: User;
-  swap?: Maybe<Swap>;
+  swaps?: Maybe<Array<Swap>>;
   updatedAt: Scalars['String'];
 };
 
@@ -509,7 +497,7 @@ export type UserResponse = {
 export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMeQuery = { __typename?: 'Query', me?: { __typename?: 'UserResponse', user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email: string, points: number, notifications: Array<{ __typename?: 'Notification', isRead: boolean, message: string, createdAt: string }>, waiting?: Array<{ __typename?: 'BookEdition', id: string, title: string, description: string, image?: string | null, booksCount: number, publishedDate?: string | null, authors?: Array<string> | null, virtual: boolean, isbn_13?: string | null, isbn_10?: string | null }> | null, avatar?: { __typename?: 'Avatar', topType?: string | null, eyeType?: string | null, eyebrowType?: string | null, mouthType?: string | null, facialHairType?: string | null, facialHairColor?: string | null, hairColor?: string | null, hatColor?: string | null, skinColor?: string | null, clotheColor?: string | null, clotheType?: string | null, accessoriesType?: string | null } | null, sends: Array<{ __typename?: 'Swap', id: string, status: SwapStatus, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient?: { __typename?: 'User', id: string, email: string } | null, sender?: { __typename?: 'User', id: string, email: string } | null, room?: { __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient: { __typename?: 'User', id: string, email: string }, sender: { __typename?: 'User', id: string, email: string }, swap?: { __typename?: 'Swap', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } } } | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> } | null }>, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient?: { __typename?: 'User', id: string, email: string } | null, sender?: { __typename?: 'User', id: string, email: string } | null, room?: { __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient: { __typename?: 'User', id: string, email: string }, sender: { __typename?: 'User', id: string, email: string }, swap?: { __typename?: 'Swap', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } } } | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> } | null }>, trades: Array<{ __typename?: 'Trade', status: TradeStatus, endingDate: any, book: { __typename?: 'Book', id: string, edition: { __typename?: 'BookEdition', id: string } } }>, books?: Array<{ __typename?: 'Book', id: string, title: string, description?: string | null, status: BooksStatus, condition: BooksCondition, edition: { __typename?: 'BookEdition', id: string, title: string, description: string, image?: string | null, booksCount: number, publishedDate?: string | null, authors?: Array<string> | null, virtual: boolean, isbn_13?: string | null, isbn_10?: string | null } }> | null, roomsSender: Array<{ __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, title: string }, swap?: { __typename?: 'Swap', id: string, status: SwapStatus } | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> }>, roomsRecipient: Array<{ __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, title: string }, swap?: { __typename?: 'Swap', id: string, status: SwapStatus } | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> }> } | null } | null };
+export type GetMeQuery = { __typename?: 'Query', me?: { __typename?: 'UserResponse', user?: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email: string, points: number, notifications: Array<{ __typename?: 'Notification', isRead: boolean, message: string, createdAt: string }>, waiting?: Array<{ __typename?: 'BookEdition', id: string, title: string, description: string, image?: string | null, booksCount: number, publishedDate?: string | null, authors?: Array<string> | null, virtual: boolean, isbn_13?: string | null, isbn_10?: string | null }> | null, avatar?: { __typename?: 'Avatar', topType?: string | null, eyeType?: string | null, eyebrowType?: string | null, mouthType?: string | null, facialHairType?: string | null, facialHairColor?: string | null, hairColor?: string | null, hatColor?: string | null, skinColor?: string | null, clotheColor?: string | null, clotheType?: string | null, accessoriesType?: string | null } | null, sends: Array<{ __typename?: 'Swap', id: string, status: SwapStatus, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient?: { __typename?: 'User', id: string, email: string } | null, sender?: { __typename?: 'User', id: string, email: string } | null, room?: { __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient: { __typename?: 'User', id: string, email: string }, sender: { __typename?: 'User', id: string, email: string }, swaps?: Array<{ __typename?: 'Swap', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } } }> | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> } | null }>, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient?: { __typename?: 'User', id: string, email: string } | null, sender?: { __typename?: 'User', id: string, email: string } | null, room?: { __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient: { __typename?: 'User', id: string, email: string }, sender: { __typename?: 'User', id: string, email: string }, swaps?: Array<{ __typename?: 'Swap', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } } }> | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> } | null }>, trades: Array<{ __typename?: 'Trade', status: TradeStatus, endingDate: any, book: { __typename?: 'Book', id: string, edition: { __typename?: 'BookEdition', id: string } } }>, books?: Array<{ __typename?: 'Book', id: string, title: string, description?: string | null, status: BooksStatus, condition: BooksCondition, edition: { __typename?: 'BookEdition', id: string, title: string, description: string, image?: string | null, booksCount: number, publishedDate?: string | null, authors?: Array<string> | null, virtual: boolean, isbn_13?: string | null, isbn_10?: string | null } }> | null, roomsSender: Array<{ __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, title: string }, swaps?: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }> | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> }>, roomsRecipient: Array<{ __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, title: string }, swaps?: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }> | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> }> } | null } | null };
 
 export type BookFragment = { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } };
 
@@ -517,13 +505,13 @@ export type EditionFragment = { __typename?: 'BookEdition', id: string, title: s
 
 export type RecipientFragment = { __typename?: 'User', id: string, email: string };
 
-export type RoomFragment = { __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient: { __typename?: 'User', id: string, email: string }, sender: { __typename?: 'User', id: string, email: string }, swap?: { __typename?: 'Swap', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } } } | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> };
+export type RoomFragment = { __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient: { __typename?: 'User', id: string, email: string }, sender: { __typename?: 'User', id: string, email: string }, swaps?: Array<{ __typename?: 'Swap', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } } }> | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> };
 
 export type SenderFragment = { __typename?: 'User', id: string, email: string };
 
-export type SwapFragment = { __typename?: 'Swap', id: string, status: SwapStatus, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient?: { __typename?: 'User', id: string, email: string } | null, sender?: { __typename?: 'User', id: string, email: string } | null, room?: { __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient: { __typename?: 'User', id: string, email: string }, sender: { __typename?: 'User', id: string, email: string }, swap?: { __typename?: 'Swap', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } } } | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> } | null };
+export type SwapFragment = { __typename?: 'Swap', id: string, status: SwapStatus, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient?: { __typename?: 'User', id: string, email: string } | null, sender?: { __typename?: 'User', id: string, email: string } | null, room?: { __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient: { __typename?: 'User', id: string, email: string }, sender: { __typename?: 'User', id: string, email: string }, swaps?: Array<{ __typename?: 'Swap', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } } }> | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> } | null };
 
-export type UserFragment = { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email: string, points: number, notifications: Array<{ __typename?: 'Notification', isRead: boolean, message: string, createdAt: string }>, waiting?: Array<{ __typename?: 'BookEdition', id: string, title: string, description: string, image?: string | null, booksCount: number, publishedDate?: string | null, authors?: Array<string> | null, virtual: boolean, isbn_13?: string | null, isbn_10?: string | null }> | null, avatar?: { __typename?: 'Avatar', topType?: string | null, eyeType?: string | null, eyebrowType?: string | null, mouthType?: string | null, facialHairType?: string | null, facialHairColor?: string | null, hairColor?: string | null, hatColor?: string | null, skinColor?: string | null, clotheColor?: string | null, clotheType?: string | null, accessoriesType?: string | null } | null, sends: Array<{ __typename?: 'Swap', id: string, status: SwapStatus, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient?: { __typename?: 'User', id: string, email: string } | null, sender?: { __typename?: 'User', id: string, email: string } | null, room?: { __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient: { __typename?: 'User', id: string, email: string }, sender: { __typename?: 'User', id: string, email: string }, swap?: { __typename?: 'Swap', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } } } | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> } | null }>, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient?: { __typename?: 'User', id: string, email: string } | null, sender?: { __typename?: 'User', id: string, email: string } | null, room?: { __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient: { __typename?: 'User', id: string, email: string }, sender: { __typename?: 'User', id: string, email: string }, swap?: { __typename?: 'Swap', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } } } | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> } | null }>, trades: Array<{ __typename?: 'Trade', status: TradeStatus, endingDate: any, book: { __typename?: 'Book', id: string, edition: { __typename?: 'BookEdition', id: string } } }>, books?: Array<{ __typename?: 'Book', id: string, title: string, description?: string | null, status: BooksStatus, condition: BooksCondition, edition: { __typename?: 'BookEdition', id: string, title: string, description: string, image?: string | null, booksCount: number, publishedDate?: string | null, authors?: Array<string> | null, virtual: boolean, isbn_13?: string | null, isbn_10?: string | null } }> | null, roomsSender: Array<{ __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, title: string }, swap?: { __typename?: 'Swap', id: string, status: SwapStatus } | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> }>, roomsRecipient: Array<{ __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, title: string }, swap?: { __typename?: 'Swap', id: string, status: SwapStatus } | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> }> };
+export type UserFragment = { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email: string, points: number, notifications: Array<{ __typename?: 'Notification', isRead: boolean, message: string, createdAt: string }>, waiting?: Array<{ __typename?: 'BookEdition', id: string, title: string, description: string, image?: string | null, booksCount: number, publishedDate?: string | null, authors?: Array<string> | null, virtual: boolean, isbn_13?: string | null, isbn_10?: string | null }> | null, avatar?: { __typename?: 'Avatar', topType?: string | null, eyeType?: string | null, eyebrowType?: string | null, mouthType?: string | null, facialHairType?: string | null, facialHairColor?: string | null, hairColor?: string | null, hatColor?: string | null, skinColor?: string | null, clotheColor?: string | null, clotheType?: string | null, accessoriesType?: string | null } | null, sends: Array<{ __typename?: 'Swap', id: string, status: SwapStatus, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient?: { __typename?: 'User', id: string, email: string } | null, sender?: { __typename?: 'User', id: string, email: string } | null, room?: { __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient: { __typename?: 'User', id: string, email: string }, sender: { __typename?: 'User', id: string, email: string }, swaps?: Array<{ __typename?: 'Swap', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } } }> | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> } | null }>, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient?: { __typename?: 'User', id: string, email: string } | null, sender?: { __typename?: 'User', id: string, email: string } | null, room?: { __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } }, recipient: { __typename?: 'User', id: string, email: string }, sender: { __typename?: 'User', id: string, email: string }, swaps?: Array<{ __typename?: 'Swap', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, email: string }, edition: { __typename?: 'BookEdition', id: string, image?: string | null, title: string, authors?: Array<string> | null, description: string, isbn_10?: string | null, isbn_13?: string | null } } }> | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> } | null }>, trades: Array<{ __typename?: 'Trade', status: TradeStatus, endingDate: any, book: { __typename?: 'Book', id: string, edition: { __typename?: 'BookEdition', id: string } } }>, books?: Array<{ __typename?: 'Book', id: string, title: string, description?: string | null, status: BooksStatus, condition: BooksCondition, edition: { __typename?: 'BookEdition', id: string, title: string, description: string, image?: string | null, booksCount: number, publishedDate?: string | null, authors?: Array<string> | null, virtual: boolean, isbn_13?: string | null, isbn_10?: string | null } }> | null, roomsSender: Array<{ __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, title: string }, swaps?: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }> | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> }>, roomsRecipient: Array<{ __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, title: string }, swaps?: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }> | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> }> };
 
 
 declare module '*/GetMe.graphql' {
@@ -665,7 +653,7 @@ export const Room = gql`
   sender {
     ...Sender
   }
-  swap {
+  swaps {
     id
     book {
       ...Book
@@ -763,7 +751,7 @@ export const User = gql`
       id
       title
     }
-    swap {
+    swaps {
       id
       status
     }
@@ -780,7 +768,7 @@ export const User = gql`
       id
       title
     }
-    swap {
+    swaps {
       id
       status
     }
@@ -911,39 +899,6 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "Any"
-            },
-            "args": []
-          }
-        ],
-        "interfaces": []
-      },
-      {
-        "kind": "OBJECT",
-        "name": "BaseResponse",
-        "fields": [
-          {
-            "name": "errors",
-            "type": {
-              "kind": "LIST",
-              "ofType": {
-                "kind": "NON_NULL",
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "FieldError",
-                  "ofType": null
-                }
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "status",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
             },
             "args": []
           }
@@ -1638,29 +1593,6 @@ export default {
             "args": [
               {
                 "name": "swapId",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "acceptTrade",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "BaseResponse",
-                "ofType": null
-              }
-            },
-            "args": [
-              {
-                "name": "id",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -2441,11 +2373,17 @@ export default {
             "args": []
           },
           {
-            "name": "swap",
+            "name": "swaps",
             "type": {
-              "kind": "OBJECT",
-              "name": "Swap",
-              "ofType": null
+              "kind": "LIST",
+              "ofType": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Swap",
+                  "ofType": null
+                }
+              }
             },
             "args": []
           },

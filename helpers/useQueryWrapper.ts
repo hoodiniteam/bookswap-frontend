@@ -3,7 +3,10 @@ import {useQuery, UseQueryArgs} from "urql";
 import LogOut from "./LogOut";
 
 export const useQueryWrapper = <T>(arg: UseQueryArgs) => {
-  const result = useQuery<T>(arg);
+  const result = useQuery<T>({
+    ...arg,
+    requestPolicy: 'cache-and-network'
+  });
   useEffect(() => {
     if(result[0].error?.message.includes('Access denied!')){
       LogOut()

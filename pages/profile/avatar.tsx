@@ -8,13 +8,14 @@ import Button from "../../components/UI/Button";
 import {useMutation} from "urql";
 import {UpdateUserMutation} from "../../graphql/UpdateUserMutation";
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
-import {GetMe} from "../../graphql/GetMe";
-import { useTranslation } from 'next-i18next';
 import { useAvatarOptions } from '../../helpers/avatarOptions';
+import { loader } from 'graphql.macro';
+import { GetMeQuery } from '../../generated/graphql';
+const GetMe = loader("../../graphql/GetMe.graphql");
 
 const Avatar = () => {
 
-  const [{data: meData, fetching}] = useQueryWrapper({
+  const [{data: meData, fetching}] = useQueryWrapper<GetMeQuery>({
     query: GetMe,
   });
   const { hairOptions,

@@ -7,9 +7,11 @@ import { useQueryWrapper } from '../../../helpers/useQueryWrapper';
 import { GetRoomQuery } from '../../../graphql/GetRoomQuery';
 import { useMutation } from 'urql';
 import { SendMessageMutation } from '../../../graphql/SendMessageMutation';
-import { GetMe } from '../../../graphql/GetMe';
 import Button from '../../../components/UI/Button';
 import { useTranslation } from 'react-i18next';
+import { loader } from 'graphql.macro';
+import { GetMeQuery } from '../../../generated/graphql';
+const GetMe = loader("../../../graphql/GetMe.graphql");
 
 const Room = () => {
   const router = useRouter();
@@ -23,10 +25,10 @@ const Room = () => {
     variables: { id: rid },
     pause: !rid,
   });
-  const [{ data: meData}] = useQueryWrapper({
+  const [{ data: meData}] = useQueryWrapper<GetMeQuery>({
     query: GetMe,
   });
-  const { id } = meData.me.user;
+  const { id } = meData?.me?.user || {};
 
   const [, sendMessage] = useMutation(SendMessageMutation);
   const ref = useRef<HTMLDivElement>(null);

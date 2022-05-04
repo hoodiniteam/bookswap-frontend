@@ -2,7 +2,6 @@ import React, {ReactElement, useEffect, useState} from "react";
 import Layout from "../../components/layout";
 import BookWrapper from "../../components/BookWrapper";
 import { Book } from '../../types/Book';
-import { GetMe } from '../../graphql/GetMe'
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import { localesList } from "../../helpers/locales";
@@ -11,13 +10,16 @@ import { useMutation } from 'urql';
 import { RemoveBookFromMyWaitingList } from '../../graphql/RemoveBookFromMyWaitingList';
 import { useTranslation } from 'react-i18next';
 import Head from 'next/head';
+import { loader } from 'graphql.macro';
+import { GetMeQuery } from '../../generated/graphql';
+const GetMe = loader("../../graphql/GetMe.graphql");
 
 const Waiting = () => {
   const [books, setBooks] = useState<Book[]>([])
   const [, removeFromMyWaitingList] = useMutation(RemoveBookFromMyWaitingList);
   const {t} = useTranslation('common');
 
-  const [{data}] = useQueryWrapper({
+  const [{data}] = useQueryWrapper<GetMeQuery>({
     query: GetMe,
   })
 

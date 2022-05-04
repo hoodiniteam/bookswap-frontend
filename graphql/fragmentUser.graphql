@@ -61,7 +61,7 @@ fragment User on User {
             id
             title
         }
-        swap {
+        swaps {
             id
             status
         }
@@ -78,7 +78,7 @@ fragment User on User {
             id
             title
         }
-        swap {
+        swaps {
             id
             status
         }

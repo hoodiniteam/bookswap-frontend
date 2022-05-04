@@ -5,7 +5,6 @@ import Layout from '../../../components/layout';
 import { useQueryWrapper } from '../../../helpers/useQueryWrapper';
 import Head from 'next/head';
 import { GetEditionQuery } from '../../../graphql/GetEditionQuery';
-import { GetMe } from '../../../graphql/GetMe';
 import { useTranslation } from 'react-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { localesList } from '../../../helpers/locales';
@@ -24,6 +23,9 @@ import { AvatarComponent } from '../../../components/avatars';
 import Tippy from '@tippyjs/react';
 import { userName } from '../../../helpers/parseUserName';
 import { CreateRoomMutation } from '../../../graphql/CreateRoomMutation';
+import { loader } from 'graphql.macro';
+import { GetMeQuery } from '../../../generated/graphql';
+const GetMe = loader("../../../graphql/GetMe.graphql");
 
 const Book = () => {
   const router = useRouter();
@@ -35,7 +37,7 @@ const Book = () => {
     pause: !pid,
   });
 
-  const [{ data: meData, fetching: fetchingMe }] = useQueryWrapper({
+  const [{ data: meData, fetching: fetchingMe }] = useQueryWrapper<GetMeQuery>({
     query: GetMe,
   });
 
@@ -86,15 +88,15 @@ const Book = () => {
   if (fetchingEdition || fetchingMe) return <p>Loading...</p>;
   if (!editionData) return null;
 
+  const { user } = meData?.me || {};
   const { edition } = editionData.getEdition;
-  const { user } = meData.me;
-  if (!edition) {
+  if (!edition || !user) {
     return null;
   }
 
   const openBooks = edition.books.filter((book: any) => book.status === BooksStatus[BooksStatus.OPEN]);
   const isHolderOfAny = !!edition.books.find((book: any) => book.holder.id === user.id);
-  const inMyWaitingList = user.waiting.find((myEdition: any) => myEdition.id === edition.id);
+  const inMyWaitingList = user.waiting?.find((myEdition: any) => myEdition.id === edition.id);
 
   return (
     <div>
