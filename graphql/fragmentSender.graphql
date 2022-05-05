@@ -1,4 +1,9 @@
 fragment Sender on User {
     id
+    firstName
+    lastName
     email
+    avatar {
+        ...Avatar
+    }
 }

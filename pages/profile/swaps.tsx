@@ -3,112 +3,66 @@ import Layout from '../../components/layout';
 import { useQueryWrapper } from '../../helpers/useQueryWrapper';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { localesList } from '../../helpers/locales';
-import { SwapStatus } from '../../types/Swap';
-import Button from '../../components/UI/Button';
-import { useMutation } from 'urql';
-import { SetToDeliveringMutation } from '../../graphql/SetToDeliveringMutation';
 import Link from 'next/link';
-import { AbortSwapMutation } from '../../graphql/AbortSwapMutation';
-import { SetToSwappedMutation } from '../../graphql/SetToSwappedMutation';
-import { SetToDeliveredMutation } from '../../graphql/SetToDeliveredMutation';
-import BookWrapper from '../../components/BookWrapper';
 import { loader } from 'graphql.macro';
-import { GetMeQuery } from '../../generated/graphql';
-const GetMe = loader("../../graphql/GetMe.graphql");
+import { GetMeQuery, RoomFragment } from '../../generated/graphql';
+import { AvatarComponent } from '../../components/avatars';
+import BookCover from '../../components/BookCover';
+import { format } from 'date-fns';
+import { ArrowSmLeftIcon, ArrowSmRightIcon } from '@heroicons/react/outline';
+
+const GetMe = loader('../../graphql/GetMe.graphql');
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
 }
 
-const CreatedSwap = ({ swap }: any) => {
-  const [, setToDelivering] = useMutation(SetToDeliveringMutation);
-
-  const confirmSwap = async (swapId: string) => {
-    await setToDelivering({
-      swapId,
-    });
-  };
-
+const SwapChatListItem = ({room, user, actor}: {room: RoomFragment, user: any, actor: 'sender' | 'recipient'}) => {
   return (
-    <ul className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      <BookWrapper book={swap.book.edition}/>
-      <div className="col-span-3 flex items-center justify-center">
-        {swap.status === SwapStatus[SwapStatus.CREATED] && (
-          <Button variant='primary' onClick={() => confirmSwap(swap.id)}>
-            Подтвердить обмен
-          </Button>
-        )}
-      </div>
-    </ul>
-  );
-};
-
-const ActiveSwap = ({ swap, children, myId }: any) => {
-  const roomMembers = {
-    [swap.room.sender.id]: swap.room.sender.email,
-    [swap.room.recipient.id]: swap.room.recipient.email,
-  };
-
-  const unread = swap.room.messages.filter((message: any) => !message.isRead && message.userId !== myId);
-  console.log(swap.room.messages);
-
-  return (
-    <div>
-      <div className='relative grid grid-cols-4 gap-4 bg-white block py-6 px-4 border rounded-md'>
-        <BookWrapper book={swap.book.edition}/>
-        <div className="col-span-3 flex flex-col">
-          <div className="flex-grow">
-            <div>Чат:</div>
-            <Link href={`/room/${swap.room.id}`}>
-              <a className="flex items-center">
-                <div
-                  className={`flex-grow block bg-gray-100 rounded-lg border p-2 ${unread.length > 0 ? 'outline-main ring-blue-500' : ''}`}>
-                  {swap.room?.messages.slice(-2).map((message: any) => (
-                    <div key={message.createdAt} className='italic text-gray-500 text-sm'>{roomMembers[message.userId] || "Старт"}: {message.message}</div>
-                  ))}
+    <li>
+      <Link href={`/room/${room.id}`}>
+        <a className='group p-2 w-full flex rounded-md border border-gray-300 shadow-sm space-x-1 text-left hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
+          <BookCover book={room.book.edition}/>
+          <div className="flex-grow py-4 pr-4">
+            <div className='flex items-center space-x-3'>
+              <div className='block flex-shrink-0'>
+                <AvatarComponent className='w-10' avatarStyle='Circle' {...room[actor].avatar} />
+              </div>
+              <div className='flex-shrink flex-grow block'>
+                <div className='flex items-center justify-between block text-sm font-medium text-gray-900 truncate'>
+                  <div className="flex">
+                    <span>{room.book.title}</span>
+                    {
+                      actor === 'recipient' && (<ArrowSmRightIcon className="text-blue-600 h-5 w-5 ml-1" />)
+                    }
+                    {
+                      actor === 'sender' && (<ArrowSmLeftIcon className="text-green-600 h-5 w-5 ml-1" />)
+                    }
+                  </div>
+                  <span className="text-xs ml-1">{format(new Date(room.messages[room.messages.length - 1].createdAt), "dd.MM.yyyy")}</span>
                 </div>
-                {unread.length > 0 && <span className='ml-6 text-main-500'>Новые сообщения: {unread.length}</span>}
-              </a>
-            </Link>
+                <span className='block text-sm font-medium text-gray-500 truncate'>{room[actor].firstName} {room[actor].lastName}</span>
+              </div>
+            </div>
+            <div style={{height: 88}} className="overflow-hidden text-sm py-1.5 px-2 bg-gray-200 rounded-md mt-2">
+              { room.messages.slice(-5).map((message) => (<div className={message.userId === "system" ? 'text-center italic text-gray-600' : message.userId === user.id ? 'text-right' : 'text-left'} key={message.createdAt}>{message.message}</div>)) }
+            </div>
           </div>
-          <div className='flex justify-between'>
-            {children}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+        </a>
+      </Link>
+    </li>
+  )
+}
 
 const Swaps = () => {
   const [{ data: meData, fetching: fetchingMe }] = useQueryWrapper<GetMeQuery>({
     query: GetMe,
   });
-  const [, abortSwapMutation] = useMutation(AbortSwapMutation);
-  const [, setToSwappedMutation] = useMutation(SetToSwappedMutation);
-  const [, setToDeliveredMutation] = useMutation(SetToDeliveredMutation);
   const [activeTab, setActiveTab] = useState('all');
 
   if (fetchingMe) {
     return null;
   }
-  const cancelSwap = async (swapId: string) => {
-    await abortSwapMutation({
-      id: swapId,
-    });
-  };
-
-  const setToDelivered = async (swapId: string) => {
-    await setToDeliveredMutation({
-      swapId: swapId,
-    });
-  };
-
-  const setToSwapped = async (swapId: string) => {
-    await setToSwappedMutation({
-      swapId: swapId,
-    });
-  };
 
   const { user } = meData?.me || {};
 
@@ -121,8 +75,8 @@ const Swaps = () => {
 
     return (
       <div>
-        <p className="sm:text-white font-bold text-lg mb-3">Свопы</p>
-        <div className="bg-white py-6 px-4 space-y-6 sm:p-6 shadow rounded-md">
+        <p className='sm:text-white font-bold text-lg mb-3'>Свопы</p>
+        <div className='bg-white py-6 px-4 space-y-6 sm:p-6 shadow rounded-md'>
           <div>
             <div>
               <div className='border-b border-gray-200'>
@@ -158,96 +112,24 @@ const Swaps = () => {
               </div>
             </div>
           </div>
-          {
-            user.chatRecipient.map((room) => (
-              <div key={room.id}>{room.id}</div>
-            ))
-          }
-          {
-            user.chatSender.map((room) => (
-              <div key={room.id}>{room.id}</div>
-            ))
-          }
-          {
-            (activeTab === 'receive' || activeTab === 'all') && (
-              <div>
-                {
-                  user.swaps.map((swap: any) => {
-                    if (swap.status === SwapStatus[SwapStatus.CREATED]) {
-                      return (
-                        <div key={swap.id} className='bg-white flex justify-between items-center py-3 px-4 border rounded-md'>
-                          <div>
-                            <div className='font-semibold text-lg'>
-                              {swap.book.title}
-                            </div>
-                            <div className="italic text-gray-500">Ждем пока держатель подтвердит обмен</div>
-                          </div>
-                          <Button
-                            variant='dangerOutline'
-                            onClick={() => cancelSwap(swap.id)}
-                          >
-                            Отменить своп (+1 BST)
-                          </Button>
-                        </div>
-                      );
-                    } else if (swap.room) {
-                      return (
-                        <ActiveSwap key={swap.id} swap={swap} myId={user.id}>
-                          <Button
-                              variant='dangerOutline'
-                              onClick={() => cancelSwap(swap.id)}
-                          >
-                            Отменить своп
-                          </Button>
-                          <div/>
-                          {
-                            swap.status === SwapStatus[SwapStatus.DELIVERED] && (
-                              <Button
-                                  onClick={() => setToSwapped(swap.id)}
-                              >
-                                Книга у меня!
-                              </Button>
-                            )
-                          }
-                        </ActiveSwap>
-                      );
-                    }
-                  })
-                }
-              </div>
-            )
-          }
-          {
-            (activeTab === 'send' || activeTab === 'all') && (
-              <div>
-                {
-                  user.sends.map((swap: any) => {
-                    if (swap.status === SwapStatus[SwapStatus.CREATED]) {
-                      return (
-                        <CreatedSwap key={swap.id} swap={swap} />
-                      );
-                    } else if (swap.room) {
-                      return (
-                        <ActiveSwap key={swap.id} swap={swap}>
-                          <Button
-                              onClick={() => cancelSwap(swap.id)}
-                              variant='dangerOutline'
-                          >
-                            Отменить своп
-                          </Button>
-                          <Button
-                            onClick={() => setToDelivered(swap.id)}
-                          >
-                            Отдать книгу
-                          </Button>
-                        </ActiveSwap>
-                      );
-                    }
-                  })
-                }
-              </div>
-            )
-          }
+
+          <ul role='list' className='mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2'>
+            {
+              (activeTab === 'receive' || activeTab === 'all') && (
+                user.chatRecipient.map((room) => (
+                  <SwapChatListItem key={room.id} actor="sender" room={room} user={user} />
+                ))
+              )
+            }
+            {
+              (activeTab === 'send' || activeTab === 'all') && (
+                user.chatSender.map((room) => (
+                  <SwapChatListItem key={room.id} actor="recipient" room={room} user={user} />
+                ))
+              )
+            }
+          </ul>
+
         </div>
       </div>
     );

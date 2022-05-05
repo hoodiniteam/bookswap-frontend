@@ -1,5 +1,7 @@
 #import "./fragmentEdition.graphql"
 #import "./fragmentSwap.graphql"
+#import "./fragmentAvatar.graphql"
+#import "./fragmentRoom.graphql"
 
 fragment User on User {
     id
@@ -15,18 +17,7 @@ fragment User on User {
         ...Edition
     }
     avatar {
-        topType
-        eyeType
-        eyebrowType
-        mouthType
-        facialHairType
-        facialHairColor
-        hairColor
-        hatColor
-        skinColor
-        clotheColor
-        clotheType
-        accessoriesType
+        ...Avatar
     }
     points
     sends {
@@ -56,29 +47,9 @@ fragment User on User {
         }
     }
     chatSender {
-        id
-        book {
-            id
-            title
-        }
-        messages {
-            createdAt
-            message
-            userId
-            isRead
-        }
+        ...Room
     }
     chatRecipient {
-        id
-        book {
-            id
-            title
-        }
-        messages {
-            createdAt
-            message
-            userId
-            isRead
-        }
+        ...Room
     }
 }

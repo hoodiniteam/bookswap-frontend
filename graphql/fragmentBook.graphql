@@ -1,3 +1,5 @@
+#import "./fragmentEdition.graphql"
+
 fragment Book on Book {
     id
     description
@@ -17,12 +19,6 @@ fragment Book on Book {
         email
     }
     edition {
-        id
-        image
-        title
-        authors
-        description
-        isbn_10
-        isbn_13
+        ...Edition
     }
 }

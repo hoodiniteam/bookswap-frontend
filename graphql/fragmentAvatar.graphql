@@ -1,0 +1,14 @@
+fragment Avatar on Avatar {
+    topType
+    eyeType
+    eyebrowType
+    mouthType
+    facialHairType
+    facialHairColor
+    hairColor
+    hatColor
+    skinColor
+    clotheColor
+    clotheType
+    accessoriesType
+}
