@@ -23,15 +23,15 @@ const SwapChatListItem = ({room, user, actor}: {room: RoomFragment, user: any, a
       <Link href={`/room/${room.id}`}>
         <a className='group p-2 w-full flex rounded-md border border-gray-300 shadow-sm space-x-1 text-left hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
           <BookCover book={room.book.edition}/>
-          <div className="flex-grow py-4 pr-4">
+          <div className="flex-grow flex-shrink overflow-hidden py-4 pr-4">
             <div className='flex items-center space-x-3'>
               <div className='block flex-shrink-0'>
                 <AvatarComponent className='w-10' avatarStyle='Circle' {...room[actor].avatar} />
               </div>
-              <div className='flex-shrink flex-grow block'>
-                <div className='flex items-center justify-between block text-sm font-medium text-gray-900 truncate'>
-                  <div className="flex">
-                    <span>{room.book.title}</span>
+              <div className='flex-shrink overflow-hidden flex-grow block'>
+                <div className='flex items-center justify-between block text-sm font-medium text-gray-900'>
+                  <div className="flex flex-shrink overflow-hidden">
+                    <span className="flex-shrink truncate">{room.book.title}</span>
                     {
                       actor === 'recipient' && (<ArrowSmRightIcon className="text-blue-600 h-5 w-5 ml-1" />)
                     }

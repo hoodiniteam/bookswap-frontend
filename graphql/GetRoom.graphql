@@ -1,0 +1,14 @@
+#import "./fragmentRoom.graphql"
+
+query getRoom($id: String!){
+    getRoom(id: $id){
+        status
+        errors {
+            field
+            message
+        }
+        room {
+            ...Room
+        }
+    }
+}

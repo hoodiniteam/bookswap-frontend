@@ -229,7 +229,7 @@ const Layout = ({children, title}: any) => {
                                   {
                                     edition.virtual ? (
                                       <div onClick={() => createEmptyAndGo(edition)} key={edition.id}
-                                           className="flex bg-white hover:bg-gray-100 py-1 cursor-pointer items-center">
+                                           className="flex bg-white hover:bg-gray-100 py-1.5 cursor-pointer items-center">
                                         <div className="mr-2 bg-gray-100">
                                           <div className="w-10">
                                             <img
@@ -240,13 +240,13 @@ const Layout = ({children, title}: any) => {
                                         </div>
                                         <div>
                                           <p className="leading-5">{edition.title}</p>
-                                          <div className="text-xs"><span>{edition.authors}</span><span>{dateParsedYear(edition.publishedDate)}</span></div>
+                                          <div className="text-xs"><span>{edition.authors}</span><span>, {dateParsedYear(edition.publishedDate)}</span></div>
                                         </div>
                                       </div>
                                     ) : (
                                       <Link href={`/book/${edition.id}`} key={edition.id}>
                                         <a
-                                          className="flex bg-white hover:bg-gray-100 py-1 cursor-pointer items-center">
+                                          className="flex bg-white hover:bg-gray-100 py-1.5 cursor-pointer items-center">
                                           <div className="mr-2 bg-gray-100">
                                             <div className="w-10">
                                               <img
@@ -256,8 +256,8 @@ const Layout = ({children, title}: any) => {
                                             </div>
                                           </div>
                                           <div>
-                                            <p>{edition.title}</p>
-                                            <div className="text-xs"><span>{edition.authors}</span><span>{dateParsedYear(edition.publishedDate)}</span></div>
+                                            <p className="leading-5">{edition.title}</p>
+                                            <div className="text-xs"><span>{edition.authors}</span><span>, {dateParsedYear(edition.publishedDate)}</span></div>
                                           </div>
                                         </a>
                                       </Link>

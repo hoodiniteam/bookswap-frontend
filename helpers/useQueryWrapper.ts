@@ -3,6 +3,7 @@ import {useQuery, UseQueryArgs} from "urql";
 import LogOut from "./LogOut";
 
 export const useQueryWrapper = <T>(arg: UseQueryArgs) => {
+  console.log(arg);
   const result = useQuery<T>({
     ...arg,
     requestPolicy: 'cache-and-network'

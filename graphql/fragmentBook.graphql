@@ -1,4 +1,5 @@
 #import "./fragmentEdition.graphql"
+#import "./fragmentAvatar.graphql"
 
 fragment Book on Book {
     id
@@ -16,7 +17,12 @@ fragment Book on Book {
     }
     holder{
         id
+        firstName
+        lastName
         email
+        avatar {
+            ...Avatar
+        }
     }
     edition {
         ...Edition
