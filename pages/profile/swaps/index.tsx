@@ -1,17 +1,17 @@
 import React, { ReactElement, useState } from 'react';
-import Layout from '../../components/layout';
-import { useQueryWrapper } from '../../helpers/useQueryWrapper';
+import Layout from '../../../components/layout';
+import { useQueryWrapper } from '../../../helpers/useQueryWrapper';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { localesList } from '../../helpers/locales';
+import { localesList } from '../../../helpers/locales';
 import Link from 'next/link';
 import { loader } from 'graphql.macro';
-import { GetMeQuery, RoomFragment } from '../../generated/graphql';
-import { AvatarComponent } from '../../components/avatars';
-import BookCover from '../../components/BookCover';
+import { GetMeQuery, RoomFragment } from '../../../generated/graphql';
+import { AvatarComponent } from '../../../components/avatars';
+import BookCover from '../../../components/BookCover';
 import { format } from 'date-fns';
 import { ArrowSmLeftIcon, ArrowSmRightIcon } from '@heroicons/react/outline';
 
-const GetMe = loader('../../graphql/GetMe.graphql');
+const GetMe = loader('../../../graphql/GetMe.graphql');
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
@@ -20,7 +20,7 @@ function classNames(...classes: any) {
 const SwapChatListItem = ({room, user, actor}: {room: RoomFragment, user: any, actor: 'sender' | 'recipient'}) => {
   return (
     <li>
-      <Link href={`/room/${room.id}`}>
+      <Link href={`/profile/swaps/${room.id}`} shallow={true}>
         <a className='group p-2 w-full flex rounded-md border border-gray-300 shadow-sm space-x-1 text-left hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
           <BookCover book={room.book.edition}/>
           <div className="flex-grow flex-shrink overflow-hidden py-4 pr-4">
@@ -54,7 +54,7 @@ const SwapChatListItem = ({room, user, actor}: {room: RoomFragment, user: any, a
   )
 }
 
-const Swaps = () => {
+const Index = ({children}: any) => {
   const [{ data: meData, fetching: fetchingMe }] = useQueryWrapper<GetMeQuery>({
     query: GetMe,
   });
@@ -76,7 +76,7 @@ const Swaps = () => {
     return (
       <div>
         <p className='sm:text-white font-bold text-lg mb-3'>Свопы</p>
-        <div className='bg-white py-6 px-4 space-y-6 sm:p-6 shadow rounded-md'>
+        <div className='bg-white py-6 px-4 sm:p-6 shadow rounded-md'>
           <div>
             <div>
               <div className='border-b border-gray-200'>
@@ -113,22 +113,30 @@ const Swaps = () => {
             </div>
           </div>
 
-          <ul role='list' className='mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2'>
-            {
-              (activeTab === 'receive' || activeTab === 'all') && (
-                user.chatRecipient.map((room) => (
-                  <SwapChatListItem key={room.id} actor="sender" room={room} user={user} />
-                ))
-              )
-            }
-            {
-              (activeTab === 'send' || activeTab === 'all') && (
-                user.chatSender.map((room) => (
-                  <SwapChatListItem key={room.id} actor="recipient" room={room} user={user} />
-                ))
-              )
-            }
-          </ul>
+          <div className="flex">
+
+            <ul role='list' style={{maxHeight: 400}} className='grid grid-cols-1 p-2 -mx-2 gap-4 overflow-auto'>
+              {
+                (activeTab === 'receive' || activeTab === 'all') && (
+                  user.chatRecipient.map((room) => (
+                    <SwapChatListItem key={room.id} actor="sender" room={room} user={user} />
+                  ))
+                )
+              }
+              {
+                (activeTab === 'send' || activeTab === 'all') && (
+                  user.chatSender.map((room) => (
+                    <SwapChatListItem key={room.id} actor="recipient" room={room} user={user} />
+                  ))
+                )
+              }
+            </ul>
+
+            <div className="flex-grow border rounded-md ml-4 mt-2">
+              {children}
+            </div>
+
+          </div>
 
         </div>
       </div>
@@ -138,9 +146,9 @@ const Swaps = () => {
   return null;
 };
 
-Swaps.getLayout = function getLayout(page: ReactElement) {
+Index.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout title={'Swaps'}>
+    <Layout title={'Свопы'}>
       {page}
     </Layout>
   );
@@ -152,4 +160,4 @@ export const getStaticProps = async ({ locale }: any) => ({
   },
 });
 
-export default Swaps;
+export default Index;
