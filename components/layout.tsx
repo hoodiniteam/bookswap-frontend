@@ -35,7 +35,7 @@ import { loader } from 'graphql.macro';
 import { GetMeQuery } from '../generated/graphql';
 const GetMe = loader("../graphql/GetMe.graphql");
 
-const Layout = ({children, title}: any) => {
+const Layout = ({children, title, showHead = true}: any) => {
   const router = useRouter();
   const [searchString, setSearchString] = useState('');
   const [createModal, setCreateModal] = useState(false)
@@ -480,26 +480,30 @@ const Layout = ({children, title}: any) => {
                     </div>
                   </div>
                 </div>
-                <div className="hidden py-4 sm:flex items-center justify-between">
-                  <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <Link
-                        key={item.title}
-                        href={`${item.href}?${item.params}`}
-                      >
-                        <a
-                          className={
-                            item.current
-                              ? 'bg-main-700 text-white border border-main-700 hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium'
-                              : 'text-white border border-white hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium'
-                          }
-                        >
-                          {t(item.title)}
-                        </a>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
+                {
+                  showHead && (
+                    <div className="hidden py-4 sm:flex items-center justify-between">
+                      <div className="flex space-x-4">
+                        {navigation.map((item) => (
+                          <Link
+                            key={item.title}
+                            href={`${item.href}?${item.params}`}
+                          >
+                            <a
+                              className={
+                                item.current
+                                  ? 'bg-main-700 text-white border border-main-700 hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium'
+                                  : 'text-white border border-white hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium'
+                              }
+                            >
+                              {t(item.title)}
+                            </a>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )
+                }
               </div>
             </nav>
           </div>

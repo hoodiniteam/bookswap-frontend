@@ -4,7 +4,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { localesList } from '../../../../helpers/locales';
 import SwapLayout from "../index";
 import { useRouter } from 'next/router';
-import { useTranslation } from 'react-i18next';
 import { useQueryWrapper } from '../../../../helpers/useQueryWrapper';
 import { GetMeQuery, GetRoomQuery } from '../../../../generated/graphql';
 import { useMutation } from 'urql';
@@ -94,27 +93,27 @@ const Index = () => {
 
   return (
     <div>
-      <div className="bg-white p-4 rounded-md">
+      <div className="bg-white px-2 pt-4 pb-1 rounded-md">
         <div className="flex">
           <div>
-            <BookCover book={room.book.edition}/>
+            <BookCover height={80} classes="p-1 mr-4" book={room.book.edition}/>
           </div>
           <div>
-            <div className="text-xl font-medium">{room.book.title}</div>
+            <div className="text-lg font-medium">{room.book.title}</div>
             <div className="flex items-center">
-              <AvatarComponent className='w-12' avatarStyle='Circle' {...room.book.holder} />
+              <AvatarComponent className='w-8' avatarStyle='Circle' {...room.book.holder.avatar} />
               <div className="ml-2">{room.book.holder.firstName} {room.book.holder.lastName}</div>
             </div>
           </div>
         </div>
       </div>
-      <div className='bg-white p-10 rounded-t-lg mt-4'>
-        <div ref={ref as any} className='overflow-autol max-h-96 mt-5 flex justify-between w-full'>
-          <div className='flex flex-col w-full lg:px-5 sm:px-0'>
+      <div className='bg-white p-1 rounded-t-lg'>
+        <div ref={ref as any} className='overflow-autol max-h-96 mt-1 flex justify-between w-full'>
+          <div className='flex flex-col w-full px-2'>
             {
               room?.messages.map((message: any) => (
-                <div key={message.createdAt} className={`lg:w-1/3 md:w-1/2 ${userId === message.userId ? 'self-end' : 'self-start'}`}>
-                  <div className='message text-xs italic text-gray-500'>
+                <div key={message.createdAt} className={`${userId === message.userId ? 'self-end' : 'self-start'}`}>
+                  <div className={`flex items-center message text-xs italic text-gray-500 ${userId === message.userId ? 'justify-end' : 'justify-start'}`}>
                     {
                       userId === message.userId ? (
                         <span>Вы: </span>
@@ -139,7 +138,7 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="flex items-start mt-6 space-x-4">
+        <div className="flex items-start mt-6 space-x-4 lg:px-4 sm:px-0">
           <div className="flex-shrink-0">
             <AvatarComponent className='w-10' avatarStyle='Circle' {...meData.me.user.avatar} />
           </div>
@@ -180,7 +179,7 @@ const Index = () => {
 
 Index.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout title={'Свопы'}>
+    <Layout showHead={false} title={'Свопы'}>
       <SwapLayout>
         {page}
       </SwapLayout>
