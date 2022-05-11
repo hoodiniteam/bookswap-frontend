@@ -6,7 +6,6 @@ import classNames from 'classnames';
 import { BookOpenIcon } from '@heroicons/react/outline';
 
 const BookWrapper = ({book, size}: {book: Book, size?: string}) => {
-  console.log(book);
   const {id, title, image, authors, publishedDate} = book;
   const src = image ? image : '';
   const isSmall = size === 'small';

@@ -65,7 +65,7 @@ const Book = () => {
     }).then(res => {
       const {room} = res.data?.createRoom || {};
       if (room) {
-        router.push(`/room/${room.id}`)
+        router.push(`/profile/swaps/${room.id}`)
       }
     });
   };

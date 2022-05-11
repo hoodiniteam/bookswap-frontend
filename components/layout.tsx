@@ -393,7 +393,7 @@ const Layout = ({children, title, showHead = true}: any) => {
                                         </div>
                                       </a>
                                     </Link>
-                                    <Link href="/profile/swaps/index">
+                                    <Link href="/profile/swaps">
                                       <a
                                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                                       >
@@ -409,7 +409,7 @@ const Layout = ({children, title, showHead = true}: any) => {
                                             Свопы
                                           </p>
                                           <p className="text-sm text-gray-500">
-                                            {user.swaps.length} получить / {user.sends.length} отдать
+                                            {user.chatRecipient.length} получить / {user.chatSender.length} отдать
                                           </p>
                                         </div>
                                       </a>

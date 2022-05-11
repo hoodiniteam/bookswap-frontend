@@ -7,8 +7,16 @@ import { localesList } from '../helpers/locales';
 import { useQueryWrapper } from '../helpers/useQueryWrapper';
 import { GetEditionsQuery } from '../graphql/GetEditionsQuery';
 import BookWrapper from '../components/BookWrapper';
+import { GetMeQuery } from '../generated/graphql';
+import { loader } from 'graphql.macro';
+import Link from 'next/link';
+const GetMe = loader('../graphql/GetMe.graphql');
 
 const Home = () => {
+
+  const [{ data: meData }] = useQueryWrapper<GetMeQuery>({
+    query: GetMe,
+  });
 
   const [{data}] = useQueryWrapper({
     query: GetEditionsQuery,
@@ -32,13 +40,14 @@ const Home = () => {
     }
   })
 
+  const { user } = meData?.me || {};
   const editions = data?.getEditions?.editions || [];
   const popularEditions = popularData?.getEditions?.editions || [];
 
   const { t } = useTranslation(localesList);
   const stats = [
-    { name: 'Забрать', stat: '0' },
-    { name: 'Отдать', stat: '0' },
+    { name: 'Получить', stat: user?.chatRecipient.length || 0 },
+    { name: 'Отдать', stat: user?.chatSender.length || 0 },
   ]
   return (
     <>
@@ -50,14 +59,16 @@ const Home = () => {
           <h3 className="text-xl leading-6 font-medium sm:text-white text-gray-900">Активные свопы</h3>
           <dl className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2">
             {stats.map((item) => (
-              <div key={item.name} className="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
-                <dt className="text-sm font-medium text-gray-500 truncate">{item.name}</dt>
-                <dd className="mt-1 text-3xl font-semibold text-gray-900">{item.stat}</dd>
-              </div>
+              <Link href="/profile/swaps" key={item.name}>
+                <a className="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+                  <dt className="text-sm font-medium text-gray-500 truncate">{item.name}</dt>
+                  <dd className="mt-1 text-3xl font-semibold text-gray-900">{item.stat}</dd>
+                </a>
+              </Link>
             ))}
           </dl>
         </div>
-        <div>
+        {/*<div>
           <h3 className="text-xl leading-6 font-medium sm:text-white text-gray-900">Подписки</h3>
           <dl className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2">
             {stats.map((item) => (
@@ -67,7 +78,7 @@ const Home = () => {
               </div>
             ))}
           </dl>
-        </div>
+        </div>*/}
       </div>
       <div className="pt-6">
         <div className="text-xl font-medium">Недавно добавленные</div>

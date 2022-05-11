@@ -513,6 +513,14 @@ export type GetRoomQueryVariables = Exact<{
 
 export type GetRoomQuery = { __typename?: 'Query', getRoom: { __typename?: 'RoomResponse', status: ResponseStatus, errors?: Array<{ __typename?: 'FieldError', field?: string | null, message?: string | null }> | null, room: { __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email: string, avatar?: { __typename?: 'Avatar', topType?: string | null, eyeType?: string | null, eyebrowType?: string | null, mouthType?: string | null, facialHairType?: string | null, facialHairColor?: string | null, hairColor?: string | null, hatColor?: string | null, skinColor?: string | null, clotheColor?: string | null, clotheType?: string | null, accessoriesType?: string | null } | null }, edition: { __typename?: 'BookEdition', id: string, title: string, description: string, image?: string | null, booksCount: number, publishedDate?: string | null, authors?: Array<string> | null, virtual: boolean, isbn_13?: string | null, isbn_10?: string | null } }, recipient: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email: string, avatar?: { __typename?: 'Avatar', topType?: string | null, eyeType?: string | null, eyebrowType?: string | null, mouthType?: string | null, facialHairType?: string | null, facialHairColor?: string | null, hairColor?: string | null, hatColor?: string | null, skinColor?: string | null, clotheColor?: string | null, clotheType?: string | null, accessoriesType?: string | null } | null }, sender: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email: string, avatar?: { __typename?: 'Avatar', topType?: string | null, eyeType?: string | null, eyebrowType?: string | null, mouthType?: string | null, facialHairType?: string | null, facialHairColor?: string | null, hairColor?: string | null, hatColor?: string | null, skinColor?: string | null, clotheColor?: string | null, clotheType?: string | null, accessoriesType?: string | null } | null }, swaps?: Array<{ __typename?: 'Swap', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email: string, avatar?: { __typename?: 'Avatar', topType?: string | null, eyeType?: string | null, eyebrowType?: string | null, mouthType?: string | null, facialHairType?: string | null, facialHairColor?: string | null, hairColor?: string | null, hatColor?: string | null, skinColor?: string | null, clotheColor?: string | null, clotheType?: string | null, accessoriesType?: string | null } | null }, edition: { __typename?: 'BookEdition', id: string, title: string, description: string, image?: string | null, booksCount: number, publishedDate?: string | null, authors?: Array<string> | null, virtual: boolean, isbn_13?: string | null, isbn_10?: string | null } } }> | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> } } };
 
+export type SendMessageMutationVariables = Exact<{
+  id: Scalars['String'];
+  message: Scalars['String'];
+}>;
+
+
+export type SendMessageMutation = { __typename?: 'Mutation', sendMessage: { __typename?: 'RoomResponse', status: ResponseStatus, errors?: Array<{ __typename?: 'FieldError', field?: string | null, message?: string | null }> | null, room: { __typename?: 'Room', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email: string, avatar?: { __typename?: 'Avatar', topType?: string | null, eyeType?: string | null, eyebrowType?: string | null, mouthType?: string | null, facialHairType?: string | null, facialHairColor?: string | null, hairColor?: string | null, hatColor?: string | null, skinColor?: string | null, clotheColor?: string | null, clotheType?: string | null, accessoriesType?: string | null } | null }, edition: { __typename?: 'BookEdition', id: string, title: string, description: string, image?: string | null, booksCount: number, publishedDate?: string | null, authors?: Array<string> | null, virtual: boolean, isbn_13?: string | null, isbn_10?: string | null } }, recipient: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email: string, avatar?: { __typename?: 'Avatar', topType?: string | null, eyeType?: string | null, eyebrowType?: string | null, mouthType?: string | null, facialHairType?: string | null, facialHairColor?: string | null, hairColor?: string | null, hatColor?: string | null, skinColor?: string | null, clotheColor?: string | null, clotheType?: string | null, accessoriesType?: string | null } | null }, sender: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email: string, avatar?: { __typename?: 'Avatar', topType?: string | null, eyeType?: string | null, eyebrowType?: string | null, mouthType?: string | null, facialHairType?: string | null, facialHairColor?: string | null, hairColor?: string | null, hatColor?: string | null, skinColor?: string | null, clotheColor?: string | null, clotheType?: string | null, accessoriesType?: string | null } | null }, swaps?: Array<{ __typename?: 'Swap', id: string, book: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email: string, avatar?: { __typename?: 'Avatar', topType?: string | null, eyeType?: string | null, eyebrowType?: string | null, mouthType?: string | null, facialHairType?: string | null, facialHairColor?: string | null, hairColor?: string | null, hatColor?: string | null, skinColor?: string | null, clotheColor?: string | null, clotheType?: string | null, accessoriesType?: string | null } | null }, edition: { __typename?: 'BookEdition', id: string, title: string, description: string, image?: string | null, booksCount: number, publishedDate?: string | null, authors?: Array<string> | null, virtual: boolean, isbn_13?: string | null, isbn_10?: string | null } } }> | null, messages: Array<{ __typename?: 'Message', createdAt: string, message: string, userId: string, isRead: boolean }> } } };
+
 export type AvatarFragment = { __typename?: 'Avatar', topType?: string | null, eyeType?: string | null, eyebrowType?: string | null, mouthType?: string | null, facialHairType?: string | null, facialHairColor?: string | null, hairColor?: string | null, hatColor?: string | null, skinColor?: string | null, clotheColor?: string | null, clotheType?: string | null, accessoriesType?: string | null };
 
 export type BookFragment = { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, swaps: Array<{ __typename?: 'Swap', id: string, status: SwapStatus }>, creator: { __typename?: 'User', id: string, email: string }, holder: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email: string, avatar?: { __typename?: 'Avatar', topType?: string | null, eyeType?: string | null, eyebrowType?: string | null, mouthType?: string | null, facialHairType?: string | null, facialHairColor?: string | null, hairColor?: string | null, hatColor?: string | null, skinColor?: string | null, clotheColor?: string | null, clotheType?: string | null, accessoriesType?: string | null } | null }, edition: { __typename?: 'BookEdition', id: string, title: string, description: string, image?: string | null, booksCount: number, publishedDate?: string | null, authors?: Array<string> | null, virtual: boolean, isbn_13?: string | null, isbn_10?: string | null } };
@@ -552,6 +560,15 @@ declare module '*/GetRoom.graphql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const getRoom: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/SendMessageMutation.graphql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const SendMessage: DocumentNode;
 
   export default defaultDocument;
 }
@@ -840,6 +857,20 @@ export const GetMe = gql`
 export const GetRoom = gql`
     query getRoom($id: String!) {
   getRoom(id: $id) {
+    status
+    errors {
+      field
+      message
+    }
+    room {
+      ...Room
+    }
+  }
+}
+    ${Room}`;
+export const SendMessage = gql`
+    mutation SendMessage($id: String!, $message: String!) {
+  sendMessage(id: $id, message: $message) {
     status
     errors {
       field

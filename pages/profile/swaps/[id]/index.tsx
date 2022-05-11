@@ -5,9 +5,12 @@ import { localesList } from '../../../../helpers/locales';
 import SwapLayout from "../index";
 import { useRouter } from 'next/router';
 import { useQueryWrapper } from '../../../../helpers/useQueryWrapper';
-import { GetMeQuery, GetRoomQuery } from '../../../../generated/graphql';
+import {
+  GetMeQuery,
+  GetRoomQuery,
+  SendMessageMutation,
+} from '../../../../generated/graphql';
 import { useMutation } from 'urql';
-import { SendMessageMutation } from '../../../../graphql/SendMessageMutation';
 import BookCover from '../../../../components/BookCover';
 import { AvatarComponent } from '../../../../components/avatars';
 import { format } from 'date-fns';
@@ -16,14 +19,16 @@ import Button from '../../../../components/UI/Button';
 import { loader } from 'graphql.macro';
 const GetMe = loader("../../../../graphql/GetMe.graphql");
 const GetRoom = loader("../../../../graphql/GetRoom.graphql");
+const SendMessage = loader("../../../../graphql/SendMessageMutation.graphql");
 
 const Index = () => {
   const router = useRouter();
   const { id } = router.query;
   const [text, setText] = useState('')
   const [length, setLength] = useState(1)
+  const [loader, showLoader] = useState(false);
 
-  const [{ data: roomData, fetching: fetchingRoom }, reexecuteQuery] = useQueryWrapper<GetRoomQuery>({
+  const [{ data: roomData }, reexecuteQuery] = useQueryWrapper<GetRoomQuery>({
     query: GetRoom,
     variables: { id },
     pause: !id,
@@ -33,22 +38,29 @@ const Index = () => {
   });
   const { id: userId } = meData?.me?.user || {};
 
-  const [, sendMessage] = useMutation(SendMessageMutation);
+  const [, sendMessage] = useMutation<SendMessageMutation>(SendMessage);
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  const scrollToBottom = () => {
     if (ref.current) {
       ref.current.scrollTo({
         behavior: 'smooth',
         top: ref.current.scrollHeight,
       });
     }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
   }, [length])
 
   useEffect(() => {
-    setInterval(async () => {
+    const updateChat = setInterval(async () => {
       await reexecuteQuery({ requestPolicy: 'network-only' });
-    }, 6000);
+    }, 10000);
+    return () => {
+      clearInterval(updateChat);
+    }
   }, []);
 
   useEffect(() => {
@@ -66,13 +78,18 @@ const Index = () => {
   const send = async (event: any) => {
     event.preventDefault()
     if(text){
+      const textToSend = text;
+      setText('')
+      showLoader(true);
+      setTimeout(() => {
+        scrollToBottom();
+      })
       await sendMessage({
         id: id,
-        message: text,
+        message: textToSend,
       });
-      await reexecuteQuery()
+      showLoader(false);
     }
-    setText('')
   }
 
   const getPartnerName = (room: GetRoomQuery["getRoom"]['room'], myId?: string) => {
@@ -87,7 +104,7 @@ const Index = () => {
 
   const onEnterHandler = async (event: any) => {
     if (event.key === 'Enter') {
-      send(event)
+      await send(event);
     }
   };
 
@@ -108,13 +125,14 @@ const Index = () => {
         </div>
       </div>
       <div className='bg-white p-1 rounded-t-lg'>
-        <div ref={ref as any} className='overflow-autol max-h-96 mt-1 flex justify-between w-full'>
-          <div className='flex flex-col w-full px-2'>
+        <div ref={ref as any} style={{height: 'calc(100vh - 520px)'}} className='overflow-auto border-b border-t mt-1 flex justify-between w-full'>
+          <div className='flex flex-col w-full p-2'>
             {
               room?.messages.map((message: any) => (
-                <div key={message.createdAt} className={`${userId === message.userId ? 'self-end' : 'self-start'}`}>
+                <div key={message.createdAt} className={`${'system' === message.userId ? 'self-center text-center' : userId === message.userId ? 'self-end' : 'self-start'}`}>
                   <div className={`flex items-center message text-xs italic text-gray-500 ${userId === message.userId ? 'justify-end' : 'justify-start'}`}>
                     {
+                      'system' === message.userId ? '' :
                       userId === message.userId ? (
                         <span>Вы: </span>
                       ) : (
@@ -126,15 +144,27 @@ const Index = () => {
                   <div className='flex items-center'>
                     {!message.isRead ? <span className='block w-2 h-2 bg-red-600 rounded-full mr-3' /> : ''}
                     <div
-                      className={`px-5 py-1.5 w-full rounded-md text-white my-2 ${userId === message.userId ? 'bg-main-500' : 'bg-green-500'}`}
+                      className={`px-5 py-1.5 w-full rounded-md text-white my-2 ${'system' === message.userId ? 'bg-gray-400' : userId === message.userId ? 'bg-main-500' : 'bg-green-500'}`}
                     >
                       {message.message}
                     </div>
                   </div>
-
                 </div>
               ))
             }
+            {
+              loader && (
+                <div className="inline-flex justify-center items-center px-4 py-2 leading-6 text-sm shadow rounded-md text-gray-600 bg-gray-300 hover:bg-gray-400 transition ease-in-out duration-150 cursor-not-allowed">
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                     viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Loading...
+              </div>)
+            }
+            <div></div>
           </div>
         </div>
 
@@ -154,7 +184,6 @@ const Index = () => {
                   id="comment"
                   className="block w-full border-0 border-b border-transparent p-0 pb-2 resize-none focus:ring-0 focus:border-indigo-600 sm:text-sm"
                   placeholder="Сообщение..."
-                  defaultValue={''}
                   onKeyDown={onEnterHandler}
                   value={text}
                   onChange={(e) => setText(e.target.value)}
@@ -170,8 +199,6 @@ const Index = () => {
             </form>
           </div>
         </div>
-
-        { fetchingRoom && <p>Loading...</p> }
       </div>
     </div>
   );

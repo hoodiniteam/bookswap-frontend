@@ -1,0 +1,14 @@
+#import "./fragmentRoom.graphql"
+
+mutation SendMessage($id: String!, $message: String!){
+    sendMessage(id: $id, message: $message) {
+        status
+        errors {
+            field
+            message
+        }
+        room {
+            ...Room
+        }
+    }
+}

@@ -68,9 +68,9 @@ const Index = ({children}: any) => {
 
   if (user) {
     const tabs = [
-      { name: 'all', label: 'Все', count: user.swaps.length + user.sends.length },
-      { name: 'receive', label: 'Получить', count: user.swaps.length },
-      { name: 'send', label: 'Отдать', count: user.sends.length },
+      { name: 'all', label: 'Все', count: user.chatRecipient.length + user.chatSender.length },
+      { name: 'receive', label: 'Получить', count: user.chatRecipient.length },
+      { name: 'send', label: 'Отдать', count: user.chatSender.length },
     ];
 
     return (
@@ -91,7 +91,7 @@ const Index = ({children}: any) => {
                         tab.name === activeTab
                           ? 'bg-indigo-100 text-indigo-700'
                           : 'text-gray-500',
-                        'hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md',
+                        'hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md cursor-pointer',
                       )}
                       aria-current={tab.name === activeTab ? 'page' : undefined}
                     >
@@ -99,7 +99,7 @@ const Index = ({children}: any) => {
                       {tab.count ? (
                         <span
                           className={classNames(
-                            tab.name === activeTab ? 'bg-indigo-100 text-indigo-600' : 'bg-gray-100 text-gray-900',
+                            tab.name === activeTab ? 'bg-indigo-200 text-indigo-600' : 'bg-gray-200 text-gray-900',
                             'hidden ml-3 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block',
                           )}
                         >
@@ -115,18 +115,18 @@ const Index = ({children}: any) => {
 
           <div className="flex mt-2">
 
-            <ul role='list' style={{maxHeight: 400}} className='grid grid-cols-1 p-2 -mx-2 gap-4 overflow-auto'>
+            <ul role='list' style={{height: 'calc(100vh - 250px)'}} className='grid grid-cols-1 p-2 -mx-2 gap-4 overflow-auto'>
               {
-                (activeTab === 'receive' || activeTab === 'all') && (
-                  user.chatRecipient.map((room) => (
-                    <SwapChatListItem key={room.id} actor="sender" room={room} user={user} />
+                (activeTab === 'send' || activeTab === 'all') && (
+                  user.chatSender.reverse().map((room) => (
+                    <SwapChatListItem key={room.id} actor="recipient" room={room} user={user} />
                   ))
                 )
               }
               {
-                (activeTab === 'send' || activeTab === 'all') && (
-                  user.chatSender.map((room) => (
-                    <SwapChatListItem key={room.id} actor="recipient" room={room} user={user} />
+                (activeTab === 'receive' || activeTab === 'all') && (
+                  user.chatRecipient.reverse().map((room) => (
+                    <SwapChatListItem key={room.id} actor="sender" room={room} user={user} />
                   ))
                 )
               }
