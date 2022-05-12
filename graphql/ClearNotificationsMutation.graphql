@@ -1,0 +1,14 @@
+#import "./fragmentUser.graphql"
+
+mutation ClearNotifications {
+    clearNotifications {
+        status
+        errors {
+            field
+            message
+        }
+        user {
+            ...User
+        }
+    }
+}

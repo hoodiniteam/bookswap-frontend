@@ -4,7 +4,7 @@ import Layout from '../../../components/layout'
 import {useQueryWrapper} from "../../../helpers/useQueryWrapper"
 import Head from 'next/head'
 import {GetBook} from "../../../graphql/GetBookQuery";
-import {getStaticBooks, getStaticEditions} from "../../../helpers/staticRequest";
+import {getStaticBooks} from "../../../helpers/staticRequest";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {localesList} from "../../../helpers/locales";
 

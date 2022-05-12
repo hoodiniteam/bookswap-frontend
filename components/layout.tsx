@@ -26,17 +26,18 @@ import {useQueryWrapper} from "../helpers/useQueryWrapper";
 import {AvatarComponent} from "./avatars";
 import { userName } from '../helpers/parseUserName';
 import { usePopper } from 'react-popper';
-import { NotificationLinkParser } from '../helpers/notificationLinkParser';
 import Button from './UI/Button';
-import { ClearNotificationsMutation } from '../graphql/ClearNotificationsMutation';
-import { dateParsedYear, dateTimeToHuman } from '../helpers/dateTime';
+import { dateParsedYear } from '../helpers/dateTime';
 import { CreateModal } from './CreateBookModal';
 import { loader } from 'graphql.macro';
-import { GetMeQuery } from '../generated/graphql';
+import { ClearNotificationsMutation, GetMeQuery } from '../generated/graphql';
+import { UserNotification } from './UI/UserNotification';
 const GetMe = loader("../graphql/GetMe.graphql");
+const ClearNotifications = loader("../graphql/ClearNotificationsMutation.graphql");
 
 const Layout = ({children, title, showHead = true}: any) => {
   const router = useRouter();
+  const [navMenu, setNavMenu] = useState(false);
   const [searchString, setSearchString] = useState('');
   const [createModal, setCreateModal] = useState(false)
   const [books, setBooks] = useState<any[]>([]);
@@ -53,7 +54,7 @@ const Layout = ({children, title, showHead = true}: any) => {
   });
 
   const [, createEdition] = useMutation(CreateEmptyEditionMutation);
-  const [, clearNotifications] = useMutation(ClearNotificationsMutation);
+  const [, clearNotifications] = useMutation<ClearNotificationsMutation>(ClearNotifications);
 
   const [{data: meData, fetching: fetchingMe}] = useQueryWrapper<GetMeQuery>({
     query: GetMe,
@@ -102,8 +103,6 @@ const Layout = ({children, title, showHead = true}: any) => {
     });
     setNavigation(newArr);
   }, [router.asPath]);
-
-  const notificationAmount = (arr: {isRead: boolean, message: string, createdAt: string}[]) => arr.filter(item => !item.isRead).length
 
   const inputSearchHandler = (e: any) => {
     const search = e.target.value;
@@ -280,36 +279,28 @@ const Layout = ({children, title, showHead = true}: any) => {
                   </div>
                   <div className="hidden sm:block">
                     <div className="flex items-center">
-                      <Popover className="">
-                        {({open}) => (
-                          <>
-                            <Popover.Button
-                              className={`${open ? '' : 'text-opacity-90'} text-white relative group bg-black bg-opacity-10 px-3 pl-14 py-2 rounded-md inline-flex items-center text-sm font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
-                            >
-                              <AvatarComponent
-                                className="w-10 absolute left-2 bottom-1"
-                                avatarStyle='Circle'
-                                {...user.avatar}
-                              />
-                              <span>{userName(user)}</span>
-                              <ChevronDownIcon
-                                className={`${open ? '' : 'text-opacity-70'} ml-2 h-5 w-5 text-orange-300 group-hover:text-opacity-80 transition ease-in-out duration-150`}
-                                aria-hidden="true"
-                              />
-                            </Popover.Button>
-                            <Transition
-                              as={Fragment}
-                              enter="transition ease-out duration-200"
-                              enterFrom="opacity-0 translate-y-1"
-                              enterTo="opacity-100 translate-y-0"
-                              leave="transition ease-in duration-150"
-                              leaveFrom="opacity-100 translate-y-0"
-                              leaveTo="opacity-0 translate-y-1"
-                            >
-                              <Popover.Panel
-                                className="absolute top-14 right-0 flex z-10 w-screen max-w-2xl mt-3 transform">
-                                <div style={{minWidth: 300}} className="rounded-lg shadow-lg bg-white mr-1 ring-1 ring-black ring-opacity-5">
-                                  <div>
+                      <div className="relative">
+                        <>
+                          <div
+                            onClick={() => setNavMenu(!navMenu)}
+                            className={`${navMenu ? '' : 'text-opacity-90'} select-none cursor-pointer text-white relative group bg-black bg-opacity-10 px-3 pl-14 py-2 rounded-md inline-flex items-center text-sm font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                          >
+                            <AvatarComponent
+                              className="w-10 absolute left-2 bottom-1"
+                              avatarStyle='Circle'
+                              {...user.avatar}
+                            />
+                            <span>{userName(user)}</span>
+                            <ChevronDownIcon
+                              className={`${navMenu ? '' : 'text-opacity-70'} ml-2 h-5 w-5 text-orange-300 group-hover:text-opacity-80 transition ease-in-out duration-150`}
+                              aria-hidden="true"
+                            />
+                          </div>
+                          {
+                            navMenu && <div className="absolute top-14 right-0 flex z-10 w-screen max-w-2xl mt-3 transform">
+                              <>
+                                <div style={{width: 300}} className="rounded-lg shadow-lg bg-white mr-1 ring-1 ring-black ring-opacity-5">
+                                  <div className="h-full flex flex-col">
                                     <div className="p-6">
                                       <div
                                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
@@ -330,25 +321,22 @@ const Layout = ({children, title, showHead = true}: any) => {
                                             }
                                           </p>
                                         </div>
-                                        <div className="flex-grow"></div>
-                                        <div>
-                                          {
-                                            user.notifications.length === 0 && <div className="text-sm text-blue-500 cursor-pointer" onClick={onClearNotifications}>Очистить</div>
-                                          }
-                                        </div>
                                       </div>
                                     </div>
-                                    <div className="overflow-auto">
+                                    <div style={{maxHeight: 316}} className="flex-grow overflow-auto">
                                       <div className="space-y-3 divide-y">
-                                      {
-                                        user.notifications.map((notification: {isRead: boolean, message: string, createdAt: string}) => (
-                                          <NotificationLinkParser message={notification.message} key={notification.createdAt} className="text-sm space-y-1 pt-3">
-                                            <div className="text-gray-500 text-xs">{dateTimeToHuman(notification.createdAt)}</div>
-                                          </NotificationLinkParser>
-                                        ))
-                                      }
+                                        {
+                                          user.notifications.reverse().map((notification, idx) => (
+                                            <UserNotification key={idx} notification={notification}/>
+                                          ))
+                                        }
+                                      </div>
                                     </div>
-                                    </div>
+                                    {
+                                      user.notifications.length !== 0 && <div className="p-4">
+                                        <Button variant='secondary' className='w-full' onClick={onClearNotifications}>Очистить</Button>
+                                      </div>
+                                    }
                                   </div>
                                 </div>
                                 <div className="overflow-hidden flex-grow rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
@@ -472,11 +460,11 @@ const Layout = ({children, title, showHead = true}: any) => {
                                     </a>
                                   </div>
                                 </div>
-                              </Popover.Panel>
-                            </Transition>
-                          </>
-                        )}
-                      </Popover>
+                              </>
+                            </div>
+                          }
+                        </>
+                      </div>
                     </div>
                   </div>
                 </div>

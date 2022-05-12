@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import React, { Fragment, ReactElement, useEffect, useRef, useState } from 'react';
 import Layout from '../../../../components/layout';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { localesList } from '../../../../helpers/locales';
@@ -15,6 +15,7 @@ import BookCover from '../../../../components/BookCover';
 import { AvatarComponent } from '../../../../components/avatars';
 import { format } from 'date-fns';
 import Button from '../../../../components/UI/Button';
+import {Dialog, Transition} from '@headlessui/react';
 
 import { loader } from 'graphql.macro';
 const GetMe = loader("../../../../graphql/GetMe.graphql");
@@ -27,6 +28,7 @@ const Index = () => {
   const [text, setText] = useState('')
   const [length, setLength] = useState(1)
   const [loader, showLoader] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   const [{ data: roomData }, reexecuteQuery] = useQueryWrapper<GetRoomQuery>({
     query: GetRoom,
@@ -111,17 +113,25 @@ const Index = () => {
   return (
     <div>
       <div className="bg-white px-2 pt-4 pb-1 rounded-md">
-        <div className="flex">
-          <div>
-            <BookCover height={80} classes="p-1 mr-4" book={room.book.edition}/>
-          </div>
-          <div>
-            <div className="text-lg font-medium">{room.book.title}</div>
-            <div className="flex items-center">
-              <AvatarComponent className='w-8' avatarStyle='Circle' {...room.book.holder.avatar} />
-              <div className="ml-2">{room.book.holder.firstName} {room.book.holder.lastName}</div>
+        <div className="flex items-center justify-between">
+          <div className="flex">
+            <div>
+              <BookCover height={80} classes="p-1 mr-4" book={room.book.edition}/>
+            </div>
+            <div>
+              <div className="text-lg font-medium">{room.book.title}</div>
+              <div className="flex items-center">
+                <AvatarComponent className='w-8' avatarStyle='Circle' {...room.book.holder.avatar} />
+                <div className="ml-2">{room.book.holder.firstName} {room.book.holder.lastName}</div>
+              </div>
             </div>
           </div>
+          {
+            room.sender.id === userId &&
+            <div>
+              <Button onClick={() => setIsOpen(true)}>{`Я передал книгу ${room.recipient.firstName}`}</Button>
+            </div>
+          }
         </div>
       </div>
       <div className='bg-white p-1 rounded-t-lg'>
@@ -200,6 +210,58 @@ const Index = () => {
           </div>
         </div>
       </div>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-50" open={isOpen} onClose={() => setIsOpen(false)}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    Передача книги
+                  </Dialog.Title>
+                  <Dialog.Description>
+                    Вы передаете книгу <span className="font-medium">{room.book.title}</span> пользователю <span className="font-medium">{room.recipient.firstName}</span>
+                  </Dialog.Description>
+
+                  <div className="mt-2">
+                    <p className="text-sm text-gray-500">
+                      После передачи книги она исчезнет из вашей библиотеки, а вы получите 1 BST.
+                      Вы уверены?
+                    </p>
+                  </div>
+                  <div className="mt-4 flex justify-end">
+                    <Button className="mr-4" variant="primary" onClick={() => setIsOpen(false)}>Передать книгу</Button>
+                    <Button variant="secondaryOutline" onClick={() => setIsOpen(false)}>Отмена</Button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </div>
   );
 };

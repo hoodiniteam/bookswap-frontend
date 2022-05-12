@@ -12,6 +12,7 @@ fragment User on User {
         isRead
         message
         createdAt
+        url
     }
     waiting {
         ...Edition

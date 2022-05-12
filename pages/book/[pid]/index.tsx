@@ -246,12 +246,10 @@ const Book = () => {
                           {book.holder.id === user.id && (
                             <div>
                               {book.status === BooksStatus[BooksStatus.HOLD] && (
-                                <Button variant='secondary' className='w-full' onClick={() => setBookOpen(book.id)}>Сделать
-                                  доступной для заказа</Button>
+                                <Button variant='secondary' className='w-full' onClick={() => setBookOpen(book.id)}>Сделать доступной для заказа</Button>
                               )}
                               {book.status === BooksStatus[BooksStatus.OPEN] && (
-                                <Button variant='secondaryOutline' className='w-full' onClick={() => setBookHold(book.id)}>Убрать
-                                  из доступных</Button>
+                                <Button variant='secondaryOutline' className='w-full' onClick={() => setBookHold(book.id)}>Убрать из доступных</Button>
                               )}
                             </div>
                           )}
