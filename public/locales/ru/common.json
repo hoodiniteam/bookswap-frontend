@@ -40,8 +40,8 @@
   "start-swap": "Начать Своп",
   "no-options": "Ничего не найдено",
   "ABSENT": "Отсутствует",
-  "HOLD": "На полке",
-  "OPEN": "Доступно",
+  "HOLD": "На руках",
+  "OPEN": "На полке",
   "SWAPPING": "Идет своп",
   "EXTRACTED": "Извлеченна",
   "success-notification-msg": "Ура! Вы инициализировали своп",
@@ -160,5 +160,8 @@
   "sunglasses": "Солнечные",
   "wayfarers": "Очки Wayfarers",
   "no-new-notification": "Новых уведомлений нет",
-  "new-notification": "Новое уведомление"
+  "new-notification": "Новое уведомление",
+  "emailExist": "Пользователь с таким Email уже существует",
+  "email4characters": "Email меньше 4 букв",
+  "password4characters": "Пароль должен быть длиннее 4 символов"
 }

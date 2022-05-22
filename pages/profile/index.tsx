@@ -57,7 +57,7 @@ const Index = () => {
   });
 
   const [, updateUser] = useMutation(UpdateUserMutation);
-  const [user, setUser] = useState<UserData | ''>('');
+  const [user, setUser] = useState<UserData>();
   const {
     register,
     clearErrors,
@@ -67,8 +67,9 @@ const Index = () => {
   const { t } = useTranslation(localesList);
 
   useEffect(() => {
-    console.log(meData);
-    if (meData) {
+    if (meData?.me?.user) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       setUser(meData.me.user);
     }
   }, [meData]);

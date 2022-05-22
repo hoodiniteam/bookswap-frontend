@@ -105,7 +105,7 @@ a {
 }
 
 .badge-hold {
-    @apply bg-blue-400 text-white;
+    @apply bg-amber-400 text-white;
 }
 
 .badge-swapping {
@@ -170,8 +170,9 @@ a {
     }
 }
 
-.mobile-layout {
-    @media (max-width: 640px) {
+
+@media (max-width: 640px) {
+    .mobile-layout {
         @apply fixed left-0 top-0 w-full z-10;
     }
 }

@@ -3,21 +3,15 @@ import {useRouter} from "next/router";
 import {useMutation} from "urql";
 import { LockClosedIcon } from '@heroicons/react/solid'
 import {LogoLogin} from "../../components/LogoLogin";
-const RegisterMutation = `
-mutation($email: String!, $password: String!){
-  registerUser(options:{email: $email, password: $password}){
-    errors{
-      field
-      message
-    }
-    status
-    credentials{
-      token
-      refreshToken
-    }
-  }
-}
-`
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { localesList } from '../../helpers/locales';
+
+import { loader } from 'graphql.macro';
+import { RegisterMutation } from '../../generated/graphql';
+import Cookies from 'js-cookie';
+const Register = loader("../../graphql/RegisterMutation.graphql");
+
 type Auth = {
   email: string,
   password: string
@@ -27,7 +21,8 @@ const Index = () => {
     email:'',
     password: '',
   })
-  const [, register] = useMutation(RegisterMutation)
+  const { t } = useTranslation(localesList);
+  const [, register] = useMutation<RegisterMutation>(Register)
   const [errorMsg, setErrorMsg] = useState('');
   const [field, setField] = useState('')
   const router = useRouter()
@@ -46,17 +41,21 @@ const Index = () => {
           password: auth.password
         };
         register(variables).then(res => {
-          const token = res.data.registerUser.credentials?.token;
-          const refreshToken = res.data.registerUser.credentials?.refreshToken;
-          if (token && refreshToken) {
-            localStorage.setItem("token", token);
-            localStorage.setItem("refreshToken", refreshToken);
-            setErrorMsg('');
-            setField('');
-            router.push('/home').then();
-          }else{
-            setErrorMsg(res.data.registerUser.errors[0].message);
-            setField(res.data.registerUser.errors[0].field);
+          if (res.data) {
+            const token = res.data.registerUser.credentials?.token;
+            const refreshToken = res.data.registerUser.credentials?.refreshToken;
+            if (token && refreshToken) {
+              Cookies.set("token", token);
+              Cookies.set("refreshToken", refreshToken);
+              setErrorMsg('');
+              setField('');
+              router.push('/home').then();
+            } else {
+              if (res.data.registerUser.errors) {
+                setErrorMsg(res.data.registerUser.errors[0]?.message || '');
+                setField(res.data.registerUser.errors[0]?.field || '');
+              }
+            }
           }
         })
       }
@@ -80,7 +79,7 @@ const Index = () => {
               <input type="hidden" name="remember" defaultValue="true"/>
               <div className="rounded-md shadow-sm -space-y-px">
                 <div>
-                  {field === 'email' ? <span className="text-red-500 text-xs">{errorMsg}</span> : ''}
+                  {field === 'email' ? <span className="text-red-500 text-xs">{t(errorMsg)}</span> : ''}
                   <label htmlFor="email-address" className="sr-only">
                     Email address
                   </label>
@@ -148,4 +147,11 @@ const Index = () => {
         </div>
     )
 }
+
+export const getStaticProps = async ({ locale }: any) => ({
+  props: {
+    ...(await serverSideTranslations(locale, localesList)),
+  },
+});
+
 export default Index

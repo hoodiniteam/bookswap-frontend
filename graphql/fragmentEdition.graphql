@@ -9,4 +9,7 @@ fragment Edition on BookEdition {
     virtual
     isbn_13
     isbn_10
+    books {
+        condition
+    }
 }

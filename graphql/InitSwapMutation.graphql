@@ -1,0 +1,14 @@
+#import "./fragmentRoom.graphql"
+
+mutation InitSwap($roomId: String!){
+    initSwap(roomId: $roomId) {
+        status
+        errors {
+            field
+            message
+        }
+        room {
+            ...Room
+        }
+    }
+}

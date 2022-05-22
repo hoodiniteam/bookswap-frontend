@@ -32,6 +32,9 @@ import { CreateModal } from './CreateBookModal';
 import { loader } from 'graphql.macro';
 import { ClearNotificationsMutation, GetMeQuery } from '../generated/graphql';
 import { UserNotification } from './UI/UserNotification';
+import OutsideClickHandler from 'react-outside-click-handler';
+import classNames from 'classnames';
+
 const GetMe = loader("../graphql/GetMe.graphql");
 const ClearNotifications = loader("../graphql/ClearNotificationsMutation.graphql");
 
@@ -70,10 +73,8 @@ const Layout = ({children, title, showHead = true}: any) => {
   const {t} = useTranslation(['nav', 'common']);
 
   useEffect(() => {
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
 
-    function handleClick(e: any) {
+    const handleClick = (e: any) => {
       if (myRef && myRef.current) {
         const ref: any = myRef.current;
         if (!ref.contains(e.target)) {
@@ -81,6 +82,18 @@ const Layout = ({children, title, showHead = true}: any) => {
           setBooks([]);
         }
       }
+    }
+
+    const handleRouteChange = () => {
+      setNavMenu(false);
+    };
+
+    router.events.on('routeChangeStart', handleRouteChange)
+
+    document.addEventListener('click', handleClick);
+    return () => {
+      document.removeEventListener('click', handleClick);
+      router.events.off('routeChangeStart', handleRouteChange)
     }
   }, []);
 
@@ -164,11 +177,9 @@ const Layout = ({children, title, showHead = true}: any) => {
         </Head>
         <div className="min-h-screen bg-gray-100">
           <div className="mobile-layout bg-gradient-to-r from-orange-400 to-pink-500 sm:pb-32">
-            <nav
-              className="border-b border-main-300 border-opacity-25 lg:border-none"
-            >
+            <nav>
               <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
-                <div className="relative space-x-4 h-16 flex items-center justify-between lg:border-b lg:border-gray-100 lg:border-opacity-25">
+                <div className="relative space-x-4 h-16 flex items-center justify-between border-b">
                   <div className="px-2 flex items-center lg:px-0">
                     <div className="flex-shrink-0">
                       <Link href="/home">
@@ -182,12 +193,14 @@ const Layout = ({children, title, showHead = true}: any) => {
                     <Link href='/books'>
                       <a
                         className={
-                          router.asPath.includes('/books')
-                            ? 'bg-main-700 text-white border border-main-700 hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium'
-                            : 'text-white border border-white hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium'
+                          classNames({
+                            'bg-main-700 text-white border border-main-700 hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium': router.asPath.includes('/books'),
+                            'text-white border border-white hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium': !router.asPath.includes('/books'),
+                          }, "flex items-center space-x-2")
                         }
                       >
-                        Книги
+                        <BookOpenIcon className="h-5 w-5" />
+                        <span>Все книги</span>
                       </a>
                     </Link>
                   </div>
@@ -280,7 +293,9 @@ const Layout = ({children, title, showHead = true}: any) => {
                   <div className="hidden sm:block">
                     <div className="flex items-center">
                       <div className="relative">
-                        <>
+                        <OutsideClickHandler onOutsideClick={() => {
+                          setNavMenu(false);
+                        }}>
                           <div
                             onClick={() => setNavMenu(!navMenu)}
                             className={`${navMenu ? '' : 'text-opacity-90'} select-none cursor-pointer text-white relative group bg-black bg-opacity-10 px-3 pl-14 py-2 rounded-md inline-flex items-center text-sm font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
@@ -298,180 +313,181 @@ const Layout = ({children, title, showHead = true}: any) => {
                           </div>
                           {
                             navMenu && <div className="absolute top-14 right-0 flex z-10 w-screen max-w-2xl mt-3 transform">
-                              <>
-                                <div style={{width: 300}} className="rounded-lg shadow-lg bg-white mr-1 ring-1 ring-black ring-opacity-5">
-                                  <div className="h-full flex flex-col">
-                                    <div className="p-6">
-                                      <div
-                                        className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                                      >
-                                        <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                          <BellIcon
-                                            className="h-10 w-10 text-green-600"
-                                            aria-hidden="true"
-                                          />
-                                        </div>
-                                        <div className="ml-4">
-                                          <p className="text-sm font-bold text-gray-900">
-                                            Уведомления
-                                          </p>
-                                          <p className="text-sm text-gray-500">
-                                            {
-                                              user.notifications.length > 0 ? user.notifications.length : "Нет уведомлений"
-                                            }
-                                          </p>
+                                <>
+                                  <div style={{width: 300}} className="rounded-lg shadow-lg bg-white mr-1 ring-1 ring-black ring-opacity-5">
+                                    <div className="h-full flex flex-col">
+                                      <div className="p-6">
+                                        <div
+                                          className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                        >
+                                          <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                            <BellIcon
+                                              className="h-10 w-10 text-green-600"
+                                              aria-hidden="true"
+                                            />
+                                          </div>
+                                          <div className="ml-4">
+                                            <p className="text-sm font-bold text-gray-900">
+                                              Уведомления
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                              {
+                                                user.notifications.length > 0 ? user.notifications.length : "Нет уведомлений"
+                                              }
+                                            </p>
+                                          </div>
                                         </div>
                                       </div>
+                                      <div style={{maxHeight: 316}} className="flex-grow overflow-auto">
+                                        <div className="space-y-3 divide-y">
+                                          {
+                                            user.notifications.reverse().map((notification, idx) => (
+                                              <UserNotification key={idx} notification={notification}/>
+                                            ))
+                                          }
+                                        </div>
+                                      </div>
+                                      {
+                                        user.notifications.length !== 0 && <div className="p-4">
+                                          <Button variant='secondary' className='w-full' onClick={onClearNotifications}>Очистить</Button>
+                                        </div>
+                                      }
                                     </div>
-                                    <div style={{maxHeight: 316}} className="flex-grow overflow-auto">
-                                      <div className="space-y-3 divide-y">
-                                        {
-                                          user.notifications.reverse().map((notification, idx) => (
-                                            <UserNotification key={idx} notification={notification}/>
-                                          ))
-                                        }
-                                      </div>
+                                  </div>
+                                  <div className="overflow-hidden flex-grow rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                                    <div className="relative grid gap-8 bg-white p-7">
+                                      <Link href="/profile/books">
+                                        <a
+                                          className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                        >
+                                          <div
+                                            className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                            <img className="w-10" src="/images/origami-c.png"/>
+                                          </div>
+                                          <div className="ml-4">
+                                            <p className="text-sm font-bold text-gray-900">
+                                              Мои книги
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                              {user.points} BST
+                                            </p>
+                                          </div>
+                                        </a>
+                                      </Link>
+                                      <Link href="/profile">
+                                        <a
+                                          className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                        >
+                                          <div
+                                            className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                            <AvatarComponent
+                                              className="w-10"
+                                              avatarStyle='Circle'
+                                              {...user.avatar}
+                                            />
+                                          </div>
+                                          <div className="ml-4">
+                                            <p className="text-sm font-bold text-gray-900">
+                                              Профиль
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                              {userName(user)}
+                                            </p>
+                                          </div>
+                                        </a>
+                                      </Link>
+                                      <Link href="/profile/swaps">
+                                        <a
+                                          className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                        >
+                                          <div
+                                            className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                            <RefreshIcon
+                                              className="h-10 w-10 text-green-600"
+                                              aria-hidden="true"
+                                            />
+                                          </div>
+                                          <div className="ml-4">
+                                            <p className="text-sm font-bold text-gray-900">
+                                              Свопы
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                              {user.chatRecipient.length} получить / {user.chatSender.length} отдать
+                                            </p>
+                                          </div>
+                                        </a>
+                                      </Link>
+                                      <Link href="/profile/waiting">
+                                        <a
+                                          className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                        >
+                                          <div
+                                            className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                            <BookmarkIcon
+                                              className="h-10 w-10 text-orange-400"
+                                              aria-hidden="true"
+                                            />
+                                          </div>
+                                          <div className="ml-4">
+                                            <p className="text-sm font-bold text-gray-900">
+                                              Подписки
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                              Книги которые вы ждете
+                                            </p>
+                                          </div>
+                                        </a>
+                                      </Link>
+                                      <Link href="https://t.me/joinchat/jOVQHloO7ApiMDIy">
+                                        <a
+                                          className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                        >
+                                          <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                            <SupportIcon
+                                              className="h-10 w-10 text-blue-500"
+                                              aria-hidden="true"
+                                            />
+                                          </div>
+                                          <div className="ml-4">
+                                            <p className="text-sm font-bold text-gray-900">
+                                              Поддержка
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                              Ссылка на Телеграмм чат
+                                            </p>
+                                          </div>
+                                        </a>
+                                      </Link>
                                     </div>
-                                    {
-                                      user.notifications.length !== 0 && <div className="p-4">
-                                        <Button variant='secondary' className='w-full' onClick={onClearNotifications}>Очистить</Button>
-                                      </div>
-                                    }
-                                  </div>
-                                </div>
-                                <div className="overflow-hidden flex-grow rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                                  <div className="relative grid gap-8 bg-white p-7">
-                                    <Link href="/profile/books">
+                                    <div className="p-4 bg-gray-50">
                                       <a
-                                        className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                        href="#"
+                                        className="flow-root px-5 py-2 transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                                       >
-                                        <div
-                                          className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                          <img className="w-10" src="/images/origami-c.png"/>
-                                        </div>
-                                        <div className="ml-4">
-                                          <p className="text-sm font-bold text-gray-900">
-                                            Мои книги
-                                          </p>
-                                          <p className="text-sm text-gray-500">
-                                            {user.points} BST
-                                          </p>
-                                        </div>
-                                      </a>
-                                    </Link>
-                                    <Link href="/profile">
-                                      <a
-                                        className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                                      >
-                                        <div
-                                          className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                          <AvatarComponent
-                                            className="w-10"
-                                            avatarStyle='Circle'
-                                            {...user.avatar}
-                                          />
-                                        </div>
-                                        <div className="ml-4">
-                                          <p className="text-sm font-bold text-gray-900">
-                                            Профиль
-                                          </p>
-                                          <p className="text-sm text-gray-500">
-                                            {userName(user)}
-                                          </p>
-                                        </div>
-                                      </a>
-                                    </Link>
-                                    <Link href="/profile/swaps">
-                                      <a
-                                        className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                                      >
-                                        <div
-                                          className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                          <RefreshIcon
-                                            className="h-10 w-10 text-green-600"
-                                            aria-hidden="true"
-                                          />
-                                        </div>
-                                        <div className="ml-4">
-                                          <p className="text-sm font-bold text-gray-900">
-                                            Свопы
-                                          </p>
-                                          <p className="text-sm text-gray-500">
-                                            {user.chatRecipient.length} получить / {user.chatSender.length} отдать
-                                          </p>
-                                        </div>
-                                      </a>
-                                    </Link>
-                                    <Link href="/profile/waiting">
-                                      <a
-                                        className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                                      >
-                                        <div
-                                          className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                          <BookmarkIcon
-                                            className="h-10 w-10 text-orange-400"
-                                            aria-hidden="true"
-                                          />
-                                        </div>
-                                        <div className="ml-4">
-                                          <p className="text-sm font-bold text-gray-900">
-                                            Подписки
-                                          </p>
-                                          <p className="text-sm text-gray-500">
-                                            Книги которые вы ждете
-                                          </p>
-                                        </div>
-                                      </a>
-                                    </Link>
-                                    <Link href="https://t.me/joinchat/jOVQHloO7ApiMDIy">
-                                      <a
-                                        className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                                      >
-                                        <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                          <SupportIcon
-                                            className="h-10 w-10 text-blue-500"
-                                            aria-hidden="true"
-                                          />
-                                        </div>
-                                        <div className="ml-4">
-                                          <p className="text-sm font-bold text-gray-900">
-                                            Поддержка
-                                          </p>
-                                          <p className="text-sm text-gray-500">
-                                            Ссылка на Телеграмм чат
-                                          </p>
-                                        </div>
-                                      </a>
-                                    </Link>
-                                  </div>
-                                  <div className="p-4 bg-gray-50">
-                                    <a
-                                      href="#"
-                                      className="flow-root px-5 py-2 transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                                    >
-                                      <span className="flex items-center">
-                                        <span className="text-sm font-bold text-gray-900">
-                                          О проекте
+                                        <span className="flex items-center">
+                                          <span className="text-sm font-bold text-gray-900">
+                                            О проекте
+                                          </span>
                                         </span>
-                                      </span>
-                                      <span className="block text-sm text-gray-500">
-                                        Как мы работаем? Зачем все это нужно?
-                                      </span>
-                                    </a>
+                                        <span className="block text-sm text-gray-500">
+                                          Как мы работаем? Зачем все это нужно?
+                                        </span>
+                                      </a>
+                                    </div>
                                   </div>
-                                </div>
-                              </>
-                            </div>
+                                </>
+                              </div>
+
                           }
-                        </>
+                        </OutsideClickHandler>
                       </div>
                     </div>
                   </div>
                 </div>
                 {
                   showHead && (
-                    <div className="hidden py-4 sm:flex items-center justify-between">
-                      <div className="flex space-x-4">
+                    <div className="hidden py-3 sm:flex items-center justify-between">
+                      <div className="flex space-x-2">
                         {navigation.map((item) => (
                           <Link
                             key={item.title}
@@ -480,8 +496,8 @@ const Layout = ({children, title, showHead = true}: any) => {
                             <a
                               className={
                                 item.current
-                                  ? 'bg-main-700 text-white border border-main-700 hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium'
-                                  : 'text-white border border-white hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium'
+                                  ? 'bg-main-700 text-white border border-main-700 hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-1 px-2 text-xs font-medium'
+                                  : 'text-white border border-white hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-1 px-2 text-xs font-medium'
                               }
                             >
                               {t(item.title)}
@@ -734,7 +750,7 @@ const Layout = ({children, title, showHead = true}: any) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <div className="inline-block w-full max-w-screen-sm p-6 my-8 text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                <div className="inline-block w-full max-w-screen-sm p-6 my-8 text-left align-top transition-all transform bg-white shadow-xl rounded-2xl">
                   <Dialog.Title
                     as="h3"
                     className="flex justify-between items-center text-lg font-medium text-gray-900 mb-2"

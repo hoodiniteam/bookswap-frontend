@@ -22,7 +22,7 @@ const Home = () => {
     query: GetEditionsQuery,
     variables: {
       offset: 0,
-      limit: 5,
+      limit: 10,
       status: status ? Array.from(status) : null,
       hasBooks: true,
       recent: true,
@@ -33,7 +33,7 @@ const Home = () => {
     query: GetEditionsQuery,
     variables: {
       offset: 0,
-      limit: 5,
+      limit: 10,
       status: status ? Array.from(status) : null,
       hasBooks: true,
       popular: true,
@@ -80,19 +80,19 @@ const Home = () => {
           </dl>
         </div>*/}
       </div>
-      <div className="pt-6">
+      <div className="pt-8">
         <div className="text-xl font-medium">Недавно добавленные</div>
-        <ul className="grid grid-cols-2 gap-6 sm:grid-cols-5 mt-4">
+        <ul className="w-full flex gap-2 snap-x scroll-pl-10 overflow-x-auto py-6">
           {editions.map((edition: any) => (
-            <BookWrapper size="small" key={edition.id} book={edition}/>
+            <BookWrapper className="snap-start" size="small" key={edition.id} book={edition}/>
           ))}
         </ul>
       </div>
-      <div className="pt-6">
+      <div className="pt-8">
         <div className="text-xl font-medium">Популярные</div>
-        <ul className="grid grid-cols-2 gap-6 sm:grid-cols-5 mt-4">
+        <ul className="w-full flex gap-2 snap-x scroll-pl-10 overflow-x-auto py-6">
           {popularEditions.map((edition: any) => (
-            <BookWrapper size="small" key={edition.id} book={edition}/>
+            <BookWrapper className="snap-start" size="small" key={edition.id} book={edition}/>
           ))}
         </ul>
       </div>

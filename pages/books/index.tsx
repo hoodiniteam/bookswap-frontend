@@ -5,8 +5,10 @@ import Layout from "../../components/layout";
 import BookWrapper from "../../components/BookWrapper";
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
-import {GetEditionsQuery} from "../../graphql/GetEditionsQuery";
 import {localesList} from "../../helpers/locales";
+import { loader } from 'graphql.macro';
+import { GetEditionsQuery } from '../../generated/graphql';
+const GetEditions = loader("../../graphql/GetEditionsQuery.graphql");
 /*import {Badge} from "../../components/Badge";
 import {BooksStatus} from "../../types/Book";*/
 
@@ -19,8 +21,8 @@ const Index = () => {
   const popular = query.popular ? query.popular === "true" : false;
   const limit = 30;
 
-  const [{data}] = useQueryWrapper({
-    query: GetEditionsQuery,
+  const [{data}] = useQueryWrapper<GetEditionsQuery>({
+    query: GetEditions,
     variables: {
       offset: limit * (currentPage - 1),
       limit: limit,

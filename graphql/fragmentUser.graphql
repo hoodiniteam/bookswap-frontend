@@ -27,16 +27,6 @@ fragment User on User {
     swaps {
         ...Swap
     }
-    trades {
-        book {
-            id
-            edition {
-                id
-            }
-        }
-        status
-        endingDate
-    }
     books{
         id
         title

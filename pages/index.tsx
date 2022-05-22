@@ -4,7 +4,10 @@ import Link from 'next/link';
 export default function Index() {
   return (
     <div>
-      Promo page
+      <Link href="/register">
+        <a>Register</a>
+      </Link>
+
       <Link href="/home">
         <a>Home</a>
       </Link>

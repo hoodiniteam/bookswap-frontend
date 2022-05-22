@@ -102,8 +102,27 @@ export const CreateModal = () => {
                 </div>
               ),
             }));
-            console.log(editions);
-            callback(editions || []);
+            if (editions.length) {
+              callback(editions);
+            } else {
+              callback([{
+                value: {
+                  new: true,
+                  title: inputValue,
+                },
+                label: (
+                  <div className='flex bg-white hover:bg-gray-100 py-1 cursor-pointer items-center'>
+                    <div className='mr-2 bg-gray-100'>
+                      <div className='w-20'></div>
+                    </div>
+                    <div>
+                      <p className='leading-5'>Добавить новое издание</p>
+                      <span className='text-xs'>{inputValue}</span>
+                    </div>
+                  </div>
+                ),
+              }])
+            }
           }
         })
         .catch(() => {
@@ -163,6 +182,14 @@ export const CreateModal = () => {
     }
     clearErrors(name);
   };
+
+  const customStyles = {
+    menuList: (provided: any) => ({
+      ...provided,
+      maxHeight: 'calc(100vh - 200px)',
+    }),
+  }
+
   return (
     <>
       <form
@@ -175,6 +202,7 @@ export const CreateModal = () => {
               <div className='col-span-4'>
                 <div className='mt-1 rounded-md shadow-sm'>
                   <AsyncSelect
+                    styles={customStyles}
                     placeholder={"Заголовок книги"}
                     loadOptions={loadOptions}
                     onChange={handleSelectChange as any}

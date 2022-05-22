@@ -13,11 +13,12 @@ fragment Room on Room {
     sender {
         ...Sender
     }
-    swaps {
+    swap {
         id
         book {
             ...Book
         }
+        status
     }
     messages {
         createdAt
@@ -25,4 +26,5 @@ fragment Room on Room {
         userId
         isRead
     }
+    status
 }

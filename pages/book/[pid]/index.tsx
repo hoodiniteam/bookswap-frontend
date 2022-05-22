@@ -190,7 +190,7 @@ const Book = () => {
           </div>
         </div>
       </div>
-      <div className="pt-6">
+      <div className="pt-16">
         <div className='sm:grid gap-6 sm:grid-cols-6'>
           <div className='col-span-2'>
             <div>

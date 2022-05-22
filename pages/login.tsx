@@ -4,24 +4,11 @@ import { useMutation } from 'urql'
 import Link from 'next/link'
 import Cookies from 'js-cookie';
 import {LogoLogin} from "../components/LogoLogin";
-const LoginMutation = `
-  mutation($email: String!, $password: String!){
-    login(options:{email:$email, password:$password}){
-        status
-        errors{
-          message
-          field
-          }
-        credentials{
-        token, refreshToken
-      }
-    }
-  }
-`
 
-type LoginAPI = {
-    login: any
-}
+import { loader } from 'graphql.macro';
+import { LoginMutation } from '../generated/graphql';
+const LoginM = loader("../graphql/LoginMutation.graphql");
+
 type Auth = {
     email: string
     password: string
@@ -34,7 +21,7 @@ const Login = () => {
         email: '',
         password: '',
     })
-    const [, login] = useMutation<LoginAPI>(LoginMutation)
+    const [, login] = useMutation<LoginMutation>(LoginM)
     const router = useRouter()
     const onHandlerInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
@@ -61,8 +48,10 @@ const Login = () => {
                     setErrField('')
                     router.push('/home').then()
                 } else {
-                    setErrMessage(res.data?.login.errors[0].message)
-                    setErrField(res.data?.login.errors[0].field)
+                    if (res.data?.login.errors) {
+                        setErrMessage(res.data.login.errors[0].message || "")
+                        setErrField(res.data.login.errors[0].field || "")
+                    }
                 }
             })
         }
