@@ -10,8 +10,10 @@ import { Book, BooksCondition } from '../types/Book';
 import { CreateBookMutation } from '../graphql/CreateBookMutation';
 import { dateParsedYear } from '../helpers/dateTime';
 import { useNotification } from '../helpers/notificationHelper';
+import Button from './UI/Button';
+import { PlusCircleIcon } from '@heroicons/react/outline';
 
-export const CreateModal = () => {
+export const CreateModal = ({onClose}: {onClose: () => void}) => {
   const client = useClient();
   const {successNotification} = useNotification();
   const timer = useRef<any>();
@@ -32,6 +34,7 @@ export const CreateModal = () => {
   };
 
   const [book, setBook] = useState<CreateBookForm | null>(null);
+  const [addNewBook, showAddNewBook] = useState('');
 
   const {
     register,
@@ -51,6 +54,7 @@ export const CreateModal = () => {
       createBook(book)
         .then(async (res) => {
           successNotification("Книга добавлена");
+          onClose();
           await router.push(`/book/${res.data.createBook.book.edition.id}`);
         });
     }
@@ -76,7 +80,6 @@ export const CreateModal = () => {
           if (result) {
             const editions = result.map((edition: any) => ({
               value: {
-                id: !edition.virtual ? edition.id : null,
                 title: edition.title,
                 image: edition?.image,
                 authors: edition?.authors,
@@ -103,25 +106,11 @@ export const CreateModal = () => {
               ),
             }));
             if (editions.length) {
+              showAddNewBook('');
               callback(editions);
             } else {
-              callback([{
-                value: {
-                  new: true,
-                  title: inputValue,
-                },
-                label: (
-                  <div className='flex bg-white hover:bg-gray-100 py-1 cursor-pointer items-center'>
-                    <div className='mr-2 bg-gray-100'>
-                      <div className='w-20'></div>
-                    </div>
-                    <div>
-                      <p className='leading-5'>Добавить новое издание</p>
-                      <span className='text-xs'>{inputValue}</span>
-                    </div>
-                  </div>
-                ),
-              }])
+              showAddNewBook(inputValue);
+              callback([])
             }
           }
         })
@@ -197,7 +186,7 @@ export const CreateModal = () => {
         onSubmit={submit}
       >
         <div className=''>
-          <div className='bg-white space-y-6'>
+          <div className='bg-white'>
             <div className='grid grid-cols-4 gap-6'>
               <div className='col-span-4'>
                 <div className='mt-1 rounded-md shadow-sm'>
@@ -261,6 +250,21 @@ export const CreateModal = () => {
                 )
               }
             </div>
+            {
+              addNewBook && (
+                <div className='border mt-12 rounded-md p-6 bg-white text-center hover:bg-gray-100 cursor-pointer'>
+                  <div>
+                    <div>
+                      <Button>
+                        <PlusCircleIcon className="h-5 w-5 mr-2" />
+                        Добавить новое издание
+                      </Button>
+                    </div>
+                    <p className='text-sm italic mt-2'>&#34;{addNewBook}&#34;</p>
+                  </div>
+                </div>
+              )
+            }
             {
               book && (
                 <>

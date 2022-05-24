@@ -6,12 +6,12 @@ import {AvatarComponent} from "../../components/avatars";
 import Select from "react-select";
 import Button from "../../components/UI/Button";
 import {useMutation} from "urql";
-import {UpdateUserMutation} from "../../graphql/UpdateUserMutation";
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
 import { useAvatarOptions } from '../../helpers/avatarOptions';
 import { loader } from 'graphql.macro';
-import { GetMeQuery } from '../../generated/graphql';
+import { GetMeQuery, UpdateUserMutation } from '../../generated/graphql';
 const GetMe = loader("../../graphql/GetMe.graphql");
+const UpdateUser = loader("../../graphql/UpdateUserMutation.graphql");
 
 const Avatar = () => {
 
@@ -32,7 +32,7 @@ const Avatar = () => {
     accessoriesTypeOptions, } = useAvatarOptions();
   const [avatarSelectOptions, setAvatarSelectOptions] = useState<any>({});
   const [avatarDisplayOptions, setAvatarDisplayOptions] = useState<any>(null);
-  const [, updateUser] = useMutation(UpdateUserMutation);
+  const [, updateUser] = useMutation<UpdateUserMutation>(UpdateUser);
 
   const saveAvatarHandler = async () => {
     await updateUser({

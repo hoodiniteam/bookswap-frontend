@@ -2,15 +2,14 @@ import React, { ReactElement } from 'react';
 import Layout from '../components/layout';
 import Head from 'next/head';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
 import { localesList } from '../helpers/locales';
 import { useQueryWrapper } from '../helpers/useQueryWrapper';
-import { GetEditionsQuery } from '../graphql/GetEditionsQuery';
 import BookWrapper from '../components/BookWrapper';
-import { GetMeQuery } from '../generated/graphql';
+import { GetEditionsQuery, GetMeQuery } from '../generated/graphql';
 import { loader } from 'graphql.macro';
 import Link from 'next/link';
 const GetMe = loader('../graphql/GetMe.graphql');
+const GetEditions = loader('../graphql/GetEditionsQuery.graphql');
 
 const Home = () => {
 
@@ -18,8 +17,8 @@ const Home = () => {
     query: GetMe,
   });
 
-  const [{data}] = useQueryWrapper({
-    query: GetEditionsQuery,
+  const [{data}] = useQueryWrapper<GetEditionsQuery>({
+    query: GetEditions,
     variables: {
       offset: 0,
       limit: 10,
@@ -29,8 +28,8 @@ const Home = () => {
     }
   })
 
-  const [{data: popularData}] = useQueryWrapper({
-    query: GetEditionsQuery,
+  const [{data: popularData}] = useQueryWrapper<GetEditionsQuery>({
+    query: GetEditions,
     variables: {
       offset: 0,
       limit: 10,
@@ -44,7 +43,8 @@ const Home = () => {
   const editions = data?.getEditions?.editions || [];
   const popularEditions = popularData?.getEditions?.editions || [];
 
-  const { t } = useTranslation(localesList);
+  // const { t } = useTranslation(localesList);
+
   const stats = [
     { name: 'Получить', stat: user?.chatRecipient.length || 0 },
     { name: 'Отдать', stat: user?.chatSender.length || 0 },

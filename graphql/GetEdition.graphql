@@ -1,0 +1,14 @@
+#import "./fragmentEdition.graphql"
+
+query getEdition($id: String!){
+    getEdition(id: $id){
+        status
+        errors {
+            field
+            message
+        }
+        edition {
+            ...Edition
+        }
+    }
+}

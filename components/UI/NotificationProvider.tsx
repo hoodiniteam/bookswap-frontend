@@ -18,6 +18,9 @@ const NotificationProvider = ({children}: PropsProvider) => {
   const [state, dispatch] = useReducer((state: Note[], action: any) => {
     switch (action.type) {
       case 'ADD_NOTIFICATION':
+        setTimeout(() => {
+          dispatch({...action, type: "REMOVE_NOTIFICATION",});
+        }, 2000);
         return [...state, {...action.payload}]
       case 'REMOVE_NOTIFICATION':
         return state.filter(el => {

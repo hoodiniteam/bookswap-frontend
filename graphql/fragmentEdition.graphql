@@ -1,15 +1,18 @@
+#import "./fragmentUser.graphql"
+#import "./fragmentBook.graphql"
+
 fragment Edition on BookEdition {
     id
     title
     description
-    image
-    booksCount
-    publishedDate
     authors
-    virtual
-    isbn_13
-    isbn_10
+    image
+    publishedDate
+    views
+    expects {
+        ...User
+    }
     books {
-        condition
+        ...Book
     }
 }

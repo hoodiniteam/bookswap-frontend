@@ -1,4 +1,4 @@
-#import "./fragmentEdition.graphql"
+#import "./fragmentEditionSimple.graphql"
 #import "./fragmentSwap.graphql"
 #import "./fragmentAvatar.graphql"
 #import "./fragmentRoom.graphql"
@@ -15,7 +15,7 @@ fragment User on User {
         url
     }
     waiting {
-        ...Edition
+        ...SimpleEdition
     }
     avatar {
         ...Avatar
@@ -34,7 +34,7 @@ fragment User on User {
         status
         condition
         edition {
-            ...Edition
+            ...SimpleEdition
         }
     }
     chatSender {

@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import Layout from '../../../components/layout';
 import { useQueryWrapper } from '../../../helpers/useQueryWrapper';
 import Head from 'next/head';
-import { GetEditionQuery } from '../../../graphql/GetEditionQuery';
 import { useTranslation } from 'react-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { localesList } from '../../../helpers/locales';
@@ -22,16 +21,17 @@ import { AvatarComponent } from '../../../components/avatars';
 import Tippy from '@tippyjs/react';
 import { userName } from '../../../helpers/parseUserName';
 import { loader } from 'graphql.macro';
-import { CreateRoomMutationMutation, GetMeQuery } from '../../../generated/graphql';
+import { CreateRoomMutationMutation, GetEditionQuery, GetMeQuery } from '../../../generated/graphql';
 const GetMe = loader("../../../graphql/GetMe.graphql");
 const CreateRoomMutation = loader("../../../graphql/CreateRoomMutation.graphql");
+const GetEdition = loader("../../../graphql/GetEdition.graphql");
 
 const Book = () => {
   const router = useRouter();
   const { pid } = router.query;
 
-  const [{ data: editionData, fetching: fetchingEdition }] = useQueryWrapper({
-    query: GetEditionQuery,
+  const [{ data: editionData, fetching: fetchingEdition }] = useQueryWrapper<GetEditionQuery>({
+    query: GetEdition,
     variables: { id: pid },
     pause: !pid,
   });
@@ -191,7 +191,7 @@ const Book = () => {
         </div>
       </div>
       <div className="pt-16">
-        <div className='sm:grid gap-6 sm:grid-cols-6'>
+        <div>
           <div className='col-span-2'>
             <div>
               <p className='text-xl mb-4 font-medium'>Экземпляры книги</p>
@@ -205,7 +205,7 @@ const Book = () => {
               }
             </div>
             <div>
-              <ul role='list'>
+              <ul className="grid grid-cols-3 gap-6" role='list'>
                 {
                   edition.books.map((book: any) => (
                     <li className='bg-white shadow mt-2 overflow-hidden sm:rounded-md' key={book.id}>

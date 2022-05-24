@@ -1,8 +1,8 @@
-import React, { ReactChildren } from 'react';
+import React from 'react';
 
 type ButtonProps = {
   className?: string
-  children?: string | ReactChildren | string & ReactChildren
+  children?: any
   variant?: 'primary' | 'primaryOutline' | 'secondary' | 'secondaryOutline' | 'danger' | 'dangerOutline'
   disabled?: boolean
   type?: "button" | "submit" | "reset" | undefined

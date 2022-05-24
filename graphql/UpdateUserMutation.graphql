@@ -1,0 +1,14 @@
+#import "./fragmentUser.graphql"
+
+mutation UpdateUser($email: String, $firstName: String, $lastName:String, $city:String, $bDay:DateTime, $avatar: JSONObject){
+    updateMe(options:{email:$email, firstName:$firstName, lastName:$lastName, city:$city, bDay: $bDay, avatar: $avatar}) {
+        status
+        errors {
+            field
+            message
+        }
+        user {
+            ...User
+        }
+    }
+}
