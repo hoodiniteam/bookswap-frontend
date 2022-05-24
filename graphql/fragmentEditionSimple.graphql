@@ -1,0 +1,15 @@
+fragment SimpleEdition on BookEdition {
+    id
+    title
+    description
+    image
+    booksCount
+    publishedDate
+    authors
+    virtual
+    isbn_13
+    isbn_10
+    books {
+        condition
+    }
+}
