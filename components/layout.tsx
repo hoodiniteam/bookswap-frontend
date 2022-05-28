@@ -26,14 +26,16 @@ import {useQueryWrapper} from "../helpers/useQueryWrapper";
 import {AvatarComponent} from "./avatars";
 import { userName } from '../helpers/parseUserName';
 import { usePopper } from 'react-popper';
-import Button from './UI/Button';
+import Button from './Button';
 import { dateParsedYear } from '../helpers/dateTime';
 import { CreateModal } from './CreateBookModal';
 import { loader } from 'graphql.macro';
 import { ClearNotificationsMutation, GetMeQuery } from '../generated/graphql';
-import { UserNotification } from './UI/UserNotification';
+import { UserNotification } from './UserNotification';
 import OutsideClickHandler from 'react-outside-click-handler';
 import classNames from 'classnames';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const GetMe = loader("../graphql/GetMe.graphql");
 const ClearNotifications = loader("../graphql/ClearNotificationsMutation.graphql");
@@ -764,6 +766,7 @@ const Layout = ({children, title, showHead = true}: any) => {
             </div>
           </Dialog>
         </Transition>
+        <ToastContainer />
       </>
     );
   }

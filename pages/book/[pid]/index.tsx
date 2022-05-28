@@ -15,7 +15,7 @@ import { BooksStatus } from '../../../types/Book';
 import { SetBookOpenMutaion } from '../../../graphql/SetBookOpenMutaion';
 import { SetBookHoldMutaion } from '../../../graphql/SetBookHoldMutation';
 import { Badge } from '../../../components/Badge';
-import Button from '../../../components/UI/Button';
+import Button from '../../../components/Button';
 import Image from 'next/image';
 import { AvatarComponent } from '../../../components/avatars';
 import Tippy from '@tippyjs/react';
@@ -30,13 +30,13 @@ const Book = () => {
   const router = useRouter();
   const { pid } = router.query;
 
-  const [{ data: editionData, fetching: fetchingEdition }] = useQueryWrapper<GetEditionQuery>({
+  const [{ data: editionData }] = useQueryWrapper<GetEditionQuery>({
     query: GetEdition,
     variables: { id: pid },
     pause: !pid,
   });
 
-  const [{ data: meData, fetching: fetchingMe }] = useQueryWrapper<GetMeQuery>({
+  const [{ data: meData }] = useQueryWrapper<GetMeQuery>({
     query: GetMe,
   });
 
@@ -82,31 +82,25 @@ const Book = () => {
     });
   };
 
-  if (fetchingEdition || fetchingMe) return <p>Loading...</p>;
-  if (!editionData) return null;
-
   const { user } = meData?.me || {};
-  const { edition } = editionData.getEdition;
-  if (!edition || !user) {
-    return null;
-  }
+  const { edition } = editionData?.getEdition || {};
 
-  const openBooks = edition.books.filter((book: any) => book.status === BooksStatus[BooksStatus.OPEN]);
-  const isHolderOfAny = !!edition.books.find((book: any) => book.holder.id === user.id);
-  const inMyWaitingList = user.waiting?.find((myEdition: any) => myEdition.id === edition.id);
+  const openBooks = edition?.books.filter((book: any) => book.status === BooksStatus[BooksStatus.OPEN]);
+  const isHolderOfAny = !!edition?.books.find((book: any) => book.holder.id === user?.id);
+  const inMyWaitingList = user?.waiting?.find((myEdition: any) => myEdition.id === edition?.id);
 
   return (
     <div>
       <Head>
-        <title>{edition.title}</title>
+        <title>{edition?.title}</title>
       </Head>
-      <h1 className='text-2xl text-center text-white font-semibold mb-10'>{edition.title}</h1>
+      <h1 className='text-2xl text-center text-white font-semibold mb-10'>{edition?.title}</h1>
       <div className='sm:grid gap-6 sm:grid-cols-6'>
         <div className='col-span-2 mt-4 sm:mt-0'>
           <div className='bg-white p-4 shadow sm:rounded-md border'>
             <div className='flex justify-center'>
               {
-                edition.image && (
+                edition?.image && (
                   <div className='mb-4'>
                     <div className='bg-gray-100 rounded-md py-4 relative w-full h-60 sm:w-40 sm:h-40 lg:h-52'>
                       <div className='relative h-full w-full'>
@@ -121,13 +115,13 @@ const Book = () => {
             </div>
             <p className='font-medium'>Подписчики</p>
             {
-              edition.expects.length === 0 && (
+              edition?.expects?.length === 0 && (
                 <div className='text-gray-500'>Пока нет подписчиков</div>
               )
             }
             <div className='grid grid-cols-4 mt-2'>
               {
-                edition.expects.map((user: any) => (
+                (edition?.expects || []).map((user: any) => (
                   <div key={user.id}>
                     <Tippy content={`${userName(user)}`}>
                       <div>
@@ -143,7 +137,7 @@ const Book = () => {
             </div>
           </div>
           {
-            !isHolderOfAny && (openBooks.length === 0 || edition.expects.length > 0) && (
+            !isHolderOfAny && (openBooks?.length === 0 || edition?.expects && edition.expects.length > 0) && (
               <div className='mt-2 relative'>
                 {
                   inMyWaitingList && (
@@ -177,16 +171,16 @@ const Book = () => {
         </div>
         <div className='col-span-4 bg-white relative shadow sm:rounded-md border p-6'>
           <div>
-            {edition.authors && edition.authors.map((author: string, idx: number) => (
+            {edition?.authors && edition.authors.map((author: string, idx: number) => (
               <span key={author} className='text-gray-500 text-sm'>
-                {author}{idx === edition.authors.length - 1 ? '' : ', '}
+                {author}{idx === (edition.authors?.length || 0) - 1 ? '' : ', '}
               </span>
             ))}
             <p className='absolute text-xs text-gray-400 flex items-center right-4 top-4'>
               <EyeIcon className='h-4 w-4 mr-1' />
-              {edition.views}
+              {edition?.views}
             </p>
-            <p className='mt-2.5 text-sm'>{edition.description}</p>
+            <p className='mt-2.5 text-sm'>{edition?.description}</p>
           </div>
         </div>
       </div>
@@ -196,7 +190,7 @@ const Book = () => {
             <div>
               <p className='text-xl mb-4 font-medium'>Экземпляры книги</p>
               {
-                edition.books.length === 0
+                edition?.books.length === 0
                 &&
                 <div>
                   <p>Пока здесь нет доступных книг.</p>
@@ -207,13 +201,13 @@ const Book = () => {
             <div>
               <ul className="grid grid-cols-3 gap-6" role='list'>
                 {
-                  edition.books.map((book: any) => (
+                  (edition?.books || []).map((book: any) => (
                     <li className='bg-white shadow mt-2 overflow-hidden sm:rounded-md' key={book.id}>
                       <div className='block hover:bg-gray-50'>
                         <div className='px-6 py-4 space-y-3'>
                           <div className='flex items-center border-b pb-2 justify-between'>
                             <p className='text-sm font-medium text-main-600 truncate'>
-                              Держатель: {book.holder.id === user.id ? 'Вы' : userName(book.holder)}
+                              Держатель: {book.holder.id === user?.id ? 'Вы' : userName(book.holder)}
                             </p>
                             <AvatarComponent
                               className='w-10'
@@ -222,7 +216,7 @@ const Book = () => {
                             />
                           </div>
                           <div className='flex items-center justify-between'>
-                            <p className='flex items-center text-gray-500'>
+                            <p className='flex text-sm items-center text-gray-500'>
                               Состояние:
                               <span className='ml-0.5 -mb-0.5'>{t(book.condition)}</span>
                             </p>
@@ -232,7 +226,7 @@ const Book = () => {
                             book.description && <div className='text-sm italic mt-2'>{book.description}</div>
                           }
                           {
-                            !isHolderOfAny && book.status === BooksStatus[BooksStatus.OPEN] && edition.expects.length === 0 &&
+                            !isHolderOfAny && book.status === BooksStatus[BooksStatus.OPEN] && edition?.expects && edition.expects.length === 0 &&
                             <div>
                               <Button
                                 className='w-full'
@@ -243,7 +237,7 @@ const Book = () => {
                               </Button>
                             </div>
                           }
-                          {book.holder.id === user.id && (
+                          {book.holder.id === user?.id && (
                             <div>
                               {book.status === BooksStatus[BooksStatus.HOLD] && (
                                 <Button variant='secondary' className='w-full' onClick={() => setBookOpen(book.id)}>Сделать доступной для заказа</Button>

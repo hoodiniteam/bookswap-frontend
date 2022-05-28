@@ -7,12 +7,12 @@ export enum BooksStatus {
 }
 
 export enum BooksCondition {
-  BRANDNEW,
-  LIKENEW,
-  GOOD,
-  SATISFACTORY,
-  BAD,
-  TERRIBLE
+  BRANDNEW = "BRANDNEW",
+  LIKENEW = "LIKENEW",
+  GOOD = "GOOD",
+  SATISFACTORY = "SATISFACTORY",
+  BAD = "BAD",
+  TERRIBLE = "TERRIBLE"
 }
 
 export type Book = {

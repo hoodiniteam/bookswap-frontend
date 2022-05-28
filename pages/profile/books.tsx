@@ -6,7 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { localesList } from '../../helpers/locales';
 import { Badge } from '../../components/Badge';
 import { BooksStatus } from '../../types/Book';
-import Button from '../../components/UI/Button';
+import Button from '../../components/Button';
 import { useMutation } from 'urql';
 import { SetBookOpenMutaion } from '../../graphql/SetBookOpenMutaion';
 import { SetBookHoldMutaion } from '../../graphql/SetBookHoldMutation';

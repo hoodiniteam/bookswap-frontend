@@ -6,7 +6,7 @@ import { allOptions } from './options'
 import { useContext, useEffect, useState } from 'react';
 import OptionContext from "./options/OptionContext";
 import { sample } from 'lodash';
-import Button from '../UI/Button';
+import Button from '../Button';
 import {useRouter} from "next/router";
 
 export interface Props {

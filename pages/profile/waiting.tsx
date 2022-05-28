@@ -5,7 +5,7 @@ import { Book } from '../../types/Book';
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import { localesList } from "../../helpers/locales";
-import Button from '../../components/UI/Button';
+import Button from '../../components/Button';
 import { useMutation } from 'urql';
 import { RemoveBookFromMyWaitingList } from '../../graphql/RemoveBookFromMyWaitingList';
 import { useTranslation } from 'react-i18next';

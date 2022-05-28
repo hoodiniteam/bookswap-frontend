@@ -15,10 +15,11 @@ import { useMutation } from 'urql';
 import BookCover from '../../../../components/BookCover';
 import { AvatarComponent } from '../../../../components/avatars';
 import { format } from 'date-fns';
-import Button from '../../../../components/UI/Button';
+import Button from '../../../../components/Button';
 import {Dialog, Transition} from '@headlessui/react';
 
 import { loader } from 'graphql.macro';
+import classNames from 'classnames';
 const GetMe = loader("../../../../graphql/GetMe.graphql");
 const GetRoom = loader("../../../../graphql/GetRoom.graphql");
 const SendMessage = loader("../../../../graphql/SendMessageMutation.graphql");
@@ -182,7 +183,11 @@ const Index = () => {
           <div className='flex flex-col w-full p-2'>
             {
               room?.messages.map((message: any) => (
-                <div key={message.createdAt} className={`${'system' === message.userId ? 'self-center text-center' : userId === message.userId ? 'self-end' : 'self-start'}`}>
+                <div key={message.createdAt} className={classNames({
+                  'self-center text-center': 'system' === message.userId,
+                  'self-end': userId === message.userId,
+                  'self-start': message.userId !== 'system' && message.userId !== userId,
+                })}>
                   <div className={`flex items-center message text-xs italic text-gray-500 ${userId === message.userId ? 'justify-end' : 'justify-start'}`}>
                     {
                       'system' === message.userId ? '' :

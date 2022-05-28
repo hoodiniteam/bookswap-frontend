@@ -4,7 +4,7 @@ import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {localesList} from "../../helpers/locales";
 import {AvatarComponent} from "../../components/avatars";
 import Select from "react-select";
-import Button from "../../components/UI/Button";
+import Button from "../../components/Button";
 import {useMutation} from "urql";
 import {useQueryWrapper} from "../../helpers/useQueryWrapper";
 import { useAvatarOptions } from '../../helpers/avatarOptions';
@@ -71,7 +71,7 @@ const Avatar = () => {
   }
 
   useEffect(() => {
-    const {user} = meData.me;
+    const {user} = meData?.me || {};
     if (user) {
       setAvatarDisplayOptions(user.avatar);
       setSelectValues(user.avatar);
@@ -90,7 +90,7 @@ const Avatar = () => {
 
   if (fetching) return <p>Loading...</p>;
 
-  if (meData.me) {
+  if (meData?.me) {
 
     return (
       <div>

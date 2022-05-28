@@ -9,16 +9,15 @@ import { SingleValue } from 'react-select';
 import { Book, BooksCondition } from '../types/Book';
 import { CreateBookMutation } from '../graphql/CreateBookMutation';
 import { dateParsedYear } from '../helpers/dateTime';
-import { useNotification } from '../helpers/notificationHelper';
-import Button from './UI/Button';
+import Button from './Button';
 import { PlusCircleIcon } from '@heroicons/react/outline';
+import { toast } from 'react-toastify';
 
 export const CreateModal = ({onClose}: {onClose: () => void}) => {
   const client = useClient();
-  const {successNotification} = useNotification();
   const timer = useRef<any>();
 
-  type CreateBookForm = Omit<Book, 'status'> & {userDescription: string};
+  type CreateBookForm = Omit<Book, 'status' | 'booksCount'> & {userDescription: string};
 
   const emptyState: CreateBookForm = {
     id: '',
@@ -53,7 +52,15 @@ export const CreateModal = ({onClose}: {onClose: () => void}) => {
       console.log('book', book);
       createBook(book)
         .then(async (res) => {
-          successNotification("Книга добавлена");
+          toast('🦄 Wow книга добавлена!', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
           onClose();
           await router.push(`/book/${res.data.createBook.book.edition.id}`);
         });
@@ -148,11 +155,6 @@ export const CreateModal = ({onClose}: {onClose: () => void}) => {
     }
   };
 
-  const conditionOptions = () => {
-    const values = Object.values(BooksCondition);
-    return values.slice(0, (values.length - 1) / 2);
-  };
-
   const onChangeHandler = (
     e:
       | ChangeEvent<HTMLInputElement>
@@ -192,7 +194,7 @@ export const CreateModal = ({onClose}: {onClose: () => void}) => {
                 <div className='mt-1 rounded-md shadow-sm'>
                   <AsyncSelect
                     styles={customStyles}
-                    placeholder={"Заголовок книги"}
+                    placeholder={"Заголовок или ISBN книги"}
                     loadOptions={loadOptions}
                     onChange={handleSelectChange as any}
                     noOptionsMessage={() => t('no-options')}
@@ -303,7 +305,7 @@ export const CreateModal = ({onClose}: {onClose: () => void}) => {
                           name='condition'
                           className='shadow-sm focus:ring-main-500 focus:border-main-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md'
                         >
-                          {conditionOptions()
+                          {Object.values(BooksCondition)
                             .map((contition) => (
                               <option
                                 key={contition}

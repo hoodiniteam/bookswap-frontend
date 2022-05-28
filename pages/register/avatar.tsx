@@ -5,7 +5,7 @@ import { useMutation } from 'urql';
 import { UpdateUserMutation } from '../../graphql/UpdateUserMutation';
 import { AvatarComponent } from '../../components/avatars';
 import Select from 'react-select';
-import Button from '../../components/UI/Button';
+import Button from '../../components/Button';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { localesList } from '../../helpers/locales';
 import { LogoLogin } from '../../components/LogoLogin';

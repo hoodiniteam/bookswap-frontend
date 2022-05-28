@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { dateTimeToHuman } from '../../helpers/dateTime';
+import { dateTimeToHuman } from '../helpers/dateTime';
 
 interface Notification {
   createdAt: string;

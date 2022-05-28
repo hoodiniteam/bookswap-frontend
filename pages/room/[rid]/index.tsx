@@ -6,7 +6,7 @@ import { localesList } from '../../../helpers/locales';
 import { useQueryWrapper } from '../../../helpers/useQueryWrapper';
 import { useMutation } from 'urql';
 import { SendMessageMutation } from '../../../graphql/SendMessageMutation';
-import Button from '../../../components/UI/Button';
+import Button from '../../../components/Button';
 import { useTranslation } from 'react-i18next';
 import { loader } from 'graphql.macro';
 import { GetMeQuery, GetRoomQuery } from '../../../generated/graphql';

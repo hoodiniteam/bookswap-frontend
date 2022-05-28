@@ -8,13 +8,13 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { localesList } from '../../helpers/locales';
 import { AvatarComponent } from '../../components/avatars';
-import Button from '../../components/UI/Button';
+import Button from '../../components/Button';
 import Link from 'next/link';
-import {UpdateUserMutation} from "../../graphql/UpdateUserMutation";
 import LogOut from '../../helpers/LogOut';
 import { loader } from 'graphql.macro';
-import { GetMeQuery } from '../../generated/graphql';
+import { GetMeQuery, UpdateUserMutation } from '../../generated/graphql';
 const GetMe = loader("../../graphql/GetMe.graphql");
+const UpdateUser = loader("../../graphql/UpdateUserMutation.graphql");
 
 type WaitingList = [
   {
@@ -56,7 +56,7 @@ const Index = () => {
     query: GetMe,
   });
 
-  const [, updateUser] = useMutation(UpdateUserMutation);
+  const [, updateUser] = useMutation<UpdateUserMutation>(UpdateUser);
   const [user, setUser] = useState<UserData>();
   const {
     register,

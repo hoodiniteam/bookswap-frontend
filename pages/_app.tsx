@@ -7,7 +7,6 @@ import type { NextPage } from 'next'
 import { appWithTranslation } from 'next-i18next';
 import { authExchange } from '@urql/exchange-auth';
 import Cookies from "js-cookie";
-import NotificationProvider  from '../components/UI/NotificationProvider';
 import {makeOperation} from "urql";
 import { createClient, dedupExchange, cacheExchange, fetchExchange, Provider } from 'urql';
 import LogOut from "../helpers/LogOut";
@@ -108,9 +107,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                 <meta name="theme-color" content="#ffffff"/>
             </Head>
             {/*<Script src='https://upload-widget.cloudinary.com/global/all.js' strategy='beforeInteractive' />*/}
-            <NotificationProvider>
-                {getLayout(<Component {...pageProps} />)}
-            </NotificationProvider>
+            {getLayout(<Component {...pageProps} />)}
         </Provider>
     )
 }
