@@ -13,15 +13,26 @@ import Button from './Button';
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { toast } from 'react-toastify';
 
-export const CreateModal = ({onClose}: {onClose: () => void}) => {
+import { FilePond, File, registerPlugin } from 'react-filepond';
+import 'filepond/dist/filepond.min.css';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import { FilePondFile } from 'filepond';
+
+registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
+
+export const CreateBookModal = ({onClose, newBookName}: {onClose: () => void, newBookName?: string}) => {
   const client = useClient();
   const timer = useRef<any>();
 
   type CreateBookForm = Omit<Book, 'status' | 'booksCount'> & {userDescription: string};
 
+  const [files, setFiles] = useState<any[]>([]);
+
   const emptyState: CreateBookForm = {
     id: '',
-    title: '',
+    title: newBookName || "",
     description: '',
     image: '',
     userDescription: '',
@@ -32,7 +43,7 @@ export const CreateModal = ({onClose}: {onClose: () => void}) => {
     publishedDate: '',
   };
 
-  const [book, setBook] = useState<CreateBookForm | null>(null);
+  const [book, setBook] = useState<CreateBookForm>({...emptyState});
   const [addNewBook, showAddNewBook] = useState('');
 
   const {
@@ -127,34 +138,6 @@ export const CreateModal = ({onClose}: {onClose: () => void}) => {
     }, 800);
   };
 
-  const handleSelectChange = (newValue: {
-    value: SingleValue<{
-      title: string;
-      image?: string;
-      authors: [];
-      description?: string;
-      isbn_13?: string | null;
-      isbn_10?: string | null;
-      publishedDate: string;
-    }>;
-  }) => {
-    if (newValue.value) {
-      console.log(newValue.value);
-      setBook({
-        ...emptyState,
-        title: newValue.value.title,
-        description: newValue.value.description || '',
-        authors: newValue.value.authors || [],
-        image: newValue.value.image || '',
-        isbn_13: newValue.value.isbn_13,
-        isbn_10: newValue.value.isbn_10,
-        publishedDate: newValue.value.publishedDate || '',
-      });
-    } else {
-      setBook(null);
-    }
-  };
-
   const onChangeHandler = (
     e:
       | ChangeEvent<HTMLInputElement>
@@ -174,13 +157,6 @@ export const CreateModal = ({onClose}: {onClose: () => void}) => {
     clearErrors(name);
   };
 
-  const customStyles = {
-    menuList: (provided: any) => ({
-      ...provided,
-      maxHeight: 'calc(100vh - 200px)',
-    }),
-  }
-
   return (
     <>
       <form
@@ -189,138 +165,94 @@ export const CreateModal = ({onClose}: {onClose: () => void}) => {
       >
         <div className=''>
           <div className='bg-white'>
-            <div className='grid grid-cols-4 gap-6'>
-              <div className='col-span-4'>
-                <div className='mt-1 rounded-md shadow-sm'>
-                  <AsyncSelect
-                    styles={customStyles}
-                    placeholder={"Заголовок или ISBN книги"}
-                    loadOptions={loadOptions}
-                    onChange={handleSelectChange as any}
-                    noOptionsMessage={() => t('no-options')}
-                  />
-                </div>
-                <div className='text-xs text-gray-600 mt-1'>
-                  {t('search-letters')}
+            <div>
+              <div>
+                <label htmlFor="title" className="block text-sm font-medium text-gray-700">Название</label>
+                <div className="mt-1">
+                  <input type="text" name="title" id="title" onChange={onChangeHandler} value={book.title} className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Название книги" />
                 </div>
               </div>
-              {
-                book && (
-                  <>
-                    {book.authors && book.authors.length > 0 && (
-                      <div>
-                        <div className='block text-sm font-medium text-gray-700'>
-                          Авторы
-                        </div>
-                        <div className='flex'>
-                          {book.authors && book.authors.map((author: string, idx: number) => (
-                            book.authors && (<span key={author} className='text-gray-500 text-sm'>{author}{idx === book.authors.length - 1 ? '' : ', '}</span>)
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    {book.publishedDate && (
-                      <div>
-                        <div className='block text-sm font-medium text-gray-700'>
-                          Публикация
-                        </div>
-                        <span className='text-gray-500 text-sm'>{dateParsedYear(book.publishedDate)}</span>
-                      </div>
-                    )}
-                    {book.isbn_10 && (
-                      <div>
-                        <div className='block text-sm font-medium text-gray-700'>
-                          ISBN 10
-                        </div>
-                        <span className='text-gray-500 text-sm'>{book.isbn_10}</span>
-                      </div>
-                    )}
-                    {book.isbn_13 && (
-                      <div>
-                        <div className='block text-sm font-medium text-gray-700'>
-                          ISBN 13
-                        </div>
-                        <span className='text-gray-500 text-sm'>{book.isbn_13}</span>
-                      </div>
-                    )}
-                    {book.description && (
-                      <p className='col-span-4 bg-gray-100 text-sm px-4 py-3 border rounded-md'>
-                        {book.description}
-                      </p>
-                    )}
-                  </>
-                )
-              }
-            </div>
-            {
-              addNewBook && (
-                <div className='border mt-12 rounded-md p-6 bg-white text-center hover:bg-gray-100 cursor-pointer'>
-                  <div>
-                    <div>
-                      <Button>
-                        <PlusCircleIcon className="h-5 w-5 mr-2" />
-                        Добавить новое издание
-                      </Button>
-                    </div>
-                    <p className='text-sm italic mt-2'>&#34;{addNewBook}&#34;</p>
+
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-gray-700">Обложка для книги</label>
+                <div className="mt-1">
+                  <FilePond
+                    files={files}
+                    onupdatefiles={setFiles}
+                    allowMultiple={true}
+                    maxFiles={3}
+                    server="/api"
+                    name="files"
+                    labelIdle='Перетащите сюда файл или <span class="filepond--label-action">нажмите чтобы выбрать</span>'
+                  />
+                </div>
+              </div>
+
+              <div className='grid grid-cols-2 gap-4 mt-4'>
+                <div>
+                  <label htmlFor="authors" className="block text-sm font-medium text-gray-700">Авторы</label>
+                  <div className="mt-1">
+                    <input type="text" name="authors" id="authors" onChange={onChangeHandler} value={book.authors} className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Авторы" />
+                  </div>
+                  <p className="mt-2 text-sm text-gray-500" id="email-description">Через запятую</p>
+                </div>
+                <div>
+                  <label htmlFor="publishedDate" className="block text-sm font-medium text-gray-700">Год</label>
+                  <div className="mt-1">
+                    <input type="number" name="publishedDate" id="publishedDate" onChange={onChangeHandler} value={book.publishedDate || ""} className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Год выхода" />
                   </div>
                 </div>
-              )
-            }
-            {
-              book && (
-                <>
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">Информация о книге</h3>
-                  <div className="grid grid-cols-2 gap-6">
-                    <div>
-                      <label
-                        htmlFor='userDescription'
-                        className='block text-sm font-medium text-gray-700'
-                      >
-                        Ваш отзыв / описание
-                      </label>
-                      <div className='mt-1'>
-                          <textarea
-                            {...register('userDescription')}
-                            onChange={onChangeHandler}
-                            id='userDescription'
-                            name='userDescription'
-                            rows={3}
-                            className='shadow-sm focus:ring-main-500 focus:border-main-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md'
-                          />
-                      </div>
-                    </div>
-                    <div>
-                      <label
-                        htmlFor='about'
-                        className='block text-sm font-medium text-gray-700'
-                      >
-                        {t('condition')}
-                      </label>
-                      <div className='mt-1'>
-                        <select
-                          value={book.condition}
-                          onChange={onChangeHandler}
-                          id='condition'
-                          name='condition'
-                          className='shadow-sm focus:ring-main-500 focus:border-main-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md'
-                        >
-                          {Object.values(BooksCondition)
-                            .map((contition) => (
-                              <option
-                                key={contition}
-                                value={contition}
-                              >
-                                {t(String(contition))}
-                              </option>
-                            ))}
-                        </select>
-                      </div>
-                        </div>
-                    </div>
-                </>
-              )
-            }
+                <div>
+                  <label htmlFor="isbn_10" className="block text-sm font-medium text-gray-700">ISBN 10</label>
+                  <div className="mt-1">
+                    <input type="number" name="isbn_10" id="isbn_10" onChange={onChangeHandler} value={book.isbn_10 || ""} className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="ISBN 10" />
+                  </div>
+                  <p className="mt-2 text-sm text-gray-500" id="email-description">Код из 10 символов, рядом со штрихкодом, если есть</p>
+                </div>
+                <div>
+                  <label htmlFor="isbn_13" className="block text-sm font-medium text-gray-700">ISBN 13</label>
+                  <div className="mt-1">
+                    <input type="number" name="isbn_13" id="isbn_13" onChange={onChangeHandler} value={book.isbn_13 || ""} className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="ISBN 13" />
+                  </div>
+                  <p className="mt-2 text-sm text-gray-500" id="email-description">Код из 13 символов, рядом со штрихкодом, если есть</p>
+                </div>
+
+                <div className="col-span-2">
+                  <label htmlFor="description" className="block text-sm font-medium text-gray-700">Описание книги</label>
+                  <div className="mt-1">
+                    <textarea name="description" id="description" rows={4} onChange={onChangeHandler} value={book.description || ""} className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Напишите здесь свою аннотацию или возьмите ее в свободном доступе, это поможет тем кто захочет прочитать эту книгу"/>
+                  </div>
+                </div>
+
+                <div className="col-span-2">
+                  <label
+                    htmlFor='about'
+                    className='block text-sm font-medium text-gray-700'
+                  >
+                    {t('condition')}
+                  </label>
+                  <div className='mt-1'>
+                    <select
+                      value={book.condition}
+                      onChange={onChangeHandler}
+                      id='condition'
+                      name='condition'
+                      className='shadow-sm focus:ring-main-500 focus:border-main-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md'
+                    >
+                      {Object.values(BooksCondition)
+                        .map((condition) => (
+                          <option
+                            key={condition}
+                            value={condition}
+                          >
+                            {t(String(condition))}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="text-right mt-6">
             {
