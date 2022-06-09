@@ -1,5 +1,5 @@
-mutation SendMessage($id: String!, $message: String!, $date: String!){
-    sendMessage(id: $id, message: $message, date: $date) {
+query getRoomMessages($id: String!){
+    getRoomMessages(id: $id){
         status
         errors {
             field

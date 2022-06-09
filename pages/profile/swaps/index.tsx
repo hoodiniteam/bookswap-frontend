@@ -45,7 +45,12 @@ const SwapChatListItem = ({room, user, actor}: {room: RoomFragment, user: any, a
               </div>
             </div>
             <div style={{height: 88}} className="overflow-hidden text-sm py-1.5 px-2 bg-gray-200 rounded-md mt-2">
-              { room.messages.slice(-5).map((message) => (<div className={message.userId === "system" ? 'text-center italic text-gray-600' : message.userId === user.id ? 'text-right' : 'text-left'} key={message.createdAt}>{message.message}</div>)) }
+              {
+                room.messages.slice(-3).map((message) => (
+                <div className={message.userId === "system" ? 'text-center italic text-gray-600' : message.userId === user.id ? 'text-right' : 'text-left'} key={message.createdAt}>
+                  {message.message}
+                </div>))
+              }
             </div>
           </div>
         </a>
@@ -54,9 +59,10 @@ const SwapChatListItem = ({room, user, actor}: {room: RoomFragment, user: any, a
   )
 }
 
-const Index = ({children}: any) => {
+const Index = () => {
   const [{ data: meData, fetching: fetchingMe }] = useQueryWrapper<GetMeQuery>({
     query: GetMe,
+    requestPolicy: "network-only",
   });
   const [activeTab, setActiveTab] = useState('all');
 
@@ -113,9 +119,9 @@ const Index = ({children}: any) => {
             </div>
           </div>
 
-          <div className="flex mt-2">
+          <div className="mt-2">
 
-            <ul role='list' style={{height: 'calc(100vh - 250px)'}} className='grid grid-cols-1 p-2 -mx-2 gap-4 overflow-auto'>
+            <ul role='list' style={{height: 'calc(100vh - 250px)'}} className='grid grid-cols-1 lg:grid-cols-2 p-2 -mx-2 gap-4 overflow-auto'>
               {
                 (activeTab === 'send' || activeTab === 'all') && (
                   user.chatSender.reverse().map((room) => (
@@ -131,10 +137,6 @@ const Index = ({children}: any) => {
                 )
               }
             </ul>
-
-            <div className="flex-grow border rounded-md ml-4 mt-2">
-              {children}
-            </div>
 
           </div>
 

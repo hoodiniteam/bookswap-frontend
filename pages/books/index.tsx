@@ -1,21 +1,16 @@
-import React, {
-  ChangeEvent,
-  ChangeEventHandler,
-  DetailedHTMLProps,
-  InputHTMLAttributes,
-  ReactElement,
-  useState,/*, useState*/
-} from 'react';
-import {useRouter} from "next/router";
-import Pagination from "../../components/pagination";
-import Layout from "../../components/layout";
-import BookWrapper from "../../components/BookWrapper";
-import {useQueryWrapper} from "../../helpers/useQueryWrapper";
-import {serverSideTranslations} from "next-i18next/serverSideTranslations";
-import {localesList} from "../../helpers/locales";
+import React, { ChangeEvent, ReactElement, useState } from 'react';
+import { useRouter } from 'next/router';
+import Pagination from '../../components/pagination';
+import Layout from '../../components/layout';
+import BookWrapper from '../../components/BookWrapper';
+import { useQueryWrapper } from '../../helpers/useQueryWrapper';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { localesList } from '../../helpers/locales';
 import { loader } from 'graphql.macro';
 import { GetEditionsQuery } from '../../generated/graphql';
 import { BooksStatus } from '../../types/Book';
+import { Badge } from '../../components/Badge';
+
 const GetEditions = loader("../../graphql/GetEditionsQuery.graphql");
 
 const Index = () => {
@@ -67,8 +62,8 @@ const Index = () => {
                     onChange={statusChangeHandler}
                     className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                   />
-                  <div className="ml-3">
-                    Показывать только книги на полке
+                  <div className="ml-3 flex items-center">
+                    Показывать только книги <Badge className="ml-2" status={BooksStatus[BooksStatus.OPEN]}/>
                   </div>
                 </label>
               </div>

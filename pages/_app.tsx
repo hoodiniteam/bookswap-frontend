@@ -8,10 +8,15 @@ import { appWithTranslation } from 'next-i18next';
 import { authExchange } from '@urql/exchange-auth';
 import Cookies from "js-cookie";
 import {makeOperation} from "urql";
-import { createClient, dedupExchange, cacheExchange, fetchExchange, Provider } from 'urql';
+import { createClient, dedupExchange, fetchExchange, Provider } from 'urql';
+import { cacheExchange } from '@urql/exchange-graphcache';
 import LogOut from "../helpers/LogOut";
 import {RefreshMutation} from "../graphql/RefreshMutation";
 import Head from 'next/head';
+import { loader } from 'graphql.macro';
+import { GetRoomQuery, SendMessageMutationVariables } from '../generated/graphql';
+const GetRoom = loader("../graphql/GetRoom.graphql");
+import schema from '../graphql.schema.json';
 
 const getAuth = async ({ authState, mutate } :any) => {
     if (!authState) {
@@ -75,7 +80,57 @@ const client = createClient({
     url: process.env.API_URL || '',
     exchanges: [
         dedupExchange,
-        cacheExchange,
+        cacheExchange({
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            schema,
+            keys: {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                Message: data => data.createdAt,
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                Notification: data => data.createdAt,
+                UserResponse: () => null,
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                RoomResponse: data => data.room.id,
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                RoomMessagesResponse: data => data.room.id,
+                Avatar: () => null,
+            },
+            optimistic: {
+                sendMessage: ({id, message, date}: SendMessageMutationVariables, cache) => {
+                    const messagesCache = cache.readQuery<GetRoomQuery>({
+                        query: GetRoom,
+                        variables: {
+                            id,
+                        },
+                    })?.getRoom?.room?.messages || [];
+
+                    const newMessage = {
+                        __typename: "Message" as const,
+                        userId: "PENDING",
+                        createdAt: date,
+                        isRead: false,
+                        message: `${message}`,
+                    };
+                    messagesCache.push(newMessage);
+
+                    return {
+                        __typename: "RoomMessagesResponse",
+                        status: "SUCCESS",
+                        errors: null,
+                        room: {
+                            __typename: "RoomMessages",
+                            id,
+                            messages: messagesCache,
+                        },
+                    }
+                },
+            },
+        }),
         authExchange({
             addAuthToOperation,
             getAuth,

@@ -11,22 +11,22 @@ import {useRouter} from "next/router";
 
 export interface Props {
   avatarStyle: string
-  className?: string;
+  className?: string
   style?: React.CSSProperties
-  topType?: string
-  accessoriesType?: string
-  hairColor?: string
-  facialHairType?: string
-  facialHairColor?: string
-  clotheType?: string
-  clotheColor?: string
-  graphicType?: string
-  eyeType?: string
-  eyebrowType?: string
-  mouthType?: string
-  skinColor?: string
-  pieceType?:string
-  pieceSize?:string
+  topType?: string | null
+  accessoriesType?: string | null
+  hairColor?: string | null
+  facialHairType?: string | null
+  facialHairColor?: string | null
+  clotheType?: string | null
+  clotheColor?: string | null;
+  graphicType?: string | null;
+  eyeType?: string | null;
+  eyebrowType?: string | null;
+  mouthType?: string | null;
+  skinColor?: string | null;
+  pieceType?:string | null;
+  pieceSize?:string | null;
   viewBox?:string
   random?: boolean
   onRandomChanged?: (values: any) => void

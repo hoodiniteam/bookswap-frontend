@@ -9,7 +9,9 @@ fragment SimpleEdition on BookEdition {
     virtual
     isbn_13
     isbn_10
+    views
     books {
+        id
         condition
     }
 }
