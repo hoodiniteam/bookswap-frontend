@@ -2,8 +2,8 @@ import React from 'react';
 import { dateParsedYear } from '../helpers/dateTime';
 import { useClient } from 'urql';
 import { loader } from 'graphql.macro';
-import { BookEdition, GetEditionsQuery } from '../generated/graphql';
-const getEditions = loader('../graphql/GetEditionsQuery.graphql');
+import { BookEdition, GetEditionsSearchQuery } from '../generated/graphql';
+const getEditionsSearch = loader('../graphql/GetEditionsSearchQuery.graphql');
 
 import { useState } from 'react';
 import { CheckIcon, SearchIcon } from '@heroicons/react/solid';
@@ -146,8 +146,8 @@ export const BookSearch = ({
     setLoading(true);
 
     const { unsubscribe } = pipe(
-      client.query<GetEditionsQuery>(
-        getEditions,
+      client.query<GetEditionsSearchQuery>(
+        getEditionsSearch,
         {
           search: inputValue,
         },
@@ -157,7 +157,7 @@ export const BookSearch = ({
       ),
       subscribe((result) => {
         console.log(result); // OperationResult
-        const editions = result.data?.getEditions?.editions;
+        const editions = result.data?.getEditionsSearch?.editions;
         if (editions) {
           if (editions.length) {
             if (onSearchComplete) {

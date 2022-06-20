@@ -1,4 +1,4 @@
-fragment Avatar on Avatar {
+fragment Avatar on UserAvatar {
     topType
     eyeType
     eyebrowType

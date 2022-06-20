@@ -1,7 +1,5 @@
-#import "./fragmentEditionSimple.graphql"
-
-query getEditions($search: String, $offset: Float, $limit: Float, $hasBooks: Boolean, $status: [BooksStatus!], $recent: Boolean, $popular: Boolean){
-    getEditions(search: $search, offset: $offset, limit: $limit, hasBooks: $hasBooks, status: $status, recent: $recent, popular: $popular){
+query getEditions($offset: Float, $limit: Float, $status: BooksStatus, $recent: Boolean, $popular: Boolean){
+    getEditions(offset: $offset, limit: $limit, status: $status, recent: $recent, popular: $popular){
         status
         errors {
             field
@@ -9,7 +7,7 @@ query getEditions($search: String, $offset: Float, $limit: Float, $hasBooks: Boo
         }
         count
         editions {
-            ...SimpleEdition
+            id
         }
     }
 }

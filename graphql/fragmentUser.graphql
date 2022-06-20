@@ -1,46 +1,46 @@
-#import "./fragmentEditionSimple.graphql"
+#import "./fragmentEditionRelation.graphql"
 #import "./fragmentSwap.graphql"
 #import "./fragmentAvatar.graphql"
-#import "./fragmentRoom.graphql"
+#import "./fragmentChat.graphql"
 
 fragment User on User {
+  id
+  firstName
+  lastName
+  email
+  notifications {
+    isRead
+    message
+    createdAt
+    url
+  }
+  waiting {
+    ...RelationEdition
+  }
+  avatar {
+    ...Avatar
+  }
+  points
+  sends {
+    ...Swap
+  }
+  swaps {
+    ...Swap
+  }
+  books {
     id
-    firstName
-    lastName
-    email
-    notifications{
-        isRead
-        message
-        createdAt
-        url
+    title
+    description
+    status
+    condition
+    edition {
+      id
     }
-    waiting {
-        ...SimpleEdition
-    }
-    avatar {
-        ...Avatar
-    }
-    points
-    sends {
-        ...Swap
-    }
-    swaps {
-        ...Swap
-    }
-    books{
-        id
-        title
-        description
-        status
-        condition
-        edition {
-            ...SimpleEdition
-        }
-    }
-    chatSender {
-        ...Room
-    }
-    chatRecipient {
-        ...Room
-    }
+  }
+  chatSender {
+    ...Chat
+  }
+  chatRecipient {
+    ...Chat
+  }
 }

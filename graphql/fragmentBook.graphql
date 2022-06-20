@@ -1,4 +1,4 @@
-#import "./fragmentEditionSimple.graphql"
+#import "./fragmentEditionRelation.graphql"
 #import "./fragmentAvatar.graphql"
 
 fragment Book on Book {
@@ -25,6 +25,6 @@ fragment Book on Book {
         }
     }
     edition {
-        ...SimpleEdition
+        id
     }
 }

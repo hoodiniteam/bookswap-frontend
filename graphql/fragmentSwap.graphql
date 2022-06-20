@@ -1,7 +1,7 @@
 #import "./fragmentBook.graphql"
 #import "./fragmentRecipient.graphql"
 #import "./fragmentSender.graphql"
-#import "./fragmentRoom.graphql"
+#import "./fragmentChat.graphql"
 
 fragment Swap on Swap {
     id
@@ -14,8 +14,8 @@ fragment Swap on Swap {
     sender {
         ...Sender
     }
-    room {
-        ...Room
+    chat {
+        ...Chat
     }
     status
 }

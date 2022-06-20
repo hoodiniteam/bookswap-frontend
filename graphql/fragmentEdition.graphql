@@ -1,5 +1,6 @@
 #import "./fragmentUser.graphql"
 #import "./fragmentBook.graphql"
+#import "./fragmentEditionRelation.graphql"
 
 fragment Edition on BookEdition {
     id
@@ -10,7 +11,7 @@ fragment Edition on BookEdition {
     publishedDate
     views
     expects {
-        ...User
+        ...RelationEdition
     }
     books {
         ...Book

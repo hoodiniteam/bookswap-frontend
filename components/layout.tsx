@@ -16,7 +16,6 @@ import { useRouter } from 'next/router';
 import { useClient, useMutation } from 'urql';
 import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
-import { CreateEmptyEditionMutation } from '../graphql/CreateEmptyEditionMutation';
 import { Logo } from './Logo';
 import { useQueryWrapper } from '../helpers/useQueryWrapper';
 import { AvatarComponent } from './avatars';
@@ -40,7 +39,7 @@ const ClearNotifications = loader(
   '../graphql/ClearNotificationsMutation.graphql'
 );
 
-const Layout = ({ children, title, showHead = true }: any) => {
+const Layout = ({ children, title, showBookHead = false }: any) => {
   const router = useRouter();
   const [navMenu, setNavMenu] = useState(false);
   const [searchString, setSearchString] = useState('');
@@ -70,7 +69,9 @@ const Layout = ({ children, title, showHead = true }: any) => {
     placement: 'top',
   });
 
-  const [, createEdition] = useMutation(CreateEmptyEditionMutation);
+  // const [, createEdition] = useMutation(CreateEmptyEditionMutation);
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  const createEdition = (args: any): any => {};
   const [, clearNotifications] =
     useMutation<ClearNotificationsMutation>(ClearNotifications);
 
@@ -116,7 +117,7 @@ const Layout = ({ children, title, showHead = true }: any) => {
       title: edition.title || '',
       description: edition.description || '',
       image: edition.image || '',
-    }).then((res) => {
+    }).then((res: any) => {
       router
         .push(`/book/${res.data.createEmptyEdition.edition.id}`)
         .then(() => {
@@ -419,7 +420,7 @@ const Layout = ({ children, title, showHead = true }: any) => {
                     </div>
                   </div>
                 </div>
-                {showHead && (
+                {showBookHead && (
                   <div className="hidden py-3 sm:flex items-center justify-between">
                     <div className="flex space-x-2">
                       {navigation.map((item) => (

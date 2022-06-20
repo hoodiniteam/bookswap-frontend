@@ -11,18 +11,18 @@ import { GetEditionsQuery } from '../../generated/graphql';
 import { BooksStatus } from '../../types/Book';
 import { Badge } from '../../components/Badge';
 
-const GetEditions = loader("../../graphql/GetEditionsQuery.graphql");
+const GetEditions = loader('../../graphql/GetEditionsQuery.graphql');
 
 const Index = () => {
   const [status, setStatus] = useState<string[] | null>(null);
   const router = useRouter();
-  const {query} = router;
+  const { query } = router;
   const currentPage = query.page ? Number(query.page) : 1;
-  const recent = query.recent ? query.recent === "true" : false;
-  const popular = query.popular ? query.popular === "true" : false;
+  const recent = query.recent ? query.recent === 'true' : false;
+  const popular = query.popular ? query.popular === 'true' : false;
   const limit = 30;
 
-  const [{data}] = useQueryWrapper<GetEditionsQuery>({
+  const [{ data }] = useQueryWrapper<GetEditionsQuery>({
     query: GetEditions,
     variables: {
       offset: limit * (currentPage - 1),
@@ -31,16 +31,16 @@ const Index = () => {
       hasBooks: true,
       recent,
       popular,
-    }
-  })
+    },
+  });
 
   const statusChangeHandler = async (ev: ChangeEvent<HTMLInputElement>) => {
     if (ev.target.checked) {
       setStatus([BooksStatus[ev.target.value as any]]);
     } else {
-      setStatus(null)
+      setStatus(null);
     }
-  }
+  };
 
   const editions = data?.getEditions?.editions || [];
   const total = data?.getEditions?.count || 0;
@@ -48,7 +48,9 @@ const Index = () => {
   if (editions !== null) {
     return (
       <div className="">
-        <h1 className='text-2xl text-center text-white font-semibold mb-10'>Книги</h1>
+        <h1 className="text-2xl text-center text-white font-semibold mb-10">
+          Книги
+        </h1>
         <div>
           <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
             <div className="flex space-x-4 mb-4">
@@ -63,40 +65,39 @@ const Index = () => {
                     className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                   />
                   <div className="ml-3 flex items-center">
-                    Показывать только книги <Badge className="ml-2" status={BooksStatus[BooksStatus.OPEN]}/>
+                    Показывать только книги{' '}
+                    <Badge
+                      className="ml-2"
+                      status={BooksStatus[BooksStatus.OPEN]}
+                    />
                   </div>
                 </label>
               </div>
             </div>
             <ul className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {editions.map((edition: any) => (
-                <BookWrapper key={edition.id} book={edition}/>
+                <BookWrapper key={edition.id} book={edition} />
               ))}
             </ul>
           </div>
-          {
-            total > limit && <Pagination
-                limit={limit}
-                total={total}
-            />
-          }
+          {total > limit && <Pagination limit={limit} total={total} />}
         </div>
       </div>
-    )
+    );
   }
   return null;
-}
+};
 
 Index.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout title={'Books'}>
+    <Layout title={'Books'} showBookHead={true}>
       {page}
     </Layout>
-  )
-}
-export const getStaticProps = async ({locale}: any) => ({
+  );
+};
+export const getStaticProps = async ({ locale }: any) => ({
   props: {
-    ...await serverSideTranslations(locale, localesList),
+    ...(await serverSideTranslations(locale, localesList)),
   },
-})
+});
 export default Index;

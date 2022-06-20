@@ -13,8 +13,8 @@ import Link from 'next/link';
 import LogOut from '../../helpers/LogOut';
 import { loader } from 'graphql.macro';
 import { GetMeQuery, UpdateUserMutation } from '../../generated/graphql';
-const GetMe = loader("../../graphql/GetMe.graphql");
-const UpdateUser = loader("../../graphql/UpdateUserMutation.graphql");
+const GetMe = loader('../../graphql/GetMe.graphql');
+const UpdateUser = loader('../../graphql/UpdateUserMutation.graphql');
 
 type WaitingList = [
   {
@@ -101,7 +101,7 @@ const Index = () => {
   });
 
   const onChangeHandler = (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>,
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     if (user) {
@@ -110,149 +110,127 @@ const Index = () => {
     clearErrors(name);
   };
   if (!fetching && meData && user) {
-
     return (
-      <form action='#' method='POST' onSubmit={submitHandler}>
+      <form action="#" method="POST" onSubmit={submitHandler}>
         <Head>
-          <title>
-            {t('profile', { ns: 'nav' })}
-          </title>
+          <title>{t('profile', { ns: 'nav' })}</title>
         </Head>
-        <p className="sm:text-white font-bold text-lg mb-3">{t('profile', { ns: 'nav' })}</p>
+        <p className="sm:text-white font-bold text-lg mb-3">
+          {t('profile', { ns: 'nav' })}
+        </p>
         <div className="shadow rounded-md overflow-hidden">
-          <div className='bg-white py-6 px-4 space-y-6 sm:p-6'>
-            <div className='grid grid-cols-6 gap-6'>
-              <div className='col-span-6 sm:col-span-3'>
+          <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
+            <div className="grid grid-cols-6 gap-6">
+              <div className="col-span-6 sm:col-span-3">
                 <label
-                  htmlFor='first-name'
-                  className='block text-sm font-medium text-gray-700'
+                  htmlFor="first-name"
+                  className="block text-sm font-medium text-gray-700"
                 >
                   {t('avatar')}
                 </label>
                 <div className="flex flex-col items-center">
                   <AvatarComponent
                     className="sm:w-52"
-                    avatarStyle='Circle'
+                    avatarStyle="Circle"
                     {...user.avatar}
                   />
-                  <Link href="/profile/avatar">
+                  {/* <Link href="/profile/avatar">
                     <a>
                       <Button className="mt-6 ml-2" type="button">Настроить аватар</Button>
                     </a>
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
-              <div className='space-y-4 col-span-6 sm:col-span-3'>
+              <div className="space-y-4 col-span-6 sm:col-span-3">
                 <div>
                   <label
-                      htmlFor='first-name'
-                      className='block text-sm font-medium text-gray-700'
+                    htmlFor="email-address"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    {t('email')}
+                  </label>
+                  <div className="mt-1 block w-full text-sm">
+                    {user.email || ''}
+                  </div>
+                </div>
+                <div>
+                  <label
+                    htmlFor="first-name"
+                    className="block text-sm font-medium text-gray-700"
                   >
                     {t('first-name')}
                   </label>
                   <input
-                      {...register('firstName', {
-                        required: true,
-                      })}
-                      onChange={onChangeHandler}
-                      value={user.firstName || ''}
-                      type='text'
-                      name='firstName'
-                      id='first-name'
-                      autoComplete='given-name'
-                      className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm'
+                    {...register('firstName', {
+                      required: true,
+                    })}
+                    onChange={onChangeHandler}
+                    value={user.firstName || ''}
+                    type="text"
+                    name="firstName"
+                    id="first-name"
+                    autoComplete="given-name"
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm"
                   />
                   {errors.firstName ? (
-                      <span className='text-red-500 text-xs'>
-                                        enter first name
-                                    </span>
+                    <span className="text-red-500 text-xs">
+                      enter first name
+                    </span>
                   ) : (
-                      ''
+                    ''
                   )}
                 </div>
                 <div>
                   <label
-                      htmlFor='last-name'
-                      className='block text-sm font-medium text-gray-700'
+                    htmlFor="last-name"
+                    className="block text-sm font-medium text-gray-700"
                   >
                     {t('last-name')}
                   </label>
                   <input
-                      {...register('lastName', {
-                        required: true,
-                      })}
-                      onChange={onChangeHandler}
-                      value={user.lastName || ''}
-                      type='text'
-                      name='lastName'
-                      id='last-name'
-                      autoComplete='family-name'
-                      className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm'
+                    {...register('lastName', {
+                      required: true,
+                    })}
+                    onChange={onChangeHandler}
+                    value={user.lastName || ''}
+                    type="text"
+                    name="lastName"
+                    id="last-name"
+                    autoComplete="family-name"
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm"
                   />
                   {errors.lastName ? (
-                      <span className='text-red-500 text-xs'>
-                                        enter last name
-                                    </span>
+                    <span className="text-red-500 text-xs">
+                      enter last name
+                    </span>
                   ) : (
-                      ''
+                    ''
                   )}
                 </div>
                 <div>
                   <label
-                      htmlFor='email-address'
-                      className='block text-sm font-medium text-gray-700'
-                  >
-                    {t('email')}
-                  </label>
-                  <input
-                      {...register('email', { required: true })}
-                      onChange={onChangeHandler}
-                      value={user.email || ''}
-                      type='email'
-                      name='email'
-                      id='email-address'
-                      autoComplete='email'
-                      className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm'
-                  />
-                  {errors.email ? (
-                      <span className='text-red-500 text-xs'>
-                                        enter your email
-                                    </span>
-                  ) : (
-                      ''
-                  )}
-                </div>
-                <div>
-                  <label
-                      htmlFor='bDay'
-                      className='block text-sm font-medium text-gray-700'
+                    htmlFor="bDay"
+                    className="block text-sm font-medium text-gray-700"
                   >
                     {t('birthday')}
                   </label>
                   <input
-                      onChange={onChangeHandler}
-                      value={user.bDay || ''}
-                      type='date'
-                      name='bDay'
-                      id='bDay'
-                      className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm'
+                    onChange={onChangeHandler}
+                    value={user.bDay || ''}
+                    type="date"
+                    name="bDay"
+                    id="bDay"
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm"
                   />
                 </div>
               </div>
             </div>
           </div>
-          <div className='flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6'>
-            <Button
-              type='button'
-              onClick={LogOut}
-              variant='dangerOutline'
-            >
+          <div className="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
+            <Button type="button" onClick={LogOut} variant="dangerOutline">
               Выйти
             </Button>
-            <Button
-              type='submit'
-              variant='primary'
-            >
+            <Button type="submit" variant="primary">
               {t('save')}
             </Button>
           </div>
@@ -263,11 +241,7 @@ const Index = () => {
   return null;
 };
 Index.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <Layout>
-      {page}
-    </Layout>
-  );
+  return <Layout>{page}</Layout>;
 };
 
 export const getStaticProps = async ({ locale }: any) => ({

@@ -1,11 +1,11 @@
-mutation SendMessage($id: String!, $message: String!, $date: String!){
-    sendMessage(id: $id, message: $message, date: $date) {
+mutation SendMessage($chatId: String!, $message: String!, $date: String!){
+    sendMessage(chatId: $chatId, message: $message, date: $date) {
         status
         errors {
             field
             message
         }
-        room {
+        chat {
             id
             messages {
                 createdAt

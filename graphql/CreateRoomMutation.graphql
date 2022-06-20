@@ -1,14 +1,14 @@
-#import "./fragmentRoom.graphql"
+#import "./fragmentChat.graphql"
 
 mutation CreateRoomMutation($bookId: String!){
-    createRoom(bookId: $bookId) {
+    createChat(bookId: $bookId) {
         status
         errors {
             field
             message
         }
-        room {
-            ...Room
+        chat {
+            ...Chat
         }
     }
 }

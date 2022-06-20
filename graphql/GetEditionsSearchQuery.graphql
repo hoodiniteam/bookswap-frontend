@@ -1,0 +1,19 @@
+query getEditionsSearch($search: String!){
+    getEditionsSearch(search: $search){
+        status
+        errors {
+            field
+            message
+        }
+        count
+        editions {
+            id
+            title
+            description
+            image
+            authors
+            virtual
+            booksCount
+        }
+    }
+}

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
 import { Book, BooksCondition } from '../types/Book';
-import { CreateBookMutation } from '../graphql/CreateBookMutation';
+// import { CreateBookMutation } from '../graphql/CreateBookMutation';
 import { dateParsedYear } from '../helpers/dateTime';
 import Button from './Button';
 import { PlusCircleIcon } from '@heroicons/react/outline';
@@ -48,7 +48,9 @@ export const AddBookModal = ({
     formState: { errors },
   } = useForm();
 
-  const [, createBook] = useMutation(CreateBookMutation);
+  // const [, createBook] = useMutation(CreateBookMutation);
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  const createBook = (args: any): any => {};
   const router = useRouter();
   const { t } = useTranslation('common');
 

@@ -1,0 +1,26 @@
+fragment RelationEdition on UserWaitsBookEdition {
+    assignedAt
+    edition {
+        id
+        title
+        description
+        image
+        booksCount
+        publishedDate
+        authors
+        virtual
+        isbn_13
+        isbn_10
+        views
+        books {
+            id
+            condition
+        }
+    }
+    user {
+        id
+        firstName
+        lastName
+        email
+    }
+}

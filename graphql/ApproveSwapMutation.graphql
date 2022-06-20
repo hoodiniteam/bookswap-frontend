@@ -1,14 +1,14 @@
-#import "./fragmentRoom.graphql"
+#import "./fragmentChat.graphql"
 
-mutation ApproveSwap($swapId: String!){
-    approveSwap(swapId: $swapId) {
+mutation ApproveSwap($swapId: String!, $bookId: String!){
+    approveSwap(swapId: $swapId, bookId: $bookId) {
         status
         errors {
             field
             message
         }
-        room {
-            ...Room
+        chat {
+            ...Chat
         }
     }
 }

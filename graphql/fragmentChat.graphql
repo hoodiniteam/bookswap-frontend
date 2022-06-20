@@ -2,7 +2,7 @@
 #import "./fragmentRecipient.graphql"
 #import "./fragmentSender.graphql"
 
-fragment Room on Room {
+fragment Chat on Chat {
     id
     book {
         ...Book
