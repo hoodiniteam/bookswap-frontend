@@ -7,14 +7,13 @@ import { useQueryWrapper } from '../../helpers/useQueryWrapper';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { localesList } from '../../helpers/locales';
 import { loader } from 'graphql.macro';
-import { GetEditionsQuery } from '../../generated/graphql';
-import { BooksStatus } from '../../types/Book';
+import { BooksStatus, GetEditionsQuery } from '../../generated/graphql.d';
 import { Badge } from '../../components/Badge';
 
 const GetEditions = loader('../../graphql/GetEditionsQuery.graphql');
 
 const Index = () => {
-  const [status, setStatus] = useState<string[] | null>(null);
+  const [status, setStatus] = useState<BooksStatus | null>(null);
   const router = useRouter();
   const { query } = router;
   const currentPage = query.page ? Number(query.page) : 1;
@@ -36,7 +35,7 @@ const Index = () => {
 
   const statusChangeHandler = async (ev: ChangeEvent<HTMLInputElement>) => {
     if (ev.target.checked) {
-      setStatus([BooksStatus[ev.target.value as any]]);
+      setStatus(ev.target.value as BooksStatus);
     } else {
       setStatus(null);
     }
@@ -60,16 +59,13 @@ const Index = () => {
                     id="status"
                     name="status"
                     type="checkbox"
-                    value={BooksStatus.OPEN}
+                    value={BooksStatus.Open}
                     onChange={statusChangeHandler}
                     className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                   />
                   <div className="ml-3 flex items-center">
                     Показывать только книги{' '}
-                    <Badge
-                      className="ml-2"
-                      status={BooksStatus[BooksStatus.OPEN]}
-                    />
+                    <Badge className="ml-2" status={BooksStatus.Open} />
                   </div>
                 </label>
               </div>

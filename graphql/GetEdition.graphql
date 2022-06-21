@@ -1,4 +1,4 @@
-#import "./fragmentEdition.graphql"
+#import "./fragmentAvatar.graphql"
 
 query getEdition($id: String!){
     getEdition(id: $id){
@@ -8,7 +8,35 @@ query getEdition($id: String!){
             message
         }
         edition {
-            ...Edition
+            id
+            title
+            description
+            authors
+            image
+            publishedDate
+            views
+            expects (where: {}) {
+                user {
+                    id
+                    firstName
+                    lastName
+                    email
+                    avatar {
+                        ...Avatar
+                    }
+                }
+            }
+            books (where: {}) {
+                id
+                status
+                condition
+                holder {
+                    id
+                }
+                creator {
+                    id
+                }
+            }
         }
     }
 }

@@ -58,7 +58,7 @@ const SimpleOptionView = ({ book }: { book: BookEdition }) => {
   );
 };
 
-export const BookPreview = ({ book }: { book: BookEdition }) => (
+export const BookPreview = ({ book }: { book: Partial<BookEdition> }) => (
   <div className="flex items-center">
     <span
       className={classNames(

@@ -1,0 +1,75 @@
+mutation upsertEdition(
+    $editionId: String,
+    $title: String!,
+    $authors: [String!]!,
+    $description: String,
+    $image: String,
+    $condition: BooksCondition,
+    $userId: String!,
+    $indexId: String!
+){
+    customUpsertEdition(
+        where: {
+            id: $editionId
+        },
+        create: {
+            title: $title,
+            authors: {
+                set: $authors
+            },
+            books: {
+                create: {
+                    title: $title,
+                    authors: {
+                        set: $authors
+                    },
+                    condition: $condition,
+                    creator: {
+                        connect: {
+                            id: $userId
+                        },
+                    },
+                    image: $image,
+                    description: $description,
+                    holder: {
+                        connect: {
+                            id: $userId
+                        },
+                    }
+                }
+            },
+            description: $description,
+            image: $image,
+            virtual: false,
+        },
+        update: {
+            virtual: {
+                set: false
+            },
+            books: {
+                create: {
+                    title: $title,
+                    authors: {
+                        set: $authors
+                    },
+                    condition: $condition,
+                    creator: {
+                        connect: {
+                            id: $userId
+                        },
+                    },
+                    image: $image,
+                    description: $description,
+                    holder: {
+                        connect: {
+                            id: $userId
+                        },
+                    }
+                }
+            },
+        },
+        indexId: $indexId
+    ) {
+        id
+    }
+}

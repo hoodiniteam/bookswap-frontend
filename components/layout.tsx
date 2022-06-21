@@ -33,6 +33,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SingleValue } from 'react-select';
 import { BookSearch } from './BookSearch';
+import { Loading } from './loading';
 
 const GetMe = loader('../graphql/GetMe.graphql');
 const ClearNotifications = loader(
@@ -61,6 +62,23 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
       current: false,
     },
   ]);
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const handleStart = () => setLoading(true);
+    const handleComplete = () => setLoading(false);
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleComplete);
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleComplete);
+      router.events.off('routeChangeError', handleComplete);
+    };
+  });
 
   const [referenceElement, setReferenceElement] =
     useState<HTMLButtonElement | null>();
@@ -98,18 +116,23 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
     };
   }, []);
 
-  const searchHandler = (newValue: {
-    value: SingleValue<{
-      title: string;
-      image?: string;
-      authors: [];
-      description?: string;
-      isbn_13?: string | null;
-      isbn_10?: string | null;
-      publishedDate: string;
-    }>;
+  const searchHandler = async (newValue: {
+    title: string;
+    image?: string;
+    authors: string[];
+    description?: string;
+    isbn_13?: string | null;
+    isbn_10?: string | null;
+    publishedDate: string;
+    booksCount: number;
+    id: string;
+    relatedEditionId?: string;
+    virtual: boolean;
   }) => {
     console.log(newValue);
+    if (newValue.relatedEditionId) {
+      await router.push(`/book/${newValue.relatedEditionId}`);
+    }
   };
 
   const createEmptyAndGo = (edition: any) => {
@@ -177,12 +200,15 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
               <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
                 <div className="relative space-x-4 h-16 flex items-center justify-between border-b">
                   <div className="px-2 flex items-center lg:px-0">
-                    <div className="flex-shrink-0">
-                      <Link href="/home">
-                        <a>
-                          <Logo />
-                        </a>
-                      </Link>
+                    <div style={{ width: 54 }} className="flex-shrink-0">
+                      {loading && <Loading />}
+                      {!loading && (
+                        <Link href="/home">
+                          <a>
+                            <Logo />
+                          </a>
+                        </Link>
+                      )}
                     </div>
                   </div>
                   <div>

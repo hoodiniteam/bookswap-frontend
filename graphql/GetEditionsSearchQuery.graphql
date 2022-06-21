@@ -14,6 +14,7 @@ query getEditionsSearch($search: String!){
             authors
             virtual
             booksCount
+            relatedEditionId
         }
     }
 }

@@ -1,16 +1,28 @@
 import React, { ChangeEvent, useState } from 'react';
-import { useMutation } from 'urql';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
-import { Book, BooksCondition } from '../types/Book';
 // import { CreateBookMutation } from '../graphql/CreateBookMutation';
 import { dateParsedYear } from '../helpers/dateTime';
 import Button from './Button';
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { toast } from 'react-toastify';
 import { BookPreview, BookSearch } from './BookSearch';
-import { BookEdition } from '../generated/graphql';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import {
+  Book,
+  BookEdition,
+  BooksCondition,
+  GetMeQuery,
+  UpsertEditionMutation,
+  UpsertEditionMutationVariables,
+} from '../generated/graphql.d';
+import { loader } from 'graphql.macro';
+import { useMutation } from 'urql';
+import { useQueryWrapper } from '../helpers/useQueryWrapper';
+const UpsertEdition = loader('../graphql/UpsertEditionMutation.graphql');
+const GetMe = loader('../graphql/GetMe.graphql');
 
 export const AddBookModal = ({
   onClose,
@@ -19,26 +31,40 @@ export const AddBookModal = ({
   onClose: () => void;
   onAddNewBook: (name: string) => void;
 }) => {
-  type CreateBookForm = Omit<Book, 'status' | 'booksCount'> & {
-    userDescription: string;
+  const [{ data: meData }] = useQueryWrapper<GetMeQuery>({
+    query: GetMe,
+  });
+
+  type BookForm = Omit<
+    BookEdition,
+    | 'books'
+    | 'booksCount'
+    | 'createdAt'
+    | 'expects'
+    | 'updatedAt'
+    | 'views'
+    | 'virtual'
+  > & {
+    condition: BooksCondition;
+    editionId: string;
+    indexId: string;
   };
 
-  const emptyState: CreateBookForm = {
+  const emptyState: BookForm = {
+    editionId: '',
+    indexId: '',
     id: '',
     title: '',
     description: '',
     image: '',
-    userDescription: '',
     isbn_13: null,
     isbn_10: null,
     authors: [],
-    condition: BooksCondition.LIKENEW,
+    condition: BooksCondition.Likenew,
     publishedDate: '',
   };
 
-  const [book, setBook] = useState<(BookEdition & { condition?: any }) | null>(
-    null
-  );
+  const [book, setBook] = useState<BookForm | null>(null);
   const [addNewBook, showAddNewBook] = useState('');
 
   const {
@@ -48,17 +74,24 @@ export const AddBookModal = ({
     formState: { errors },
   } = useForm();
 
-  // const [, createBook] = useMutation(CreateBookMutation);
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const createBook = (args: any): any => {};
+  const [, upsertBook] = useMutation<
+    UpsertEditionMutation,
+    UpsertEditionMutationVariables
+  >(UpsertEdition);
   const router = useRouter();
   const { t } = useTranslation('common');
 
-  const submit = handleSubmit((data, event) => {
+  const submit = handleSubmit(async (data, event) => {
     event?.preventDefault();
-    if (book) {
+    const userId = meData?.me?.user?.id;
+    if (book && userId) {
       console.log('book', book);
-      createBook(book).then(async (res) => {
+      const res = await upsertBook({
+        ...book,
+        userId,
+      });
+      const edition = res.data?.customUpsertEdition?.id;
+      if (edition) {
         toast('🦄 Wow книга добавлена!', {
           position: 'top-right',
           autoClose: 3000,
@@ -69,17 +102,19 @@ export const AddBookModal = ({
           progress: undefined,
         });
         onClose();
-        await router.push(`/book/${res.data.createBook.book.edition.id}`);
-      });
+        await router.push(`/book/${edition}`);
+      }
     }
   });
 
-  const handleSelectChange = (newValue: BookEdition) => {
+  const handleSelectChange = (newValue: any) => {
     if (newValue) {
       console.log(newValue);
       setBook({
         ...emptyState,
         ...newValue,
+        editionId: newValue.relatedEditionId || '',
+        indexId: newValue.id,
       });
     } else {
       setBook(null);
@@ -205,34 +240,10 @@ export const AddBookModal = ({
             {book && (
               <>
                 <h3 className="text-lg mt-4 leading-6 font-medium text-gray-900">
-                  Информация о книге
+                  Состояние
                 </h3>
-                <div className="grid grid-cols-2 gap-6">
+                <div>
                   <div>
-                    <label
-                      htmlFor="userDescription"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Ваш отзыв / описание
-                    </label>
-                    <div className="mt-1">
-                      <textarea
-                        {...register('userDescription')}
-                        onChange={onChangeHandler}
-                        id="userDescription"
-                        name="userDescription"
-                        rows={3}
-                        className="shadow-sm focus:ring-main-500 focus:border-main-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="about"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      {t('condition')}
-                    </label>
                     <div className="mt-1">
                       <select
                         value={book.condition}

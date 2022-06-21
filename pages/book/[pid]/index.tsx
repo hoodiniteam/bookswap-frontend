@@ -9,11 +9,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { localesList } from '../../../helpers/locales';
 import { getStaticEditions } from '../../../helpers/staticRequest';
 import { EyeIcon } from '@heroicons/react/outline';
-import { AddBookToMyWaitingListMutation } from '../../../graphql/AddBookToMyWaitingListMutation';
-import { RemoveBookFromMyWaitingList } from '../../../graphql/RemoveBookFromMyWaitingList';
-import { BooksStatus } from '../../../types/Book';
-import { SetBookOpenMutaion } from '../../../graphql/SetBookOpenMutaion';
-import { SetBookHoldMutaion } from '../../../graphql/SetBookHoldMutation';
 import { Badge } from '../../../components/Badge';
 import Button from '../../../components/Button';
 import Image from 'next/image';
@@ -21,10 +16,24 @@ import { AvatarComponent } from '../../../components/avatars';
 import Tippy from '@tippyjs/react';
 import { userName } from '../../../helpers/parseUserName';
 import { loader } from 'graphql.macro';
-import { CreateRoomMutationMutation, GetEditionQuery, GetMeQuery } from '../../../generated/graphql';
-const GetMe = loader("../../../graphql/GetMe.graphql");
-const CreateRoomMutation = loader("../../../graphql/CreateRoomMutation.graphql");
-const GetEdition = loader("../../../graphql/GetEdition.graphql");
+import {
+  BooksStatus,
+  CreateChatMutation,
+  CreateChatMutationVariables,
+  GetEditionQuery,
+  GetMeQuery,
+  UpdateBookStatusMutation,
+  UpdateBookStatusMutationVariables,
+} from '../../../generated/graphql.d';
+import BookWrapper from '../../../components/BookWrapper';
+import BookBigWrapper from '../../../components/BookBigWrapper';
+import classNames from 'classnames';
+const GetMe = loader('../../../graphql/GetMe.graphql');
+const CreateChat = loader('../../../graphql/CreateChatMutation.graphql');
+const GetEdition = loader('../../../graphql/GetEdition.graphql');
+const UpdateBookStatus = loader(
+  '../../../graphql/UpdateBookStatusMutation.graphql'
+);
 
 const Book = () => {
   const router = useRouter();
@@ -40,12 +49,40 @@ const Book = () => {
     query: GetMe,
   });
 
+  const [, updateBookStatus] = useMutation<
+    UpdateBookStatusMutation,
+    UpdateBookStatusMutationVariables
+  >(UpdateBookStatus);
+
+  const setBookOpen = async (id: string) => {
+    await updateBookStatus({
+      bookId: id,
+      status: BooksStatus.Open,
+    });
+  };
+
+  const setBookHold = async (id: string) => {
+    await updateBookStatus({
+      bookId: id,
+      status: BooksStatus.Hold,
+    });
+  };
+
   const { t } = useTranslation('common');
-  const [, addToMyWaitingList] = useMutation(AddBookToMyWaitingListMutation);
-  const [, removeFromMyWaitingList] = useMutation(RemoveBookFromMyWaitingList);
-  const [, createRoom] = useMutation<CreateRoomMutationMutation>(CreateRoomMutation);
-  const [, setBookOpenMutation] = useMutation(SetBookOpenMutaion);
-  const [, setBookHoldMutation] = useMutation(SetBookHoldMutaion);
+  const [, createChat] = useMutation<
+    CreateChatMutation,
+    CreateChatMutationVariables
+  >(CreateChat);
+
+  /* const [, addToMyWaitingList] = useMutation(AddBookToMyWaitingListMutation);
+  const [, removeFromMyWaitingList] = useMutation(RemoveBookFromMyWaitingList); */
+
+  const addToMyWaitingList = (...args: any): any => {
+    return false;
+  };
+  const removeFromMyWaitingList = (...args: any): any => {
+    return false;
+  };
 
   const addBookToList = async () => {
     await addToMyWaitingList({
@@ -60,200 +97,193 @@ const Book = () => {
   };
 
   const startSwap = async (bookId: string) => {
-    await createRoom({
+    await createChat({
       bookId,
-    }).then(res => {
-      const {room} = res.data?.createRoom || {};
-      if (room) {
-        router.push(`/profile/swaps/${room.id}`)
+    }).then((res) => {
+      const { chat } = res.data?.createChat || {};
+      if (chat) {
+        router.push(`/profile/swaps/${chat.id}`);
       }
-    });
-  };
-
-  const setBookOpen = async (id: string) => {
-    await setBookOpenMutation({
-      id,
-    });
-  };
-
-  const setBookHold = async (id: string) => {
-    await setBookHoldMutation({
-      id,
     });
   };
 
   const { user } = meData?.me || {};
   const { edition } = editionData?.getEdition || {};
 
-  const openBooks = edition?.books.filter((book: any) => book.status === BooksStatus[BooksStatus.OPEN]);
-  const isHolderOfAny = !!edition?.books.find((book: any) => book.holder.id === user?.id);
-  const inMyWaitingList = user?.waiting?.find((myEdition: any) => myEdition.id === edition?.id);
+  const openBooks = edition?.books.filter(
+    (book: any) => book.status === BooksStatus.Open
+  );
+  const isHolderOfAny = !!edition?.books.find(
+    (book: any) => book.holder.id === user?.id
+  );
+  const inMyWaitingList = user?.waiting?.find(
+    (myEdition: any) => myEdition.id === edition?.id
+  );
 
   return (
     <div>
       <Head>
         <title>{edition?.title}</title>
       </Head>
-      <h1 className='text-2xl text-center text-white font-semibold mb-10'>{edition?.title}</h1>
-      <div className='sm:grid gap-6 sm:grid-cols-6'>
-        <div className='col-span-2 mt-4 sm:mt-0'>
-          <div className='bg-white p-4 shadow sm:rounded-md border'>
-            <div className='flex justify-center'>
-              {
-                edition?.image && (
-                  <div className='mb-4'>
-                    <div className='bg-gray-100 rounded-md py-4 relative w-full h-60 sm:w-40 sm:h-40 lg:h-52'>
-                      <div className='relative h-full w-full'>
-                        {edition.image ? (<Image src={edition.image} layout='fill' alt={`${edition.title} poster`}
-                                                 className='object-contain pointer-events-none group-hover:opacity-75' />) : (
-                          <div className='h-full w-full bg-gray-100' />)}
-                      </div>
-                    </div>
-                  </div>
-                )
-              }
-            </div>
-            <p className='font-medium'>Подписчики</p>
-            {
-              edition?.expects?.length === 0 && (
-                <div className='text-gray-500'>Пока нет подписчиков</div>
-              )
-            }
-            <div className='grid grid-cols-4 mt-2'>
-              {
-                (edition?.expects || []).map((user: any) => (
-                  <div key={user.id}>
-                    <Tippy content={`${userName(user)}`}>
-                      <div>
-                        <AvatarComponent
-                          avatarStyle='Circle'
-                          {...user.avatar}
-                        />
-                      </div>
-                    </Tippy>
-                  </div>
-                ))
-              }
-            </div>
+      <h1 className="text-2xl text-center text-white font-semibold my-8">
+        {edition?.title}
+      </h1>
+      <div className="flex">
+        <div className="">
+          <div className="bg-white p-4 shadow sm:rounded-md border">
+            {edition && <BookBigWrapper book={edition} />}
           </div>
-          {
-            !isHolderOfAny && (openBooks?.length === 0 || edition?.expects && edition.expects.length > 0) && (
-              <div className='mt-2 relative'>
-                {
-                  inMyWaitingList && (
-                    <Button
-                      className='w-full'
-                      variant='primaryOutline'
-                      onClick={removeBookFromList}
-                    >
-                      {t('remove-from-waiting-list')}
-                    </Button>
-                  )
-                }
-                {
-                  !inMyWaitingList && (
-                    <>
-                      <Button
-                        className='w-full'
-                        variant='primary'
-                        onClick={addBookToList}
-                      >
-                        Подписаться
-                      </Button>
-                      <p className='text-gray-500 absolute transform translate-y-2 text-center text-xs top-full'>Чтобы
-                        встать в очередь и узнать, когда книга станет доступна</p>
-                    </>
-                  )
-                }
-              </div>
-            )
-          }
         </div>
-        <div className='col-span-4 bg-white relative shadow sm:rounded-md border p-6'>
+
+        <div className="bg-white ml-6 flex-grow relative shadow rounded-md border p-6">
           <div>
-            {edition?.authors && edition.authors.map((author: string, idx: number) => (
-              <span key={author} className='text-gray-500 text-sm'>
-                {author}{idx === (edition.authors?.length || 0) - 1 ? '' : ', '}
-              </span>
-            ))}
-            <p className='absolute text-xs text-gray-400 flex items-center right-4 top-4'>
-              <EyeIcon className='h-4 w-4 mr-1' />
-              {edition?.views}
-            </p>
-            <p className='mt-2.5 text-sm'>{edition?.description}</p>
-          </div>
-        </div>
-      </div>
-      <div className="pt-16">
-        <div>
-          <div className='col-span-2'>
             <div>
-              <p className='text-xl mb-4 font-medium'>Экземпляры книги</p>
-              {
-                edition?.books.length === 0
-                &&
+              <p className="text-xl mb-4 font-medium">Экземпляры книги</p>
+              {edition?.books.length === 0 && (
                 <div>
                   <p>Пока здесь нет доступных книг.</p>
-                  <p>Подпишитесь на оповещения и тогда она быстрее появится на сервисе.</p>
+                  <p>
+                    Подпишитесь на оповещения и тогда она быстрее появится на
+                    сервисе.
+                  </p>
                 </div>
-              }
+              )}
             </div>
             <div>
-              <ul className="grid grid-cols-3 gap-6" role='list'>
-                {
-                  (edition?.books || []).map((book: any) => (
-                    <li className='bg-white shadow mt-2 overflow-hidden sm:rounded-md' key={book.id}>
-                      <div className='block hover:bg-gray-50'>
-                        <div className='px-6 py-4 space-y-3'>
-                          <div className='flex items-center border-b pb-2 justify-between'>
-                            <p className='text-sm font-medium text-main-600 truncate'>
-                              Держатель: {book.holder.id === user?.id ? 'Вы' : userName(book.holder)}
-                            </p>
-                            <AvatarComponent
-                              className='w-10'
-                              avatarStyle='Circle'
-                              {...book.holder.avatar}
-                            />
+              <ul className="grid grid-cols-2 gap-6" role="list">
+                {(edition?.books || []).map((book: any) => (
+                  <li
+                    className={classNames(
+                      book.holder.id === user?.id ? 'bg-sky-50' : 'bg-lime-50',
+                      'shadow mt-2 overflow-hidden sm:rounded-md transition duration-300 hover:bg-gray-50'
+                    )}
+                    key={book.id}
+                  >
+                    <div className="block">
+                      <div className="px-6 py-4 space-y-3">
+                        <div className="flex items-center border-b pb-2 justify-between">
+                          <p className="text-sm font-medium text-main-600 truncate">
+                            Держатель:{' '}
+                            {book.holder.id === user?.id
+                              ? 'Вы'
+                              : userName(book.holder)}
+                          </p>
+                          <AvatarComponent
+                            className="w-10"
+                            avatarStyle="Circle"
+                            {...book.holder.avatar}
+                          />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <p className="flex text-sm items-center text-gray-500">
+                            Состояние:
+                            <span className="ml-0.5 -mb-0.5">
+                              {t(book.condition)}
+                            </span>
+                          </p>
+                          <Badge status={book.status} />
+                        </div>
+                        {book.description && (
+                          <div className="text-sm italic mt-2">
+                            {book.description}
                           </div>
-                          <div className='flex items-center justify-between'>
-                            <p className='flex text-sm items-center text-gray-500'>
-                              Состояние:
-                              <span className='ml-0.5 -mb-0.5'>{t(book.condition)}</span>
-                            </p>
-                            <Badge status={book.status} />
-                          </div>
-                          {
-                            book.description && <div className='text-sm italic mt-2'>{book.description}</div>
-                          }
-                          {
-                            !isHolderOfAny && book.status === BooksStatus[BooksStatus.OPEN] && edition?.expects && edition.expects.length === 0 &&
+                        )}
+                        {!isHolderOfAny &&
+                          book.status === BooksStatus.Open &&
+                          edition?.expects &&
+                          edition.expects.length === 0 && (
                             <div>
                               <Button
-                                className='w-full'
-                                variant='primary'
+                                className="w-full"
+                                variant="primary"
                                 onClick={() => startSwap(book.id)}
                               >
                                 Начать своп
                               </Button>
                             </div>
-                          }
-                          {book.holder.id === user?.id && (
-                            <div>
-                              {book.status === BooksStatus[BooksStatus.HOLD] && (
-                                <Button variant='secondary' className='w-full' onClick={() => setBookOpen(book.id)}>Сделать доступной для заказа</Button>
-                              )}
-                              {book.status === BooksStatus[BooksStatus.OPEN] && (
-                                <Button variant='secondaryOutline' className='w-full' onClick={() => setBookHold(book.id)}>Убрать из доступных</Button>
-                              )}
-                            </div>
                           )}
-                        </div>
+                        {book.holder.id === user?.id && (
+                          <div>
+                            {book.status === BooksStatus.Hold && (
+                              <Button
+                                variant="secondary"
+                                className="w-full"
+                                onClick={() => setBookOpen(book.id)}
+                              >
+                                Сделать доступной для заказа
+                              </Button>
+                            )}
+                            {book.status === BooksStatus.Open && (
+                              <Button
+                                variant="secondaryOutline"
+                                className="w-full"
+                                onClick={() => setBookHold(book.id)}
+                              >
+                                Убрать из доступных
+                              </Button>
+                            )}
+                          </div>
+                        )}
                       </div>
-                    </li>
-                  ))
-                }
+                    </div>
+                  </li>
+                ))}
               </ul>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white divide-y space-y-4 mt-8 relative shadow rounded-md border p-6">
+        <div>
+          <p className="font-medium">Подписчики</p>
+          {edition?.expects?.length === 0 && (
+            <div className="text-gray-500">Пока нет подписчиков</div>
+          )}
+          <div className="grid grid-cols-4 mt-2">
+            {(edition?.expects || []).map((user: any) => (
+              <div key={user.id}>
+                <Tippy content={`${userName(user)}`}>
+                  <div>
+                    <AvatarComponent avatarStyle="Circle" {...user.avatar} />
+                  </div>
+                </Tippy>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="pt-4">
+          <div className=" max-w-sm mx-auto">
+            {!isHolderOfAny &&
+              (openBooks?.length === 0 ||
+                (edition?.expects && edition.expects.length > 0)) && (
+                <div className="mt-2 relative">
+                  {inMyWaitingList && (
+                    <Button
+                      className="w-full"
+                      variant="primaryOutline"
+                      onClick={removeBookFromList}
+                    >
+                      {t('remove-from-waiting-list')}
+                    </Button>
+                  )}
+                  {!inMyWaitingList && (
+                    <>
+                      <Button
+                        className="w-full"
+                        variant="primary"
+                        onClick={addBookToList}
+                      >
+                        Подписаться
+                      </Button>
+                      <p className="text-gray-500 mt-2 text-center text-xs top-full">
+                        Чтобы встать в очередь и узнать, когда книга станет
+                        доступна
+                      </p>
+                    </>
+                  )}
+                </div>
+              )}
           </div>
         </div>
       </div>
@@ -262,17 +292,15 @@ const Book = () => {
 };
 
 Book.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <Layout>
-      {page}
-    </Layout>
-  );
+  return <Layout>{page}</Layout>;
 };
 
 export const getStaticPaths = async () => {
   const editions = await getStaticEditions();
   return {
-    paths: editions.data.data.getEditionsStatic.map(editionId => `/book/${editionId}`),
+    paths: editions.data.data.getEditionsStatic.map(
+      (editionId) => `/book/${editionId}`
+    ),
     fallback: true,
   };
 };

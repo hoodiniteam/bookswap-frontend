@@ -8,6 +8,13 @@ query getEditions($offset: Float, $limit: Float, $status: BooksStatus, $recent: 
         count
         editions {
             id
+            title
+            description
+            authors
+            image
+            publishedDate
+            views
+            booksCount
         }
     }
 }

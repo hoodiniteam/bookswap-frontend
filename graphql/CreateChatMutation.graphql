@@ -1,6 +1,6 @@
 #import "./fragmentChat.graphql"
 
-mutation CreateRoomMutation($bookId: String!){
+mutation CreateChat($bookId: String!){
     createChat(bookId: $bookId) {
         status
         errors {

@@ -33,6 +33,7 @@ fragment User on User {
     description
     status
     condition
+    image
     edition {
       id
     }

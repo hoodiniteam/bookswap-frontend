@@ -1,0 +1,15 @@
+mutation UpdateBookStatus ($bookId: String!, $status: BooksStatus!) {
+    updateBook(
+        where: {id: $bookId},
+        data: {
+            status: {set: $status}
+        }
+    ) {
+        id
+        description
+        title
+        condition
+        status
+        image
+    }
+}

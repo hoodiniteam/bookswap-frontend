@@ -1,4 +1,3 @@
-#import "./fragmentEditionRelation.graphql"
 #import "./fragmentAvatar.graphql"
 
 fragment Book on Book {
