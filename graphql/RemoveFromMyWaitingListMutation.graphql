@@ -1,0 +1,26 @@
+#import "./fragmentUser.graphql"
+
+mutation RemoveFromMyWaitingList ($userId: String!, $editionId: String!) {
+    updateMe(
+        where: {id: "empty"},
+        data: {
+            waiting: {
+                delete: {
+                    userId_editionId: {
+                        userId: $userId,
+                        editionId: $editionId
+                    }
+                }
+            }
+        }
+    ) {
+        status
+        errors {
+            field
+            message
+        }
+        user {
+            ...User
+        }
+    }
+}

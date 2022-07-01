@@ -31,6 +31,7 @@ fragment User on User {
     id
     title
     description
+    authors
     status
     condition
     image

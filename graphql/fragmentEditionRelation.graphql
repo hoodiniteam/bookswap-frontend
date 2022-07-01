@@ -15,6 +15,7 @@ fragment RelationEdition on UserWaitsBookEdition {
         books {
             id
             condition
+            status
         }
     }
     user {

@@ -8,42 +8,51 @@ import { useTranslation } from 'react-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { localesList } from '../../../helpers/locales';
 import { getStaticEditions } from '../../../helpers/staticRequest';
-import { EyeIcon } from '@heroicons/react/outline';
 import { Badge } from '../../../components/Badge';
 import Button from '../../../components/Button';
-import Image from 'next/image';
 import { AvatarComponent } from '../../../components/avatars';
 import Tippy from '@tippyjs/react';
 import { userName } from '../../../helpers/parseUserName';
 import { loader } from 'graphql.macro';
 import {
+  AddToMyWaitingListMutation,
+  AddToMyWaitingListMutationVariables,
   BooksStatus,
   CreateChatMutation,
   CreateChatMutationVariables,
   GetEditionQuery,
   GetMeQuery,
+  RemoveFromMyWaitingListMutation,
+  RemoveFromMyWaitingListMutationVariables,
   UpdateBookStatusMutation,
   UpdateBookStatusMutationVariables,
 } from '../../../generated/graphql.d';
-import BookWrapper from '../../../components/BookWrapper';
 import BookBigWrapper from '../../../components/BookBigWrapper';
 import classNames from 'classnames';
+import { toast } from 'react-toastify';
 const GetMe = loader('../../../graphql/GetMe.graphql');
 const CreateChat = loader('../../../graphql/CreateChatMutation.graphql');
 const GetEdition = loader('../../../graphql/GetEdition.graphql');
 const UpdateBookStatus = loader(
   '../../../graphql/UpdateBookStatusMutation.graphql'
 );
+const AddToMyWaitingList = loader(
+  '../../../graphql/AddToMyWaitingListMutation.graphql'
+);
+const RemoveFromMyWaitingList = loader(
+  '../../../graphql/RemoveFromMyWaitingListMutation.graphql'
+);
 
 const Book = () => {
   const router = useRouter();
   const { pid } = router.query;
 
-  const [{ data: editionData }] = useQueryWrapper<GetEditionQuery>({
-    query: GetEdition,
-    variables: { id: pid },
-    pause: !pid,
-  });
+  const [{ data: editionData }, reexecuteEditionQuery] =
+    useQueryWrapper<GetEditionQuery>({
+      query: GetEdition,
+      variables: { id: pid },
+      pause: !pid,
+    });
 
   const [{ data: meData }] = useQueryWrapper<GetMeQuery>({
     query: GetMe,
@@ -74,26 +83,51 @@ const Book = () => {
     CreateChatMutationVariables
   >(CreateChat);
 
-  /* const [, addToMyWaitingList] = useMutation(AddBookToMyWaitingListMutation);
-  const [, removeFromMyWaitingList] = useMutation(RemoveBookFromMyWaitingList); */
+  const [, addToMyWaitingList] = useMutation<
+    AddToMyWaitingListMutation,
+    AddToMyWaitingListMutationVariables
+  >(AddToMyWaitingList);
 
-  const addToMyWaitingList = (...args: any): any => {
-    return false;
-  };
-  const removeFromMyWaitingList = (...args: any): any => {
-    return false;
-  };
+  const [, removeFromMyWaitingList] = useMutation<
+    RemoveFromMyWaitingListMutation,
+    RemoveFromMyWaitingListMutationVariables
+  >(RemoveFromMyWaitingList);
 
   const addBookToList = async () => {
-    await addToMyWaitingList({
-      id: pid,
-    });
+    if (typeof pid === 'string') {
+      await addToMyWaitingList({
+        editionId: pid,
+      });
+      await reexecuteEditionQuery();
+      toast('⏰ Книга добавлена в подписки!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
 
   const removeBookFromList = async () => {
-    await removeFromMyWaitingList({
-      id: pid,
-    });
+    if (typeof pid === 'string' && meData?.me?.user?.id) {
+      await removeFromMyWaitingList({
+        userId: meData?.me?.user?.id,
+        editionId: pid,
+      });
+      await reexecuteEditionQuery();
+      toast('❌ Книга удалена из подписок!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
 
   const startSwap = async (bookId: string) => {
@@ -117,7 +151,7 @@ const Book = () => {
     (book: any) => book.holder.id === user?.id
   );
   const inMyWaitingList = user?.waiting?.find(
-    (myEdition: any) => myEdition.id === edition?.id
+    ({ edition: myEdition }) => myEdition.id === edition?.id
   );
 
   return (
@@ -128,14 +162,14 @@ const Book = () => {
       <h1 className="text-2xl text-center text-white font-semibold my-8">
         {edition?.title}
       </h1>
-      <div className="flex">
+      <div className="sm:flex">
         <div className="">
           <div className="bg-white p-4 shadow sm:rounded-md border">
             {edition && <BookBigWrapper book={edition} />}
           </div>
         </div>
 
-        <div className="bg-white ml-6 flex-grow relative shadow rounded-md border p-6">
+        <div className="bg-white sm:ml-6 flex-grow relative shadow rounded-md border p-6">
           <div>
             <div>
               <p className="text-xl mb-4 font-medium">Экземпляры книги</p>
@@ -150,7 +184,7 @@ const Book = () => {
               )}
             </div>
             <div>
-              <ul className="grid grid-cols-2 gap-6" role="list">
+              <ul className="grid grid-cols-1 xl:grid-cols-2 gap-6" role="list">
                 {(edition?.books || []).map((book: any) => (
                   <li
                     className={classNames(
@@ -188,20 +222,17 @@ const Book = () => {
                             {book.description}
                           </div>
                         )}
-                        {!isHolderOfAny &&
-                          book.status === BooksStatus.Open &&
-                          edition?.expects &&
-                          edition.expects.length === 0 && (
-                            <div>
-                              <Button
-                                className="w-full"
-                                variant="primary"
-                                onClick={() => startSwap(book.id)}
-                              >
-                                Начать своп
-                              </Button>
-                            </div>
-                          )}
+                        {!isHolderOfAny && book.status === BooksStatus.Open && (
+                          <div>
+                            <Button
+                              className="w-full"
+                              variant="primary"
+                              onClick={() => startSwap(book.id)}
+                            >
+                              Начать своп
+                            </Button>
+                          </div>
+                        )}
                         {book.holder.id === user?.id && (
                           <div>
                             {book.status === BooksStatus.Hold && (
@@ -241,7 +272,7 @@ const Book = () => {
             <div className="text-gray-500">Пока нет подписчиков</div>
           )}
           <div className="grid grid-cols-4 mt-2">
-            {(edition?.expects || []).map((user: any) => (
+            {(edition?.expects || []).map(({ user }) => (
               <div key={user.id}>
                 <Tippy content={`${userName(user)}`}>
                   <div>

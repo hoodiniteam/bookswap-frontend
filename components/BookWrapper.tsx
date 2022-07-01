@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import { dateParsedYear } from '../helpers/dateTime';
 import classNames from 'classnames';
-import { BookOpenIcon } from '@heroicons/react/outline';
 import { Book } from '../generated/graphql.d';
 
 const BookWrapper = ({
@@ -10,7 +9,7 @@ const BookWrapper = ({
   size,
   className,
 }: {
-  book: Omit<Partial<Book>, 'edition'>;
+  book: Pick<Book, 'id' | 'title' | 'image' | 'authors' | 'publishedDate'>;
   size?: string;
   className?: string;
 }) => {
@@ -29,7 +28,7 @@ const BookWrapper = ({
     >
       <Link href={`/book/${id}`}>
         <a
-          style={{ width: isSmall ? 200 : 224 }}
+          style={{ width: isSmall ? 'min-content' : 'auto', minWidth: 150 }}
           className={`block max-w-full w-full h-full ${isSmall ? 'p-4' : ''}`}
         >
           <div
@@ -46,6 +45,7 @@ const BookWrapper = ({
                   src={src}
                   alt={`${title} poster`}
                   style={{
+                    maxWidth: 'none',
                     height: 140,
                     boxShadow: '-7px 0px 6px -1px rgba(0, 0, 0, 0.2)',
                   }}

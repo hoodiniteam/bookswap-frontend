@@ -1,7 +1,7 @@
 #import "./fragmentChat.graphql"
 
-mutation InitSwap($roomId: String!, $chatId: String!, $recipientId: String!){
-    initSwap(bookId: $roomId, chatId: $chatId, recipientId: $recipientId) {
+mutation InitSwap($bookId: String!, $chatId: String!, $recipientId: String!){
+    initSwap(bookId: $bookId, chatId: $chatId, recipientId: $recipientId) {
         status
         errors {
             field

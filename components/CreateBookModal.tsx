@@ -1,14 +1,9 @@
 import React, { ChangeEvent, useRef, useState } from 'react';
-import { useClient, useMutation } from 'urql';
+import { useClient } from 'urql';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
-import AsyncSelect from 'react-select/async';
-import { SingleValue } from 'react-select';
 import { Book, BooksCondition } from '../types/Book';
-import { dateParsedYear } from '../helpers/dateTime';
-import Button from './Button';
-import { PlusCircleIcon } from '@heroicons/react/outline';
 import { toast } from 'react-toastify';
 
 import { FilePond, registerPlugin } from 'react-filepond';
@@ -16,7 +11,7 @@ import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-import { FilePondFile } from 'filepond';
+// import { FilePondFile } from 'filepond';
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
@@ -69,7 +64,7 @@ export const CreateBookModal = ({
     event?.preventDefault();
     if (book) {
       console.log('book', book);
-      createBook(book).then(async (res) => {
+      createBook(book).then(async (res: any) => {
         toast('🦄 Wow книга добавлена!', {
           position: 'top-right',
           autoClose: 3000,

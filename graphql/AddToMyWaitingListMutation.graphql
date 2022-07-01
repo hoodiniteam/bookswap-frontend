@@ -1,0 +1,28 @@
+#import "./fragmentUser.graphql"
+
+mutation AddToMyWaitingList ($editionId: String!) {
+    updateMe(
+        where: {id: "empty"},
+        data: {
+            waiting: {
+                create: {
+                    edition: {
+                        connect: {
+                            id: $editionId
+                        }
+                    }
+                }
+            }
+        }
+    ) {
+        status
+        errors {
+            field
+            message
+        }
+        user {
+            ...User
+        }
+    }
+
+}

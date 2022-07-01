@@ -32,9 +32,21 @@ query getEdition($id: String!){
                 condition
                 holder {
                     id
+                    firstName
+                    lastName
+                    email
+                    avatar {
+                        ...Avatar
+                    }
                 }
                 creator {
                     id
+                    firstName
+                    lastName
+                    email
+                    avatar {
+                        ...Avatar
+                    }
                 }
             }
         }

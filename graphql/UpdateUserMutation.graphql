@@ -1,7 +1,17 @@
 #import "./fragmentUser.graphql"
 
-mutation UpdateUser($email: StringFieldUpdateOperationsInput, $firstName: NullableStringFieldUpdateOperationsInput, $lastName:NullableStringFieldUpdateOperationsInput, $avatar: UserAvatarUpdateOneWithoutUserInput){
-    updateMe(options:{email: $email, firstName:$firstName, lastName:$lastName, avatar: $avatar}) {
+mutation UpdateUserData($firstName: String, $lastName:String){
+    updateMe(
+        where: {id: "empty"},
+        data: {
+            firstName: {
+                set: $firstName
+            }
+            lastName: {
+                set: $lastName
+            },
+        }
+    ) {
         status
         errors {
             field

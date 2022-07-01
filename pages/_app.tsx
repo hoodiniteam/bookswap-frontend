@@ -90,16 +90,11 @@ const client = createClient({
       // @ts-ignore
       schema,
       keys: {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        Message: (data) => data.createdAt,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        Notification: (data) => data.createdAt,
+        BookEdition: (data: any) => data.id,
+        Message: (data: any) => data.createdAt,
+        Notification: (data: any) => data.createdAt,
         UserResponse: () => null,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        ChatResponse: (data) => data.room.id,
+        ChatResponse: (data: any) => data.chat.id,
         UserAvatar: () => null,
       },
     }),

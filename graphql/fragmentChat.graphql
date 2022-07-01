@@ -5,7 +5,10 @@
 fragment Chat on Chat {
     id
     book {
-        ...Book
+        id
+        title
+        description
+        image
     }
     recipient {
         ...Recipient

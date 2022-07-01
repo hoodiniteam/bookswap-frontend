@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react';
+import React, { ChangeEvent, ReactElement } from 'react';
 import { useMutation } from 'urql';
 import { useForm } from 'react-hook-form';
 import Layout from '../../components/layout';
@@ -12,7 +12,11 @@ import Button from '../../components/Button';
 import Link from 'next/link';
 import LogOut from '../../helpers/LogOut';
 import { loader } from 'graphql.macro';
-import { GetMeQuery, UpdateUserMutation } from '../../generated/graphql';
+import {
+  GetMeQuery,
+  UpdateUserDataMutation,
+  UpdateUserDataMutationVariables,
+} from '../../generated/graphql';
 const GetMe = loader('../../graphql/GetMe.graphql');
 const UpdateUser = loader('../../graphql/UpdateUserMutation.graphql');
 
@@ -56,8 +60,13 @@ const Index = () => {
     query: GetMe,
   });
 
-  const [, updateUser] = useMutation<UpdateUserMutation>(UpdateUser);
-  const [user, setUser] = useState<UserData>();
+  const [, updateUser] = useMutation<
+    UpdateUserDataMutation,
+    UpdateUserDataMutationVariables
+  >(UpdateUser);
+
+  const { user } = meData?.me || {};
+
   const {
     register,
     clearErrors,
@@ -66,14 +75,6 @@ const Index = () => {
   } = useForm();
   const { t } = useTranslation(localesList);
 
-  useEffect(() => {
-    if (meData?.me?.user) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      setUser(meData.me.user);
-    }
-  }, [meData]);
-
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
@@ -81,18 +82,8 @@ const Index = () => {
     event?.preventDefault();
     if (user) {
       const variables = {
-        email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        region: user.region,
-        country: user.country,
-        city: user.city,
-        street: user.street,
-        apartment: user.apartment,
-        bDay: user.bDay,
-        phone: user.phone,
-        gender: user.gender,
-        zipcode: +user.zipcode,
       };
       updateUser(variables).then((data) => {
         console.log(data);
@@ -105,7 +96,7 @@ const Index = () => {
   ) => {
     const { name, value } = e.target;
     if (user) {
-      setUser({ ...user, [name]: value });
+      user[name as 'firstName' | 'lastName'] = value;
     }
     clearErrors(name);
   };
@@ -134,11 +125,13 @@ const Index = () => {
                     avatarStyle="Circle"
                     {...user.avatar}
                   />
-                  {/* <Link href="/profile/avatar">
+                  <Link href="/profile/avatar">
                     <a>
-                      <Button className="mt-6 ml-2" type="button">Настроить аватар</Button>
+                      <Button className="mt-6 ml-2" type="button">
+                        Настроить аватар
+                      </Button>
                     </a>
-                  </Link> */}
+                  </Link>
                 </div>
               </div>
               <div className="space-y-4 col-span-6 sm:col-span-3">
@@ -206,22 +199,6 @@ const Index = () => {
                   ) : (
                     ''
                   )}
-                </div>
-                <div>
-                  <label
-                    htmlFor="bDay"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    {t('birthday')}
-                  </label>
-                  <input
-                    onChange={onChangeHandler}
-                    value={user.bDay || ''}
-                    type="date"
-                    name="bDay"
-                    id="bDay"
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-main-500 focus:border-main-500 sm:text-sm"
-                  />
                 </div>
               </div>
             </div>

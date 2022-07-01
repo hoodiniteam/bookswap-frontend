@@ -27,17 +27,10 @@ const BookWrapper = ({
         className
       )}
     >
-      <div
-        style={{ width: 300 }}
-        className={`block max-w-full w-full h-full ${isSmall ? 'p-4' : ''}`}
-      >
+      <div className="block sm:w-[300px] max-w-full mx-auto">
         <div
           style={{ height: 300 }}
-          className={`rounded flex relative ${
-            isSmall
-              ? ''
-              : 'justify-center py-10 bg-gray-200 transition-colors duration-300 group-hover:bg-gray-300'
-          }`}
+          className="rounded flex relative justify-center py-10 bg-gray-200 transition-colors duration-300 group-hover:bg-gray-300"
         >
           <div className="relative">
             {src && (
