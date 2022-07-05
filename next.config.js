@@ -4,7 +4,7 @@ const { i18n } = require('./next-i18next.config');
 module.exports = {
   webpack5: true,
   env: {
-    API_URL: 'http://server:4000/graphql'
+    API_URL: 'http://localhost:4000/graphql'
   },
   images: {
     domains: ['images.unsplash.com', 'res.cloudinary.com', 'books.google.com']
