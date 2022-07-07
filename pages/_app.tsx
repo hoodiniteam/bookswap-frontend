@@ -13,12 +13,6 @@ import { cacheExchange } from '@urql/exchange-graphcache';
 import LogOut from '../helpers/LogOut';
 import { RefreshMutation } from '../graphql/RefreshMutation';
 import Head from 'next/head';
-import { loader } from 'graphql.macro';
-import {
-  GetRoomQuery,
-  SendMessageMutationVariables,
-} from '../generated/graphql';
-const GetRoom = loader('../graphql/GetRoom.graphql');
 import schema from '../graphql.schema.json';
 
 const getAuth = async ({ authState, mutate }: any) => {
@@ -81,7 +75,6 @@ const didAuthError = ({ error }: any) => {
 };
 
 const client = createClient({
-  // url: 'https://bookswap-api-2-627cm.ondigitalocean.app/graphql',
   url: process.env.API_URL || '',
   exchanges: [
     dedupExchange,

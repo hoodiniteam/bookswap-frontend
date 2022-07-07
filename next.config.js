@@ -1,10 +1,13 @@
 // eslint-disable-next-line no-undef,@typescript-eslint/no-var-requires
 const { i18n } = require('./next-i18next.config');
 // eslint-disable-next-line no-undef
+
+// eslint-disable-next-line no-undef
 module.exports = {
   webpack5: true,
   env: {
-    API_URL: 'http://localhost:4000/graphql'
+    // eslint-disable-next-line no-undef
+    API_URL: process.env.NODE_ENV === "production" ? "https://api.bookswap.ru/graphql" : 'http://localhost:4000/graphql'
   },
   images: {
     domains: ['images.unsplash.com', 'res.cloudinary.com', 'books.google.com']

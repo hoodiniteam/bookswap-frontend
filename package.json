@@ -6,9 +6,11 @@
     "dev": "nodemon --watch './graphql' -e graphql --exec 'yarn codegen && rm -rf .next && next dev'",
     "build": "next build",
     "start": "next start",
+    "build&start": "yarn build && yarn start",
     "lint": "next lint",
     "port": "lt --port 3000",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen --config codegen.yml",
+    "runDocker": "docker run --rm -d -p 3000:3000 --network bookswap_default --name bs-frontend frontend"
   },
   "dependencies": {
     "@graphql-codegen/cli": "^2.6.2",
