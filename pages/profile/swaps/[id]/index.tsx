@@ -180,7 +180,7 @@ const Index = () => {
     });
 
   return (
-    <div className="h-screen sm:px-4 fixed left-0 top-0 overflow-hidden pb-16 mt-[64px] w-full">
+    <div style={{height: `calc(var(--vh, 1vh) * 100 - 64px)`}} className="sm:px-4 fixed left-0 top-0 overflow-hidden pb-16 mt-[64px] w-full">
       <div className="flex flex-col h-full overflow-hidden">
         {chat && (
           <div className="bg-white px-2 pt-2 pb-2 rounded-md">
@@ -210,7 +210,7 @@ const Index = () => {
                 <>
                   {chat.swap && chat.swap.status === 'INITIATED' && (
                     <Button
-                      className="w-full"
+                      className="w-full sm:w-auto"
                       onClick={() => setGetModalIsOpen(true)}
                     >{`Я получил книгу от ${userName(chat.sender)}`}</Button>
                   )}
@@ -220,7 +220,7 @@ const Index = () => {
                 <>
                   {!chat.swap && (
                     <Button
-                      className="w-full"
+                      className="w-full sm:w-auto"
                       onClick={() => setGiveModalIsOpen(true)}
                     >{`Передать книгу -> ${userName(chat.recipient)}`}</Button>
                   )}
@@ -229,7 +229,7 @@ const Index = () => {
                     chat.swap.status !== 'APPROVED' && (
                       <Button
                         variant="primaryOutline"
-                        className="w-full"
+                        className="w-full sm:w-auto"
                       >{`Ожидаем подтверждения от ${userName(
                         chat.recipient
                       )}`}</Button>

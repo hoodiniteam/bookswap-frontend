@@ -54,6 +54,7 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
   const [createModal, setCreateModal] = useState(false);
   const [, setBooks] = useState<any[]>([]);
   const [newBookName, setNewBookName] = useState('');
+
   const [navigation, setNavigation] = useState([
     {
       title: 'Популярные',
@@ -74,16 +75,21 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
   useEffect(() => {
     const handleStart = () => setLoading(true);
     const handleComplete = () => setLoading(false);
+    const setMobileHeightListener = () => document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
 
     router.events.on('routeChangeStart', handleStart);
     router.events.on('routeChangeComplete', handleComplete);
     router.events.on('routeChangeError', handleComplete);
 
+    setMobileHeightListener();
+    window.addEventListener("resize", setMobileHeightListener);
+
     return () => {
       router.events.off('routeChangeStart', handleStart);
       router.events.off('routeChangeComplete', handleComplete);
       router.events.off('routeChangeError', handleComplete);
-    };
+      window.removeEventListener("resize", setMobileHeightListener);
+    }
   });
 
   const [referenceElement, setReferenceElement] =
