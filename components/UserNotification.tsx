@@ -10,7 +10,7 @@ interface Notification {
 
 const Notification = ({ notification }: {notification: Notification}) => {
   return (
-    <div className="text-sm bg-gray-100 mx-2 space-y-1 py-2.5 rounded-md px-4 overflow-hidden">
+    <div className="text-sm bg-gray-100 mx-2 space-y-1 mb-1 py-2.5 rounded-md px-4 overflow-hidden">
       <div className="text-gray-500 text-xs">{dateTimeToHuman(notification.createdAt)}</div>
       <div>{notification.message}</div>
     </div>

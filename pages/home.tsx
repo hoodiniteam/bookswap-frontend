@@ -5,13 +5,14 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { localesList } from '../helpers/locales';
 import { useQueryWrapper } from '../helpers/useQueryWrapper';
 import BookWrapper from '../components/BookWrapper';
-import { GetEditionsQuery, GetMeQuery } from '../generated/graphql';
+import { BooksStatus, GetEditionsQuery, GetMeQuery } from '../generated/graphql.d';
 import { loader } from 'graphql.macro';
 import Link from 'next/link';
 import {
   activeSwapsReceive,
   activeSwapsSend,
 } from '../helpers/parseActiveSwaps';
+import { ChatIcon, HeartIcon } from '@heroicons/react/outline';
 const GetMe = loader('../graphql/GetMe.graphql');
 const GetEditions = loader('../graphql/GetEditionsQuery.graphql');
 
@@ -50,11 +51,11 @@ const Home = () => {
 
   const stats = [
     {
-      name: 'Получить',
+      name: 'Получить книгу',
       stat: activeSwapsReceive(user || { chatRecipient: [] }).length || 0,
     },
     {
-      name: 'Отдать',
+      name: 'Отдать книгу',
       stat: activeSwapsSend(user || { chatSender: [] }).length || 0,
     },
   ];
@@ -63,10 +64,10 @@ const Home = () => {
       <Head>
         <title>Главная</title>
       </Head>
-      <div className="sm:grid grid-cols-2 gap-5">
+      <div className="sm:grid space-y-6 sm:space-y-0 grid-cols-2 gap-5">
         <div>
-          <h3 className="text-xl leading-6 font-medium sm:text-white text-gray-900">
-            Активные свопы
+          <h3 className="flex items-center text-xl leading-6 font-medium sm:text-white text-gray-900">
+             <ChatIcon className="h-8 w-8 mr-2" /> Активные свопы
           </h3>
           <dl className="mt-4 grid gap-5 grid-cols-2">
             {stats.map((item) => (
@@ -83,17 +84,33 @@ const Home = () => {
             ))}
           </dl>
         </div>
-        {/*<div>
-          <h3 className="text-xl leading-6 font-medium sm:text-white text-gray-900">Подписки</h3>
-          <dl className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2">
-            {stats.map((item) => (
-              <div key={item.name} className="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
-                <dt className="text-sm font-medium text-gray-500 truncate">{item.name}</dt>
-                <dd className="mt-1 text-3xl font-semibold text-gray-900">{item.stat}</dd>
-              </div>
-            ))}
+      </div>
+
+      <div className="sm:grid mt-6 space-y-6 sm:space-y-0 grid-cols-2 gap-5">
+        <div>
+          <h3 className="flex items-center text-xl leading-6 font-medium text-gray-900">
+            <HeartIcon className="h-8 w-8 mr-2" /> Избранное
+          </h3>
+          <dl className="mt-4 grid gap-5 grid-cols-2">
+            <Link href="/profile/waiting">
+              <a className="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+                <dt className="text-sm font-medium text-gray-500 truncate">
+                  Доступны для заказа
+                </dt>
+                {
+                  user && <dd className="mt-1 text-3xl font-semibold text-gray-900">
+                    {user.waiting.reduce((acc, sub) => {
+                      const openedBooks = sub.edition.books.filter(
+                        (book: any) => book.status === BooksStatus.Open
+                      ).length || 0;
+                      return acc + openedBooks;
+                    }, 0)}
+                  </dd>
+                }
+              </a>
+            </Link>
           </dl>
-        </div>*/}
+        </div>
       </div>
       <div className="pt-8">
         <div className="text-xl font-medium">Недавно добавленные</div>

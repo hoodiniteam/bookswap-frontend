@@ -1,15 +1,17 @@
 mutation UpdateBookStatus ($bookId: String!, $status: BooksStatus!) {
-    updateBook(
+    customUpdateBook(
         where: {id: $bookId},
         data: {
             status: {set: $status}
         }
     ) {
-        id
-        description
-        title
-        condition
-        status
-        image
+        book {
+            id
+            description
+            title
+            condition
+            status
+            image
+        }
     }
 }

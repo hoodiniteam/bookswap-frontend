@@ -47,7 +47,7 @@ const Index = () => {
   if (editions !== null) {
     return (
       <div className="">
-        <h1 className="text-2xl text-center text-white font-semibold mb-10">
+        <h1 className="hidden sm:block text-2xl text-center text-white font-semibold mb-10">
           Книги
         </h1>
         <div>

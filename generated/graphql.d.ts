@@ -2548,7 +2548,7 @@ export type Mutation = {
   addBookToMyWaitingList?: Maybe<EditionResponse>;
   approveSwap: ChatResponse;
   clearNotifications: UserResponse;
-  createBook: BookResponse;
+  createBook: Book;
   createBookEdition: BookEdition;
   createChat: ChatResponse;
   createManyBook: AffectedRowsOutput;
@@ -2566,6 +2566,8 @@ export type Mutation = {
   createUser: User;
   createUserAvatar: UserAvatar;
   createUserWaitsBookEdition: UserWaitsBookEdition;
+  customCreateBook: BookResponse;
+  customUpdateBook: BookResponse;
   customUpsertEdition?: Maybe<BookEdition>;
   deleteBook?: Maybe<Book>;
   deleteBookEdition?: Maybe<BookEdition>;
@@ -2591,8 +2593,6 @@ export type Mutation = {
   registerUser: LoginResponse;
   removeBookFromMyWaitingList?: Maybe<EditionResponse>;
   sendMessage: ChatResponse;
-  setBookHold: BookResponse;
-  setBookOpen: BookResponse;
   updateBook?: Maybe<Book>;
   updateBookEdition?: Maybe<BookEdition>;
   updateChat?: Maybe<Chat>;
@@ -2636,8 +2636,7 @@ export type MutationApproveSwapArgs = {
 
 
 export type MutationCreateBookArgs = {
-  editionId: Scalars['String'];
-  options: BookCreateInput;
+  data: BookCreateInput;
 };
 
 
@@ -2732,6 +2731,18 @@ export type MutationCreateUserAvatarArgs = {
 
 export type MutationCreateUserWaitsBookEditionArgs = {
   data: UserWaitsBookEditionCreateInput;
+};
+
+
+export type MutationCustomCreateBookArgs = {
+  editionId: Scalars['String'];
+  options: BookCreateInput;
+};
+
+
+export type MutationCustomUpdateBookArgs = {
+  data: BookUpdateInput;
+  where: BookWhereUniqueInput;
 };
 
 
@@ -2864,16 +2875,6 @@ export type MutationSendMessageArgs = {
   chatId: Scalars['String'];
   date: Scalars['String'];
   message: Scalars['String'];
-};
-
-
-export type MutationSetBookHoldArgs = {
-  id: Scalars['String'];
-};
-
-
-export type MutationSetBookOpenArgs = {
-  id: Scalars['String'];
 };
 
 
@@ -6530,7 +6531,7 @@ export type UpdateBookStatusMutationVariables = Exact<{
 }>;
 
 
-export type UpdateBookStatusMutation = { __typename?: 'Mutation', updateBook?: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, image?: string | null } | null };
+export type UpdateBookStatusMutation = { __typename?: 'Mutation', customUpdateBook: { __typename?: 'BookResponse', book?: { __typename?: 'Book', id: string, description?: string | null, title: string, condition: BooksCondition, status: BooksStatus, image?: string | null } | null } };
 
 export type UpdateUserDataMutationVariables = Exact<{
   firstName?: InputMaybe<Scalars['String']>;
@@ -7318,13 +7319,15 @@ export const UpdateUserAvatar = gql`
     ${User}`;
 export const UpdateBookStatus = gql`
     mutation UpdateBookStatus($bookId: String!, $status: BooksStatus!) {
-  updateBook(where: {id: $bookId}, data: {status: {set: $status}}) {
-    id
-    description
-    title
-    condition
-    status
-    image
+  customUpdateBook(where: {id: $bookId}, data: {status: {set: $status}}) {
+    book {
+      id
+      description
+      title
+      condition
+      status
+      image
+    }
   }
 }
     `;
@@ -11250,23 +11253,13 @@ export default {
               "kind": "NON_NULL",
               "ofType": {
                 "kind": "OBJECT",
-                "name": "BookResponse",
+                "name": "Book",
                 "ofType": null
               }
             },
             "args": [
               {
-                "name": "editionId",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              },
-              {
-                "name": "options",
+                "name": "data",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -11775,6 +11768,72 @@ export default {
             "args": [
               {
                 "name": "data",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "customCreateBook",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "BookResponse",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "editionId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              },
+              {
+                "name": "options",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "customUpdateBook",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "BookResponse",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "data",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              },
+              {
+                "name": "where",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -12357,52 +12416,6 @@ export default {
               },
               {
                 "name": "message",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "setBookHold",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "BookResponse",
-                "ofType": null
-              }
-            },
-            "args": [
-              {
-                "name": "id",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "setBookOpen",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "BookResponse",
-                "ofType": null
-              }
-            },
-            "args": [
-              {
-                "name": "id",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {

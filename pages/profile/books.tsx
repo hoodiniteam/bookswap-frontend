@@ -53,6 +53,9 @@ const MyBooks = () => {
         <Head>
           <title>Мои книги</title>
         </Head>
+        <p className="sm:text-white font-bold text-lg mb-3">
+          Мои книги
+        </p>
         <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6 space-y-4 divide-y">
           <div>
             <div className="flex font-medium items-center">
@@ -64,7 +67,6 @@ const MyBooks = () => {
             </div>
           </div>
           <div className="pt-4">
-            <div className="text-2xl font-medium">Мои книги</div>
             <ul className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mt-5">
               {myBooks.map((book) => (
                 <div key={book.id} className="relative flex flex-col">

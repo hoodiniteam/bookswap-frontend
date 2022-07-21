@@ -66,9 +66,9 @@ const Waiting = () => {
     return (
       <>
         <Head>
-          <title>Подписки</title>
+          <title>Избранное</title>
         </Head>
-        <p className="sm:text-white font-bold text-lg mb-3">Подписки</p>
+        <p className="sm:text-white font-bold text-lg mb-3">Избранное</p>
         <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6 space-y-4 divide-y">
           {books.length === 0 && <div>Пока нет подписок.</div>}
           <ul className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mt-5">

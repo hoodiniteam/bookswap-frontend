@@ -11,7 +11,6 @@ import { getStaticEditions } from '../../../helpers/staticRequest';
 import { Badge } from '../../../components/Badge';
 import Button from '../../../components/Button';
 import { AvatarComponent } from '../../../components/avatars';
-import Tippy from '@tippyjs/react';
 import { userName } from '../../../helpers/parseUserName';
 import { loader } from 'graphql.macro';
 import {
@@ -30,6 +29,7 @@ import {
 import BookBigWrapper from '../../../components/BookBigWrapper';
 import classNames from 'classnames';
 import { toast } from 'react-toastify';
+import { HeartIcon } from '@heroicons/react/solid';
 const GetMe = loader('../../../graphql/GetMe.graphql');
 const CreateChat = loader('../../../graphql/CreateChatMutation.graphql');
 const GetEdition = loader('../../../graphql/GetEdition.graphql');
@@ -99,7 +99,7 @@ const Book = () => {
         editionId: pid,
       });
       await reexecuteEditionQuery();
-      toast('⏰ Книга добавлена в подписки!', {
+      toast('❤️ Книга добавлена в избранное!', {
         position: 'top-right',
         autoClose: 3000,
         hideProgressBar: false,
@@ -159,13 +159,45 @@ const Book = () => {
       <Head>
         <title>{edition?.title}</title>
       </Head>
-      <h1 className="text-2xl text-center text-white font-semibold my-8">
+      <h1 className="text-2xl text-center text-gray-800 sm:text-white font-semibold my-4 sm:my-8">
         {edition?.title}
       </h1>
       <div className="sm:flex">
         <div className="">
           <div className="bg-white p-4 shadow sm:rounded-md border">
             {edition && <BookBigWrapper book={edition} />}
+          </div>
+          <div className="max-w-sm mx-auto my-4">
+            {!isHolderOfAny &&
+              (openBooks?.length === 0 ||
+                (edition?.expects && edition.expects.length > 0)) && (
+                <div className="relative">
+                  {inMyWaitingList && (
+                    <Button
+                      className="w-full flex items-center"
+                      variant="primaryOutline"
+                      onClick={removeBookFromList}
+                    >
+                      <HeartIcon className="text-gray-400 h-6 w-6 mr-2" />  Убрать из избранного
+                    </Button>
+                  )}
+                  {!inMyWaitingList && (
+                    <>
+                      <Button
+                        className="w-full flex items-center"
+                        variant="primary"
+                        onClick={addBookToList}
+                      >
+                        <HeartIcon className="text-red-400 h-6 w-6 mr-2" />  Добавить в избранное
+                      </Button>
+                      <p className="text-gray-500 mt-2 text-center text-xs top-full">
+                        Чтобы встать в очередь и узнать, когда книга станет
+                        доступна
+                      </p>
+                    </>
+                  )}
+                </div>
+              )}
           </div>
         </div>
 
@@ -177,7 +209,7 @@ const Book = () => {
                 <div>
                   <p>Пока здесь нет доступных книг.</p>
                   <p>
-                    Подпишитесь на оповещения и тогда она быстрее появится на
+                    Добавьте книгу в избранное и тогда она быстрее появится на
                     сервисе.
                   </p>
                 </div>
@@ -267,55 +299,21 @@ const Book = () => {
 
       <div className="bg-white divide-y space-y-4 mt-8 relative shadow rounded-md border p-6">
         <div>
-          <p className="font-medium">Подписчики</p>
+          <p className="font-medium">Книга в избранном</p>
           {edition?.expects?.length === 0 && (
-            <div className="text-gray-500">Пока нет подписчиков</div>
+            <div className="text-gray-500">Пока никто не добавил книгу в избранное</div>
           )}
-          <div className="grid grid-cols-4 mt-2">
+          <div className="flex mt-4">
             {(edition?.expects || []).map(({ user }) => (
               <div key={user.id}>
-                <Tippy content={`${userName(user)}`}>
-                  <div>
-                    <AvatarComponent avatarStyle="Circle" {...user.avatar} />
-                  </div>
-                </Tippy>
+                <AvatarComponent className="w-20" avatarStyle="Circle" {...user.avatar} />
+                <p className="text-sm font-medium mt-2">{userName(user)}</p>
               </div>
             ))}
           </div>
         </div>
         <div className="pt-4">
-          <div className=" max-w-sm mx-auto">
-            {!isHolderOfAny &&
-              (openBooks?.length === 0 ||
-                (edition?.expects && edition.expects.length > 0)) && (
-                <div className="mt-2 relative">
-                  {inMyWaitingList && (
-                    <Button
-                      className="w-full"
-                      variant="primaryOutline"
-                      onClick={removeBookFromList}
-                    >
-                      {t('remove-from-waiting-list')}
-                    </Button>
-                  )}
-                  {!inMyWaitingList && (
-                    <>
-                      <Button
-                        className="w-full"
-                        variant="primary"
-                        onClick={addBookToList}
-                      >
-                        Подписаться
-                      </Button>
-                      <p className="text-gray-500 mt-2 text-center text-xs top-full">
-                        Чтобы встать в очередь и узнать, когда книга станет
-                        доступна
-                      </p>
-                    </>
-                  )}
-                </div>
-              )}
-          </div>
+
         </div>
       </div>
     </div>
