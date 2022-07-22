@@ -100,7 +100,7 @@ export const CreateBookModal = ({
     <>
       <form method="POST" onSubmit={submit}>
         <div className="">
-          <div className="bg-white">
+          <div>
             <div>
               <div>
                 <label

@@ -122,11 +122,13 @@ export const BookSearch = ({
   onSearchComplete,
   onChange,
   preview,
+  children,
 }: {
   placeholder: string;
   onSearchComplete?: (value: string) => void;
   onChange: (args: any) => void;
   preview?: boolean;
+  children?: any;
 }) => {
   const [query, setQuery] = useState('');
   const [selectedBook, setSelectedBook] = useState<BookEdition>(
@@ -159,15 +161,12 @@ export const BookSearch = ({
         console.log(result); // OperationResult
         const editions = result.data?.getEditionsSearch?.editions;
         if (editions) {
-          if (editions.length) {
-            if (onSearchComplete) {
-              onSearchComplete('');
-            }
+          if (onSearchComplete) {
+            onSearchComplete(inputValue);
+          }
+          if (editions?.length) {
             setBooksResult(editions);
           } else {
-            if (onSearchComplete) {
-              onSearchComplete(inputValue);
-            }
             setBooksResult([]);
           }
         }
@@ -207,7 +206,7 @@ export const BookSearch = ({
           )}
         </Combobox.Button>
 
-        {booksResult.length > 0 && (
+        {(booksResult.length > 0 || (query.length > 3 && children))  && (
           <Combobox.Options
             style={preview ? { maxHeight: 'calc(100vh - 300px)' } : {}}
             className={classNames(
@@ -224,6 +223,7 @@ export const BookSearch = ({
                 <SimpleOptionView book={book} key={book.id} />
               )
             )}
+            {children}
           </Combobox.Options>
         )}
       </div>

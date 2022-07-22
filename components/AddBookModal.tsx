@@ -65,7 +65,7 @@ export const AddBookModal = ({
   };
 
   const [book, setBook] = useState<BookForm | null>(null);
-  const [addNewBook, showAddNewBook] = useState('');
+  const [newBookTitle, showNewBookTitle] = useState('');
 
   const {
     register,
@@ -149,8 +149,23 @@ export const AddBookModal = ({
                     preview={true}
                     onChange={handleSelectChange}
                     placeholder={'Заголовок или ISBN книги'}
-                    onSearchComplete={showAddNewBook}
-                  />
+                    onSearchComplete={showNewBookTitle}
+                  >
+                    <div
+                      onClick={() => onAddNewBook(newBookTitle)}
+                      className="border rounded-md p-6 bg-white text-center hover:bg-gray-100 cursor-pointer"
+                    >
+                      <div>
+                        <div>
+                          <p className="italic">Не нашли нужную книгу?</p>
+                          <Button className="mt-4">
+                            <PlusCircleIcon className="h-5 w-5 mr-2" />
+                            Создать новую книгу &rdquo;{newBookTitle}&rdquo;
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </BookSearch>
                 </div>
                 <div className="text-xs text-gray-600 mt-1">
                   {t('search-letters')}
@@ -221,22 +236,6 @@ export const AddBookModal = ({
                 </>
               )}
             </div>
-            {addNewBook && (
-              <div
-                onClick={() => onAddNewBook(addNewBook)}
-                className="border mt-12 rounded-md p-6 bg-white text-center hover:bg-gray-100 cursor-pointer"
-              >
-                <div>
-                  <div>
-                    <Button>
-                      <PlusCircleIcon className="h-5 w-5 mr-2" />
-                      Создать новую книгу
-                    </Button>
-                  </div>
-                  <p className="text-sm italic mt-2">&#34;{addNewBook}&#34;</p>
-                </div>
-              </div>
-            )}
             {book && (
               <>
                 <h3 className="text-lg mt-4 leading-6 font-medium text-gray-900">
