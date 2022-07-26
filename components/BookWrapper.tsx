@@ -45,9 +45,10 @@ const BookWrapper = ({
                   src={src}
                   alt={`${title} poster`}
                   style={{
-                    maxWidth: 'none',
+                    maxWidth: '100%',
                     height: 140,
                     boxShadow: '-7px 0px 6px -1px rgba(0, 0, 0, 0.2)',
+                    objectFit: 'cover',
                   }}
                   className="h-full pointer-events-none transform duration-300 group-hover:scale-105"
                 />

@@ -1,70 +1,111 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
-import { useClient } from 'urql';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
-import { Book, BooksCondition } from '../types/Book';
 import { toast } from 'react-toastify';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-// import { FilePondFile } from 'filepond';
+import { useMutation } from 'urql';
+import {
+  GetMeQuery,
+  UpsertEditionMutation,
+  UpsertEditionMutationVariables,
+} from '../generated/graphql.d';
+import { loader } from 'graphql.macro';
+import { useQueryWrapper } from '../helpers/useQueryWrapper';
+import { createCloudinary } from '../helpers/cloudinary';
+import { BookForm } from '../types/Book';
+import { emptyState } from '../helpers/bookState';
+const UpsertEdition = loader('../graphql/UpsertEditionMutation.graphql');
+const GetMe = loader('../graphql/GetMe.graphql');
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 export const CreateBookModal = ({
-  onClose,
-  newBookName,
+  onClose, newBookName
 }: {
   onClose: () => void;
   newBookName?: string;
 }) => {
-  const client = useClient();
-  const timer = useRef<any>();
 
-  type CreateBookForm = Omit<Book, 'status' | 'booksCount'> & {
-    userDescription: string;
-  };
+  const [{ data: meData }] = useQueryWrapper<GetMeQuery>({
+    query: GetMe,
+  });
+
+  const [, upsertBook] = useMutation<
+    UpsertEditionMutation,
+    UpsertEditionMutationVariables
+    >(UpsertEdition);
+
+  const router = useRouter();
+  const { t } = useTranslation('common');
 
   const [files, setFiles] = useState<any[]>([]);
+  const [book, setBook] = useState<BookForm>({ ...emptyState, title: newBookName || "" });
+  const fileRemoveHandler = () => {
+    setBook({ ...book, image: '' });
+  }
 
-  const emptyState: CreateBookForm = {
-    id: '',
-    title: newBookName || '',
-    description: '',
-    image: '',
-    userDescription: '',
-    isbn_13: null,
-    isbn_10: null,
-    authors: [],
-    condition: BooksCondition.LIKENEW,
-    publishedDate: '',
-  };
-
-  const [book, setBook] = useState<CreateBookForm>({ ...emptyState });
-  const [addNewBook, showAddNewBook] = useState('');
+  const schema = yup.object({
+    title: yup.string().required("Название обязательно"),
+    isbn_10: yup.number().min(10, "ISBN 10 должно быть равно 10 символам").max(10, "ISBN 10 должно быть равно 10 символам").nullable(true),
+    isbn_13: yup.number().min(13, "ISBN 13 должно быть равно 13 символам").max(13, "ISBN 13 должно быть равно 13 символам").nullable(true),
+  })
 
   const {
     register,
     handleSubmit,
-    clearErrors,
-    formState: { errors },
-  } = useForm();
+    formState: { errors }
+  } = useForm({
+    defaultValues: book,
+    resolver: yupResolver(schema)
+  });
 
-  // const [, createBook] = useMutation(CreateBookMutation);
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const createBook = (args: any): any => {};
-  const router = useRouter();
-  const { t } = useTranslation('common');
+  useEffect(() => {
+    Object.values(errors).forEach((error: any) => {
+      if (error.message) {
+        toast(error.message, {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          type: "error"
+        });
+      }
+    });
+  }, [errors])
 
-  const submit = handleSubmit((data, event) => {
-    event?.preventDefault();
-    if (book) {
+  const onSubmit = async (data: any) => {
+    const userId = meData?.me?.user?.id;
+    setBook({ ...book, ...data });
+    if (book && !book.image) {
+      toast("Загрузите обложку", {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        type: "error"
+      });
+    } else if (book && userId) {
       console.log('book', book);
-      createBook(book).then(async (res: any) => {
+      const res = await upsertBook({
+        ...book,
+        userId,
+      });
+      const edition = res.data?.customUpsertEdition?.id;
+      if (edition) {
         toast('🦄 Wow книга добавлена!', {
           position: 'top-right',
           autoClose: 3000,
@@ -75,30 +116,14 @@ export const CreateBookModal = ({
           progress: undefined,
         });
         onClose();
-        await router.push(`/book/${res.data.createBook.book.edition.id}`);
-      });
+        await router.push(`/book/${edition}`);
+      }
     }
-  });
-
-  const onChangeHandler = (
-    e:
-      | ChangeEvent<HTMLInputElement>
-      | ChangeEvent<HTMLSelectElement>
-      | ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    if (book) {
-      setBook({
-        ...book,
-        [name]: value,
-      });
-    }
-    clearErrors(name);
   };
 
   return (
     <>
-      <form method="POST" onSubmit={submit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="">
           <div>
             <div>
@@ -107,15 +132,12 @@ export const CreateBookModal = ({
                   htmlFor="title"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Название
+                  Название <span className="text-gray-400 italic text-xs">(обязательно)</span>
                 </label>
                 <div className="mt-1">
                   <input
                     type="text"
-                    name="title"
-                    id="title"
-                    onChange={onChangeHandler}
-                    value={book.title}
+                    {...register("title")}
                     className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                     placeholder="Название книги"
                   />
@@ -124,17 +146,20 @@ export const CreateBookModal = ({
 
               <div className="mt-4">
                 <label className="block text-sm font-medium text-gray-700">
-                  Обложка для книги
+                  Обложка для книги <span className="text-gray-400 italic text-xs">(обязательно)</span>
                 </label>
                 <div className="mt-1">
                   <FilePond
                     files={files}
-                    onupdatefiles={setFiles}
-                    allowMultiple={true}
-                    maxFiles={3}
-                    server="/api"
+                    allowMultiple={false}
+                    maxFiles={1}
+                    server={createCloudinary('dufogbndd', 'i3rylrpx', (url) => {
+                      setBook({ ...book, image: url });
+                    })}
                     name="files"
-                    labelIdle='Перетащите сюда файл или <span class="filepond--label-action">нажмите чтобы выбрать</span>'
+                    onupdatefiles={setFiles}
+                    onremovefile={fileRemoveHandler}
+                    labelIdle='Перетащите сюда файл или <span class="filepond--label-action">нажмите чтобы загрузить</span>'
                   />
                 </div>
               </div>
@@ -150,10 +175,7 @@ export const CreateBookModal = ({
                   <div className="mt-1">
                     <input
                       type="text"
-                      name="authors"
-                      id="authors"
-                      onChange={onChangeHandler}
-                      value={book.authors}
+                      {...register("authors")}
                       className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                       placeholder="Авторы"
                     />
@@ -175,10 +197,7 @@ export const CreateBookModal = ({
                   <div className="mt-1">
                     <input
                       type="number"
-                      name="publishedDate"
-                      id="publishedDate"
-                      onChange={onChangeHandler}
-                      value={book.publishedDate || ''}
+                      {...register("publishedDate")}
                       className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                       placeholder="Год выхода"
                     />
@@ -194,10 +213,7 @@ export const CreateBookModal = ({
                   <div className="mt-1">
                     <input
                       type="number"
-                      name="isbn_10"
-                      id="isbn_10"
-                      onChange={onChangeHandler}
-                      value={book.isbn_10 || ''}
+                      {...register("isbn_10")}
                       className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                       placeholder="ISBN 10"
                     />
@@ -219,10 +235,7 @@ export const CreateBookModal = ({
                   <div className="mt-1">
                     <input
                       type="number"
-                      name="isbn_13"
-                      id="isbn_13"
-                      onChange={onChangeHandler}
-                      value={book.isbn_13 || ''}
+                      {...register("isbn_13")}
                       className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                       placeholder="ISBN 13"
                     />
@@ -244,11 +257,8 @@ export const CreateBookModal = ({
                   </label>
                   <div className="mt-1">
                     <textarea
-                      name="description"
-                      id="description"
+                      {...register("description")}
                       rows={4}
-                      onChange={onChangeHandler}
-                      value={book.description || ''}
                       className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                       placeholder="Напишите здесь свою аннотацию или возьмите ее в свободном доступе, это поможет тем кто захочет прочитать эту книгу"
                     />
@@ -264,17 +274,27 @@ export const CreateBookModal = ({
                   </label>
                   <div className="mt-1">
                     <select
-                      value={book.condition}
-                      onChange={onChangeHandler}
-                      id="condition"
-                      name="condition"
+                      {...register("condition")}
                       className="shadow-sm focus:ring-main-500 focus:border-main-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md"
                     >
-                      {Object.values(BooksCondition).map((condition) => (
-                        <option key={condition} value={condition}>
-                          {t(String(condition))}
-                        </option>
-                      ))}
+                      <option key='TERRIBLE' value='TERRIBLE'>
+                        {t(String('TERRIBLE'))}
+                      </option>
+                      <option key='BAD' value='BAD'>
+                        {t(String('BAD'))}
+                      </option>
+                      <option key='SATISFACTORY' value='SATISFACTORY'>
+                        {t(String('SATISFACTORY'))}
+                      </option>
+                      <option key='GOOD' value='GOOD'>
+                        {t(String('GOOD'))}
+                      </option>
+                      <option key='LIKENEW' value='LIKENEW'>
+                        {t(String('LIKENEW'))}
+                      </option>
+                      <option key='BRANDNEW' value='BRANDNEW'>
+                        {t(String('BRANDNEW'))}
+                      </option>
                     </select>
                   </div>
                 </div>

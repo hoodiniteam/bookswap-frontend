@@ -11,9 +11,6 @@ import { BookPreview, BookSearch } from './BookSearch';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import {
-  Book,
-  BookEdition,
-  BooksCondition,
   GetMeQuery,
   UpsertEditionMutation,
   UpsertEditionMutationVariables,
@@ -21,6 +18,8 @@ import {
 import { loader } from 'graphql.macro';
 import { useMutation } from 'urql';
 import { useQueryWrapper } from '../helpers/useQueryWrapper';
+import { BookForm } from '../types/Book';
+import { emptyState } from '../helpers/bookState';
 const UpsertEdition = loader('../graphql/UpsertEditionMutation.graphql');
 const GetMe = loader('../graphql/GetMe.graphql');
 
@@ -35,43 +34,12 @@ export const AddBookModal = ({
     query: GetMe,
   });
 
-  type BookForm = Omit<
-    BookEdition,
-    | 'books'
-    | 'booksCount'
-    | 'createdAt'
-    | 'expects'
-    | 'updatedAt'
-    | 'views'
-    | 'virtual'
-  > & {
-    condition: BooksCondition;
-    editionId: string;
-    indexId: string;
-  };
-
-  const emptyState: BookForm = {
-    editionId: '',
-    indexId: '',
-    id: '',
-    title: '',
-    description: '',
-    image: '',
-    isbn_13: null,
-    isbn_10: null,
-    authors: [],
-    condition: BooksCondition.Likenew,
-    publishedDate: '',
-  };
-
   const [book, setBook] = useState<BookForm | null>(null);
   const [newBookTitle, showNewBookTitle] = useState('');
 
   const {
-    register,
     handleSubmit,
     clearErrors,
-    formState: { errors },
   } = useForm();
 
   const [, upsertBook] = useMutation<
@@ -251,11 +219,24 @@ export const AddBookModal = ({
                         name="condition"
                         className="shadow-sm focus:ring-main-500 focus:border-main-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md"
                       >
-                        {Object.values(BooksCondition).map((contition) => (
-                          <option key={contition} value={contition}>
-                            {t(String(contition))}
-                          </option>
-                        ))}
+                        <option key='TERRIBLE' value='TERRIBLE'>
+                          {t(String('TERRIBLE'))}
+                        </option>
+                        <option key='BAD' value='BAD'>
+                          {t(String('BAD'))}
+                        </option>
+                        <option key='SATISFACTORY' value='SATISFACTORY'>
+                          {t(String('SATISFACTORY'))}
+                        </option>
+                        <option key='GOOD' value='GOOD'>
+                          {t(String('GOOD'))}
+                        </option>
+                        <option key='LIKENEW' value='LIKENEW'>
+                          {t(String('LIKENEW'))}
+                        </option>
+                        <option key='BRANDNEW' value='BRANDNEW'>
+                          {t(String('BRANDNEW'))}
+                        </option>
                       </select>
                     </div>
                   </div>

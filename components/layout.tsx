@@ -781,7 +781,7 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <div className="inline-block w-full max-w-screen-sm p-6 my-8 text-left align-top transition-all bg-indigo-50 transform bg-white shadow-xl rounded-2xl">
+                <div className="inline-block w-full max-w-screen-sm p-6 my-8 text-left align-top transition-all bg-white transform bg-white shadow-xl rounded-2xl">
                   <Dialog.Title
                     as="h3"
                     className="flex justify-between items-center text-lg font-medium text-gray-900 mb-2"

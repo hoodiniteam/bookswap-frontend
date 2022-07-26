@@ -70,7 +70,7 @@ const Index = () => {
                 </label>
               </div>
             </div>
-            <ul className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
               {editions.map((edition: any) => (
                 <BookWrapper key={edition.id} book={edition} />
               ))}

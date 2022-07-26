@@ -68,7 +68,8 @@ mutation upsertEdition(
                 }
             },
         },
-        indexId: $indexId
+        indexId: $indexId,
+        editionId: $editionId,
     ) {
         id
     }

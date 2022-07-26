@@ -451,6 +451,7 @@ export type BookEdition = {
   isbn_10?: Maybe<Scalars['String']>;
   isbn_13?: Maybe<Scalars['String']>;
   publishedDate?: Maybe<Scalars['String']>;
+  searchIndexId?: Maybe<Scalars['String']>;
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   views: Scalars['Int'];
@@ -506,6 +507,7 @@ export type BookEditionCountAggregate = {
   isbn_10: Scalars['Int'];
   isbn_13: Scalars['Int'];
   publishedDate: Scalars['Int'];
+  searchIndexId: Scalars['Int'];
   title: Scalars['Int'];
   updatedAt: Scalars['Int'];
   views: Scalars['Int'];
@@ -522,6 +524,7 @@ export type BookEditionCountOrderByAggregateInput = {
   isbn_10?: InputMaybe<SortOrder>;
   isbn_13?: InputMaybe<SortOrder>;
   publishedDate?: InputMaybe<SortOrder>;
+  searchIndexId?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   views?: InputMaybe<SortOrder>;
@@ -540,6 +543,7 @@ export type BookEditionCreateInput = {
   isbn_10?: InputMaybe<Scalars['String']>;
   isbn_13?: InputMaybe<Scalars['String']>;
   publishedDate?: InputMaybe<Scalars['String']>;
+  searchIndexId?: InputMaybe<Scalars['String']>;
   title: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   views?: InputMaybe<Scalars['Int']>;
@@ -556,6 +560,7 @@ export type BookEditionCreateManyInput = {
   isbn_10?: InputMaybe<Scalars['String']>;
   isbn_13?: InputMaybe<Scalars['String']>;
   publishedDate?: InputMaybe<Scalars['String']>;
+  searchIndexId?: InputMaybe<Scalars['String']>;
   title: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   views?: InputMaybe<Scalars['Int']>;
@@ -595,6 +600,7 @@ export type BookEditionCreateWithoutBooksInput = {
   isbn_10?: InputMaybe<Scalars['String']>;
   isbn_13?: InputMaybe<Scalars['String']>;
   publishedDate?: InputMaybe<Scalars['String']>;
+  searchIndexId?: InputMaybe<Scalars['String']>;
   title: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   views?: InputMaybe<Scalars['Int']>;
@@ -612,6 +618,7 @@ export type BookEditionCreateWithoutExpectsInput = {
   isbn_10?: InputMaybe<Scalars['String']>;
   isbn_13?: InputMaybe<Scalars['String']>;
   publishedDate?: InputMaybe<Scalars['String']>;
+  searchIndexId?: InputMaybe<Scalars['String']>;
   title: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   views?: InputMaybe<Scalars['Int']>;
@@ -638,6 +645,7 @@ export type BookEditionGroupBy = {
   isbn_10?: Maybe<Scalars['String']>;
   isbn_13?: Maybe<Scalars['String']>;
   publishedDate?: Maybe<Scalars['String']>;
+  searchIndexId?: Maybe<Scalars['String']>;
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   views: Scalars['Int'];
@@ -654,6 +662,7 @@ export type BookEditionMaxAggregate = {
   isbn_10?: Maybe<Scalars['String']>;
   isbn_13?: Maybe<Scalars['String']>;
   publishedDate?: Maybe<Scalars['String']>;
+  searchIndexId?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   views?: Maybe<Scalars['Int']>;
@@ -669,6 +678,7 @@ export type BookEditionMaxOrderByAggregateInput = {
   isbn_10?: InputMaybe<SortOrder>;
   isbn_13?: InputMaybe<SortOrder>;
   publishedDate?: InputMaybe<SortOrder>;
+  searchIndexId?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   views?: InputMaybe<SortOrder>;
@@ -685,6 +695,7 @@ export type BookEditionMinAggregate = {
   isbn_10?: Maybe<Scalars['String']>;
   isbn_13?: Maybe<Scalars['String']>;
   publishedDate?: Maybe<Scalars['String']>;
+  searchIndexId?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   views?: Maybe<Scalars['Int']>;
@@ -700,6 +711,7 @@ export type BookEditionMinOrderByAggregateInput = {
   isbn_10?: InputMaybe<SortOrder>;
   isbn_13?: InputMaybe<SortOrder>;
   publishedDate?: InputMaybe<SortOrder>;
+  searchIndexId?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   views?: InputMaybe<SortOrder>;
@@ -721,6 +733,7 @@ export type BookEditionOrderByWithAggregationInput = {
   isbn_10?: InputMaybe<SortOrder>;
   isbn_13?: InputMaybe<SortOrder>;
   publishedDate?: InputMaybe<SortOrder>;
+  searchIndexId?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   views?: InputMaybe<SortOrder>;
@@ -739,6 +752,7 @@ export type BookEditionOrderByWithRelationInput = {
   isbn_10?: InputMaybe<SortOrder>;
   isbn_13?: InputMaybe<SortOrder>;
   publishedDate?: InputMaybe<SortOrder>;
+  searchIndexId?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   views?: InputMaybe<SortOrder>;
@@ -760,6 +774,7 @@ export enum BookEditionScalarFieldEnum {
   Isbn_10 = 'isbn_10',
   Isbn_13 = 'isbn_13',
   PublishedDate = 'publishedDate',
+  SearchIndexId = 'searchIndexId',
   Title = 'title',
   UpdatedAt = 'updatedAt',
   Views = 'views',
@@ -779,6 +794,7 @@ export type BookEditionScalarWhereWithAggregatesInput = {
   isbn_10?: InputMaybe<StringNullableWithAggregatesFilter>;
   isbn_13?: InputMaybe<StringNullableWithAggregatesFilter>;
   publishedDate?: InputMaybe<StringNullableWithAggregatesFilter>;
+  searchIndexId?: InputMaybe<StringNullableWithAggregatesFilter>;
   title?: InputMaybe<StringWithAggregatesFilter>;
   updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   views?: InputMaybe<IntWithAggregatesFilter>;
@@ -811,6 +827,7 @@ export type BookEditionTypeSense = {
   isbn_13?: Maybe<Scalars['String']>;
   publishedDate?: Maybe<Scalars['String']>;
   relatedEditionId: Scalars['String'];
+  searchIndexId?: Maybe<Scalars['String']>;
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   views: Scalars['Int'];
@@ -849,6 +866,7 @@ export type BookEditionUpdateInput = {
   isbn_10?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_13?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   publishedDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  searchIndexId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   views?: InputMaybe<IntFieldUpdateOperationsInput>;
@@ -865,6 +883,7 @@ export type BookEditionUpdateManyMutationInput = {
   isbn_10?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_13?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   publishedDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  searchIndexId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   views?: InputMaybe<IntFieldUpdateOperationsInput>;
@@ -898,6 +917,7 @@ export type BookEditionUpdateWithoutBooksInput = {
   isbn_10?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_13?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   publishedDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  searchIndexId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   views?: InputMaybe<IntFieldUpdateOperationsInput>;
@@ -915,6 +935,7 @@ export type BookEditionUpdateWithoutExpectsInput = {
   isbn_10?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_13?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   publishedDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  searchIndexId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   views?: InputMaybe<IntFieldUpdateOperationsInput>;
@@ -951,6 +972,7 @@ export type BookEditionWhereInput = {
   isbn_10?: InputMaybe<StringNullableFilter>;
   isbn_13?: InputMaybe<StringNullableFilter>;
   publishedDate?: InputMaybe<StringNullableFilter>;
+  searchIndexId?: InputMaybe<StringNullableFilter>;
   title?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   views?: InputMaybe<IntFilter>;
@@ -959,6 +981,7 @@ export type BookEditionWhereInput = {
 
 export type BookEditionWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']>;
+  searchIndexId?: InputMaybe<Scalars['String']>;
 };
 
 export type BookGroupBy = {
@@ -2748,7 +2771,8 @@ export type MutationCustomUpdateBookArgs = {
 
 export type MutationCustomUpsertEditionArgs = {
   create: BookEditionCreateInput;
-  indexId: Scalars['String'];
+  editionId?: InputMaybe<Scalars['String']>;
+  indexId?: InputMaybe<Scalars['String']>;
   update: BookEditionUpdateInput;
   where: BookEditionWhereUniqueInput;
 };
@@ -7355,6 +7379,7 @@ export const UpsertEdition = gql`
     create: {title: $title, authors: {set: $authors}, books: {create: {title: $title, authors: {set: $authors}, condition: $condition, creator: {connect: {id: $userId}}, image: $image, description: $description, holder: {connect: {id: $userId}}}}, description: $description, image: $image, virtual: false}
     update: {virtual: {set: false}, books: {create: {title: $title, authors: {set: $authors}, condition: $condition, creator: {connect: {id: $userId}}, image: $image, description: $description, holder: {connect: {id: $userId}}}}}
     indexId: $indexId
+    editionId: $editionId
   ) {
     id
   }
@@ -8547,6 +8572,14 @@ export default {
             "args": []
           },
           {
+            "name": "searchIndexId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
             "name": "title",
             "type": {
               "kind": "NON_NULL",
@@ -8760,6 +8793,17 @@ export default {
             "args": []
           },
           {
+            "name": "searchIndexId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
             "name": "title",
             "type": {
               "kind": "NON_NULL",
@@ -8943,6 +8987,14 @@ export default {
             "args": []
           },
           {
+            "name": "searchIndexId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
             "name": "title",
             "type": {
               "kind": "NON_NULL",
@@ -9058,6 +9110,14 @@ export default {
             "args": []
           },
           {
+            "name": "searchIndexId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
             "name": "title",
             "type": {
               "kind": "SCALAR",
@@ -9154,6 +9214,14 @@ export default {
           },
           {
             "name": "publishedDate",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "searchIndexId",
             "type": {
               "kind": "SCALAR",
               "name": "Any"
@@ -9475,6 +9543,14 @@ export default {
                 "kind": "SCALAR",
                 "name": "Any"
               }
+            },
+            "args": []
+          },
+          {
+            "name": "searchIndexId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           },
@@ -11863,13 +11939,17 @@ export default {
                 }
               },
               {
+                "name": "editionId",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
                 "name": "indexId",
                 "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
+                  "kind": "SCALAR",
+                  "name": "Any"
                 }
               },
               {

@@ -1,18 +1,11 @@
+import { BookEdition, BooksCondition } from '../generated/graphql.d';
+
 export enum BooksStatus {
   ABSENT,
   HOLD,
   OPEN,
   SWAPPING,
   EXTRACTED
-}
-
-export enum BooksCondition {
-  BRANDNEW = "BRANDNEW",
-  LIKENEW = "LIKENEW",
-  GOOD = "GOOD",
-  SATISFACTORY = "SATISFACTORY",
-  BAD = "BAD",
-  TERRIBLE = "TERRIBLE"
 }
 
 export type Book = {
@@ -28,3 +21,18 @@ export type Book = {
   isbn_10?: string | null;
   publishedDate?: string | null;
 }
+
+export type BookForm = Omit<
+  BookEdition,
+  | 'books'
+  | 'booksCount'
+  | 'createdAt'
+  | 'expects'
+  | 'updatedAt'
+  | 'views'
+  | 'virtual'
+  > & {
+  condition: BooksCondition;
+  editionId: string;
+  indexId: string;
+};
