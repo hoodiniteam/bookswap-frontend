@@ -71,7 +71,7 @@ const MyBooks = () => {
               {myBooks.map((book) => (
                 <div key={book.id} className="relative flex flex-col">
                   <div className="flex-grow">
-                    <BookWrapper book={book} />
+                    <BookWrapper book={{ ...book, ...book.edition}} />
                     <Badge
                       className="absolute right-2 top-2"
                       status={book.status}

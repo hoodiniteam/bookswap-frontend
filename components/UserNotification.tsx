@@ -21,9 +21,7 @@ export const UserNotification = ({ notification }: {notification: Notification})
   if (notification.url) {
     return (
       <Link href={notification.url}>
-        <a>
-          <Notification notification={notification} />
-        </a>
+        <Notification notification={notification} />
       </Link>
     )
   }

@@ -1,6 +1,7 @@
 #import "./fragmentUser.graphql"
 
 mutation UpdateUserAvatar(
+    $id: String!
     $accessoriesType: String
     $avatarStyle: String
     $clotheColor: String
@@ -16,44 +17,52 @@ mutation UpdateUserAvatar(
     $skinColor: String
     $topType: String
 ){
-    updateMe(
-        where: {id: "empty"},
+    updateAvatarMe(
+        where: {
+            id: $id
+        },
         data: {
-            avatar: {
-                upsert: {
-                    create: {
-                        accessoriesType: $accessoriesType
-                        avatarStyle: $avatarStyle
-                        clotheColor: $clotheColor
-                        clotheType: $clotheType
-                        eyeType: $eyeType
-                        eyebrowType: $eyebrowType
-                        facialHairColor: $facialHairColor
-                        facialHairType: $facialHairType
-                        graphicType: $graphicType
-                        hairColor: $hairColor
-                        hatColor: $hatColor
-                        mouthType: $mouthType
-                        skinColor: $skinColor
-                        topType: $topType
-                    },
-                    update: {
-                        accessoriesType: {set: $accessoriesType}
-                        avatarStyle: {set: $avatarStyle}
-                        clotheColor: {set: $clotheColor}
-                        clotheType: {set: $clotheType}
-                        eyeType: {set: $eyeType}
-                        eyebrowType: {set: $eyebrowType}
-                        facialHairColor: {set: $facialHairColor}
-                        facialHairType: {set: $facialHairType}
-                        graphicType: {set: $graphicType}
-                        hairColor: {set: $hairColor}
-                        hatColor: {set: $hatColor}
-                        mouthType: {set: $mouthType}
-                        skinColor: {set: $skinColor}
-                        topType: {set: $topType}
-                    }
-                }
+            accessoriesType: {
+                set: $accessoriesType
+            }
+            avatarStyle: {
+                set: $avatarStyle
+            }
+            clotheColor: {
+                set: $clotheColor
+            }
+            clotheType: {
+                set: $clotheType
+            }
+            eyeType: {
+                set: $eyeType
+            }
+            eyebrowType: {
+                set: $eyebrowType
+            }
+            facialHairColor: {
+                set: $facialHairColor
+            }
+            facialHairType: {
+                set: $facialHairType
+            }
+            graphicType: {
+                set: $graphicType
+            }
+            hairColor: {
+                set: $hairColor
+            }
+            hatColor: {
+                set: $hatColor
+            }
+            mouthType: {
+                set: $mouthType
+            }
+            skinColor: {
+                set: $skinColor
+            }
+            topType: {
+                set: $topType
             }
         }
     ) {

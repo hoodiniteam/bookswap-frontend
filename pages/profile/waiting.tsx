@@ -91,9 +91,7 @@ const Waiting = () => {
                   </Button>
                   {book.edition && !!openedBooksLength && (
                     <Link href={`/book/${book.edition.id}`}>
-                      <a>
-                        <Button className="w-full mt-2">Перейти к книге</Button>
-                      </a>
+                      <Button className="w-full mt-2">Перейти к книге</Button>
                     </Link>
                   )}
                   <div className="bg-white rounded-md shadow flex items-center p-2 absolute right-1 top-1">

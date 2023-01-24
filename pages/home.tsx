@@ -71,15 +71,13 @@ const Home = () => {
           </h3>
           <dl className="mt-4 grid gap-5 grid-cols-2">
             {stats.map((item) => (
-              <Link href="/profile/swaps" key={item.name}>
-                <a className="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+              <Link href="/profile/swaps" key={item.name}  className="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
                   <dt className="text-sm font-medium text-gray-500 truncate">
                     {item.name}
                   </dt>
                   <dd className="mt-1 text-3xl font-semibold text-gray-900">
                     {item.stat}
                   </dd>
-                </a>
               </Link>
             ))}
           </dl>
@@ -92,8 +90,7 @@ const Home = () => {
             <HeartIcon className="h-8 w-8 mr-2" /> Избранное
           </h3>
           <dl className="mt-4 grid gap-5 grid-cols-2">
-            <Link href="/profile/waiting">
-              <a className="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+            <Link href="/profile/waiting" className="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
                 <dt className="text-sm font-medium text-gray-500 truncate">
                   Доступны для заказа
                 </dt>
@@ -107,7 +104,6 @@ const Home = () => {
                     }, 0)}
                   </dd>
                 }
-              </a>
             </Link>
           </dl>
         </div>

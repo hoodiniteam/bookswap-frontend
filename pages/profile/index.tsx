@@ -126,11 +126,9 @@ const Index = () => {
                     {...user.avatar}
                   />
                   <Link href="/profile/avatar">
-                    <a>
-                      <Button className="mt-6 ml-2" type="button">
-                        Настроить аватар
-                      </Button>
-                    </a>
+                    <Button className="mt-6 ml-2" type="button">
+                      Настроить аватар
+                    </Button>
                   </Link>
                 </div>
               </div>

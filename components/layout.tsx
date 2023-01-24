@@ -212,29 +212,23 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
                       {loading && <Loading />}
                       {!loading && (
                         <Link href="/home">
-                          <a>
-                            <Logo />
-                          </a>
+                          <Logo />
                         </Link>
                       )}
                     </div>
                   </div>
                   <div className="hidden sm:block">
-                    <Link href="/books">
-                      <a
-                        className={classNames(
-                          {
-                            'bg-main-700 text-white border border-main-700 hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium':
-                              router.asPath.includes('/books'),
-                            'text-white border border-white hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium':
-                              !router.asPath.includes('/books'),
-                          },
-                          'flex items-center space-x-2'
-                        )}
-                      >
+                    <Link href="/books" className={classNames(
+                      {
+                        'bg-main-700 text-white border border-main-700 hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium':
+                          router.asPath.includes('/books'),
+                        'text-white border border-white hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-2 px-3 text-sm font-medium':
+                          !router.asPath.includes('/books'),
+                      },
+                      'flex items-center space-x-2'
+                    )}>
                         <BookOpenIcon className="h-5 w-5" />
                         <span>Все книги</span>
-                      </a>
                     </Link>
                   </div>
                   <div className="flex-1 flex justify-center lg:justify-end">
@@ -340,105 +334,95 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
                                 </div>
                                 <div className="overflow-hidden flex-grow rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                                   <div className="relative grid gap-8 bg-white p-7">
-                                    <Link href="/profile/books">
-                                      <a className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
-                                        <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                          <BookOpenIcon
-                                            className="h-10 w-10 text-amber-400"
-                                            aria-hidden="true"
-                                          />
-                                        </div>
-                                        <div className="ml-4">
-                                          <p className="text-sm font-bold text-gray-900">
-                                            Мои книги ({user.books.length})
-                                          </p>
-                                          <p className="text-sm text-gray-500">
-                                            {user.points} BST
-                                          </p>
-                                        </div>
-                                      </a>
+                                    <Link href="/profile/books"  className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
+                                      <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                        <BookOpenIcon
+                                          className="h-10 w-10 text-amber-400"
+                                          aria-hidden="true"
+                                        />
+                                      </div>
+                                      <div className="ml-4">
+                                        <p className="text-sm font-bold text-gray-900">
+                                          Мои книги ({user.books.length})
+                                        </p>
+                                        <p className="text-sm text-gray-500">
+                                          {user.points} BST
+                                        </p>
+                                      </div>
                                     </Link>
-                                    <Link href="/profile">
-                                      <a className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
-                                        <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                          <AvatarComponent
-                                            className="w-10"
-                                            avatarStyle="Circle"
-                                            {...user.avatar}
-                                          />
-                                        </div>
-                                        <div className="ml-4">
-                                          <p className="text-sm font-bold text-gray-900">
-                                            Профиль
-                                          </p>
-                                          <p className="text-sm text-gray-500">
-                                            {userName(user)}
-                                          </p>
-                                        </div>
-                                      </a>
+                                    <Link href="/profile" className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
+                                      <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                        <AvatarComponent
+                                          className="w-10"
+                                          avatarStyle="Circle"
+                                          {...user.avatar}
+                                        />
+                                      </div>
+                                      <div className="ml-4">
+                                        <p className="text-sm font-bold text-gray-900">
+                                          Профиль
+                                        </p>
+                                        <p className="text-sm text-gray-500">
+                                          {userName(user)}
+                                        </p>
+                                      </div>
                                     </Link>
-                                    <Link href="/profile/swaps">
-                                      <a className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
-                                        <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                          <ChatIcon
-                                            className="h-10 w-10 text-green-600"
-                                            aria-hidden="true"
-                                          />
-                                        </div>
-                                        <div className="ml-4">
-                                          <p className="text-sm font-bold text-gray-900">
-                                            Активные свопы
-                                          </p>
-                                          <p className="text-sm text-gray-500">
-                                            {`${
-                                              activeSwapsReceive(user).length
-                                            } получить / ${
-                                              activeSwapsSend(user).length
-                                            } отдать`}
-                                          </p>
-                                        </div>
-                                      </a>
+                                    <Link href="/profile/swaps" className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
+                                      <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                        <ChatIcon
+                                          className="h-10 w-10 text-green-600"
+                                          aria-hidden="true"
+                                        />
+                                      </div>
+                                      <div className="ml-4">
+                                        <p className="text-sm font-bold text-gray-900">
+                                          Активные свопы
+                                        </p>
+                                        <p className="text-sm text-gray-500">
+                                          {`${
+                                            activeSwapsReceive(user).length
+                                          } получить / ${
+                                            activeSwapsSend(user).length
+                                          } отдать`}
+                                        </p>
+                                      </div>
                                     </Link>
-                                    <Link href="/profile/waiting">
-                                      <a className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
-                                        <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                          <HeartIcon
-                                            className="h-10 w-10 text-red-400"
-                                            aria-hidden="true"
-                                          />
-                                        </div>
-                                        <div className="ml-4">
-                                          <p className="text-sm font-bold text-gray-900">
-                                            Избранное ({user.waiting.reduce((acc, sub) => {
-                                            const openedBooks = sub.edition.books.filter(
-                                              (book: any) => book.status === BooksStatus.Open
-                                            ).length || 0;
-                                            return acc + openedBooks;
-                                          }, 0)}) / {user.waiting.length}
-                                          </p>
-                                          <p className="text-sm text-gray-500">
-                                            Книги которые вы ждете
-                                          </p>
-                                        </div>
-                                      </a>
+                                    <Link href="/profile/waiting" className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
+                                      <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                        <HeartIcon
+                                          className="h-10 w-10 text-red-400"
+                                          aria-hidden="true"
+                                        />
+                                      </div>
+                                      <div className="ml-4">
+                                        <p className="text-sm font-bold text-gray-900">
+                                          Избранное ({user.waiting.reduce((acc, sub) => {
+                                          const openedBooks = sub.edition.books.filter(
+                                            (book: any) => book.status === BooksStatus.Open
+                                          ).length || 0;
+                                          return acc + openedBooks;
+                                        }, 0)}) / {user.waiting.length}
+                                        </p>
+                                        <p className="text-sm text-gray-500">
+                                          Книги которые вы ждете
+                                        </p>
+                                      </div>
                                     </Link>
-                                    <Link href="https://t.me/joinchat/jOVQHloO7ApiMDIy">
-                                      <a className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
-                                        <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                                          <SupportIcon
-                                            className="h-10 w-10 text-blue-500"
-                                            aria-hidden="true"
-                                          />
-                                        </div>
-                                        <div className="ml-4">
-                                          <p className="text-sm font-bold text-gray-900">
-                                            Поддержка
-                                          </p>
-                                          <p className="text-sm text-gray-500">
-                                            Ссылка на Телеграмм чат
-                                          </p>
-                                        </div>
-                                      </a>
+                                    <Link href="https://t.me/joinchat/jOVQHloO7ApiMDIy" className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
+                                      <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                                        <SupportIcon
+                                          className="h-10 w-10 text-blue-500"
+                                          aria-hidden="true"
+                                        />
+                                      </div>
+                                      <div className="ml-4">
+                                        <p className="text-sm font-bold text-gray-900">
+                                          Поддержка
+                                        </p>
+                                        <p className="text-sm text-gray-500">
+                                          Ссылка на Телеграмм чат
+                                        </p>
+                                      </div>
                                     </Link>
                                   </div>
                                   <div className="p-4 bg-gray-50">
@@ -472,16 +456,13 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
                         <Link
                           key={item.title}
                           href={`${item.href}?${item.params}`}
+                          className={
+                            item.current
+                              ? 'bg-main-700 text-white border border-main-700 hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-1 px-2 text-xs font-medium'
+                              : 'text-white border border-white hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-1 px-2 text-xs font-medium'
+                          }
                         >
-                          <a
-                            className={
-                              item.current
-                                ? 'bg-main-700 text-white border border-main-700 hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-1 px-2 text-xs font-medium'
-                                : 'text-white border border-white hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-1 px-2 text-xs font-medium'
-                            }
-                          >
-                            {t(item.title)}
-                          </a>
+                          {t(item.title)}
                         </Link>
                       ))}
                     </div>
@@ -492,11 +473,9 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
           </div>
           <div className="z-10 sm:hidden shadow border-t fixed flex items-center justify-between w-full h-14 bg-white left-0 bottom-0">
             <div className="grid divide-x grid-cols-4 flex-grow">
-              <Link href="/books">
-                <a className="flex flex-col text-xs items-center justify-center">
-                  <BookOpenIcon className="w-6 h-6 text-gray-500" />
-                  Книги
-                </a>
+              <Link href="/books"  className="flex flex-col text-xs items-center justify-center">
+                <BookOpenIcon className="w-6 h-6 text-gray-500" />
+                Книги
               </Link>
 
               <div>
@@ -565,105 +544,95 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
                   </button>
                   {navMenuMobile && <div className="inset-x-4 bottom-14 fixed overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                     <div className="relative grid gap-8 bg-white p-7">
-                      <Link href="/profile/books">
-                        <a className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
-                          <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                            <BookOpenIcon
-                              className="h-10 w-10 text-amber-400"
-                              aria-hidden="true"
-                            />
-                          </div>
-                          <div className="ml-4">
-                            <p className="text-sm font-bold text-gray-900">
-                              Мои книги ({user.books.length})
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              {user.points} BST
-                            </p>
-                          </div>
-                        </a>
+                      <Link href="/profile/books"  className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
+                        <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                          <BookOpenIcon
+                            className="h-10 w-10 text-amber-400"
+                            aria-hidden="true"
+                          />
+                        </div>
+                        <div className="ml-4">
+                          <p className="text-sm font-bold text-gray-900">
+                            Мои книги ({user.books.length})
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            {user.points} BST
+                          </p>
+                        </div>
                       </Link>
-                      <Link href="/profile">
-                        <a className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
-                          <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                            <AvatarComponent
-                              className="w-10"
-                              avatarStyle="Circle"
-                              {...user.avatar}
-                            />
-                          </div>
-                          <div className="ml-4">
-                            <p className="text-sm font-bold text-gray-900">
-                              Профиль
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              {userName(user)}
-                            </p>
-                          </div>
-                        </a>
+                      <Link href="/profile"  className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
+                        <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                          <AvatarComponent
+                            className="w-10"
+                            avatarStyle="Circle"
+                            {...user.avatar}
+                          />
+                        </div>
+                        <div className="ml-4">
+                          <p className="text-sm font-bold text-gray-900">
+                            Профиль
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            {userName(user)}
+                          </p>
+                        </div>
                       </Link>
-                      <Link href="/profile/swaps">
-                        <a className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
-                          <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                            <ChatIcon
-                              className="h-10 w-10 text-green-600"
-                              aria-hidden="true"
-                            />
-                          </div>
-                          <div className="ml-4">
-                            <p className="text-sm font-bold text-gray-900">
-                              Активные свопы
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              {`${
-                                activeSwapsReceive(user).length
-                              } получить / ${
-                                activeSwapsSend(user).length
-                              } отдать`}
-                            </p>
-                          </div>
-                        </a>
+                      <Link href="/profile/swaps" className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
+                        <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                          <ChatIcon
+                            className="h-10 w-10 text-green-600"
+                            aria-hidden="true"
+                          />
+                        </div>
+                        <div className="ml-4">
+                          <p className="text-sm font-bold text-gray-900">
+                            Активные свопы
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            {`${
+                              activeSwapsReceive(user).length
+                            } получить / ${
+                              activeSwapsSend(user).length
+                            } отдать`}
+                          </p>
+                        </div>
                       </Link>
-                      <Link href="/profile/waiting">
-                        <a className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
-                          <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                            <HeartIcon
-                              className="h-10 w-10 text-red-400"
-                              aria-hidden="true"
-                            />
-                          </div>
-                          <div className="ml-4">
-                            <p className="text-sm font-bold text-gray-900">
-                              Избранное ({user.waiting.reduce((acc, sub) => {
-                              const openedBooks = sub.edition.books.filter(
-                                (book: any) => book.status === BooksStatus.Open
-                              ).length || 0;
-                              return acc + openedBooks;
-                            }, 0)}) / {user.waiting.length}
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              Книги которые вы ждете
-                            </p>
-                          </div>
-                        </a>
+                      <Link href="/profile/waiting"  className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
+                        <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                          <HeartIcon
+                            className="h-10 w-10 text-red-400"
+                            aria-hidden="true"
+                          />
+                        </div>
+                        <div className="ml-4">
+                          <p className="text-sm font-bold text-gray-900">
+                            Избранное ({user.waiting.reduce((acc, sub) => {
+                            const openedBooks = sub.edition.books.filter(
+                              (book: any) => book.status === BooksStatus.Open
+                            ).length || 0;
+                            return acc + openedBooks;
+                          }, 0)}) / {user.waiting.length}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            Книги которые вы ждете
+                          </p>
+                        </div>
                       </Link>
-                      <Link href="https://t.me/joinchat/jOVQHloO7ApiMDIy">
-                        <a className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
-                          <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
-                            <SupportIcon
-                              className="h-10 w-10 text-blue-500"
-                              aria-hidden="true"
-                            />
-                          </div>
-                          <div className="ml-4">
-                            <p className="text-sm font-bold text-gray-900">
-                              Поддержка
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              Ссылка на Телеграмм чат
-                            </p>
-                          </div>
-                        </a>
+                      <Link href="https://t.me/joinchat/jOVQHloO7ApiMDIy"  className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
+                        <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
+                          <SupportIcon
+                            className="h-10 w-10 text-blue-500"
+                            aria-hidden="true"
+                          />
+                        </div>
+                        <div className="ml-4">
+                          <p className="text-sm font-bold text-gray-900">
+                            Поддержка
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            Ссылка на Телеграмм чат
+                          </p>
+                        </div>
                       </Link>
                     </div>
                     <div className="p-4 bg-gray-50">

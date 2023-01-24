@@ -10,12 +10,11 @@ import { useQueryWrapper } from '../../helpers/useQueryWrapper';
 import { useAvatarOptions } from '../../helpers/avatarOptions';
 import { loader } from 'graphql.macro';
 import {
-  GetMeQuery,
-  UpdateUserAvatarMutation,
-  UpdateUserAvatarMutationVariables,
-} from '../../generated/graphql';
+  GetMeQuery, MutationCreateUserAvatarArgs, MutationUpdateUserAvatarArgs,
+} from '../../generated/graphql.d';
 const GetMe = loader('../../graphql/GetMe.graphql');
-const UpdateAvatar = loader('../../graphql/UpdateAvatarMutation.graphql');
+const CreateUserAvatar = loader('../../graphql/CreateAvatarMutation.graphql');
+const UpdateUserAvatar = loader('../../graphql/UpdateAvatarMutation.graphql');
 
 const Avatar = () => {
   const [{ data: meData, fetching }] = useQueryWrapper<GetMeQuery>({
@@ -37,15 +36,24 @@ const Avatar = () => {
   } = useAvatarOptions();
   const [avatarSelectOptions, setAvatarSelectOptions] = useState<any>({});
   const [avatarDisplayOptions, setAvatarDisplayOptions] = useState<any>(null);
-  const [, updateUser] = useMutation<
-    UpdateUserAvatarMutation,
-    UpdateUserAvatarMutationVariables
-  >(UpdateAvatar);
+  const [, createAvatar] = useMutation<
+    MutationCreateUserAvatarArgs
+  >(CreateUserAvatar);
+  const [, updateAvatar] = useMutation<
+    MutationUpdateUserAvatarArgs
+  >(UpdateUserAvatar);
 
   const saveAvatarHandler = async () => {
-    await updateUser({
-      ...avatarDisplayOptions,
-    });
+    if (meData?.me?.user?.avatarId) {
+      await updateAvatar({
+        id: meData.me.user.avatarId,
+        ...avatarDisplayOptions,
+      });
+    } else {
+      await createAvatar({
+        ...avatarDisplayOptions,
+      });
+    }
   };
 
   const setSelectValues = (values: any) => {
@@ -129,7 +137,7 @@ const Avatar = () => {
     return (
       <div>
         <AvatarComponent
-          className="mx-auto max-w-lg"
+          className="mx-auto sticky sm:relative z-10 top-2 bg-white rounded-md max-w-[450px] shadow-md pb-4"
           avatarStyle="Circle"
           random={true}
           customizable={true}

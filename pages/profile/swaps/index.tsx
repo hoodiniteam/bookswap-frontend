@@ -32,8 +32,7 @@ const SwapChatListItem = ({
 }) => {
   return (
     <li>
-      <Link href={`/profile/swaps/${chat.id}`} shallow={true}>
-        <a className="relative group p-2 w-full flex rounded-md border border-gray-300 shadow-sm space-x-1 text-left hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      <Link href={`/profile/swaps/${chat.id}`} shallow={true} className="relative group p-2 w-full flex rounded-md border border-gray-300 shadow-sm space-x-1 text-left hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
           <BookCover book={chat.book} />
           <div className="flex-grow flex-shrink overflow-hidden py-4 pr-4">
             <div className="flex items-center space-x-3">
@@ -101,7 +100,6 @@ const SwapChatListItem = ({
           {chat.status === ChatStatus.Swapped && (
             <div className="absolute text-2xl left-2 top-2">✅</div>
           )}
-        </a>
       </Link>
     </li>
   );

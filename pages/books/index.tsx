@@ -48,13 +48,13 @@ const Index = () => {
     return (
       <div className="">
         <h1 className="hidden sm:block text-2xl text-center text-white font-semibold mb-10">
-          Книги
+          Все книги
         </h1>
         <div>
           <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
             <div className="flex space-x-4 mb-4">
               <div>
-                <label className="cursor-pointer inline-flex items-center h-5">
+                <label className="bg-white hover:bg-gray-50 transition-colors p-3 border rounded-md shadow cursor-pointer flex items-center">
                   <input
                     id="status"
                     name="status"
@@ -64,8 +64,7 @@ const Index = () => {
                     className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                   />
                   <div className="ml-3 flex items-center">
-                    Показывать только книги{' '}
-                    <Badge className="ml-2" status={BooksStatus.Open} />
+                    <span>Показывать только доступные книги</span> <Badge className="whitespace-nowrap ml-2" status={BooksStatus.Open} />
                   </div>
                 </label>
               </div>
