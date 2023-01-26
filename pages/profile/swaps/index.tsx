@@ -1,17 +1,17 @@
 import React, { ReactElement, useState } from 'react';
-import Layout from '../../../components/layout';
-import { useQueryWrapper } from '../../../helpers/useQueryWrapper';
+import Layout from '@/components/layout';
+import { useQueryWrapper } from '@/helpers/useQueryWrapper';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { localesList } from '../../../helpers/locales';
+import { localesList } from '@/helpers/locales';
 import Link from 'next/link';
 import { loader } from 'graphql.macro';
 import {
   ChatFragment,
   ChatStatus,
   GetMeQuery,
-} from '../../../generated/graphql.d';
-import { AvatarComponent } from '../../../components/avatars';
-import BookCover from '../../../components/BookCover';
+} from '@/gtypes';
+import { AvatarComponent } from '@/components/avatars';
+import BookCover from '@/components/BookCover';
 import { format } from 'date-fns';
 import { ArrowSmLeftIcon, ArrowSmRightIcon } from '@heroicons/react/outline';
 

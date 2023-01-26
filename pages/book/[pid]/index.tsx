@@ -2,16 +2,16 @@ import React, { ReactElement } from 'react';
 import { useMutation } from 'urql';
 import { useRouter } from 'next/router';
 import Layout from '../../../components/layout';
-import { useQueryWrapper } from '../../../helpers/useQueryWrapper';
+import { useQueryWrapper } from '@/helpers/useQueryWrapper';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { localesList } from '../../../helpers/locales';
-import { getStaticEditions } from '../../../helpers/staticRequest';
-import { Badge } from '../../../components/Badge';
+import { localesList } from '@/helpers/locales';
+import { getStaticEditions } from '@/helpers/staticRequest';
+import { Badge } from '@/components/Badge';
 import Button from '../../../components/Button';
-import { AvatarComponent } from '../../../components/avatars';
-import { userName } from '../../../helpers/parseUserName';
+import { AvatarComponent } from '@/components/avatars';
+import { userName } from '@/helpers/parseUserName';
 import { loader } from 'graphql.macro';
 import {
   AddToMyWaitingListMutation,
@@ -25,7 +25,7 @@ import {
   RemoveFromMyWaitingListMutationVariables,
   UpdateBookStatusMutation,
   UpdateBookStatusMutationVariables,
-} from '../../../generated/graphql.d';
+} from '@/gtypes';
 import BookBigWrapper from '../../../components/BookBigWrapper';
 import classNames from 'classnames';
 import { toast } from 'react-toastify';
