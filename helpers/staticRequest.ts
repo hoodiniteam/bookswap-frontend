@@ -1,8 +1,8 @@
 import axios from "axios";
-import { GetStaticEditions } from "../graphql/GetStaticEditions";
-import { GetStaticBooks } from "../graphql/GetStaticBooks";
+import { GetStaticEditions } from "@/graphql/GetStaticEditions";
+import { GetStaticBooks } from "@/graphql/GetStaticBooks";
 
-const nextStaticUrl = process.env.NODE_ENV === "production" ? "http://server:4000/graphql" : 'http://localhost:4000/graphql'
+const nextStaticUrl = process.env.API_URL ? process.env.API_URL : 'http://localhost:4000/graphql'
 
 export const getStaticEditions = async () => {
     return axios.post < { data: { getEditionsStatic: string[] } }>(nextStaticUrl || '', {

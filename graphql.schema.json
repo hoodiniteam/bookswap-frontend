@@ -8675,7 +8675,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutEditionInput",
+              "name": "BookUpdateManyWithoutEditionNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -8723,7 +8723,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserWaitsBookEditionUpdateManyWithoutEditionInput",
+              "name": "UserWaitsBookEditionUpdateManyWithoutEditionNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -9036,7 +9036,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "BookEditionUpdateOneRequiredWithoutBooksInput",
+        "name": "BookEditionUpdateOneRequiredWithoutBooksNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -9107,7 +9107,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "BookEditionUpdateOneRequiredWithoutExpectsInput",
+        "name": "BookEditionUpdateOneRequiredWithoutExpectsNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -9235,7 +9235,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserWaitsBookEditionUpdateManyWithoutEditionInput",
+              "name": "UserWaitsBookEditionUpdateManyWithoutEditionNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -9390,7 +9390,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutEditionInput",
+              "name": "BookUpdateManyWithoutEditionNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -12248,7 +12248,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutBookInput",
+              "name": "ChatUpdateManyWithoutBookNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -12284,7 +12284,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutCreatedBooksInput",
+              "name": "UserUpdateOneRequiredWithoutCreatedBooksNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -12308,7 +12308,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookEditionUpdateOneRequiredWithoutBooksInput",
+              "name": "BookEditionUpdateOneRequiredWithoutBooksNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -12320,7 +12320,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutBooksInput",
+              "name": "UserUpdateOneRequiredWithoutBooksNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -12404,7 +12404,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutBookInput",
+              "name": "SwapUpdateManyWithoutBookNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -12726,7 +12726,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "BookUpdateManyWithoutCreatorInput",
+        "name": "BookUpdateManyWithoutCreatorNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -12949,7 +12949,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "BookUpdateManyWithoutEditionInput",
+        "name": "BookUpdateManyWithoutEditionNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -13172,7 +13172,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "BookUpdateManyWithoutHolderInput",
+        "name": "BookUpdateManyWithoutHolderNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -13395,7 +13395,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "BookUpdateOneRequiredWithoutChatsInput",
+        "name": "BookUpdateOneRequiredWithoutChatsNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -13466,7 +13466,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "BookUpdateOneRequiredWithoutSwapsInput",
+        "name": "BookUpdateOneRequiredWithoutSwapsNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -13711,7 +13711,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutCreatedBooksInput",
+              "name": "UserUpdateOneRequiredWithoutCreatedBooksNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -13735,7 +13735,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookEditionUpdateOneRequiredWithoutBooksInput",
+              "name": "BookEditionUpdateOneRequiredWithoutBooksNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -13747,7 +13747,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutBooksInput",
+              "name": "UserUpdateOneRequiredWithoutBooksNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -13831,7 +13831,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutBookInput",
+              "name": "SwapUpdateManyWithoutBookNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -13890,7 +13890,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutBookInput",
+              "name": "ChatUpdateManyWithoutBookNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -13938,7 +13938,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookEditionUpdateOneRequiredWithoutBooksInput",
+              "name": "BookEditionUpdateOneRequiredWithoutBooksNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -13950,7 +13950,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutBooksInput",
+              "name": "UserUpdateOneRequiredWithoutBooksNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14034,7 +14034,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutBookInput",
+              "name": "SwapUpdateManyWithoutBookNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14093,7 +14093,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutBookInput",
+              "name": "ChatUpdateManyWithoutBookNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14129,7 +14129,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutCreatedBooksInput",
+              "name": "UserUpdateOneRequiredWithoutCreatedBooksNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14153,7 +14153,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutBooksInput",
+              "name": "UserUpdateOneRequiredWithoutBooksNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14237,7 +14237,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutBookInput",
+              "name": "SwapUpdateManyWithoutBookNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14296,7 +14296,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutBookInput",
+              "name": "ChatUpdateManyWithoutBookNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14332,7 +14332,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutCreatedBooksInput",
+              "name": "UserUpdateOneRequiredWithoutCreatedBooksNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14356,7 +14356,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookEditionUpdateOneRequiredWithoutBooksInput",
+              "name": "BookEditionUpdateOneRequiredWithoutBooksNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14440,7 +14440,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutBookInput",
+              "name": "SwapUpdateManyWithoutBookNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14499,7 +14499,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutBookInput",
+              "name": "ChatUpdateManyWithoutBookNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14535,7 +14535,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutCreatedBooksInput",
+              "name": "UserUpdateOneRequiredWithoutCreatedBooksNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14559,7 +14559,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookEditionUpdateOneRequiredWithoutBooksInput",
+              "name": "BookEditionUpdateOneRequiredWithoutBooksNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14571,7 +14571,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutBooksInput",
+              "name": "UserUpdateOneRequiredWithoutBooksNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -19312,7 +19312,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateOneRequiredWithoutChatsInput",
+              "name": "BookUpdateOneRequiredWithoutChatsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -19348,7 +19348,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "MessageUpdateManyWithoutChatInput",
+              "name": "MessageUpdateManyWithoutChatNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -19360,7 +19360,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutChatRecipientInput",
+              "name": "UserUpdateOneRequiredWithoutChatRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -19372,7 +19372,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutChatSenderInput",
+              "name": "UserUpdateOneRequiredWithoutChatSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -19396,7 +19396,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateOneWithoutChatInput",
+              "name": "SwapUpdateOneWithoutChatNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -19610,7 +19610,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "ChatUpdateManyWithoutBookInput",
+        "name": "ChatUpdateManyWithoutBookNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -19833,7 +19833,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "ChatUpdateManyWithoutRecipientInput",
+        "name": "ChatUpdateManyWithoutRecipientNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -20056,7 +20056,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "ChatUpdateManyWithoutSenderInput",
+        "name": "ChatUpdateManyWithoutSenderNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -20279,7 +20279,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "ChatUpdateOneRequiredWithoutMessagesInput",
+        "name": "ChatUpdateOneRequiredWithoutMessagesNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -20350,7 +20350,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "ChatUpdateOneRequiredWithoutSwapInput",
+        "name": "ChatUpdateOneRequiredWithoutSwapNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -20583,7 +20583,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "MessageUpdateManyWithoutChatInput",
+              "name": "MessageUpdateManyWithoutChatNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -20595,7 +20595,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutChatRecipientInput",
+              "name": "UserUpdateOneRequiredWithoutChatRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -20607,7 +20607,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutChatSenderInput",
+              "name": "UserUpdateOneRequiredWithoutChatSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -20631,7 +20631,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateOneWithoutChatInput",
+              "name": "SwapUpdateOneWithoutChatNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -20666,7 +20666,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateOneRequiredWithoutChatsInput",
+              "name": "BookUpdateOneRequiredWithoutChatsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -20702,7 +20702,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutChatRecipientInput",
+              "name": "UserUpdateOneRequiredWithoutChatRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -20714,7 +20714,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutChatSenderInput",
+              "name": "UserUpdateOneRequiredWithoutChatSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -20738,7 +20738,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateOneWithoutChatInput",
+              "name": "SwapUpdateOneWithoutChatNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -20773,7 +20773,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateOneRequiredWithoutChatsInput",
+              "name": "BookUpdateOneRequiredWithoutChatsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -20809,7 +20809,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "MessageUpdateManyWithoutChatInput",
+              "name": "MessageUpdateManyWithoutChatNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -20821,7 +20821,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutChatSenderInput",
+              "name": "UserUpdateOneRequiredWithoutChatSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -20845,7 +20845,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateOneWithoutChatInput",
+              "name": "SwapUpdateOneWithoutChatNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -20880,7 +20880,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateOneRequiredWithoutChatsInput",
+              "name": "BookUpdateOneRequiredWithoutChatsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -20916,7 +20916,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "MessageUpdateManyWithoutChatInput",
+              "name": "MessageUpdateManyWithoutChatNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -20928,7 +20928,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutChatRecipientInput",
+              "name": "UserUpdateOneRequiredWithoutChatRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -20952,7 +20952,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateOneWithoutChatInput",
+              "name": "SwapUpdateOneWithoutChatNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -20987,7 +20987,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateOneRequiredWithoutChatsInput",
+              "name": "BookUpdateOneRequiredWithoutChatsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -21023,7 +21023,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "MessageUpdateManyWithoutChatInput",
+              "name": "MessageUpdateManyWithoutChatNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -21035,7 +21035,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutChatRecipientInput",
+              "name": "UserUpdateOneRequiredWithoutChatRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -21047,7 +21047,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutChatSenderInput",
+              "name": "UserUpdateOneRequiredWithoutChatSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -25415,7 +25415,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateOneRequiredWithoutMessagesInput",
+              "name": "ChatUpdateOneRequiredWithoutMessagesNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -25603,7 +25603,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "MessageUpdateManyWithoutChatInput",
+        "name": "MessageUpdateManyWithoutChatNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -26308,72 +26308,6 @@
             "deprecationReason": null
           },
           {
-            "name": "createBook",
-            "description": null,
-            "args": [
-              {
-                "name": "data",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "BookCreateInput",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Book",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "createBookEdition",
-            "description": null,
-            "args": [
-              {
-                "name": "data",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "BookEditionCreateInput",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "BookEdition",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "createChat",
             "description": null,
             "args": [
@@ -26884,7 +26818,106 @@
             "deprecationReason": null
           },
           {
-            "name": "createMessage",
+            "name": "createOneBook",
+            "description": null,
+            "args": [
+              {
+                "name": "data",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "BookCreateInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Book",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "createOneBookEdition",
+            "description": null,
+            "args": [
+              {
+                "name": "data",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "BookEditionCreateInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "BookEdition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "createOneChat",
+            "description": null,
+            "args": [
+              {
+                "name": "data",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "ChatCreateInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Chat",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "createOneMessage",
             "description": null,
             "args": [
               {
@@ -26917,7 +26950,7 @@
             "deprecationReason": null
           },
           {
-            "name": "createNotification",
+            "name": "createOneNotification",
             "description": null,
             "args": [
               {
@@ -26950,7 +26983,7 @@
             "deprecationReason": null
           },
           {
-            "name": "createSwap",
+            "name": "createOneSwap",
             "description": null,
             "args": [
               {
@@ -26983,7 +27016,7 @@
             "deprecationReason": null
           },
           {
-            "name": "createUser",
+            "name": "createOneUser",
             "description": null,
             "args": [
               {
@@ -27016,7 +27049,7 @@
             "deprecationReason": null
           },
           {
-            "name": "createUserAvatar",
+            "name": "createOneUserAvatar",
             "description": null,
             "args": [
               {
@@ -27049,7 +27082,7 @@
             "deprecationReason": null
           },
           {
-            "name": "createUserWaitsBookEdition",
+            "name": "createOneUserWaitsBookEdition",
             "description": null,
             "args": [
               {
@@ -27259,93 +27292,6 @@
             "type": {
               "kind": "OBJECT",
               "name": "BookEdition",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "deleteBook",
-            "description": null,
-            "args": [
-              {
-                "name": "where",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "BookWhereUniqueInput",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Book",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "deleteBookEdition",
-            "description": null,
-            "args": [
-              {
-                "name": "where",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "BookEditionWhereUniqueInput",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "BookEdition",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "deleteChat",
-            "description": null,
-            "args": [
-              {
-                "name": "where",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "ChatWhereUniqueInput",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Chat",
               "ofType": null
             },
             "isDeprecated": false,
@@ -27613,7 +27559,94 @@
             "deprecationReason": null
           },
           {
-            "name": "deleteMessage",
+            "name": "deleteOneBook",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "BookWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Book",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deleteOneBookEdition",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "BookEditionWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "BookEdition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deleteOneChat",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "ChatWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Chat",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deleteOneMessage",
             "description": null,
             "args": [
               {
@@ -27642,7 +27675,7 @@
             "deprecationReason": null
           },
           {
-            "name": "deleteNotification",
+            "name": "deleteOneNotification",
             "description": null,
             "args": [
               {
@@ -27671,7 +27704,7 @@
             "deprecationReason": null
           },
           {
-            "name": "deleteSwap",
+            "name": "deleteOneSwap",
             "description": null,
             "args": [
               {
@@ -27700,7 +27733,7 @@
             "deprecationReason": null
           },
           {
-            "name": "deleteUser",
+            "name": "deleteOneUser",
             "description": null,
             "args": [
               {
@@ -27729,7 +27762,7 @@
             "deprecationReason": null
           },
           {
-            "name": "deleteUserAvatar",
+            "name": "deleteOneUserAvatar",
             "description": null,
             "args": [
               {
@@ -27758,7 +27791,7 @@
             "deprecationReason": null
           },
           {
-            "name": "deleteUserWaitsBookEdition",
+            "name": "deleteOneUserWaitsBookEdition",
             "description": null,
             "args": [
               {
@@ -28085,141 +28118,6 @@
                 "name": "UserResponse",
                 "ofType": null
               }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "updateBook",
-            "description": null,
-            "args": [
-              {
-                "name": "data",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "BookUpdateInput",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "where",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "BookWhereUniqueInput",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Book",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "updateBookEdition",
-            "description": null,
-            "args": [
-              {
-                "name": "data",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "BookEditionUpdateInput",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "where",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "BookEditionWhereUniqueInput",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "BookEdition",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "updateChat",
-            "description": null,
-            "args": [
-              {
-                "name": "data",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "ChatUpdateInput",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "where",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "ChatWhereUniqueInput",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Chat",
-              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -28679,7 +28577,142 @@
             "deprecationReason": null
           },
           {
-            "name": "updateMessage",
+            "name": "updateOneBook",
+            "description": null,
+            "args": [
+              {
+                "name": "data",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "BookUpdateInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "BookWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Book",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updateOneBookEdition",
+            "description": null,
+            "args": [
+              {
+                "name": "data",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "BookEditionUpdateInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "BookEditionWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "BookEdition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updateOneChat",
+            "description": null,
+            "args": [
+              {
+                "name": "data",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "ChatUpdateInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "ChatWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Chat",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updateOneMessage",
             "description": null,
             "args": [
               {
@@ -28724,7 +28757,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updateNotification",
+            "name": "updateOneNotification",
             "description": null,
             "args": [
               {
@@ -28769,7 +28802,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updateSwap",
+            "name": "updateOneSwap",
             "description": null,
             "args": [
               {
@@ -28814,7 +28847,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updateUser",
+            "name": "updateOneUser",
             "description": null,
             "args": [
               {
@@ -28859,7 +28892,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updateUserAvatar",
+            "name": "updateOneUserAvatar",
             "description": null,
             "args": [
               {
@@ -28904,7 +28937,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updateUserWaitsBookEdition",
+            "name": "updateOneUserWaitsBookEdition",
             "description": null,
             "args": [
               {
@@ -28949,7 +28982,7 @@
             "deprecationReason": null
           },
           {
-            "name": "upsertBook",
+            "name": "upsertOneBook",
             "description": null,
             "args": [
               {
@@ -29014,7 +29047,7 @@
             "deprecationReason": null
           },
           {
-            "name": "upsertBookEdition",
+            "name": "upsertOneBookEdition",
             "description": null,
             "args": [
               {
@@ -29079,7 +29112,7 @@
             "deprecationReason": null
           },
           {
-            "name": "upsertChat",
+            "name": "upsertOneChat",
             "description": null,
             "args": [
               {
@@ -29144,7 +29177,7 @@
             "deprecationReason": null
           },
           {
-            "name": "upsertMessage",
+            "name": "upsertOneMessage",
             "description": null,
             "args": [
               {
@@ -29209,7 +29242,7 @@
             "deprecationReason": null
           },
           {
-            "name": "upsertNotification",
+            "name": "upsertOneNotification",
             "description": null,
             "args": [
               {
@@ -29274,7 +29307,7 @@
             "deprecationReason": null
           },
           {
-            "name": "upsertSwap",
+            "name": "upsertOneSwap",
             "description": null,
             "args": [
               {
@@ -29339,7 +29372,7 @@
             "deprecationReason": null
           },
           {
-            "name": "upsertUser",
+            "name": "upsertOneUser",
             "description": null,
             "args": [
               {
@@ -29404,7 +29437,7 @@
             "deprecationReason": null
           },
           {
-            "name": "upsertUserAvatar",
+            "name": "upsertOneUserAvatar",
             "description": null,
             "args": [
               {
@@ -29469,7 +29502,7 @@
             "deprecationReason": null
           },
           {
-            "name": "upsertUserWaitsBookEdition",
+            "name": "upsertOneUserWaitsBookEdition",
             "description": null,
             "args": [
               {
@@ -33920,7 +33953,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutNotificationsInput",
+              "name": "UserUpdateOneRequiredWithoutNotificationsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -34048,7 +34081,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "NotificationUpdateManyWithoutUserInput",
+        "name": "NotificationUpdateManyWithoutUserNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -36042,7 +36075,310 @@
             "deprecationReason": null
           },
           {
+            "name": "findFirstBookEditionOrThrow",
+            "description": null,
+            "args": [
+              {
+                "name": "cursor",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "BookEditionWhereUniqueInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "distinct",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "BookEditionScalarFieldEnum",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orderBy",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "BookEditionOrderByWithRelationInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "skip",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "take",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "BookEditionWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "BookEdition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "findFirstBookOrThrow",
+            "description": null,
+            "args": [
+              {
+                "name": "cursor",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "BookWhereUniqueInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "distinct",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "BookScalarFieldEnum",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orderBy",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "BookOrderByWithRelationInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "skip",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "take",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "BookWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Book",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "findFirstChat",
+            "description": null,
+            "args": [
+              {
+                "name": "cursor",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "ChatWhereUniqueInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "distinct",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "ChatScalarFieldEnum",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orderBy",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "ChatOrderByWithRelationInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "skip",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "take",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "ChatWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Chat",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "findFirstChatOrThrow",
             "description": null,
             "args": [
               {
@@ -36244,6 +36580,107 @@
             "deprecationReason": null
           },
           {
+            "name": "findFirstMessageOrThrow",
+            "description": null,
+            "args": [
+              {
+                "name": "cursor",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "MessageWhereUniqueInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "distinct",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "MessageScalarFieldEnum",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orderBy",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "MessageOrderByWithRelationInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "skip",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "take",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "MessageWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Message",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "findFirstNotification",
             "description": null,
             "args": [
@@ -36345,7 +36782,209 @@
             "deprecationReason": null
           },
           {
+            "name": "findFirstNotificationOrThrow",
+            "description": null,
+            "args": [
+              {
+                "name": "cursor",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "NotificationWhereUniqueInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "distinct",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "NotificationScalarFieldEnum",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orderBy",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "NotificationOrderByWithRelationInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "skip",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "take",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "NotificationWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Notification",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "findFirstSwap",
+            "description": null,
+            "args": [
+              {
+                "name": "cursor",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "SwapWhereUniqueInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "distinct",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "SwapScalarFieldEnum",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orderBy",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "SwapOrderByWithRelationInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "skip",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "take",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "SwapWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Swap",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "findFirstSwapOrThrow",
             "description": null,
             "args": [
               {
@@ -36648,7 +37287,310 @@
             "deprecationReason": null
           },
           {
+            "name": "findFirstUserAvatarOrThrow",
+            "description": null,
+            "args": [
+              {
+                "name": "cursor",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "UserAvatarWhereUniqueInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "distinct",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "UserAvatarScalarFieldEnum",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orderBy",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "UserAvatarOrderByWithRelationInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "skip",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "take",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "UserAvatarWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "UserAvatar",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "findFirstUserOrThrow",
+            "description": null,
+            "args": [
+              {
+                "name": "cursor",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "UserWhereUniqueInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "distinct",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "UserScalarFieldEnum",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orderBy",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "UserOrderByWithRelationInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "skip",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "take",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "UserWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "findFirstUserWaitsBookEdition",
+            "description": null,
+            "args": [
+              {
+                "name": "cursor",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "UserWaitsBookEditionWhereUniqueInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "distinct",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "UserWaitsBookEditionScalarFieldEnum",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orderBy",
+                "description": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "UserWaitsBookEditionOrderByWithRelationInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "skip",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "take",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "UserWaitsBookEditionWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "UserWaitsBookEdition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "findFirstUserWaitsBookEditionOrThrow",
             "description": null,
             "args": [
               {
@@ -36753,14 +37695,14 @@
             "description": null,
             "args": [
               {
-                "name": "id",
+                "name": "where",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
+                    "kind": "INPUT_OBJECT",
+                    "name": "BookWhereUniqueInput",
                     "ofType": null
                   }
                 },
@@ -36771,7 +37713,36 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "BookResponse",
+              "name": "Book",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "getBookEdition",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "BookEditionWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "BookEdition",
               "ofType": null
             },
             "isDeprecated": false,
@@ -36793,6 +37764,35 @@
                   "ofType": null
                 }
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "getChat",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "ChatWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Chat",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -36945,6 +37945,64 @@
             "deprecationReason": null
           },
           {
+            "name": "getMessage",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "MessageWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Message",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "getNotification",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "NotificationWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Notification",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "getRoom",
             "description": null,
             "args": [
@@ -36978,18 +38036,47 @@
             "deprecationReason": null
           },
           {
-            "name": "getUser",
+            "name": "getSwap",
             "description": null,
             "args": [
               {
-                "name": "id",
+                "name": "where",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
+                    "kind": "INPUT_OBJECT",
+                    "name": "SwapWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Swap",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "getUser",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "UserWhereUniqueInput",
                     "ofType": null
                   }
                 },
@@ -37001,6 +38088,64 @@
             "type": {
               "kind": "OBJECT",
               "name": "User",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "getUserAvatar",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "UserAvatarWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "UserAvatar",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "getUserWaitsBookEdition",
+            "description": null,
+            "args": [
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "UserWaitsBookEditionWhereUniqueInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "UserWaitsBookEdition",
               "ofType": null
             },
             "isDeprecated": false,
@@ -43410,7 +44555,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateOneRequiredWithoutSwapsInput",
+              "name": "BookUpdateOneRequiredWithoutSwapsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -43422,7 +44567,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateOneRequiredWithoutSwapInput",
+              "name": "ChatUpdateOneRequiredWithoutSwapNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -43458,7 +44603,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutSwapsInput",
+              "name": "UserUpdateOneRequiredWithoutSwapsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -43470,7 +44615,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutSendsInput",
+              "name": "UserUpdateOneRequiredWithoutSendsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -43696,7 +44841,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "SwapUpdateManyWithoutBookInput",
+        "name": "SwapUpdateManyWithoutBookNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -43919,7 +45064,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "SwapUpdateManyWithoutRecipientInput",
+        "name": "SwapUpdateManyWithoutRecipientNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -44142,7 +45287,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "SwapUpdateManyWithoutSenderInput",
+        "name": "SwapUpdateManyWithoutSenderNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -44365,7 +45510,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "SwapUpdateOneWithoutChatInput",
+        "name": "SwapUpdateOneWithoutChatNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -44598,7 +45743,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateOneRequiredWithoutSwapInput",
+              "name": "ChatUpdateOneRequiredWithoutSwapNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -44634,7 +45779,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutSwapsInput",
+              "name": "UserUpdateOneRequiredWithoutSwapsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -44646,7 +45791,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutSendsInput",
+              "name": "UserUpdateOneRequiredWithoutSendsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -44693,7 +45838,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateOneRequiredWithoutSwapsInput",
+              "name": "BookUpdateOneRequiredWithoutSwapsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -44729,7 +45874,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutSwapsInput",
+              "name": "UserUpdateOneRequiredWithoutSwapsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -44741,7 +45886,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutSendsInput",
+              "name": "UserUpdateOneRequiredWithoutSendsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -44788,7 +45933,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateOneRequiredWithoutSwapsInput",
+              "name": "BookUpdateOneRequiredWithoutSwapsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -44800,7 +45945,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateOneRequiredWithoutSwapInput",
+              "name": "ChatUpdateOneRequiredWithoutSwapNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -44836,7 +45981,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutSendsInput",
+              "name": "UserUpdateOneRequiredWithoutSendsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -44883,7 +46028,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateOneRequiredWithoutSwapsInput",
+              "name": "BookUpdateOneRequiredWithoutSwapsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -44895,7 +46040,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateOneRequiredWithoutSwapInput",
+              "name": "ChatUpdateOneRequiredWithoutSwapNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -44931,7 +46076,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutSwapsInput",
+              "name": "UserUpdateOneRequiredWithoutSwapsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -50271,7 +51416,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneWithoutAvatarInput",
+              "name": "UserUpdateOneWithoutAvatarNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -50500,7 +51645,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserAvatarUpdateOneWithoutUserInput",
+        "name": "UserAvatarUpdateOneWithoutUserNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -56699,7 +57844,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserAvatarUpdateOneWithoutUserInput",
+              "name": "UserAvatarUpdateOneWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -56711,7 +57856,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutHolderInput",
+              "name": "BookUpdateManyWithoutHolderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -56723,7 +57868,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutRecipientInput",
+              "name": "ChatUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -56735,7 +57880,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutSenderInput",
+              "name": "ChatUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -56771,7 +57916,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutCreatorInput",
+              "name": "BookUpdateManyWithoutCreatorNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -56831,7 +57976,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "NotificationUpdateManyWithoutUserInput",
+              "name": "NotificationUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -56879,7 +58024,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutSenderInput",
+              "name": "SwapUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -56891,7 +58036,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutRecipientInput",
+              "name": "SwapUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -56915,7 +58060,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserWaitsBookEditionUpdateManyWithoutUserInput",
+              "name": "UserWaitsBookEditionUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -57060,7 +58205,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserUpdateOneRequiredWithoutBooksInput",
+        "name": "UserUpdateOneRequiredWithoutBooksNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -57131,7 +58276,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserUpdateOneRequiredWithoutChatRecipientInput",
+        "name": "UserUpdateOneRequiredWithoutChatRecipientNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -57202,7 +58347,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserUpdateOneRequiredWithoutChatSenderInput",
+        "name": "UserUpdateOneRequiredWithoutChatSenderNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -57273,7 +58418,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserUpdateOneRequiredWithoutCreatedBooksInput",
+        "name": "UserUpdateOneRequiredWithoutCreatedBooksNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -57344,7 +58489,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserUpdateOneRequiredWithoutNotificationsInput",
+        "name": "UserUpdateOneRequiredWithoutNotificationsNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -57415,7 +58560,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserUpdateOneRequiredWithoutSendsInput",
+        "name": "UserUpdateOneRequiredWithoutSendsNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -57486,7 +58631,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserUpdateOneRequiredWithoutSwapsInput",
+        "name": "UserUpdateOneRequiredWithoutSwapsNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -57557,7 +58702,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserUpdateOneRequiredWithoutWaitingInput",
+        "name": "UserUpdateOneRequiredWithoutWaitingNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -57628,7 +58773,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserUpdateOneWithoutAvatarInput",
+        "name": "UserUpdateOneWithoutAvatarNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -57732,7 +58877,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutHolderInput",
+              "name": "BookUpdateManyWithoutHolderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -57744,7 +58889,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutRecipientInput",
+              "name": "ChatUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -57756,7 +58901,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutSenderInput",
+              "name": "ChatUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -57792,7 +58937,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutCreatorInput",
+              "name": "BookUpdateManyWithoutCreatorNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -57852,7 +58997,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "NotificationUpdateManyWithoutUserInput",
+              "name": "NotificationUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -57900,7 +59045,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutSenderInput",
+              "name": "SwapUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -57912,7 +59057,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutRecipientInput",
+              "name": "SwapUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -57936,7 +59081,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserWaitsBookEditionUpdateManyWithoutUserInput",
+              "name": "UserWaitsBookEditionUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -57959,7 +59104,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserAvatarUpdateOneWithoutUserInput",
+              "name": "UserAvatarUpdateOneWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -57971,7 +59116,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutRecipientInput",
+              "name": "ChatUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -57983,7 +59128,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutSenderInput",
+              "name": "ChatUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58019,7 +59164,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutCreatorInput",
+              "name": "BookUpdateManyWithoutCreatorNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58079,7 +59224,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "NotificationUpdateManyWithoutUserInput",
+              "name": "NotificationUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58127,7 +59272,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutSenderInput",
+              "name": "SwapUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58139,7 +59284,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutRecipientInput",
+              "name": "SwapUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58163,7 +59308,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserWaitsBookEditionUpdateManyWithoutUserInput",
+              "name": "UserWaitsBookEditionUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58186,7 +59331,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserAvatarUpdateOneWithoutUserInput",
+              "name": "UserAvatarUpdateOneWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58198,7 +59343,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutHolderInput",
+              "name": "BookUpdateManyWithoutHolderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58210,7 +59355,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutSenderInput",
+              "name": "ChatUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58246,7 +59391,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutCreatorInput",
+              "name": "BookUpdateManyWithoutCreatorNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58306,7 +59451,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "NotificationUpdateManyWithoutUserInput",
+              "name": "NotificationUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58354,7 +59499,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutSenderInput",
+              "name": "SwapUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58366,7 +59511,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutRecipientInput",
+              "name": "SwapUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58390,7 +59535,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserWaitsBookEditionUpdateManyWithoutUserInput",
+              "name": "UserWaitsBookEditionUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58413,7 +59558,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserAvatarUpdateOneWithoutUserInput",
+              "name": "UserAvatarUpdateOneWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58425,7 +59570,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutHolderInput",
+              "name": "BookUpdateManyWithoutHolderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58437,7 +59582,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutRecipientInput",
+              "name": "ChatUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58473,7 +59618,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutCreatorInput",
+              "name": "BookUpdateManyWithoutCreatorNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58533,7 +59678,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "NotificationUpdateManyWithoutUserInput",
+              "name": "NotificationUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58581,7 +59726,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutSenderInput",
+              "name": "SwapUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58593,7 +59738,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutRecipientInput",
+              "name": "SwapUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58617,7 +59762,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserWaitsBookEditionUpdateManyWithoutUserInput",
+              "name": "UserWaitsBookEditionUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58640,7 +59785,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserAvatarUpdateOneWithoutUserInput",
+              "name": "UserAvatarUpdateOneWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58652,7 +59797,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutHolderInput",
+              "name": "BookUpdateManyWithoutHolderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58664,7 +59809,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutRecipientInput",
+              "name": "ChatUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58676,7 +59821,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutSenderInput",
+              "name": "ChatUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58760,7 +59905,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "NotificationUpdateManyWithoutUserInput",
+              "name": "NotificationUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58808,7 +59953,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutSenderInput",
+              "name": "SwapUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58820,7 +59965,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutRecipientInput",
+              "name": "SwapUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58844,7 +59989,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserWaitsBookEditionUpdateManyWithoutUserInput",
+              "name": "UserWaitsBookEditionUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58867,7 +60012,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserAvatarUpdateOneWithoutUserInput",
+              "name": "UserAvatarUpdateOneWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58879,7 +60024,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutHolderInput",
+              "name": "BookUpdateManyWithoutHolderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58891,7 +60036,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutRecipientInput",
+              "name": "ChatUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58903,7 +60048,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutSenderInput",
+              "name": "ChatUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58939,7 +60084,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutCreatorInput",
+              "name": "BookUpdateManyWithoutCreatorNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59035,7 +60180,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutSenderInput",
+              "name": "SwapUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59047,7 +60192,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutRecipientInput",
+              "name": "SwapUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59071,7 +60216,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserWaitsBookEditionUpdateManyWithoutUserInput",
+              "name": "UserWaitsBookEditionUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59094,7 +60239,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserAvatarUpdateOneWithoutUserInput",
+              "name": "UserAvatarUpdateOneWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59106,7 +60251,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutHolderInput",
+              "name": "BookUpdateManyWithoutHolderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59118,7 +60263,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutRecipientInput",
+              "name": "ChatUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59130,7 +60275,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutSenderInput",
+              "name": "ChatUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59166,7 +60311,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutCreatorInput",
+              "name": "BookUpdateManyWithoutCreatorNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59226,7 +60371,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "NotificationUpdateManyWithoutUserInput",
+              "name": "NotificationUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59274,7 +60419,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutRecipientInput",
+              "name": "SwapUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59298,7 +60443,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserWaitsBookEditionUpdateManyWithoutUserInput",
+              "name": "UserWaitsBookEditionUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59321,7 +60466,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserAvatarUpdateOneWithoutUserInput",
+              "name": "UserAvatarUpdateOneWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59333,7 +60478,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutHolderInput",
+              "name": "BookUpdateManyWithoutHolderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59345,7 +60490,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutRecipientInput",
+              "name": "ChatUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59357,7 +60502,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutSenderInput",
+              "name": "ChatUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59393,7 +60538,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutCreatorInput",
+              "name": "BookUpdateManyWithoutCreatorNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59453,7 +60598,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "NotificationUpdateManyWithoutUserInput",
+              "name": "NotificationUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59501,7 +60646,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutSenderInput",
+              "name": "SwapUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59525,7 +60670,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserWaitsBookEditionUpdateManyWithoutUserInput",
+              "name": "UserWaitsBookEditionUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59548,7 +60693,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserAvatarUpdateOneWithoutUserInput",
+              "name": "UserAvatarUpdateOneWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59560,7 +60705,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutHolderInput",
+              "name": "BookUpdateManyWithoutHolderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59572,7 +60717,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutRecipientInput",
+              "name": "ChatUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59584,7 +60729,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ChatUpdateManyWithoutSenderInput",
+              "name": "ChatUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59620,7 +60765,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUpdateManyWithoutCreatorInput",
+              "name": "BookUpdateManyWithoutCreatorNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59680,7 +60825,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "NotificationUpdateManyWithoutUserInput",
+              "name": "NotificationUpdateManyWithoutUserNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59728,7 +60873,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutSenderInput",
+              "name": "SwapUpdateManyWithoutSenderNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59740,7 +60885,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "SwapUpdateManyWithoutRecipientInput",
+              "name": "SwapUpdateManyWithoutRecipientNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -61749,7 +62894,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookEditionUpdateOneRequiredWithoutExpectsInput",
+              "name": "BookEditionUpdateOneRequiredWithoutExpectsNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -61761,7 +62906,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutWaitingInput",
+              "name": "UserUpdateOneRequiredWithoutWaitingNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -61884,7 +63029,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserWaitsBookEditionUpdateManyWithoutEditionInput",
+        "name": "UserWaitsBookEditionUpdateManyWithoutEditionNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -62107,7 +63252,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UserWaitsBookEditionUpdateManyWithoutUserInput",
+        "name": "UserWaitsBookEditionUpdateManyWithoutUserNestedInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -62437,7 +63582,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "UserUpdateOneRequiredWithoutWaitingInput",
+              "name": "UserUpdateOneRequiredWithoutWaitingNestedInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -62472,7 +63617,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookEditionUpdateOneRequiredWithoutExpectsInput",
+              "name": "BookEditionUpdateOneRequiredWithoutExpectsNestedInput",
               "ofType": null
             },
             "defaultValue": null,

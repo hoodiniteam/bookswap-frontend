@@ -856,11 +856,11 @@ export type BookEditionTypeSenseExpectsArgs = {
 
 export type BookEditionUpdateInput = {
   authors?: InputMaybe<BookEditionUpdateauthorsInput>;
-  books?: InputMaybe<BookUpdateManyWithoutEditionInput>;
+  books?: InputMaybe<BookUpdateManyWithoutEditionNestedInput>;
   booksCount?: InputMaybe<IntFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  expects?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutEditionInput>;
+  expects?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutEditionNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_10?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
@@ -890,7 +890,7 @@ export type BookEditionUpdateManyMutationInput = {
   virtual?: InputMaybe<BoolFieldUpdateOperationsInput>;
 };
 
-export type BookEditionUpdateOneRequiredWithoutBooksInput = {
+export type BookEditionUpdateOneRequiredWithoutBooksNestedInput = {
   connect?: InputMaybe<BookEditionWhereUniqueInput>;
   connectOrCreate?: InputMaybe<BookEditionCreateOrConnectWithoutBooksInput>;
   create?: InputMaybe<BookEditionCreateWithoutBooksInput>;
@@ -898,7 +898,7 @@ export type BookEditionUpdateOneRequiredWithoutBooksInput = {
   upsert?: InputMaybe<BookEditionUpsertWithoutBooksInput>;
 };
 
-export type BookEditionUpdateOneRequiredWithoutExpectsInput = {
+export type BookEditionUpdateOneRequiredWithoutExpectsNestedInput = {
   connect?: InputMaybe<BookEditionWhereUniqueInput>;
   connectOrCreate?: InputMaybe<BookEditionCreateOrConnectWithoutExpectsInput>;
   create?: InputMaybe<BookEditionCreateWithoutExpectsInput>;
@@ -911,7 +911,7 @@ export type BookEditionUpdateWithoutBooksInput = {
   booksCount?: InputMaybe<IntFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  expects?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutEditionInput>;
+  expects?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutEditionNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_10?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
@@ -926,7 +926,7 @@ export type BookEditionUpdateWithoutBooksInput = {
 
 export type BookEditionUpdateWithoutExpectsInput = {
   authors?: InputMaybe<BookEditionUpdateauthorsInput>;
-  books?: InputMaybe<BookUpdateManyWithoutEditionInput>;
+  books?: InputMaybe<BookUpdateManyWithoutEditionNestedInput>;
   booksCount?: InputMaybe<IntFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
@@ -1204,20 +1204,20 @@ export type BookScalarWhereWithAggregatesInput = {
 
 export type BookUpdateInput = {
   authors?: InputMaybe<BookUpdateauthorsInput>;
-  chats?: InputMaybe<ChatUpdateManyWithoutBookInput>;
+  chats?: InputMaybe<ChatUpdateManyWithoutBookNestedInput>;
   condition?: InputMaybe<EnumBooksConditionFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  creator?: InputMaybe<UserUpdateOneRequiredWithoutCreatedBooksInput>;
+  creator?: InputMaybe<UserUpdateOneRequiredWithoutCreatedBooksNestedInput>;
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  edition?: InputMaybe<BookEditionUpdateOneRequiredWithoutBooksInput>;
-  holder?: InputMaybe<UserUpdateOneRequiredWithoutBooksInput>;
+  edition?: InputMaybe<BookEditionUpdateOneRequiredWithoutBooksNestedInput>;
+  holder?: InputMaybe<UserUpdateOneRequiredWithoutBooksNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_10?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_13?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   publishedDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   status?: InputMaybe<EnumBooksStatusFieldUpdateOperationsInput>;
-  swaps?: InputMaybe<SwapUpdateManyWithoutBookInput>;
+  swaps?: InputMaybe<SwapUpdateManyWithoutBookNestedInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -1252,7 +1252,7 @@ export type BookUpdateManyWithWhereWithoutHolderInput = {
   where: BookScalarWhereInput;
 };
 
-export type BookUpdateManyWithoutCreatorInput = {
+export type BookUpdateManyWithoutCreatorNestedInput = {
   connect?: InputMaybe<Array<BookWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<BookCreateOrConnectWithoutCreatorInput>>;
   create?: InputMaybe<Array<BookCreateWithoutCreatorInput>>;
@@ -1266,7 +1266,7 @@ export type BookUpdateManyWithoutCreatorInput = {
   upsert?: InputMaybe<Array<BookUpsertWithWhereUniqueWithoutCreatorInput>>;
 };
 
-export type BookUpdateManyWithoutEditionInput = {
+export type BookUpdateManyWithoutEditionNestedInput = {
   connect?: InputMaybe<Array<BookWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<BookCreateOrConnectWithoutEditionInput>>;
   create?: InputMaybe<Array<BookCreateWithoutEditionInput>>;
@@ -1280,7 +1280,7 @@ export type BookUpdateManyWithoutEditionInput = {
   upsert?: InputMaybe<Array<BookUpsertWithWhereUniqueWithoutEditionInput>>;
 };
 
-export type BookUpdateManyWithoutHolderInput = {
+export type BookUpdateManyWithoutHolderNestedInput = {
   connect?: InputMaybe<Array<BookWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<BookCreateOrConnectWithoutHolderInput>>;
   create?: InputMaybe<Array<BookCreateWithoutHolderInput>>;
@@ -1294,7 +1294,7 @@ export type BookUpdateManyWithoutHolderInput = {
   upsert?: InputMaybe<Array<BookUpsertWithWhereUniqueWithoutHolderInput>>;
 };
 
-export type BookUpdateOneRequiredWithoutChatsInput = {
+export type BookUpdateOneRequiredWithoutChatsNestedInput = {
   connect?: InputMaybe<BookWhereUniqueInput>;
   connectOrCreate?: InputMaybe<BookCreateOrConnectWithoutChatsInput>;
   create?: InputMaybe<BookCreateWithoutChatsInput>;
@@ -1302,7 +1302,7 @@ export type BookUpdateOneRequiredWithoutChatsInput = {
   upsert?: InputMaybe<BookUpsertWithoutChatsInput>;
 };
 
-export type BookUpdateOneRequiredWithoutSwapsInput = {
+export type BookUpdateOneRequiredWithoutSwapsNestedInput = {
   connect?: InputMaybe<BookWhereUniqueInput>;
   connectOrCreate?: InputMaybe<BookCreateOrConnectWithoutSwapsInput>;
   create?: InputMaybe<BookCreateWithoutSwapsInput>;
@@ -1329,87 +1329,87 @@ export type BookUpdateWithoutChatsInput = {
   authors?: InputMaybe<BookUpdateauthorsInput>;
   condition?: InputMaybe<EnumBooksConditionFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  creator?: InputMaybe<UserUpdateOneRequiredWithoutCreatedBooksInput>;
+  creator?: InputMaybe<UserUpdateOneRequiredWithoutCreatedBooksNestedInput>;
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  edition?: InputMaybe<BookEditionUpdateOneRequiredWithoutBooksInput>;
-  holder?: InputMaybe<UserUpdateOneRequiredWithoutBooksInput>;
+  edition?: InputMaybe<BookEditionUpdateOneRequiredWithoutBooksNestedInput>;
+  holder?: InputMaybe<UserUpdateOneRequiredWithoutBooksNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_10?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_13?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   publishedDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   status?: InputMaybe<EnumBooksStatusFieldUpdateOperationsInput>;
-  swaps?: InputMaybe<SwapUpdateManyWithoutBookInput>;
+  swaps?: InputMaybe<SwapUpdateManyWithoutBookNestedInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type BookUpdateWithoutCreatorInput = {
   authors?: InputMaybe<BookUpdateauthorsInput>;
-  chats?: InputMaybe<ChatUpdateManyWithoutBookInput>;
+  chats?: InputMaybe<ChatUpdateManyWithoutBookNestedInput>;
   condition?: InputMaybe<EnumBooksConditionFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  edition?: InputMaybe<BookEditionUpdateOneRequiredWithoutBooksInput>;
-  holder?: InputMaybe<UserUpdateOneRequiredWithoutBooksInput>;
+  edition?: InputMaybe<BookEditionUpdateOneRequiredWithoutBooksNestedInput>;
+  holder?: InputMaybe<UserUpdateOneRequiredWithoutBooksNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_10?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_13?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   publishedDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   status?: InputMaybe<EnumBooksStatusFieldUpdateOperationsInput>;
-  swaps?: InputMaybe<SwapUpdateManyWithoutBookInput>;
+  swaps?: InputMaybe<SwapUpdateManyWithoutBookNestedInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type BookUpdateWithoutEditionInput = {
   authors?: InputMaybe<BookUpdateauthorsInput>;
-  chats?: InputMaybe<ChatUpdateManyWithoutBookInput>;
+  chats?: InputMaybe<ChatUpdateManyWithoutBookNestedInput>;
   condition?: InputMaybe<EnumBooksConditionFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  creator?: InputMaybe<UserUpdateOneRequiredWithoutCreatedBooksInput>;
+  creator?: InputMaybe<UserUpdateOneRequiredWithoutCreatedBooksNestedInput>;
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  holder?: InputMaybe<UserUpdateOneRequiredWithoutBooksInput>;
+  holder?: InputMaybe<UserUpdateOneRequiredWithoutBooksNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_10?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_13?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   publishedDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   status?: InputMaybe<EnumBooksStatusFieldUpdateOperationsInput>;
-  swaps?: InputMaybe<SwapUpdateManyWithoutBookInput>;
+  swaps?: InputMaybe<SwapUpdateManyWithoutBookNestedInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type BookUpdateWithoutHolderInput = {
   authors?: InputMaybe<BookUpdateauthorsInput>;
-  chats?: InputMaybe<ChatUpdateManyWithoutBookInput>;
+  chats?: InputMaybe<ChatUpdateManyWithoutBookNestedInput>;
   condition?: InputMaybe<EnumBooksConditionFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  creator?: InputMaybe<UserUpdateOneRequiredWithoutCreatedBooksInput>;
+  creator?: InputMaybe<UserUpdateOneRequiredWithoutCreatedBooksNestedInput>;
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  edition?: InputMaybe<BookEditionUpdateOneRequiredWithoutBooksInput>;
+  edition?: InputMaybe<BookEditionUpdateOneRequiredWithoutBooksNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_10?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_13?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   publishedDate?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   status?: InputMaybe<EnumBooksStatusFieldUpdateOperationsInput>;
-  swaps?: InputMaybe<SwapUpdateManyWithoutBookInput>;
+  swaps?: InputMaybe<SwapUpdateManyWithoutBookNestedInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type BookUpdateWithoutSwapsInput = {
   authors?: InputMaybe<BookUpdateauthorsInput>;
-  chats?: InputMaybe<ChatUpdateManyWithoutBookInput>;
+  chats?: InputMaybe<ChatUpdateManyWithoutBookNestedInput>;
   condition?: InputMaybe<EnumBooksConditionFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  creator?: InputMaybe<UserUpdateOneRequiredWithoutCreatedBooksInput>;
+  creator?: InputMaybe<UserUpdateOneRequiredWithoutCreatedBooksNestedInput>;
   description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  edition?: InputMaybe<BookEditionUpdateOneRequiredWithoutBooksInput>;
-  holder?: InputMaybe<UserUpdateOneRequiredWithoutBooksInput>;
+  edition?: InputMaybe<BookEditionUpdateOneRequiredWithoutBooksNestedInput>;
+  holder?: InputMaybe<UserUpdateOneRequiredWithoutBooksNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   isbn_10?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
@@ -1897,14 +1897,14 @@ export enum ChatStatus {
 }
 
 export type ChatUpdateInput = {
-  book?: InputMaybe<BookUpdateOneRequiredWithoutChatsInput>;
+  book?: InputMaybe<BookUpdateOneRequiredWithoutChatsNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  messages?: InputMaybe<MessageUpdateManyWithoutChatInput>;
-  recipient?: InputMaybe<UserUpdateOneRequiredWithoutChatRecipientInput>;
-  sender?: InputMaybe<UserUpdateOneRequiredWithoutChatSenderInput>;
+  messages?: InputMaybe<MessageUpdateManyWithoutChatNestedInput>;
+  recipient?: InputMaybe<UserUpdateOneRequiredWithoutChatRecipientNestedInput>;
+  sender?: InputMaybe<UserUpdateOneRequiredWithoutChatSenderNestedInput>;
   status?: InputMaybe<EnumChatStatusFieldUpdateOperationsInput>;
-  swap?: InputMaybe<SwapUpdateOneWithoutChatInput>;
+  swap?: InputMaybe<SwapUpdateOneWithoutChatNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
@@ -1930,7 +1930,7 @@ export type ChatUpdateManyWithWhereWithoutSenderInput = {
   where: ChatScalarWhereInput;
 };
 
-export type ChatUpdateManyWithoutBookInput = {
+export type ChatUpdateManyWithoutBookNestedInput = {
   connect?: InputMaybe<Array<ChatWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ChatCreateOrConnectWithoutBookInput>>;
   create?: InputMaybe<Array<ChatCreateWithoutBookInput>>;
@@ -1944,7 +1944,7 @@ export type ChatUpdateManyWithoutBookInput = {
   upsert?: InputMaybe<Array<ChatUpsertWithWhereUniqueWithoutBookInput>>;
 };
 
-export type ChatUpdateManyWithoutRecipientInput = {
+export type ChatUpdateManyWithoutRecipientNestedInput = {
   connect?: InputMaybe<Array<ChatWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ChatCreateOrConnectWithoutRecipientInput>>;
   create?: InputMaybe<Array<ChatCreateWithoutRecipientInput>>;
@@ -1958,7 +1958,7 @@ export type ChatUpdateManyWithoutRecipientInput = {
   upsert?: InputMaybe<Array<ChatUpsertWithWhereUniqueWithoutRecipientInput>>;
 };
 
-export type ChatUpdateManyWithoutSenderInput = {
+export type ChatUpdateManyWithoutSenderNestedInput = {
   connect?: InputMaybe<Array<ChatWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ChatCreateOrConnectWithoutSenderInput>>;
   create?: InputMaybe<Array<ChatCreateWithoutSenderInput>>;
@@ -1972,7 +1972,7 @@ export type ChatUpdateManyWithoutSenderInput = {
   upsert?: InputMaybe<Array<ChatUpsertWithWhereUniqueWithoutSenderInput>>;
 };
 
-export type ChatUpdateOneRequiredWithoutMessagesInput = {
+export type ChatUpdateOneRequiredWithoutMessagesNestedInput = {
   connect?: InputMaybe<ChatWhereUniqueInput>;
   connectOrCreate?: InputMaybe<ChatCreateOrConnectWithoutMessagesInput>;
   create?: InputMaybe<ChatCreateWithoutMessagesInput>;
@@ -1980,7 +1980,7 @@ export type ChatUpdateOneRequiredWithoutMessagesInput = {
   upsert?: InputMaybe<ChatUpsertWithoutMessagesInput>;
 };
 
-export type ChatUpdateOneRequiredWithoutSwapInput = {
+export type ChatUpdateOneRequiredWithoutSwapNestedInput = {
   connect?: InputMaybe<ChatWhereUniqueInput>;
   connectOrCreate?: InputMaybe<ChatCreateOrConnectWithoutSwapInput>;
   create?: InputMaybe<ChatCreateWithoutSwapInput>;
@@ -2006,54 +2006,54 @@ export type ChatUpdateWithWhereUniqueWithoutSenderInput = {
 export type ChatUpdateWithoutBookInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  messages?: InputMaybe<MessageUpdateManyWithoutChatInput>;
-  recipient?: InputMaybe<UserUpdateOneRequiredWithoutChatRecipientInput>;
-  sender?: InputMaybe<UserUpdateOneRequiredWithoutChatSenderInput>;
+  messages?: InputMaybe<MessageUpdateManyWithoutChatNestedInput>;
+  recipient?: InputMaybe<UserUpdateOneRequiredWithoutChatRecipientNestedInput>;
+  sender?: InputMaybe<UserUpdateOneRequiredWithoutChatSenderNestedInput>;
   status?: InputMaybe<EnumChatStatusFieldUpdateOperationsInput>;
-  swap?: InputMaybe<SwapUpdateOneWithoutChatInput>;
+  swap?: InputMaybe<SwapUpdateOneWithoutChatNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type ChatUpdateWithoutMessagesInput = {
-  book?: InputMaybe<BookUpdateOneRequiredWithoutChatsInput>;
+  book?: InputMaybe<BookUpdateOneRequiredWithoutChatsNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  recipient?: InputMaybe<UserUpdateOneRequiredWithoutChatRecipientInput>;
-  sender?: InputMaybe<UserUpdateOneRequiredWithoutChatSenderInput>;
+  recipient?: InputMaybe<UserUpdateOneRequiredWithoutChatRecipientNestedInput>;
+  sender?: InputMaybe<UserUpdateOneRequiredWithoutChatSenderNestedInput>;
   status?: InputMaybe<EnumChatStatusFieldUpdateOperationsInput>;
-  swap?: InputMaybe<SwapUpdateOneWithoutChatInput>;
+  swap?: InputMaybe<SwapUpdateOneWithoutChatNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type ChatUpdateWithoutRecipientInput = {
-  book?: InputMaybe<BookUpdateOneRequiredWithoutChatsInput>;
+  book?: InputMaybe<BookUpdateOneRequiredWithoutChatsNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  messages?: InputMaybe<MessageUpdateManyWithoutChatInput>;
-  sender?: InputMaybe<UserUpdateOneRequiredWithoutChatSenderInput>;
+  messages?: InputMaybe<MessageUpdateManyWithoutChatNestedInput>;
+  sender?: InputMaybe<UserUpdateOneRequiredWithoutChatSenderNestedInput>;
   status?: InputMaybe<EnumChatStatusFieldUpdateOperationsInput>;
-  swap?: InputMaybe<SwapUpdateOneWithoutChatInput>;
+  swap?: InputMaybe<SwapUpdateOneWithoutChatNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type ChatUpdateWithoutSenderInput = {
-  book?: InputMaybe<BookUpdateOneRequiredWithoutChatsInput>;
+  book?: InputMaybe<BookUpdateOneRequiredWithoutChatsNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  messages?: InputMaybe<MessageUpdateManyWithoutChatInput>;
-  recipient?: InputMaybe<UserUpdateOneRequiredWithoutChatRecipientInput>;
+  messages?: InputMaybe<MessageUpdateManyWithoutChatNestedInput>;
+  recipient?: InputMaybe<UserUpdateOneRequiredWithoutChatRecipientNestedInput>;
   status?: InputMaybe<EnumChatStatusFieldUpdateOperationsInput>;
-  swap?: InputMaybe<SwapUpdateOneWithoutChatInput>;
+  swap?: InputMaybe<SwapUpdateOneWithoutChatNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type ChatUpdateWithoutSwapInput = {
-  book?: InputMaybe<BookUpdateOneRequiredWithoutChatsInput>;
+  book?: InputMaybe<BookUpdateOneRequiredWithoutChatsNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  messages?: InputMaybe<MessageUpdateManyWithoutChatInput>;
-  recipient?: InputMaybe<UserUpdateOneRequiredWithoutChatRecipientInput>;
-  sender?: InputMaybe<UserUpdateOneRequiredWithoutChatSenderInput>;
+  messages?: InputMaybe<MessageUpdateManyWithoutChatNestedInput>;
+  recipient?: InputMaybe<UserUpdateOneRequiredWithoutChatRecipientNestedInput>;
+  sender?: InputMaybe<UserUpdateOneRequiredWithoutChatSenderNestedInput>;
   status?: InputMaybe<EnumChatStatusFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -2495,7 +2495,7 @@ export type MessageScalarWhereWithAggregatesInput = {
 };
 
 export type MessageUpdateInput = {
-  chat?: InputMaybe<ChatUpdateOneRequiredWithoutMessagesInput>;
+  chat?: InputMaybe<ChatUpdateOneRequiredWithoutMessagesNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   isRead?: InputMaybe<BoolFieldUpdateOperationsInput>;
@@ -2516,7 +2516,7 @@ export type MessageUpdateManyWithWhereWithoutChatInput = {
   where: MessageScalarWhereInput;
 };
 
-export type MessageUpdateManyWithoutChatInput = {
+export type MessageUpdateManyWithoutChatNestedInput = {
   connect?: InputMaybe<Array<MessageWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<MessageCreateOrConnectWithoutChatInput>>;
   create?: InputMaybe<Array<MessageCreateWithoutChatInput>>;
@@ -2572,8 +2572,6 @@ export type Mutation = {
   approveSwap: ChatResponse;
   clearNotifications: UserResponse;
   createAvatarMe: UserResponse;
-  createBook: Book;
-  createBookEdition: BookEdition;
   createChat: ChatResponse;
   createManyBook: AffectedRowsOutput;
   createManyBookEdition: AffectedRowsOutput;
@@ -2584,18 +2582,18 @@ export type Mutation = {
   createManyUser: AffectedRowsOutput;
   createManyUserAvatar: AffectedRowsOutput;
   createManyUserWaitsBookEdition: AffectedRowsOutput;
-  createMessage: Message;
-  createNotification: Notification;
-  createSwap: Swap;
-  createUser: User;
-  createUserAvatar: UserAvatar;
-  createUserWaitsBookEdition: UserWaitsBookEdition;
+  createOneBook: Book;
+  createOneBookEdition: BookEdition;
+  createOneChat: Chat;
+  createOneMessage: Message;
+  createOneNotification: Notification;
+  createOneSwap: Swap;
+  createOneUser: User;
+  createOneUserAvatar: UserAvatar;
+  createOneUserWaitsBookEdition: UserWaitsBookEdition;
   customCreateBook: BookResponse;
   customUpdateBook: BookResponse;
   customUpsertEdition?: Maybe<BookEdition>;
-  deleteBook?: Maybe<Book>;
-  deleteBookEdition?: Maybe<BookEdition>;
-  deleteChat?: Maybe<Chat>;
   deleteManyBook: AffectedRowsOutput;
   deleteManyBookEdition: AffectedRowsOutput;
   deleteManyChat: AffectedRowsOutput;
@@ -2605,12 +2603,15 @@ export type Mutation = {
   deleteManyUser: AffectedRowsOutput;
   deleteManyUserAvatar: AffectedRowsOutput;
   deleteManyUserWaitsBookEdition: AffectedRowsOutput;
-  deleteMessage?: Maybe<Message>;
-  deleteNotification?: Maybe<Notification>;
-  deleteSwap?: Maybe<Swap>;
-  deleteUser?: Maybe<User>;
-  deleteUserAvatar?: Maybe<UserAvatar>;
-  deleteUserWaitsBookEdition?: Maybe<UserWaitsBookEdition>;
+  deleteOneBook?: Maybe<Book>;
+  deleteOneBookEdition?: Maybe<BookEdition>;
+  deleteOneChat?: Maybe<Chat>;
+  deleteOneMessage?: Maybe<Message>;
+  deleteOneNotification?: Maybe<Notification>;
+  deleteOneSwap?: Maybe<Swap>;
+  deleteOneUser?: Maybe<User>;
+  deleteOneUserAvatar?: Maybe<UserAvatar>;
+  deleteOneUserWaitsBookEdition?: Maybe<UserWaitsBookEdition>;
   initSwap: ChatResponse;
   login: LoginResponse;
   refreshToken?: Maybe<Credentials>;
@@ -2618,9 +2619,6 @@ export type Mutation = {
   removeBookFromMyWaitingList?: Maybe<EditionResponse>;
   sendMessage: ChatResponse;
   updateAvatarMe: UserResponse;
-  updateBook?: Maybe<Book>;
-  updateBookEdition?: Maybe<BookEdition>;
-  updateChat?: Maybe<Chat>;
   updateManyBook: AffectedRowsOutput;
   updateManyBookEdition: AffectedRowsOutput;
   updateManyChat: AffectedRowsOutput;
@@ -2631,21 +2629,24 @@ export type Mutation = {
   updateManyUserAvatar: AffectedRowsOutput;
   updateManyUserWaitsBookEdition: AffectedRowsOutput;
   updateMe: UserResponse;
-  updateMessage?: Maybe<Message>;
-  updateNotification?: Maybe<Notification>;
-  updateSwap?: Maybe<Swap>;
-  updateUser?: Maybe<User>;
-  updateUserAvatar?: Maybe<UserAvatar>;
-  updateUserWaitsBookEdition?: Maybe<UserWaitsBookEdition>;
-  upsertBook: Book;
-  upsertBookEdition: BookEdition;
-  upsertChat: Chat;
-  upsertMessage: Message;
-  upsertNotification: Notification;
-  upsertSwap: Swap;
-  upsertUser: User;
-  upsertUserAvatar: UserAvatar;
-  upsertUserWaitsBookEdition: UserWaitsBookEdition;
+  updateOneBook?: Maybe<Book>;
+  updateOneBookEdition?: Maybe<BookEdition>;
+  updateOneChat?: Maybe<Chat>;
+  updateOneMessage?: Maybe<Message>;
+  updateOneNotification?: Maybe<Notification>;
+  updateOneSwap?: Maybe<Swap>;
+  updateOneUser?: Maybe<User>;
+  updateOneUserAvatar?: Maybe<UserAvatar>;
+  updateOneUserWaitsBookEdition?: Maybe<UserWaitsBookEdition>;
+  upsertOneBook: Book;
+  upsertOneBookEdition: BookEdition;
+  upsertOneChat: Chat;
+  upsertOneMessage: Message;
+  upsertOneNotification: Notification;
+  upsertOneSwap: Swap;
+  upsertOneUser: User;
+  upsertOneUserAvatar: UserAvatar;
+  upsertOneUserWaitsBookEdition: UserWaitsBookEdition;
 };
 
 
@@ -2662,16 +2663,6 @@ export type MutationApproveSwapArgs = {
 
 export type MutationCreateAvatarMeArgs = {
   data: UserAvatarCreateInput;
-};
-
-
-export type MutationCreateBookArgs = {
-  data: BookCreateInput;
-};
-
-
-export type MutationCreateBookEditionArgs = {
-  data: BookEditionCreateInput;
 };
 
 
@@ -2734,32 +2725,47 @@ export type MutationCreateManyUserWaitsBookEditionArgs = {
 };
 
 
-export type MutationCreateMessageArgs = {
+export type MutationCreateOneBookArgs = {
+  data: BookCreateInput;
+};
+
+
+export type MutationCreateOneBookEditionArgs = {
+  data: BookEditionCreateInput;
+};
+
+
+export type MutationCreateOneChatArgs = {
+  data: ChatCreateInput;
+};
+
+
+export type MutationCreateOneMessageArgs = {
   data: MessageCreateInput;
 };
 
 
-export type MutationCreateNotificationArgs = {
+export type MutationCreateOneNotificationArgs = {
   data: NotificationCreateInput;
 };
 
 
-export type MutationCreateSwapArgs = {
+export type MutationCreateOneSwapArgs = {
   data: SwapCreateInput;
 };
 
 
-export type MutationCreateUserArgs = {
+export type MutationCreateOneUserArgs = {
   data: UserCreateInput;
 };
 
 
-export type MutationCreateUserAvatarArgs = {
+export type MutationCreateOneUserAvatarArgs = {
   data: UserAvatarCreateInput;
 };
 
 
-export type MutationCreateUserWaitsBookEditionArgs = {
+export type MutationCreateOneUserWaitsBookEditionArgs = {
   data: UserWaitsBookEditionCreateInput;
 };
 
@@ -2782,21 +2788,6 @@ export type MutationCustomUpsertEditionArgs = {
   indexId?: InputMaybe<Scalars['String']>;
   update: BookEditionUpdateInput;
   where: BookEditionWhereUniqueInput;
-};
-
-
-export type MutationDeleteBookArgs = {
-  where: BookWhereUniqueInput;
-};
-
-
-export type MutationDeleteBookEditionArgs = {
-  where: BookEditionWhereUniqueInput;
-};
-
-
-export type MutationDeleteChatArgs = {
-  where: ChatWhereUniqueInput;
 };
 
 
@@ -2845,32 +2836,47 @@ export type MutationDeleteManyUserWaitsBookEditionArgs = {
 };
 
 
-export type MutationDeleteMessageArgs = {
+export type MutationDeleteOneBookArgs = {
+  where: BookWhereUniqueInput;
+};
+
+
+export type MutationDeleteOneBookEditionArgs = {
+  where: BookEditionWhereUniqueInput;
+};
+
+
+export type MutationDeleteOneChatArgs = {
+  where: ChatWhereUniqueInput;
+};
+
+
+export type MutationDeleteOneMessageArgs = {
   where: MessageWhereUniqueInput;
 };
 
 
-export type MutationDeleteNotificationArgs = {
+export type MutationDeleteOneNotificationArgs = {
   where: NotificationWhereUniqueInput;
 };
 
 
-export type MutationDeleteSwapArgs = {
+export type MutationDeleteOneSwapArgs = {
   where: SwapWhereUniqueInput;
 };
 
 
-export type MutationDeleteUserArgs = {
+export type MutationDeleteOneUserArgs = {
   where: UserWhereUniqueInput;
 };
 
 
-export type MutationDeleteUserAvatarArgs = {
+export type MutationDeleteOneUserAvatarArgs = {
   where: UserAvatarWhereUniqueInput;
 };
 
 
-export type MutationDeleteUserWaitsBookEditionArgs = {
+export type MutationDeleteOneUserWaitsBookEditionArgs = {
   where: UserWaitsBookEditionWhereUniqueInput;
 };
 
@@ -2912,24 +2918,6 @@ export type MutationSendMessageArgs = {
 export type MutationUpdateAvatarMeArgs = {
   data: UserAvatarUpdateInput;
   where: UserAvatarWhereUniqueInput;
-};
-
-
-export type MutationUpdateBookArgs = {
-  data: BookUpdateInput;
-  where: BookWhereUniqueInput;
-};
-
-
-export type MutationUpdateBookEditionArgs = {
-  data: BookEditionUpdateInput;
-  where: BookEditionWhereUniqueInput;
-};
-
-
-export type MutationUpdateChatArgs = {
-  data: ChatUpdateInput;
-  where: ChatWhereUniqueInput;
 };
 
 
@@ -2993,99 +2981,117 @@ export type MutationUpdateMeArgs = {
 };
 
 
-export type MutationUpdateMessageArgs = {
+export type MutationUpdateOneBookArgs = {
+  data: BookUpdateInput;
+  where: BookWhereUniqueInput;
+};
+
+
+export type MutationUpdateOneBookEditionArgs = {
+  data: BookEditionUpdateInput;
+  where: BookEditionWhereUniqueInput;
+};
+
+
+export type MutationUpdateOneChatArgs = {
+  data: ChatUpdateInput;
+  where: ChatWhereUniqueInput;
+};
+
+
+export type MutationUpdateOneMessageArgs = {
   data: MessageUpdateInput;
   where: MessageWhereUniqueInput;
 };
 
 
-export type MutationUpdateNotificationArgs = {
+export type MutationUpdateOneNotificationArgs = {
   data: NotificationUpdateInput;
   where: NotificationWhereUniqueInput;
 };
 
 
-export type MutationUpdateSwapArgs = {
+export type MutationUpdateOneSwapArgs = {
   data: SwapUpdateInput;
   where: SwapWhereUniqueInput;
 };
 
 
-export type MutationUpdateUserArgs = {
+export type MutationUpdateOneUserArgs = {
   data: UserUpdateInput;
   where: UserWhereUniqueInput;
 };
 
 
-export type MutationUpdateUserAvatarArgs = {
+export type MutationUpdateOneUserAvatarArgs = {
   data: UserAvatarUpdateInput;
   where: UserAvatarWhereUniqueInput;
 };
 
 
-export type MutationUpdateUserWaitsBookEditionArgs = {
+export type MutationUpdateOneUserWaitsBookEditionArgs = {
   data: UserWaitsBookEditionUpdateInput;
   where: UserWaitsBookEditionWhereUniqueInput;
 };
 
 
-export type MutationUpsertBookArgs = {
+export type MutationUpsertOneBookArgs = {
   create: BookCreateInput;
   update: BookUpdateInput;
   where: BookWhereUniqueInput;
 };
 
 
-export type MutationUpsertBookEditionArgs = {
+export type MutationUpsertOneBookEditionArgs = {
   create: BookEditionCreateInput;
   update: BookEditionUpdateInput;
   where: BookEditionWhereUniqueInput;
 };
 
 
-export type MutationUpsertChatArgs = {
+export type MutationUpsertOneChatArgs = {
   create: ChatCreateInput;
   update: ChatUpdateInput;
   where: ChatWhereUniqueInput;
 };
 
 
-export type MutationUpsertMessageArgs = {
+export type MutationUpsertOneMessageArgs = {
   create: MessageCreateInput;
   update: MessageUpdateInput;
   where: MessageWhereUniqueInput;
 };
 
 
-export type MutationUpsertNotificationArgs = {
+export type MutationUpsertOneNotificationArgs = {
   create: NotificationCreateInput;
   update: NotificationUpdateInput;
   where: NotificationWhereUniqueInput;
 };
 
 
-export type MutationUpsertSwapArgs = {
+export type MutationUpsertOneSwapArgs = {
   create: SwapCreateInput;
   update: SwapUpdateInput;
   where: SwapWhereUniqueInput;
 };
 
 
-export type MutationUpsertUserArgs = {
+export type MutationUpsertOneUserArgs = {
   create: UserCreateInput;
   update: UserUpdateInput;
   where: UserWhereUniqueInput;
 };
 
 
-export type MutationUpsertUserAvatarArgs = {
+export type MutationUpsertOneUserAvatarArgs = {
   create: UserAvatarCreateInput;
   update: UserAvatarUpdateInput;
   where: UserAvatarWhereUniqueInput;
 };
 
 
-export type MutationUpsertUserWaitsBookEditionArgs = {
+export type MutationUpsertOneUserWaitsBookEditionArgs = {
   create: UserWaitsBookEditionCreateInput;
   update: UserWaitsBookEditionUpdateInput;
   where: UserWaitsBookEditionWhereUniqueInput;
@@ -3512,7 +3518,7 @@ export type NotificationUpdateInput = {
   isRead?: InputMaybe<BoolFieldUpdateOperationsInput>;
   message?: InputMaybe<StringFieldUpdateOperationsInput>;
   url?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  user?: InputMaybe<UserUpdateOneRequiredWithoutNotificationsInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutNotificationsNestedInput>;
 };
 
 export type NotificationUpdateManyMutationInput = {
@@ -3528,7 +3534,7 @@ export type NotificationUpdateManyWithWhereWithoutUserInput = {
   where: NotificationScalarWhereInput;
 };
 
-export type NotificationUpdateManyWithoutUserInput = {
+export type NotificationUpdateManyWithoutUserNestedInput = {
   connect?: InputMaybe<Array<NotificationWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<NotificationCreateOrConnectWithoutUserInput>>;
   create?: InputMaybe<Array<NotificationCreateWithoutUserInput>>;
@@ -3601,21 +3607,37 @@ export type Query = {
   chats: Array<Chat>;
   findFirstBook?: Maybe<Book>;
   findFirstBookEdition?: Maybe<BookEdition>;
+  findFirstBookEditionOrThrow?: Maybe<BookEdition>;
+  findFirstBookOrThrow?: Maybe<Book>;
   findFirstChat?: Maybe<Chat>;
+  findFirstChatOrThrow?: Maybe<Chat>;
   findFirstMessage?: Maybe<Message>;
+  findFirstMessageOrThrow?: Maybe<Message>;
   findFirstNotification?: Maybe<Notification>;
+  findFirstNotificationOrThrow?: Maybe<Notification>;
   findFirstSwap?: Maybe<Swap>;
+  findFirstSwapOrThrow?: Maybe<Swap>;
   findFirstUser?: Maybe<User>;
   findFirstUserAvatar?: Maybe<UserAvatar>;
+  findFirstUserAvatarOrThrow?: Maybe<UserAvatar>;
+  findFirstUserOrThrow?: Maybe<User>;
   findFirstUserWaitsBookEdition?: Maybe<UserWaitsBookEdition>;
-  getBook?: Maybe<BookResponse>;
+  findFirstUserWaitsBookEditionOrThrow?: Maybe<UserWaitsBookEdition>;
+  getBook?: Maybe<Book>;
+  getBookEdition?: Maybe<BookEdition>;
   getBooksStatic?: Maybe<Array<Scalars['String']>>;
+  getChat?: Maybe<Chat>;
   getEdition?: Maybe<EditionResponse>;
   getEditions?: Maybe<EditionsResponse>;
   getEditionsSearch?: Maybe<EditionsResponse>;
   getEditionsStatic?: Maybe<Array<Scalars['String']>>;
+  getMessage?: Maybe<Message>;
+  getNotification?: Maybe<Notification>;
   getRoom: ChatResponse;
+  getSwap?: Maybe<Swap>;
   getUser?: Maybe<User>;
+  getUserAvatar?: Maybe<UserAvatar>;
+  getUserWaitsBookEdition?: Maybe<UserWaitsBookEdition>;
   getUsers?: Maybe<Array<User>>;
   groupByBook: Array<BookGroupBy>;
   groupByBookEdition: Array<BookEditionGroupBy>;
@@ -3788,7 +3810,37 @@ export type QueryFindFirstBookEditionArgs = {
 };
 
 
+export type QueryFindFirstBookEditionOrThrowArgs = {
+  cursor?: InputMaybe<BookEditionWhereUniqueInput>;
+  distinct?: InputMaybe<Array<BookEditionScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<BookEditionOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<BookEditionWhereInput>;
+};
+
+
+export type QueryFindFirstBookOrThrowArgs = {
+  cursor?: InputMaybe<BookWhereUniqueInput>;
+  distinct?: InputMaybe<Array<BookScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<BookOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<BookWhereInput>;
+};
+
+
 export type QueryFindFirstChatArgs = {
+  cursor?: InputMaybe<ChatWhereUniqueInput>;
+  distinct?: InputMaybe<Array<ChatScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<ChatOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ChatWhereInput>;
+};
+
+
+export type QueryFindFirstChatOrThrowArgs = {
   cursor?: InputMaybe<ChatWhereUniqueInput>;
   distinct?: InputMaybe<Array<ChatScalarFieldEnum>>;
   orderBy?: InputMaybe<Array<ChatOrderByWithRelationInput>>;
@@ -3808,6 +3860,16 @@ export type QueryFindFirstMessageArgs = {
 };
 
 
+export type QueryFindFirstMessageOrThrowArgs = {
+  cursor?: InputMaybe<MessageWhereUniqueInput>;
+  distinct?: InputMaybe<Array<MessageScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<MessageOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<MessageWhereInput>;
+};
+
+
 export type QueryFindFirstNotificationArgs = {
   cursor?: InputMaybe<NotificationWhereUniqueInput>;
   distinct?: InputMaybe<Array<NotificationScalarFieldEnum>>;
@@ -3818,7 +3880,27 @@ export type QueryFindFirstNotificationArgs = {
 };
 
 
+export type QueryFindFirstNotificationOrThrowArgs = {
+  cursor?: InputMaybe<NotificationWhereUniqueInput>;
+  distinct?: InputMaybe<Array<NotificationScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<NotificationOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<NotificationWhereInput>;
+};
+
+
 export type QueryFindFirstSwapArgs = {
+  cursor?: InputMaybe<SwapWhereUniqueInput>;
+  distinct?: InputMaybe<Array<SwapScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<SwapOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<SwapWhereInput>;
+};
+
+
+export type QueryFindFirstSwapOrThrowArgs = {
   cursor?: InputMaybe<SwapWhereUniqueInput>;
   distinct?: InputMaybe<Array<SwapScalarFieldEnum>>;
   orderBy?: InputMaybe<Array<SwapOrderByWithRelationInput>>;
@@ -3848,6 +3930,26 @@ export type QueryFindFirstUserAvatarArgs = {
 };
 
 
+export type QueryFindFirstUserAvatarOrThrowArgs = {
+  cursor?: InputMaybe<UserAvatarWhereUniqueInput>;
+  distinct?: InputMaybe<Array<UserAvatarScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<UserAvatarOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<UserAvatarWhereInput>;
+};
+
+
+export type QueryFindFirstUserOrThrowArgs = {
+  cursor?: InputMaybe<UserWhereUniqueInput>;
+  distinct?: InputMaybe<Array<UserScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<UserOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<UserWhereInput>;
+};
+
+
 export type QueryFindFirstUserWaitsBookEditionArgs = {
   cursor?: InputMaybe<UserWaitsBookEditionWhereUniqueInput>;
   distinct?: InputMaybe<Array<UserWaitsBookEditionScalarFieldEnum>>;
@@ -3858,8 +3960,28 @@ export type QueryFindFirstUserWaitsBookEditionArgs = {
 };
 
 
+export type QueryFindFirstUserWaitsBookEditionOrThrowArgs = {
+  cursor?: InputMaybe<UserWaitsBookEditionWhereUniqueInput>;
+  distinct?: InputMaybe<Array<UserWaitsBookEditionScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<UserWaitsBookEditionOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<UserWaitsBookEditionWhereInput>;
+};
+
+
 export type QueryGetBookArgs = {
-  id: Scalars['String'];
+  where: BookWhereUniqueInput;
+};
+
+
+export type QueryGetBookEditionArgs = {
+  where: BookEditionWhereUniqueInput;
+};
+
+
+export type QueryGetChatArgs = {
+  where: ChatWhereUniqueInput;
 };
 
 
@@ -3882,13 +4004,38 @@ export type QueryGetEditionsSearchArgs = {
 };
 
 
+export type QueryGetMessageArgs = {
+  where: MessageWhereUniqueInput;
+};
+
+
+export type QueryGetNotificationArgs = {
+  where: NotificationWhereUniqueInput;
+};
+
+
 export type QueryGetRoomArgs = {
   id: Scalars['String'];
 };
 
 
+export type QueryGetSwapArgs = {
+  where: SwapWhereUniqueInput;
+};
+
+
 export type QueryGetUserArgs = {
-  id: Scalars['String'];
+  where: UserWhereUniqueInput;
+};
+
+
+export type QueryGetUserAvatarArgs = {
+  where: UserAvatarWhereUniqueInput;
+};
+
+
+export type QueryGetUserWaitsBookEditionArgs = {
+  where: UserWaitsBookEditionWhereUniqueInput;
 };
 
 
@@ -4510,12 +4657,12 @@ export enum SwapStatus {
 }
 
 export type SwapUpdateInput = {
-  book?: InputMaybe<BookUpdateOneRequiredWithoutSwapsInput>;
-  chat?: InputMaybe<ChatUpdateOneRequiredWithoutSwapInput>;
+  book?: InputMaybe<BookUpdateOneRequiredWithoutSwapsNestedInput>;
+  chat?: InputMaybe<ChatUpdateOneRequiredWithoutSwapNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  recipient?: InputMaybe<UserUpdateOneRequiredWithoutSwapsInput>;
-  sender?: InputMaybe<UserUpdateOneRequiredWithoutSendsInput>;
+  recipient?: InputMaybe<UserUpdateOneRequiredWithoutSwapsNestedInput>;
+  sender?: InputMaybe<UserUpdateOneRequiredWithoutSendsNestedInput>;
   status?: InputMaybe<EnumSwapStatusFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -4542,7 +4689,7 @@ export type SwapUpdateManyWithWhereWithoutSenderInput = {
   where: SwapScalarWhereInput;
 };
 
-export type SwapUpdateManyWithoutBookInput = {
+export type SwapUpdateManyWithoutBookNestedInput = {
   connect?: InputMaybe<Array<SwapWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<SwapCreateOrConnectWithoutBookInput>>;
   create?: InputMaybe<Array<SwapCreateWithoutBookInput>>;
@@ -4556,7 +4703,7 @@ export type SwapUpdateManyWithoutBookInput = {
   upsert?: InputMaybe<Array<SwapUpsertWithWhereUniqueWithoutBookInput>>;
 };
 
-export type SwapUpdateManyWithoutRecipientInput = {
+export type SwapUpdateManyWithoutRecipientNestedInput = {
   connect?: InputMaybe<Array<SwapWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<SwapCreateOrConnectWithoutRecipientInput>>;
   create?: InputMaybe<Array<SwapCreateWithoutRecipientInput>>;
@@ -4570,7 +4717,7 @@ export type SwapUpdateManyWithoutRecipientInput = {
   upsert?: InputMaybe<Array<SwapUpsertWithWhereUniqueWithoutRecipientInput>>;
 };
 
-export type SwapUpdateManyWithoutSenderInput = {
+export type SwapUpdateManyWithoutSenderNestedInput = {
   connect?: InputMaybe<Array<SwapWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<SwapCreateOrConnectWithoutSenderInput>>;
   create?: InputMaybe<Array<SwapCreateWithoutSenderInput>>;
@@ -4584,7 +4731,7 @@ export type SwapUpdateManyWithoutSenderInput = {
   upsert?: InputMaybe<Array<SwapUpsertWithWhereUniqueWithoutSenderInput>>;
 };
 
-export type SwapUpdateOneWithoutChatInput = {
+export type SwapUpdateOneWithoutChatNestedInput = {
   connect?: InputMaybe<SwapWhereUniqueInput>;
   connectOrCreate?: InputMaybe<SwapCreateOrConnectWithoutChatInput>;
   create?: InputMaybe<SwapCreateWithoutChatInput>;
@@ -4610,41 +4757,41 @@ export type SwapUpdateWithWhereUniqueWithoutSenderInput = {
 };
 
 export type SwapUpdateWithoutBookInput = {
-  chat?: InputMaybe<ChatUpdateOneRequiredWithoutSwapInput>;
+  chat?: InputMaybe<ChatUpdateOneRequiredWithoutSwapNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  recipient?: InputMaybe<UserUpdateOneRequiredWithoutSwapsInput>;
-  sender?: InputMaybe<UserUpdateOneRequiredWithoutSendsInput>;
+  recipient?: InputMaybe<UserUpdateOneRequiredWithoutSwapsNestedInput>;
+  sender?: InputMaybe<UserUpdateOneRequiredWithoutSendsNestedInput>;
   status?: InputMaybe<EnumSwapStatusFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type SwapUpdateWithoutChatInput = {
-  book?: InputMaybe<BookUpdateOneRequiredWithoutSwapsInput>;
+  book?: InputMaybe<BookUpdateOneRequiredWithoutSwapsNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  recipient?: InputMaybe<UserUpdateOneRequiredWithoutSwapsInput>;
-  sender?: InputMaybe<UserUpdateOneRequiredWithoutSendsInput>;
+  recipient?: InputMaybe<UserUpdateOneRequiredWithoutSwapsNestedInput>;
+  sender?: InputMaybe<UserUpdateOneRequiredWithoutSendsNestedInput>;
   status?: InputMaybe<EnumSwapStatusFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type SwapUpdateWithoutRecipientInput = {
-  book?: InputMaybe<BookUpdateOneRequiredWithoutSwapsInput>;
-  chat?: InputMaybe<ChatUpdateOneRequiredWithoutSwapInput>;
+  book?: InputMaybe<BookUpdateOneRequiredWithoutSwapsNestedInput>;
+  chat?: InputMaybe<ChatUpdateOneRequiredWithoutSwapNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  sender?: InputMaybe<UserUpdateOneRequiredWithoutSendsInput>;
+  sender?: InputMaybe<UserUpdateOneRequiredWithoutSendsNestedInput>;
   status?: InputMaybe<EnumSwapStatusFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type SwapUpdateWithoutSenderInput = {
-  book?: InputMaybe<BookUpdateOneRequiredWithoutSwapsInput>;
-  chat?: InputMaybe<ChatUpdateOneRequiredWithoutSwapInput>;
+  book?: InputMaybe<BookUpdateOneRequiredWithoutSwapsNestedInput>;
+  chat?: InputMaybe<ChatUpdateOneRequiredWithoutSwapNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  recipient?: InputMaybe<UserUpdateOneRequiredWithoutSwapsInput>;
+  recipient?: InputMaybe<UserUpdateOneRequiredWithoutSwapsNestedInput>;
   status?: InputMaybe<EnumSwapStatusFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -5152,7 +5299,7 @@ export type UserAvatarUpdateInput = {
   skinColor?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   topType?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  user?: InputMaybe<UserUpdateOneWithoutAvatarInput>;
+  user?: InputMaybe<UserUpdateOneWithoutAvatarNestedInput>;
 };
 
 export type UserAvatarUpdateManyMutationInput = {
@@ -5175,7 +5322,7 @@ export type UserAvatarUpdateManyMutationInput = {
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
-export type UserAvatarUpdateOneWithoutUserInput = {
+export type UserAvatarUpdateOneWithoutUserNestedInput = {
   connect?: InputMaybe<UserAvatarWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserAvatarCreateOrConnectWithoutUserInput>;
   create?: InputMaybe<UserAvatarCreateWithoutUserInput>;
@@ -5786,25 +5933,25 @@ export type UserSumOrderByAggregateInput = {
 };
 
 export type UserUpdateInput = {
-  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserInput>;
-  books?: InputMaybe<BookUpdateManyWithoutHolderInput>;
-  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientInput>;
-  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderInput>;
+  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserNestedInput>;
+  books?: InputMaybe<BookUpdateManyWithoutHolderNestedInput>;
+  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientNestedInput>;
+  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderNestedInput>;
   city?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorInput>;
+  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  notifications?: InputMaybe<NotificationUpdateManyWithoutUserInput>;
+  notifications?: InputMaybe<NotificationUpdateManyWithoutUserNestedInput>;
   password?: InputMaybe<StringFieldUpdateOperationsInput>;
   phone?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   points?: InputMaybe<IntFieldUpdateOperationsInput>;
-  sends?: InputMaybe<SwapUpdateManyWithoutSenderInput>;
-  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientInput>;
+  sends?: InputMaybe<SwapUpdateManyWithoutSenderNestedInput>;
+  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserInput>;
+  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserNestedInput>;
 };
 
 export type UserUpdateManyMutationInput = {
@@ -5820,7 +5967,7 @@ export type UserUpdateManyMutationInput = {
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
-export type UserUpdateOneRequiredWithoutBooksInput = {
+export type UserUpdateOneRequiredWithoutBooksNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutBooksInput>;
   create?: InputMaybe<UserCreateWithoutBooksInput>;
@@ -5828,7 +5975,7 @@ export type UserUpdateOneRequiredWithoutBooksInput = {
   upsert?: InputMaybe<UserUpsertWithoutBooksInput>;
 };
 
-export type UserUpdateOneRequiredWithoutChatRecipientInput = {
+export type UserUpdateOneRequiredWithoutChatRecipientNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutChatRecipientInput>;
   create?: InputMaybe<UserCreateWithoutChatRecipientInput>;
@@ -5836,7 +5983,7 @@ export type UserUpdateOneRequiredWithoutChatRecipientInput = {
   upsert?: InputMaybe<UserUpsertWithoutChatRecipientInput>;
 };
 
-export type UserUpdateOneRequiredWithoutChatSenderInput = {
+export type UserUpdateOneRequiredWithoutChatSenderNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutChatSenderInput>;
   create?: InputMaybe<UserCreateWithoutChatSenderInput>;
@@ -5844,7 +5991,7 @@ export type UserUpdateOneRequiredWithoutChatSenderInput = {
   upsert?: InputMaybe<UserUpsertWithoutChatSenderInput>;
 };
 
-export type UserUpdateOneRequiredWithoutCreatedBooksInput = {
+export type UserUpdateOneRequiredWithoutCreatedBooksNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutCreatedBooksInput>;
   create?: InputMaybe<UserCreateWithoutCreatedBooksInput>;
@@ -5852,7 +5999,7 @@ export type UserUpdateOneRequiredWithoutCreatedBooksInput = {
   upsert?: InputMaybe<UserUpsertWithoutCreatedBooksInput>;
 };
 
-export type UserUpdateOneRequiredWithoutNotificationsInput = {
+export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutNotificationsInput>;
   create?: InputMaybe<UserCreateWithoutNotificationsInput>;
@@ -5860,7 +6007,7 @@ export type UserUpdateOneRequiredWithoutNotificationsInput = {
   upsert?: InputMaybe<UserUpsertWithoutNotificationsInput>;
 };
 
-export type UserUpdateOneRequiredWithoutSendsInput = {
+export type UserUpdateOneRequiredWithoutSendsNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutSendsInput>;
   create?: InputMaybe<UserCreateWithoutSendsInput>;
@@ -5868,7 +6015,7 @@ export type UserUpdateOneRequiredWithoutSendsInput = {
   upsert?: InputMaybe<UserUpsertWithoutSendsInput>;
 };
 
-export type UserUpdateOneRequiredWithoutSwapsInput = {
+export type UserUpdateOneRequiredWithoutSwapsNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutSwapsInput>;
   create?: InputMaybe<UserCreateWithoutSwapsInput>;
@@ -5876,7 +6023,7 @@ export type UserUpdateOneRequiredWithoutSwapsInput = {
   upsert?: InputMaybe<UserUpsertWithoutSwapsInput>;
 };
 
-export type UserUpdateOneRequiredWithoutWaitingInput = {
+export type UserUpdateOneRequiredWithoutWaitingNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutWaitingInput>;
   create?: InputMaybe<UserCreateWithoutWaitingInput>;
@@ -5884,7 +6031,7 @@ export type UserUpdateOneRequiredWithoutWaitingInput = {
   upsert?: InputMaybe<UserUpsertWithoutWaitingInput>;
 };
 
-export type UserUpdateOneWithoutAvatarInput = {
+export type UserUpdateOneWithoutAvatarNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutAvatarInput>;
   create?: InputMaybe<UserCreateWithoutAvatarInput>;
@@ -5895,118 +6042,118 @@ export type UserUpdateOneWithoutAvatarInput = {
 };
 
 export type UserUpdateWithoutAvatarInput = {
-  books?: InputMaybe<BookUpdateManyWithoutHolderInput>;
-  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientInput>;
-  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderInput>;
+  books?: InputMaybe<BookUpdateManyWithoutHolderNestedInput>;
+  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientNestedInput>;
+  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderNestedInput>;
   city?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorInput>;
+  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  notifications?: InputMaybe<NotificationUpdateManyWithoutUserInput>;
+  notifications?: InputMaybe<NotificationUpdateManyWithoutUserNestedInput>;
   password?: InputMaybe<StringFieldUpdateOperationsInput>;
   phone?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   points?: InputMaybe<IntFieldUpdateOperationsInput>;
-  sends?: InputMaybe<SwapUpdateManyWithoutSenderInput>;
-  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientInput>;
+  sends?: InputMaybe<SwapUpdateManyWithoutSenderNestedInput>;
+  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserInput>;
+  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserNestedInput>;
 };
 
 export type UserUpdateWithoutBooksInput = {
-  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserInput>;
-  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientInput>;
-  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderInput>;
+  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserNestedInput>;
+  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientNestedInput>;
+  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderNestedInput>;
   city?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorInput>;
+  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  notifications?: InputMaybe<NotificationUpdateManyWithoutUserInput>;
+  notifications?: InputMaybe<NotificationUpdateManyWithoutUserNestedInput>;
   password?: InputMaybe<StringFieldUpdateOperationsInput>;
   phone?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   points?: InputMaybe<IntFieldUpdateOperationsInput>;
-  sends?: InputMaybe<SwapUpdateManyWithoutSenderInput>;
-  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientInput>;
+  sends?: InputMaybe<SwapUpdateManyWithoutSenderNestedInput>;
+  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserInput>;
+  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserNestedInput>;
 };
 
 export type UserUpdateWithoutChatRecipientInput = {
-  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserInput>;
-  books?: InputMaybe<BookUpdateManyWithoutHolderInput>;
-  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderInput>;
+  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserNestedInput>;
+  books?: InputMaybe<BookUpdateManyWithoutHolderNestedInput>;
+  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderNestedInput>;
   city?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorInput>;
+  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  notifications?: InputMaybe<NotificationUpdateManyWithoutUserInput>;
+  notifications?: InputMaybe<NotificationUpdateManyWithoutUserNestedInput>;
   password?: InputMaybe<StringFieldUpdateOperationsInput>;
   phone?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   points?: InputMaybe<IntFieldUpdateOperationsInput>;
-  sends?: InputMaybe<SwapUpdateManyWithoutSenderInput>;
-  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientInput>;
+  sends?: InputMaybe<SwapUpdateManyWithoutSenderNestedInput>;
+  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserInput>;
+  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserNestedInput>;
 };
 
 export type UserUpdateWithoutChatSenderInput = {
-  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserInput>;
-  books?: InputMaybe<BookUpdateManyWithoutHolderInput>;
-  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientInput>;
+  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserNestedInput>;
+  books?: InputMaybe<BookUpdateManyWithoutHolderNestedInput>;
+  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientNestedInput>;
   city?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorInput>;
+  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  notifications?: InputMaybe<NotificationUpdateManyWithoutUserInput>;
+  notifications?: InputMaybe<NotificationUpdateManyWithoutUserNestedInput>;
   password?: InputMaybe<StringFieldUpdateOperationsInput>;
   phone?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   points?: InputMaybe<IntFieldUpdateOperationsInput>;
-  sends?: InputMaybe<SwapUpdateManyWithoutSenderInput>;
-  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientInput>;
+  sends?: InputMaybe<SwapUpdateManyWithoutSenderNestedInput>;
+  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserInput>;
+  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserNestedInput>;
 };
 
 export type UserUpdateWithoutCreatedBooksInput = {
-  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserInput>;
-  books?: InputMaybe<BookUpdateManyWithoutHolderInput>;
-  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientInput>;
-  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderInput>;
+  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserNestedInput>;
+  books?: InputMaybe<BookUpdateManyWithoutHolderNestedInput>;
+  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientNestedInput>;
+  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderNestedInput>;
   city?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  notifications?: InputMaybe<NotificationUpdateManyWithoutUserInput>;
+  notifications?: InputMaybe<NotificationUpdateManyWithoutUserNestedInput>;
   password?: InputMaybe<StringFieldUpdateOperationsInput>;
   phone?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   points?: InputMaybe<IntFieldUpdateOperationsInput>;
-  sends?: InputMaybe<SwapUpdateManyWithoutSenderInput>;
-  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientInput>;
+  sends?: InputMaybe<SwapUpdateManyWithoutSenderNestedInput>;
+  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserInput>;
+  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserNestedInput>;
 };
 
 export type UserUpdateWithoutNotificationsInput = {
-  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserInput>;
-  books?: InputMaybe<BookUpdateManyWithoutHolderInput>;
-  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientInput>;
-  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderInput>;
+  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserNestedInput>;
+  books?: InputMaybe<BookUpdateManyWithoutHolderNestedInput>;
+  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientNestedInput>;
+  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderNestedInput>;
   city?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorInput>;
+  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
@@ -6014,72 +6161,72 @@ export type UserUpdateWithoutNotificationsInput = {
   password?: InputMaybe<StringFieldUpdateOperationsInput>;
   phone?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   points?: InputMaybe<IntFieldUpdateOperationsInput>;
-  sends?: InputMaybe<SwapUpdateManyWithoutSenderInput>;
-  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientInput>;
+  sends?: InputMaybe<SwapUpdateManyWithoutSenderNestedInput>;
+  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserInput>;
+  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserNestedInput>;
 };
 
 export type UserUpdateWithoutSendsInput = {
-  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserInput>;
-  books?: InputMaybe<BookUpdateManyWithoutHolderInput>;
-  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientInput>;
-  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderInput>;
+  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserNestedInput>;
+  books?: InputMaybe<BookUpdateManyWithoutHolderNestedInput>;
+  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientNestedInput>;
+  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderNestedInput>;
   city?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorInput>;
+  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  notifications?: InputMaybe<NotificationUpdateManyWithoutUserInput>;
+  notifications?: InputMaybe<NotificationUpdateManyWithoutUserNestedInput>;
   password?: InputMaybe<StringFieldUpdateOperationsInput>;
   phone?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   points?: InputMaybe<IntFieldUpdateOperationsInput>;
-  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientInput>;
+  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserInput>;
+  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserNestedInput>;
 };
 
 export type UserUpdateWithoutSwapsInput = {
-  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserInput>;
-  books?: InputMaybe<BookUpdateManyWithoutHolderInput>;
-  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientInput>;
-  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderInput>;
+  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserNestedInput>;
+  books?: InputMaybe<BookUpdateManyWithoutHolderNestedInput>;
+  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientNestedInput>;
+  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderNestedInput>;
   city?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorInput>;
+  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  notifications?: InputMaybe<NotificationUpdateManyWithoutUserInput>;
+  notifications?: InputMaybe<NotificationUpdateManyWithoutUserNestedInput>;
   password?: InputMaybe<StringFieldUpdateOperationsInput>;
   phone?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   points?: InputMaybe<IntFieldUpdateOperationsInput>;
-  sends?: InputMaybe<SwapUpdateManyWithoutSenderInput>;
+  sends?: InputMaybe<SwapUpdateManyWithoutSenderNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserInput>;
+  waiting?: InputMaybe<UserWaitsBookEditionUpdateManyWithoutUserNestedInput>;
 };
 
 export type UserUpdateWithoutWaitingInput = {
-  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserInput>;
-  books?: InputMaybe<BookUpdateManyWithoutHolderInput>;
-  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientInput>;
-  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderInput>;
+  avatar?: InputMaybe<UserAvatarUpdateOneWithoutUserNestedInput>;
+  books?: InputMaybe<BookUpdateManyWithoutHolderNestedInput>;
+  chatRecipient?: InputMaybe<ChatUpdateManyWithoutRecipientNestedInput>;
+  chatSender?: InputMaybe<ChatUpdateManyWithoutSenderNestedInput>;
   city?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorInput>;
+  createdBooks?: InputMaybe<BookUpdateManyWithoutCreatorNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   firstName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   lastName?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  notifications?: InputMaybe<NotificationUpdateManyWithoutUserInput>;
+  notifications?: InputMaybe<NotificationUpdateManyWithoutUserNestedInput>;
   password?: InputMaybe<StringFieldUpdateOperationsInput>;
   phone?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   points?: InputMaybe<IntFieldUpdateOperationsInput>;
-  sends?: InputMaybe<SwapUpdateManyWithoutSenderInput>;
-  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientInput>;
+  sends?: InputMaybe<SwapUpdateManyWithoutSenderNestedInput>;
+  swaps?: InputMaybe<SwapUpdateManyWithoutRecipientNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
@@ -6306,8 +6453,8 @@ export type UserWaitsBookEditionScalarWhereWithAggregatesInput = {
 
 export type UserWaitsBookEditionUpdateInput = {
   assignedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  edition?: InputMaybe<BookEditionUpdateOneRequiredWithoutExpectsInput>;
-  user?: InputMaybe<UserUpdateOneRequiredWithoutWaitingInput>;
+  edition?: InputMaybe<BookEditionUpdateOneRequiredWithoutExpectsNestedInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutWaitingNestedInput>;
 };
 
 export type UserWaitsBookEditionUpdateManyMutationInput = {
@@ -6324,7 +6471,7 @@ export type UserWaitsBookEditionUpdateManyWithWhereWithoutUserInput = {
   where: UserWaitsBookEditionScalarWhereInput;
 };
 
-export type UserWaitsBookEditionUpdateManyWithoutEditionInput = {
+export type UserWaitsBookEditionUpdateManyWithoutEditionNestedInput = {
   connect?: InputMaybe<Array<UserWaitsBookEditionWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<UserWaitsBookEditionCreateOrConnectWithoutEditionInput>>;
   create?: InputMaybe<Array<UserWaitsBookEditionCreateWithoutEditionInput>>;
@@ -6338,7 +6485,7 @@ export type UserWaitsBookEditionUpdateManyWithoutEditionInput = {
   upsert?: InputMaybe<Array<UserWaitsBookEditionUpsertWithWhereUniqueWithoutEditionInput>>;
 };
 
-export type UserWaitsBookEditionUpdateManyWithoutUserInput = {
+export type UserWaitsBookEditionUpdateManyWithoutUserNestedInput = {
   connect?: InputMaybe<Array<UserWaitsBookEditionWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<UserWaitsBookEditionCreateOrConnectWithoutUserInput>>;
   create?: InputMaybe<Array<UserWaitsBookEditionCreateWithoutUserInput>>;
@@ -6364,12 +6511,12 @@ export type UserWaitsBookEditionUpdateWithWhereUniqueWithoutUserInput = {
 
 export type UserWaitsBookEditionUpdateWithoutEditionInput = {
   assignedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  user?: InputMaybe<UserUpdateOneRequiredWithoutWaitingInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutWaitingNestedInput>;
 };
 
 export type UserWaitsBookEditionUpdateWithoutUserInput = {
   assignedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  edition?: InputMaybe<BookEditionUpdateOneRequiredWithoutExpectsInput>;
+  edition?: InputMaybe<BookEditionUpdateOneRequiredWithoutExpectsNestedInput>;
 };
 
 export type UserWaitsBookEditionUpsertWithWhereUniqueWithoutEditionInput = {
@@ -11407,52 +11554,6 @@ export default {
             ]
           },
           {
-            "name": "createBook",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Book",
-                "ofType": null
-              }
-            },
-            "args": [
-              {
-                "name": "data",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "createBookEdition",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "BookEdition",
-                "ofType": null
-              }
-            },
-            "args": [
-              {
-                "name": "data",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
             "name": "createChat",
             "type": {
               "kind": "NON_NULL",
@@ -11800,7 +11901,76 @@ export default {
             ]
           },
           {
-            "name": "createMessage",
+            "name": "createOneBook",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Book",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "data",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "createOneBookEdition",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "BookEdition",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "data",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "createOneChat",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Chat",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "data",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "createOneMessage",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -11823,7 +11993,7 @@ export default {
             ]
           },
           {
-            "name": "createNotification",
+            "name": "createOneNotification",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -11846,7 +12016,7 @@ export default {
             ]
           },
           {
-            "name": "createSwap",
+            "name": "createOneSwap",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -11869,7 +12039,7 @@ export default {
             ]
           },
           {
-            "name": "createUser",
+            "name": "createOneUser",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -11892,7 +12062,7 @@ export default {
             ]
           },
           {
-            "name": "createUserAvatar",
+            "name": "createOneUserAvatar",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -11915,7 +12085,7 @@ export default {
             ]
           },
           {
-            "name": "createUserWaitsBookEdition",
+            "name": "createOneUserWaitsBookEdition",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -12045,66 +12215,6 @@ export default {
                   }
                 }
               },
-              {
-                "name": "where",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "deleteBook",
-            "type": {
-              "kind": "OBJECT",
-              "name": "Book",
-              "ofType": null
-            },
-            "args": [
-              {
-                "name": "where",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "deleteBookEdition",
-            "type": {
-              "kind": "OBJECT",
-              "name": "BookEdition",
-              "ofType": null
-            },
-            "args": [
-              {
-                "name": "where",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "deleteChat",
-            "type": {
-              "kind": "OBJECT",
-              "name": "Chat",
-              "ofType": null
-            },
-            "args": [
               {
                 "name": "where",
                 "type": {
@@ -12298,7 +12408,67 @@ export default {
             ]
           },
           {
-            "name": "deleteMessage",
+            "name": "deleteOneBook",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Book",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "where",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "deleteOneBookEdition",
+            "type": {
+              "kind": "OBJECT",
+              "name": "BookEdition",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "where",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "deleteOneChat",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Chat",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "where",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "deleteOneMessage",
             "type": {
               "kind": "OBJECT",
               "name": "Message",
@@ -12318,7 +12488,7 @@ export default {
             ]
           },
           {
-            "name": "deleteNotification",
+            "name": "deleteOneNotification",
             "type": {
               "kind": "OBJECT",
               "name": "Notification",
@@ -12338,7 +12508,7 @@ export default {
             ]
           },
           {
-            "name": "deleteSwap",
+            "name": "deleteOneSwap",
             "type": {
               "kind": "OBJECT",
               "name": "Swap",
@@ -12358,7 +12528,7 @@ export default {
             ]
           },
           {
-            "name": "deleteUser",
+            "name": "deleteOneUser",
             "type": {
               "kind": "OBJECT",
               "name": "User",
@@ -12378,7 +12548,7 @@ export default {
             ]
           },
           {
-            "name": "deleteUserAvatar",
+            "name": "deleteOneUserAvatar",
             "type": {
               "kind": "OBJECT",
               "name": "UserAvatar",
@@ -12398,7 +12568,7 @@ export default {
             ]
           },
           {
-            "name": "deleteUserWaitsBookEdition",
+            "name": "deleteOneUserWaitsBookEdition",
             "type": {
               "kind": "OBJECT",
               "name": "UserWaitsBookEdition",
@@ -12598,96 +12768,6 @@ export default {
                 "name": "UserResponse",
                 "ofType": null
               }
-            },
-            "args": [
-              {
-                "name": "data",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              },
-              {
-                "name": "where",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "updateBook",
-            "type": {
-              "kind": "OBJECT",
-              "name": "Book",
-              "ofType": null
-            },
-            "args": [
-              {
-                "name": "data",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              },
-              {
-                "name": "where",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "updateBookEdition",
-            "type": {
-              "kind": "OBJECT",
-              "name": "BookEdition",
-              "ofType": null
-            },
-            "args": [
-              {
-                "name": "data",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              },
-              {
-                "name": "where",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            "name": "updateChat",
-            "type": {
-              "kind": "OBJECT",
-              "name": "Chat",
-              "ofType": null
             },
             "args": [
               {
@@ -13016,7 +13096,97 @@ export default {
             ]
           },
           {
-            "name": "updateMessage",
+            "name": "updateOneBook",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Book",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "data",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              },
+              {
+                "name": "where",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "updateOneBookEdition",
+            "type": {
+              "kind": "OBJECT",
+              "name": "BookEdition",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "data",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              },
+              {
+                "name": "where",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "updateOneChat",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Chat",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "data",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              },
+              {
+                "name": "where",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "updateOneMessage",
             "type": {
               "kind": "OBJECT",
               "name": "Message",
@@ -13046,7 +13216,7 @@ export default {
             ]
           },
           {
-            "name": "updateNotification",
+            "name": "updateOneNotification",
             "type": {
               "kind": "OBJECT",
               "name": "Notification",
@@ -13076,7 +13246,7 @@ export default {
             ]
           },
           {
-            "name": "updateSwap",
+            "name": "updateOneSwap",
             "type": {
               "kind": "OBJECT",
               "name": "Swap",
@@ -13106,7 +13276,7 @@ export default {
             ]
           },
           {
-            "name": "updateUser",
+            "name": "updateOneUser",
             "type": {
               "kind": "OBJECT",
               "name": "User",
@@ -13136,7 +13306,7 @@ export default {
             ]
           },
           {
-            "name": "updateUserAvatar",
+            "name": "updateOneUserAvatar",
             "type": {
               "kind": "OBJECT",
               "name": "UserAvatar",
@@ -13166,7 +13336,7 @@ export default {
             ]
           },
           {
-            "name": "updateUserWaitsBookEdition",
+            "name": "updateOneUserWaitsBookEdition",
             "type": {
               "kind": "OBJECT",
               "name": "UserWaitsBookEdition",
@@ -13196,7 +13366,7 @@ export default {
             ]
           },
           {
-            "name": "upsertBook",
+            "name": "upsertOneBook",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -13239,7 +13409,7 @@ export default {
             ]
           },
           {
-            "name": "upsertBookEdition",
+            "name": "upsertOneBookEdition",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -13282,7 +13452,7 @@ export default {
             ]
           },
           {
-            "name": "upsertChat",
+            "name": "upsertOneChat",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -13325,7 +13495,7 @@ export default {
             ]
           },
           {
-            "name": "upsertMessage",
+            "name": "upsertOneMessage",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -13368,7 +13538,7 @@ export default {
             ]
           },
           {
-            "name": "upsertNotification",
+            "name": "upsertOneNotification",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -13411,7 +13581,7 @@ export default {
             ]
           },
           {
-            "name": "upsertSwap",
+            "name": "upsertOneSwap",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -13454,7 +13624,7 @@ export default {
             ]
           },
           {
-            "name": "upsertUser",
+            "name": "upsertOneUser",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -13497,7 +13667,7 @@ export default {
             ]
           },
           {
-            "name": "upsertUserAvatar",
+            "name": "upsertOneUserAvatar",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -13540,7 +13710,7 @@ export default {
             ]
           },
           {
-            "name": "upsertUserWaitsBookEdition",
+            "name": "upsertOneUserWaitsBookEdition",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -14856,7 +15026,199 @@ export default {
             ]
           },
           {
+            "name": "findFirstBookEditionOrThrow",
+            "type": {
+              "kind": "OBJECT",
+              "name": "BookEdition",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "cursor",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "distinct",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "skip",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "take",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "where",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            ]
+          },
+          {
+            "name": "findFirstBookOrThrow",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Book",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "cursor",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "distinct",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "skip",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "take",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "where",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            ]
+          },
+          {
             "name": "findFirstChat",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Chat",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "cursor",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "distinct",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "skip",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "take",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "where",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            ]
+          },
+          {
+            "name": "findFirstChatOrThrow",
             "type": {
               "kind": "OBJECT",
               "name": "Chat",
@@ -14984,6 +15346,70 @@ export default {
             ]
           },
           {
+            "name": "findFirstMessageOrThrow",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Message",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "cursor",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "distinct",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "skip",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "take",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "where",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            ]
+          },
+          {
             "name": "findFirstNotification",
             "type": {
               "kind": "OBJECT",
@@ -15048,7 +15474,135 @@ export default {
             ]
           },
           {
+            "name": "findFirstNotificationOrThrow",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Notification",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "cursor",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "distinct",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "skip",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "take",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "where",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            ]
+          },
+          {
             "name": "findFirstSwap",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Swap",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "cursor",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "distinct",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "skip",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "take",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "where",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            ]
+          },
+          {
+            "name": "findFirstSwapOrThrow",
             "type": {
               "kind": "OBJECT",
               "name": "Swap",
@@ -15240,7 +15794,199 @@ export default {
             ]
           },
           {
+            "name": "findFirstUserAvatarOrThrow",
+            "type": {
+              "kind": "OBJECT",
+              "name": "UserAvatar",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "cursor",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "distinct",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "skip",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "take",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "where",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            ]
+          },
+          {
+            "name": "findFirstUserOrThrow",
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "cursor",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "distinct",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "skip",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "take",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "where",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            ]
+          },
+          {
             "name": "findFirstUserWaitsBookEdition",
+            "type": {
+              "kind": "OBJECT",
+              "name": "UserWaitsBookEdition",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "cursor",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "distinct",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "orderBy",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Any"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "skip",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "take",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              },
+              {
+                "name": "where",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            ]
+          },
+          {
+            "name": "findFirstUserWaitsBookEditionOrThrow",
             "type": {
               "kind": "OBJECT",
               "name": "UserWaitsBookEdition",
@@ -15307,12 +16053,32 @@ export default {
             "name": "getBook",
             "type": {
               "kind": "OBJECT",
-              "name": "BookResponse",
+              "name": "Book",
               "ofType": null
             },
             "args": [
               {
-                "name": "id",
+                "name": "where",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "getBookEdition",
+            "type": {
+              "kind": "OBJECT",
+              "name": "BookEdition",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "where",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {
@@ -15336,6 +16102,26 @@ export default {
               }
             },
             "args": []
+          },
+          {
+            "name": "getChat",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Chat",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "where",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
           },
           {
             "name": "getEdition",
@@ -15434,6 +16220,46 @@ export default {
             "args": []
           },
           {
+            "name": "getMessage",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Message",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "where",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "getNotification",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Notification",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "where",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "getRoom",
             "type": {
               "kind": "NON_NULL",
@@ -15457,6 +16283,26 @@ export default {
             ]
           },
           {
+            "name": "getSwap",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Swap",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "where",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "name": "getUser",
             "type": {
               "kind": "OBJECT",
@@ -15465,7 +16311,47 @@ export default {
             },
             "args": [
               {
-                "name": "id",
+                "name": "where",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "getUserAvatar",
+            "type": {
+              "kind": "OBJECT",
+              "name": "UserAvatar",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "where",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "getUserWaitsBookEdition",
+            "type": {
+              "kind": "OBJECT",
+              "name": "UserWaitsBookEdition",
+              "ofType": null
+            },
+            "args": [
+              {
+                "name": "where",
                 "type": {
                   "kind": "NON_NULL",
                   "ofType": {

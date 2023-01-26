@@ -3,8 +3,8 @@ import { useQueryWrapper } from '@/helpers/useQueryWrapper';
 import {
   CreateUserAvatar,
   GetMeQuery,
-  MutationCreateUserAvatarArgs,
-  MutationUpdateUserAvatarArgs, UpdateUserAvatar,
+  MutationCreateOneUserAvatarArgs,
+  MutationUpdateOneUserAvatarArgs, UpdateUserAvatar,
 } from '@/gtypes';
 import { useAvatarOptions } from '@/helpers/avatarOptions';
 import React, { useEffect, useState } from 'react';
@@ -27,10 +27,10 @@ export const AvatarSettings = ({nextButtonTitle = "Cохранить", showSkip 
   const [avatarSelectOptions, setAvatarSelectOptions] = useState<any>({});
   const [avatarDisplayOptions, setAvatarDisplayOptions] = useState<any>(null);
   const [, createAvatar] = useMutation<
-    MutationCreateUserAvatarArgs
+    MutationCreateOneUserAvatarArgs
   >(CreateUserAvatar);
   const [, updateAvatar] = useMutation<
-    MutationUpdateUserAvatarArgs
+    MutationUpdateOneUserAvatarArgs
   >(UpdateUserAvatar);
 
   const baseOptions = {
