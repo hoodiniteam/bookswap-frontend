@@ -147,7 +147,6 @@
   "blazer-shirt": "Рубашка",
   "blazer-sweater": "Блейзер-Свитер",
   "collar-sweater": "Свитер с воротником",
-  "skull-outline": "Голый торс",
   "hoodie": "Худи",
   "overall": "Майка",
   "shirt-crew-neck": "Джемпер",
@@ -163,5 +162,16 @@
   "new-notification": "Новое уведомление",
   "emailExist": "Пользователь с таким Email уже существует",
   "email4characters": "Email меньше 4 букв",
-  "password4characters": "Пароль должен быть длиннее 4 символов"
+  "password4characters": "Пароль должен быть длиннее 4 символов",
+  "bat": "Бэтмен",
+  "cumba": "Кумба",
+  "deer": "Олень",
+  "diamond": "Бриллиант",
+  "hola": "Хола!",
+  "pizza": "Пицца",
+  "resist": "Сопротивление",
+  "selena": "Селена",
+  "bear": "Медведь",
+  "skull-outline": "Череп Outline",
+  "skull": "Череп"
 }

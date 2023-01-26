@@ -29,7 +29,7 @@ const Pagination = ({ limit, total }: any) => {
                                 <Link
                                     href={`${pathname}?page=${page}`}
                                     key={page}>
-                                    <a className={`pagItem${currentPage === page ? ' active' : ''}`}>
+                                    <a className={`pageItem${currentPage === page ? ' active' : ''}`}>
                                         {page}
                                     </a>
                                 </Link>

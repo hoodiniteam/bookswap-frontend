@@ -139,7 +139,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      {/*<Script src='https://upload-widget.cloudinary.com/global/all.js' strategy='beforeInteractive' />*/}
       {getLayout(<Component {...pageProps} />)}
     </Provider>
   );

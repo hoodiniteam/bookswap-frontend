@@ -19,10 +19,10 @@ export default function Index() {
               <LogoLogin/>
             </div>
             <div className={'flex justify-between space-x-4 items-center'}>
-              <ButtonOutside href={'/login'} tag={'link'}>
+              <ButtonOutside href={'/login'} style={'fill'} tag={'link'}>
                 Войти
               </ButtonOutside>
-              <ButtonOutside href={'/register'} type={'fill'} tag={'link'}>
+              <ButtonOutside href={'/register'} style={'outline'} tag={'link'}>
                 Регистрация
               </ButtonOutside>
             </div>
@@ -86,7 +86,7 @@ export default function Index() {
       <footer className={'relative bg-lime-100 h-screen flex items-center justify-center text-center py-32'}>
         <div>
           <p className={'font-medium text-5xl mb-12 uppercase'}>у вас есть что обменять?</p>
-          <ButtonOutside href={'/register'} tag={'link'} type={'fill'}>
+          <ButtonOutside href={'/register'} tag={'link'} style={'fill'}>
             Регистрация
           </ButtonOutside>
         </div>

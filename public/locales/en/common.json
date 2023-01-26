@@ -163,5 +163,15 @@
   "new-notification": "New notification",
   "emailExist": "User with this email already exist",
   "email4characters": "Email contains less then 4 characters",
-  "password4characters": "Password must be longer then 4 characters"
+  "password4characters": "Password must be longer then 4 characters",
+  "bat": "Batman",
+  "cumba": "Cumbia",
+  "deer": "Deer",
+  "diamond": "Diamond",
+  "hola": "Hola",
+  "pizza": "Pizza",
+  "resist": "Resist",
+  "selena": "Selena",
+  "bear": "Bear",
+  "skull": "Skull"
 }

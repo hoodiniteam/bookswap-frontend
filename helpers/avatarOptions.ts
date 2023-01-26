@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next';
 import { localesList } from './locales';
+import { UserAvatar } from '../generated/graphql';
 
 export const useAvatarOptions = () => {
   const { t } = useTranslation(localesList);
@@ -172,6 +173,129 @@ export const useAvatarOptions = () => {
     {value: 'Sunglasses', label: t('sunglasses')},
     {value: 'Wayfarers', label: t('wayfarers')},
   ];
+  const graphicTypeOptions = [
+    {value: 'Bat', label: t('bat')},
+    {value: 'Cumbia', label: t('cumbia')},
+    {value: 'Deer', label: t('deer')},
+    {value: 'Diamond', label: t('diamond')},
+    {value: 'Hola', label: t('hola')},
+    {value: 'Pizza', label: t('pizza')},
+    {value: 'Resist', label: t('resist')},
+    {value: 'Selena', label: t('selena')},
+    {value: 'Bear', label: t('bear')},
+    {value: 'SkullOutline', label: t('skull-outline')},
+    {value: 'Skull', label: t('skull')},
+  ]
+  const avatarSelectList = [{
+    label: "Волосы и Головные уборы",
+    value: "topType",
+    options: hairOptions,
+  }, {
+    label: "Глаза",
+    value: "eyeType",
+    options: eyeOptions,
+  }, {
+    label: "Брови",
+    value: "eyebrowType",
+    options: eyebrowOptions,
+  }, {
+    label: "Рот",
+    value: "mouthType",
+    options: mouthOptions,
+  },{
+    label: "Волосы на лице",
+    value: "facialHairType",
+    options: facialHairTypeOptions,
+  }, {
+    label: "Цвет волос на лице",
+    value: "facialHairColor",
+    options: facialHairColorOptions,
+  },{
+    label: "Цвет волос на голове",
+    value: "hairColor",
+    options: hairColorOptions,
+  },{
+    label: "Цвет головного убора",
+    value: "hatColor",
+    options: hatColorOptions,
+  },{
+    label: "Цвет кожи",
+    value: "skinColor",
+    options: skinColorOptions,
+  },{
+    label: "Цвет одежды",
+    value: "clotheColor",
+    options: clotheColorOptions,
+  },{
+    label: "Тип одежды",
+    value: "clotheType",
+    options: clotheTypeOptions,
+  },{
+    label: "Тип аксессуаров",
+    value: "accessoriesType",
+    options: accessoriesTypeOptions,
+  }, {
+    label: "Тип графики",
+    value: "graphicType",
+    options: graphicTypeOptions,
+  }];
+  const avatarOptionsSetter = (values: Partial<UserAvatar>, setterFn: React.Dispatch<any>) => {
+    const topType = hairOptions.find(
+      (option) => option.value === values['topType']
+    );
+    const eyeType = eyeOptions.find(
+      (option) => option.value === values['eyeType']
+    );
+    const eyebrowType = eyebrowOptions.find(
+      (option) => option.value === values['eyebrowType']
+    );
+    const mouthType = mouthOptions.find(
+      (option) => option.value === values['mouthType']
+    );
+    const facialHairType = facialHairTypeOptions.find(
+      (option) => option.value === values['facialHairType']
+    );
+    const facialHairColor = facialHairColorOptions.find(
+      (option) => option.value === values['facialHairColor']
+    );
+    const hairColor = hairColorOptions.find(
+      (option) => option.value === values['hairColor']
+    );
+    const hatColor = hatColorOptions.find(
+      (option) => option.value === values['hatColor']
+    );
+    const skinColor = skinColorOptions.find(
+      (option) => option.value === values['skinColor']
+    );
+    const clotheColor = clotheColorOptions.find(
+      (option) => option.value === values['clotheColor']
+    );
+    const clotheType = clotheTypeOptions.find(
+      (option) => option.value === values['clotheType']
+    );
+    const accessoriesType = accessoriesTypeOptions.find(
+      (option) => option.value === values['accessoriesType']
+    );
+    const graphicType = graphicTypeOptions.find(
+      (option) => option.value === values['graphicType']
+    );
+    const options = {
+      topType,
+      eyeType,
+      eyebrowType,
+      mouthType,
+      facialHairType,
+      facialHairColor,
+      hairColor,
+      hatColor,
+      skinColor,
+      clotheColor,
+      clotheType,
+      accessoriesType,
+      graphicType,
+    };
+    setterFn(options);
+  }
   return {
     hairOptions,
     eyeOptions,
@@ -185,5 +309,8 @@ export const useAvatarOptions = () => {
     clotheColorOptions,
     clotheTypeOptions,
     accessoriesTypeOptions,
+    graphicTypeOptions,
+    avatarSelectList,
+    avatarOptionsSetter,
   }
 }
