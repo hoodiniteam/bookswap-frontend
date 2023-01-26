@@ -7,7 +7,7 @@ module.exports = {
   webpack5: true,
   env: {
     // eslint-disable-next-line no-undef
-    API_URL: process.env.NODE_ENV === "production" ? "https://api.bookswap.ru/graphql" : 'http://localhost:4000/graphql'
+    API_URL: process.env.API_URL ? process.env.API_URL : process.env.NODE_ENV === "production" ? "https://api.bookswap.ru/graphql" : 'http://localhost:4000/graphql'
   },
   images: {
     domains: ['images.unsplash.com', 'res.cloudinary.com', 'books.google.com']
