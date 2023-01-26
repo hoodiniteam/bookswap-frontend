@@ -1,11 +1,11 @@
 import React from "react";
-import { LogoLogin } from '../components/LogoLogin';
-import ButtonOutside from '../components/ButtonOutside';
+import { LogoLogin } from '@/components/LogoLogin';
+import ButtonOutside from '@/components/ButtonOutside';
 import dynamic from 'next/dynamic';
-import BookWrapperPromo from '../components/BookWrapperPromo';
+import BookWrapperPromo from '@/components/BookWrapperPromo';
 
 const ProcessAnimation = dynamic(
-  () => import('../components/ProcessAnimation'),
+  () => import('@/components/ProcessAnimation'),
   { ssr: false }
 )
 

@@ -1,25 +1,21 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Menu, Transition, Popover, Dialog } from '@headlessui/react';
+import { Transition, Dialog } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import {
-  BookmarkIcon,
   BookOpenIcon,
-  ChevronUpIcon,
   PlusCircleIcon,
-  RefreshIcon,
   SupportIcon,
-  BellIcon, MenuIcon, PlusIcon, PlusSmIcon, ChatIcon, HeartIcon,
+  BellIcon, MenuIcon, PlusSmIcon, ChatIcon, HeartIcon,
 } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
-import { useClient, useMutation } from 'urql';
+import { useMutation } from 'urql';
 import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
 import { Logo } from './Logo';
-import { useQueryWrapper } from '../helpers/useQueryWrapper';
+import { useQueryWrapper } from '@/helpers/useQueryWrapper';
 import { AvatarComponent } from './avatars';
-import { userName } from '../helpers/parseUserName';
-import { usePopper } from 'react-popper';
+import { userName } from '@/helpers/parseUserName';
 import Button from './Button';
 import { AddBookModal } from './AddBookModal';
 import { CreateBookModal } from './CreateBookModal';
@@ -28,8 +24,7 @@ import {
   BooksStatus,
   ClearNotificationsMutation,
   GetMeQuery,
-  SwapStatus,
-} from '../generated/graphql.d';
+} from '@/gtypes';
 import { UserNotification } from './UserNotification';
 import OutsideClickHandler from 'react-outside-click-handler';
 import classNames from 'classnames';
@@ -40,7 +35,7 @@ import { Loading } from './loading';
 import {
   activeSwapsReceive,
   activeSwapsSend,
-} from '../helpers/parseActiveSwaps';
+} from '@/helpers/parseActiveSwaps';
 
 const GetMe = loader('../graphql/GetMe.graphql');
 const ClearNotifications = loader(
@@ -52,10 +47,10 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
   const [navMenu, setNavMenu] = useState(false);
   const [navMenuMobile, setNavMenuMobile] = useState(false);
   const [notificationsMobile, setNotificationsMobile] = useState(false);
-  const [, setSearchString] = useState('');
+  /*const [, setSearchString] = useState('');*/
   const [addModal, setAddModal] = useState(false);
   const [createModal, setCreateModal] = useState(false);
-  const [, setBooks] = useState<any[]>([]);
+  /*const [, setBooks] = useState<any[]>([]);*/
   const [newBookName, setNewBookName] = useState('');
 
   const [navigation, setNavigation] = useState([
@@ -97,7 +92,7 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
 
   // const [, createEdition] = useMutation(CreateEmptyEditionMutation);
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const createEdition = (args: any): any => {};
+  /*const createEdition = (args: any): any => {};*/
   const [, clearNotifications] =
     useMutation<ClearNotificationsMutation>(ClearNotifications);
 
@@ -105,8 +100,8 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
     query: GetMe,
   });
 
-  const client = useClient();
-  const timer = useRef<any>();
+  /*const client = useClient();
+  const timer = useRef<any>();*/
 
   const onClearNotifications = async () => {
     await clearNotifications();
@@ -143,7 +138,7 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
     }
   };
 
-  const createEmptyAndGo = (edition: any) => {
+  /*const createEmptyAndGo = (edition: any) => {
     createEdition({
       title: edition.title || '',
       description: edition.description || '',
@@ -156,7 +151,7 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
           setBooks([]);
         });
     });
-  };
+  };*/
 
   useEffect(() => {
     const newArr = navigation.map((item) => {
@@ -204,7 +199,7 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
         </Head>
         <div className="min-h-screen bg-gray-100">
           <div className="mobile-layout bg-gradient-to-r from-orange-400 to-pink-500 sm:pb-32">
-            <nav>
+            <header>
               <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
                 <div className="relative space-x-4 h-16 flex items-center justify-between border-b">
                   <div className="px-2 flex items-center lg:px-0">
@@ -239,13 +234,13 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
                       />
                     </div>
                   </div>
-                  <div
+                  <button
                     onClick={() => setAddModal(true)}
                     className="hidden sm:flex cursor-pointer flex items-center px-4 py-2 shadow-sm text-sm font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500"
                   >
                     <PlusCircleIcon className="h-5 w-5 mr-1" />
                     {t('create')}
-                  </div>
+                  </button>
                   <div className="hidden sm:block">
                     <div className="flex items-center">
                       <div className="relative">
@@ -257,7 +252,7 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
                             setNavMenu(false);
                           }}
                         >
-                          <div
+                          <button
                             onClick={() => setNavMenu(!navMenu)}
                             className={`${
                               navMenu ? '' : 'text-opacity-90'
@@ -275,7 +270,7 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
                               } ml-2 h-5 w-5 text-orange-300 group-hover:text-opacity-80 transition ease-in-out duration-150`}
                               aria-hidden="true"
                             />
-                          </div>
+                          </button>
                           {navMenu && (
                             <div className="absolute top-14 right-0 flex z-10 w-screen max-w-2xl mt-3 transform">
                               <>
@@ -332,7 +327,7 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
                                     )}
                                   </div>
                                 </div>
-                                <div className="overflow-hidden flex-grow rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                                <nav className="overflow-hidden flex-grow rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                                   <div className="relative grid gap-8 bg-white p-7">
                                     <Link href="/profile/books"  className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
                                       <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
@@ -346,7 +341,7 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
                                           Мои книги ({user.books.length})
                                         </p>
                                         <p className="text-sm text-gray-500">
-                                          {user.points} BST
+                                          Баланс: {user.points} BST
                                         </p>
                                       </div>
                                     </Link>
@@ -440,7 +435,7 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
                                       </span>
                                     </a>
                                   </div>
-                                </div>
+                                </nav>
                               </>
                             </div>
                           )}
@@ -469,10 +464,10 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
                   </div>
                 )}
               </div>
-            </nav>
+            </header>
           </div>
           <div className="z-10 sm:hidden shadow border-t fixed flex items-center justify-between w-full h-14 bg-white left-0 bottom-0">
-            <div className="grid divide-x grid-cols-4 flex-grow">
+            <nav className="grid divide-x grid-cols-4 flex-grow">
               <Link href="/books"  className="flex flex-col text-xs items-center justify-center">
                 <BookOpenIcon className="w-6 h-6 text-gray-500" />
                 Книги
@@ -556,7 +551,7 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
                             Мои книги ({user.books.length})
                           </p>
                           <p className="text-sm text-gray-500">
-                            {user.points} BST
+                            Баланс: {user.points} BST
                           </p>
                         </div>
                       </Link>
@@ -653,7 +648,7 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
                   </div>}
                 </div>
               </OutsideClickHandler>
-            </div>
+            </nav>
           </div>
           <main className="sm:-mt-32">
             <div className="max-w-7xl mx-auto pb-16 pt-20 sm:pt-4 sm:pb-12 p-4 sm:px-6 lg:px-8">

@@ -5,11 +5,11 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import Layout from '../../../../components/layout';
+import Layout from '@/components/layout';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { localesList } from '../../../../helpers/locales';
+import { localesList } from '@/helpers/locales';
 import { useRouter } from 'next/router';
-import { useQueryWrapper } from '../../../../helpers/useQueryWrapper';
+import { useQueryWrapper } from '@/helpers/useQueryWrapper';
 import {
   ApproveSwapMutation,
   GetMeQuery,
@@ -17,10 +17,10 @@ import {
   InitSwapMutation,
   SendMessageMutation,
   SendMessageMutationVariables,
-} from '../../../../generated/graphql';
+} from '@/gtypes';
 import { useMutation } from 'urql';
-import BookCover from '../../../../components/BookCover';
-import { AvatarComponent } from '../../../../components/avatars';
+import BookCover from '@/components/BookCover';
+import { AvatarComponent } from '@/components/avatars';
 import { format } from 'date-fns';
 import Button from '../../../../components/Button';
 import { Dialog, Transition } from '@headlessui/react';
@@ -28,7 +28,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { loader } from 'graphql.macro';
 import classNames from 'classnames';
 import { ArrowCircleLeftIcon } from '@heroicons/react/outline';
-import { userName } from '../../../../helpers/parseUserName';
+import { userName } from '@/helpers/parseUserName';
 const GetMe = loader('../../../../graphql/GetMe.graphql');
 const GetRoom = loader('../../../../graphql/GetRoom.graphql');
 const SendMessage = loader('../../../../graphql/SendMessageMutation.graphql');
@@ -186,10 +186,13 @@ const Index = () => {
           <div className="bg-white px-2 pt-2 pb-2 rounded-md">
             <div className="space-y-2 sm:space-y-0 sm:flex items-center justify-between">
               <div className="flex items-center">
-                <ArrowCircleLeftIcon
-                  onClick={() => router.push('/profile/swaps')}
-                  className="text-gray-500 cursor-pointer h-10 w-10 mr-3"
-                />
+                <button
+                  className="mr-3"
+                  onClick={() => router.push('/profile/swaps')}>
+                  <ArrowCircleLeftIcon
+                    className="text-gray-500 cursor-pointer h-10 w-10"
+                  />
+                </button>
                 <BookCover height={80} classes="p-1 mr-4" book={chat.book} />
                 <div className="flex flex-col justify-center items-start">
                   <div className="text-lg font-medium">{chat.book.title}</div>

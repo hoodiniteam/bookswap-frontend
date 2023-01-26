@@ -5,7 +5,7 @@ import { UserAvatar } from '../generated/graphql';
 export const useAvatarOptions = () => {
   const { t } = useTranslation(localesList);
   const hairOptions = [
-    {value: null, label: "-"},
+    {value: "", label: "-"},
     {value: 'NoHair', label: t('no-hair')},
     {value: 'Hat', label: t('hat')},
     {value: 'Hijab', label: t('hijab')},
@@ -41,7 +41,7 @@ export const useAvatarOptions = () => {
     {value: 'WinterHat4', label: t('winter-hat4')},
   ];
   const eyeOptions = [
-    {value: null, label: "-"},
+    {value: "", label: "-"},
     {value: 'Close', label: t('close')},
     {value: 'Cry', label: t('cry')},
     {value: 'Dizzy', label: t('dizzy')},
@@ -55,7 +55,7 @@ export const useAvatarOptions = () => {
     {value: 'WinkWacky', label: t('wink-wacky')},
   ];
   const eyebrowOptions = [
-    {value: null, label: "-"},
+    {value: "", label: "-"},
     {value: 'Angry', label: t('angry')},
     {value: 'AngryNatural', label: t('angry-natural')},
     {value: 'DefaultNatural', label: t('default-natural')},
@@ -70,7 +70,7 @@ export const useAvatarOptions = () => {
     {value: 'UpDownNatural', label: t('up-down-natural')},
   ];
   const mouthOptions = [
-    {value: null, label: "-"},
+    {value: "", label: "-"},
     {value: 'Concerned', label: t('concerned')},
     {value: 'Disbelief', label: t('disbelief')},
     {value: 'Eating', label: t('eating')},
@@ -84,7 +84,7 @@ export const useAvatarOptions = () => {
     {value: 'Vomit', label: t('vomit')},
   ];
   const facialHairTypeOptions = [
-    {value: null, label: "-"},
+    {value: "", label: "-"},
     {value: 'Blank', label: '-'},
     {value: 'BeardMedium', label: t('beard-medium')},
     {value: 'BeardLight', label: t('beard-light')},
@@ -93,7 +93,7 @@ export const useAvatarOptions = () => {
     {value: 'MoustacheMagnum', label: t('moustache-magnum')},
   ];
   const facialHairColorOptions = [
-    {value: null, label: "-"},
+    {value: "", label: "-"},
     {value: 'Auburn', label: t('auburn')},
     {value: 'Black', label: t('black')},
     {value: 'Blonde', label: t('blonde')},
@@ -104,7 +104,7 @@ export const useAvatarOptions = () => {
     {value: 'Red', label: t('red')},
   ];
   const hairColorOptions = [
-    {value: null, label: "-"},
+    {value: "", label: "-"},
     {value: 'Auburn', label: t('auburn')},
     {value: 'Black', label: t('black')},
     {value: 'Blonde', label: t('blonde')},
@@ -118,7 +118,7 @@ export const useAvatarOptions = () => {
     {value: 'SilverGray', label: t('silver-gray')},
   ];
   const hatColorOptions = [
-    {value: null, label: "-"},
+    {value: "", label: "-"},
     {value: 'Black', label: t('black')},
     {value: 'Blue01', label: t('blue')},
     {value: 'Blue02', label: t('blue2')},
@@ -136,7 +136,7 @@ export const useAvatarOptions = () => {
     {value: 'White', label: t('white')},
   ];
   const skinColorOptions = [
-    {value: null, label: "-"},
+    {value: "", label: "-"},
     {value: 'Tanned', label: t('tanned')},
     {value: 'Yellow', label: t('yellow')},
     {value: 'Pale', label: t('pale')},
@@ -146,7 +146,7 @@ export const useAvatarOptions = () => {
     {value: 'Black', label: t('black')},
   ];
   const clotheColorOptions = [
-    {value: null, label: "-"},
+    {value: "", label: "-"},
     {value: 'Black', label: t('black')},
     {value: 'Blue01', label: t('blue')},
     {value: 'Blue02', label: t('blue2')},
@@ -164,7 +164,7 @@ export const useAvatarOptions = () => {
     {value: 'White', label: t('white')},
   ];
   const clotheTypeOptions = [
-    {value: null, label: "-"},
+    {value: "", label: "-"},
     {value: 'BlazerShirt', label: t('blazer-shirt')},
     {value: 'BlazerSweater', label: t('blazer-sweater')},
     {value: 'CollarSweater', label: t('collar-sweater')},
@@ -185,7 +185,7 @@ export const useAvatarOptions = () => {
     {value: 'Wayfarers', label: t('wayfarers')},
   ];
   const graphicTypeOptions = [
-    {value: null, label: "-"},
+    {value: "", label: "-"},
     {value: 'Bat', label: t('bat')},
     {value: 'Cumbia', label: t('cumbia')},
     {value: 'Deer', label: t('deer')},
