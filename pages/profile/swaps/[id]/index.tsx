@@ -536,6 +536,12 @@ Index.getLayout = function getLayout(page: ReactElement) {
   return <Layout title={'Свопы'}>{page}</Layout>;
 };
 
+export async function getStaticProps() {
+  return {
+    props: {},
+  };
+}
+
 export async function getStaticPaths() {
   return {
     paths: [],
