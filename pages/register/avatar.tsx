@@ -1,6 +1,4 @@
 import React from 'react';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { localesList } from '@/helpers/locales';
 import { LogoLogin } from '@/components/LogoLogin';
 import { AvatarSettings } from '@/components/AvatarSettings';
 
@@ -21,11 +19,4 @@ const Avatar = () => {
     </div>
   );
 };
-
-export const getServerSideProps = async ({ locale }: any) => ({
-  props: {
-    ...(await serverSideTranslations(locale, localesList)),
-  },
-});
-
 export default Avatar;

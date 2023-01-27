@@ -3,12 +3,10 @@ import { useRouter } from 'next/router';
 import Pagination from '../../components/pagination';
 import Layout from '../../components/layout';
 import BookWrapper from '../../components/BookWrapper';
-import { useQueryWrapper } from '../../helpers/useQueryWrapper';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { localesList } from '../../helpers/locales';
+import { useQueryWrapper } from '@/helpers/useQueryWrapper';
 import { loader } from 'graphql.macro';
-import { BooksStatus, GetEditionsQuery } from '../../generated/graphql.d';
-import { Badge } from '../../components/Badge';
+import { BooksStatus, GetEditionsQuery } from '@/gtypes';
+import { Badge } from '@/components/Badge';
 
 const GetEditions = loader('../../graphql/GetEditionsQuery.graphql');
 
@@ -90,9 +88,5 @@ Index.getLayout = function getLayout(page: ReactElement) {
     </Layout>
   );
 };
-export const getStaticProps = async ({ locale }: any) => ({
-  props: {
-    ...(await serverSideTranslations(locale, localesList)),
-  },
-});
+
 export default Index;

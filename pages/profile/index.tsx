@@ -2,12 +2,9 @@ import React, { ChangeEvent, ReactElement } from 'react';
 import { useMutation } from 'urql';
 import { useForm } from 'react-hook-form';
 import Layout from '../../components/layout';
-import { useQueryWrapper } from '../../helpers/useQueryWrapper';
+import { useQueryWrapper } from '@/helpers/useQueryWrapper';
 import Head from 'next/head';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
-import { localesList } from '../../helpers/locales';
-import { AvatarComponent } from '../../components/avatars';
+import { AvatarComponent } from '@/components/avatars';
 import Button from '../../components/Button';
 import Link from 'next/link';
 import LogOut from '../../helpers/LogOut';
@@ -16,7 +13,7 @@ import {
   GetMeQuery,
   UpdateUserDataMutation,
   UpdateUserDataMutationVariables,
-} from '../../generated/graphql';
+} from '@/gtypes';
 const GetMe = loader('../../graphql/GetMe.graphql');
 const UpdateUser = loader('../../graphql/UpdateUserMutation.graphql');
 
@@ -73,7 +70,6 @@ const Index = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { t } = useTranslation(localesList);
 
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
@@ -104,10 +100,10 @@ const Index = () => {
     return (
       <form action="#" method="POST" onSubmit={submitHandler}>
         <Head>
-          <title>{t('profile', { ns: 'nav' })}</title>
+          <title>Профиль</title>
         </Head>
         <p className="sm:text-white font-bold text-lg mb-3">
-          {t('profile', { ns: 'nav' })}
+          Профиль
         </p>
         <div className="shadow rounded-md overflow-hidden">
           <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
@@ -117,7 +113,7 @@ const Index = () => {
                   htmlFor="first-name"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  {t('avatar')}
+                  Аватар
                 </label>
                 <div className="flex flex-col items-center">
                   <AvatarComponent
@@ -138,7 +134,7 @@ const Index = () => {
                     htmlFor="email-address"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    {t('email')}
+                    Email
                   </label>
                   <div className="mt-1 block w-full text-sm">
                     {user.email || ''}
@@ -149,7 +145,7 @@ const Index = () => {
                     htmlFor="first-name"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    {t('first-name')}
+                    Имя
                   </label>
                   <input
                     {...register('firstName', {
@@ -176,7 +172,7 @@ const Index = () => {
                     htmlFor="last-name"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    {t('last-name')}
+                    Фамилия
                   </label>
                   <input
                     {...register('lastName', {
@@ -206,7 +202,7 @@ const Index = () => {
               Выйти
             </Button>
             <Button type="submit" variant="primary">
-              {t('save')}
+              Сохранить
             </Button>
           </div>
         </div>
@@ -218,11 +214,5 @@ const Index = () => {
 Index.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };
-
-export const getStaticProps = async ({ locale }: any) => ({
-  props: {
-    ...(await serverSideTranslations(locale, localesList)),
-  },
-});
 
 export default Index;

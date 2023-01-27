@@ -4,9 +4,6 @@ import { useRouter } from 'next/router';
 import Layout from '../../../components/layout';
 import { useQueryWrapper } from '@/helpers/useQueryWrapper';
 import Head from 'next/head';
-import { useTranslation } from 'react-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { localesList } from '@/helpers/locales';
 import { getStaticEditions } from '@/helpers/staticRequest';
 import { Badge } from '@/components/Badge';
 import Button from '../../../components/Button';
@@ -77,7 +74,6 @@ const Book = () => {
     });
   };
 
-  const { t } = useTranslation('common');
   const [, createChat] = useMutation<
     CreateChatMutation,
     CreateChatMutationVariables
@@ -244,7 +240,7 @@ const Book = () => {
                           <p className="flex text-sm items-center text-gray-500">
                             Состояние:
                             <span className="ml-0.5 -mb-0.5">
-                              {t(book.condition)}
+                              {book.condition}
                             </span>
                           </p>
                           <Badge status={book.status} />
@@ -323,6 +319,11 @@ const Book = () => {
 Book.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };
+export async function getStaticProps() {
+  return {
+    props: {},
+  };
+}
 
 export const getStaticPaths = async () => {
   const editions = await getStaticEditions();
@@ -333,11 +334,5 @@ export const getStaticPaths = async () => {
     fallback: true,
   };
 };
-
-export const getStaticProps = async ({ locale }: any) => ({
-  props: {
-    ...(await serverSideTranslations(locale, localesList)),
-  },
-});
 
 export default Book;

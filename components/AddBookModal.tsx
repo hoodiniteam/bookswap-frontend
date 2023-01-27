@@ -1,9 +1,8 @@
 import React, { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'next-i18next';
 // import { CreateBookMutation } from '../graphql/CreateBookMutation';
-import { dateParsedYear } from '../helpers/dateTime';
+import { dateParsedYear } from '@/helpers/dateTime';
 import Button from './Button';
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { toast } from 'react-toastify';
@@ -14,12 +13,12 @@ import {
   GetMeQuery,
   UpsertEditionMutation,
   UpsertEditionMutationVariables,
-} from '../generated/graphql.d';
+} from '@/gtypes';
 import { loader } from 'graphql.macro';
 import { useMutation } from 'urql';
-import { useQueryWrapper } from '../helpers/useQueryWrapper';
-import { BookForm } from '../types/Book';
-import { emptyState } from '../helpers/bookState';
+import { useQueryWrapper } from '@/helpers/useQueryWrapper';
+import { BookForm } from '@/types/Book';
+import { emptyState } from '@/helpers/bookState';
 const UpsertEdition = loader('../graphql/UpsertEditionMutation.graphql');
 const GetMe = loader('../graphql/GetMe.graphql');
 
@@ -47,7 +46,6 @@ export const AddBookModal = ({
     UpsertEditionMutationVariables
   >(UpsertEdition);
   const router = useRouter();
-  const { t } = useTranslation('common');
 
   const submit = handleSubmit(async (data, event) => {
     event?.preventDefault();
@@ -135,9 +133,7 @@ export const AddBookModal = ({
                     </div>
                   </BookSearch>
                 </div>
-                <div className="text-xs text-gray-600 mt-1">
-                  {t('search-letters')}
-                </div>
+                <div className="text-xs text-gray-600 mt-1">Поиск начнется с 3 символов</div>
               </div>
               {book && (
                 <>
@@ -220,22 +216,22 @@ export const AddBookModal = ({
                         className="shadow-sm focus:ring-main-500 focus:border-main-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md"
                       >
                         <option key='TERRIBLE' value='TERRIBLE'>
-                          {t(String('TERRIBLE'))}
+                          Ужасное
                         </option>
                         <option key='BAD' value='BAD'>
-                          {t(String('BAD'))}
+                          Плохое
                         </option>
                         <option key='SATISFACTORY' value='SATISFACTORY'>
-                          {t(String('SATISFACTORY'))}
+                          Удовлетворительное
                         </option>
                         <option key='GOOD' value='GOOD'>
-                          {t(String('GOOD'))}
+                          Хорошее
                         </option>
                         <option key='LIKENEW' value='LIKENEW'>
-                          {t(String('LIKENEW'))}
+                          Как новая
                         </option>
                         <option key='BRANDNEW' value='BRANDNEW'>
-                          {t(String('BRANDNEW'))}
+                          Новая
                         </option>
                       </select>
                     </div>
@@ -250,7 +246,7 @@ export const AddBookModal = ({
                 type="submit"
                 className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
               >
-                {t('save')}
+                Сохранить
               </button>
             )}
           </div>

@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react';
 import Layout from '@/components/layout';
 import Head from 'next/head';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { localesList } from '@/helpers/locales';
 import { useQueryWrapper } from '@/helpers/useQueryWrapper';
 import BookWrapper from '@/components/BookWrapper';
 import { BooksStatus, GetEditionsQuery, GetMeQuery } from '@/gtypes';
@@ -46,8 +44,6 @@ const Home = () => {
   const { user } = meData?.me || {};
   const editions = data?.getEditions?.editions || [];
   const popularEditions = popularData?.getEditions?.editions || [];
-
-  // const { t } = useTranslation(localesList);
 
   const stats = [
     {
@@ -138,11 +134,5 @@ const Home = () => {
 Home.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };
-
-export const getStaticProps = async ({ locale }: any) => ({
-  props: {
-    ...(await serverSideTranslations(locale, localesList)),
-  },
-});
 
 export default Home;

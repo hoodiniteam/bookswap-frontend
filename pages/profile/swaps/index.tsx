@@ -1,8 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import Layout from '@/components/layout';
 import { useQueryWrapper } from '@/helpers/useQueryWrapper';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { localesList } from '@/helpers/locales';
 import Link from 'next/link';
 import { loader } from 'graphql.macro';
 import {
@@ -211,11 +209,5 @@ const Index = () => {
 Index.getLayout = function getLayout(page: ReactElement) {
   return <Layout title={'Свопы'}>{page}</Layout>;
 };
-
-export const getStaticProps = async ({ locale }: any) => ({
-  props: {
-    ...(await serverSideTranslations(locale, localesList)),
-  },
-});
 
 export default Index;

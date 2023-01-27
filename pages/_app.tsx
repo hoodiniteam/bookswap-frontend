@@ -4,14 +4,13 @@ import type { AppProps } from 'next/app';
 import React from 'react';
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
-import { appWithTranslation } from 'next-i18next';
 import { authExchange } from '@urql/exchange-auth';
 import Cookies from 'js-cookie';
 import { makeOperation } from 'urql';
 import { createClient, dedupExchange, fetchExchange, Provider } from 'urql';
 import { cacheExchange } from '@urql/exchange-graphcache';
 import LogOut from '../helpers/LogOut';
-import { RefreshMutation } from '../graphql/RefreshMutation';
+import { RefreshMutation } from '@/graphql/RefreshMutation';
 import Head from 'next/head';
 import schema from '../graphql.schema.json';
 
@@ -144,4 +143,4 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   );
 }
 
-export default appWithTranslation(MyApp);
+export default MyApp;

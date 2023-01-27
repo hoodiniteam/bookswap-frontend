@@ -1,10 +1,8 @@
 import React, { ReactElement } from 'react';
 import Layout from '../../components/layout';
 import BookWrapper from '../../components/BookWrapper';
-import { useQueryWrapper } from '../../helpers/useQueryWrapper';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { localesList } from '../../helpers/locales';
-import { Badge } from '../../components/Badge';
+import { useQueryWrapper } from '@/helpers/useQueryWrapper';
+import { Badge } from '@/components/Badge';
 import Button from '../../components/Button';
 import { useMutation } from 'urql';
 import Head from 'next/head';
@@ -14,7 +12,7 @@ import {
   GetMeQuery,
   UpdateBookStatusMutation,
   UpdateBookStatusMutationVariables,
-} from '../../generated/graphql.d';
+} from '@/gtypes';
 
 const GetMe = loader('../../graphql/GetMe.graphql');
 const UpdateBookStatus = loader(
@@ -111,11 +109,5 @@ const MyBooks = () => {
 MyBooks.getLayout = function getLayout(page: ReactElement) {
   return <Layout title={MyBooks.name}>{page}</Layout>;
 };
-
-export const getServerSideProps = async ({ locale }: any) => ({
-  props: {
-    ...(await serverSideTranslations(locale, localesList)),
-  },
-});
 
 export default MyBooks;

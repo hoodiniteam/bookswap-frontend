@@ -1,12 +1,9 @@
 import React, { ReactElement } from 'react';
 import Layout from '../../components/layout';
 import BookWrapper from '../../components/BookWrapper';
-import { useQueryWrapper } from '../../helpers/useQueryWrapper';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { localesList } from '../../helpers/locales';
+import { useQueryWrapper } from '@/helpers/useQueryWrapper';
 import Button from '../../components/Button';
 import { useMutation } from 'urql';
-import { useTranslation } from 'react-i18next';
 import Head from 'next/head';
 import { loader } from 'graphql.macro';
 import {
@@ -14,7 +11,7 @@ import {
   GetMeQuery,
   RemoveFromMyWaitingListMutation,
   RemoveFromMyWaitingListMutationVariables,
-} from '../../generated/graphql.d';
+} from '@/gtypes';
 import { BookOpenIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
@@ -29,7 +26,6 @@ const Waiting = () => {
     RemoveFromMyWaitingListMutation,
     RemoveFromMyWaitingListMutationVariables
   >(RemoveBookFromMyWaitingList);
-  const { t } = useTranslation('common');
 
   const [{ data }] = useQueryWrapper<GetMeQuery>({
     query: GetMe,
@@ -87,7 +83,7 @@ const Waiting = () => {
                       await removeBookFromList(book.edition.id);
                     }}
                   >
-                    {t('remove-from-waiting-list')}
+                    Отписаться
                   </Button>
                   {book.edition && !!openedBooksLength && (
                     <Link href={`/book/${book.edition.id}`}>
@@ -113,11 +109,5 @@ const Waiting = () => {
 Waiting.getLayout = function getLayout(page: ReactElement) {
   return <Layout title={Waiting.name}>{page}</Layout>;
 };
-
-export const getStaticProps = async ({ locale }: any) => ({
-  props: {
-    ...(await serverSideTranslations(locale, localesList)),
-  },
-});
 
 export default Waiting;

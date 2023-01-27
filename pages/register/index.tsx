@@ -1,13 +1,10 @@
 import React, {FormEvent, useState} from "react";
 import {useRouter} from "next/router";
 import {useMutation} from "urql";
-import {LogoLogin} from "../../components/LogoLogin";
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { localesList } from '../../helpers/locales';
+import {LogoLogin} from "@/components/LogoLogin";
 
 import { loader } from 'graphql.macro';
-import { RegisterMutation } from '../../generated/graphql';
+import { RegisterMutation } from '@/gtypes';
 import Cookies from 'js-cookie';
 import ButtonOutside from '../../components/ButtonOutside';
 const Register = loader("../../graphql/RegisterMutation.graphql");
@@ -21,7 +18,6 @@ const Index = () => {
     email:'',
     password: '',
   })
-  const { t } = useTranslation(localesList);
   const [, register] = useMutation<RegisterMutation>(Register)
   const [errorMsg, setErrorMsg] = useState('');
   const [field, setField] = useState('')
@@ -109,7 +105,7 @@ const Index = () => {
               </div>
             </div>
             <div className={"text-center"}>
-              {field === 'email' ? <span className="text-red-500 text-xs">{t(errorMsg)}</span> : ''}
+              {field === 'email' ? <span className="text-red-500 text-xs">{errorMsg}</span> : ''}
             </div>
             <div>
               <ButtonOutside className={'w-full'} type={'submit'} style={'fill'} tag={'link'}>
@@ -121,11 +117,5 @@ const Index = () => {
       </div>
   )
 }
-
-export const getStaticProps = async ({ locale }: any) => ({
-  props: {
-    ...(await serverSideTranslations(locale, localesList)),
-  },
-});
 
 export default Index

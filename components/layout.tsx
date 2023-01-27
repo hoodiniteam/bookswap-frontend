@@ -11,7 +11,6 @@ import {
 import { useRouter } from 'next/router';
 import { useMutation } from 'urql';
 import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
 import { Logo } from './Logo';
 import { useQueryWrapper } from '@/helpers/useQueryWrapper';
 import { AvatarComponent } from './avatars';
@@ -106,8 +105,6 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
   const onClearNotifications = async () => {
     await clearNotifications();
   };
-
-  const { t } = useTranslation(['nav', 'common']);
 
   useEffect(() => {
     const handleRouteChange = () => {
@@ -239,7 +236,7 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
                     className="hidden sm:flex cursor-pointer flex items-center px-4 py-2 shadow-sm text-sm font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500"
                   >
                     <PlusCircleIcon className="h-5 w-5 mr-1" />
-                    {t('create')}
+                    Добавить свою книгу
                   </button>
                   <div className="hidden sm:block">
                     <div className="flex items-center">
@@ -457,7 +454,7 @@ const Layout = ({ children, title, showBookHead = false }: any) => {
                               : 'text-white border border-white hover:border-main-500 hover:bg-main-500 hover:bg-opacity-75 transition duration-300 rounded-md py-1 px-2 text-xs font-medium'
                           }
                         >
-                          {t(item.title)}
+                          {item.title}
                         </Link>
                       ))}
                     </div>

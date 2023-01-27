@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'next-i18next';
 import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -16,12 +15,12 @@ import {
   GetMeQuery,
   UpsertEditionMutation,
   UpsertEditionMutationVariables,
-} from '../generated/graphql.d';
+} from '@/gtypes';
 import { loader } from 'graphql.macro';
-import { useQueryWrapper } from '../helpers/useQueryWrapper';
-import { createCloudinary } from '../helpers/cloudinary';
-import { BookForm } from '../types/Book';
-import { emptyState } from '../helpers/bookState';
+import { useQueryWrapper } from '@/helpers/useQueryWrapper';
+import { createCloudinary } from '@/helpers/cloudinary';
+import { BookForm } from '@/types/Book';
+import { emptyState } from '@/helpers/bookState';
 const UpsertEdition = loader('../graphql/UpsertEditionMutation.graphql');
 const GetMe = loader('../graphql/GetMe.graphql');
 
@@ -44,7 +43,6 @@ export const CreateBookModal = ({
     >(UpsertEdition);
 
   const router = useRouter();
-  const { t } = useTranslation('common');
 
   const [files, setFiles] = useState<any[]>([]);
   const [book, setBook] = useState<BookForm>({ ...emptyState, title: newBookName || "" });
@@ -270,7 +268,7 @@ export const CreateBookModal = ({
                     htmlFor="about"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    {t('condition')}
+                    Состояние
                   </label>
                   <div className="mt-1">
                     <select
@@ -278,22 +276,22 @@ export const CreateBookModal = ({
                       className="shadow-sm focus:ring-main-500 focus:border-main-500 mt-1 block w-full py-1.5 px-2 sm:text-sm border border-gray-300 rounded-md"
                     >
                       <option key='TERRIBLE' value='TERRIBLE'>
-                        {t(String('TERRIBLE'))}
+                        Ужасное
                       </option>
                       <option key='BAD' value='BAD'>
-                        {t(String('BAD'))}
+                        Плохое
                       </option>
                       <option key='SATISFACTORY' value='SATISFACTORY'>
-                        {t(String('SATISFACTORY'))}
+                        Удовлетворительное
                       </option>
                       <option key='GOOD' value='GOOD'>
-                        {t(String('GOOD'))}
+                        Хорошее
                       </option>
                       <option key='LIKENEW' value='LIKENEW'>
-                        {t(String('LIKENEW'))}
+                        Как новая
                       </option>
                       <option key='BRANDNEW' value='BRANDNEW'>
-                        {t(String('BRANDNEW'))}
+                        Новая
                       </option>
                     </select>
                   </div>
@@ -307,7 +305,7 @@ export const CreateBookModal = ({
                 type="submit"
                 className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
               >
-                {t('save')}
+                Сохранить
               </button>
             )}
           </div>

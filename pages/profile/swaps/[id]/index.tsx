@@ -6,8 +6,6 @@ import React, {
   useState,
 } from 'react';
 import Layout from '@/components/layout';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { localesList } from '@/helpers/locales';
 import { useRouter } from 'next/router';
 import { useQueryWrapper } from '@/helpers/useQueryWrapper';
 import {
@@ -537,12 +535,6 @@ const Index = () => {
 Index.getLayout = function getLayout(page: ReactElement) {
   return <Layout title={'Свопы'}>{page}</Layout>;
 };
-
-export const getStaticProps = async ({ locale }: any) => ({
-  props: {
-    ...(await serverSideTranslations(locale, localesList)),
-  },
-});
 
 export async function getStaticPaths() {
   return {
