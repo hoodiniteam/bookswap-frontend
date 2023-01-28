@@ -58,8 +58,10 @@ const SimpleOptionView = ({ book }: { book: BookEdition }) => {
   );
 };
 
-export const BookPreview = ({ book }: { book: Partial<BookEdition> }) => (
-  <div className="flex items-center">
+export const BookPreview = ({ book }: { book: Partial<BookEdition> }) => {
+  console.log(book);
+  return (
+    <div className="flex items-center">
     <span
       className={classNames(
         'inline-block h-2 w-2 flex-shrink-0 rounded-full',
@@ -67,24 +69,25 @@ export const BookPreview = ({ book }: { book: Partial<BookEdition> }) => (
       )}
       aria-hidden="true"
     />
-    <div className="ml-2 bg-gray-100">
-      <div className="w-20">
-        <img className="h-28 w-20 object-contain" src={process.env.IMAGES_URL || "" + book?.image || ''} />
+      <div className="ml-2 bg-gray-100">
+        <div className="w-20">
+          <img className="h-28 w-20 object-contain" src={process.env.IMAGES_URL || "" + book?.image || ''} />
+        </div>
       </div>
-    </div>
-    <div className={'ml-3 shrink flex flex-col'}>
+      <div className={'ml-3 shrink flex flex-col'}>
       <span className={classNames('leading-5 text-base mb-1 font-medium')}>
         {book.title}
       </span>
-      {book.authors ||
-        (book.publishedDate && (
-          <span className="text-xs">
+        {book.authors ||
+          (book.publishedDate && (
+            <span className="text-xs">
             {book.authors}, {dateParsedYear(book.publishedDate)}
           </span>
-        ))}
+          ))}
+      </div>
     </div>
-  </div>
-);
+  )
+};
 
 const PreviewOptionView = ({ book }: { book: BookEdition }) => {
   return (
