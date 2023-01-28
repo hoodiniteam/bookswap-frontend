@@ -71,7 +71,7 @@ export const BookPreview = ({ book }: { book: Partial<BookEdition> }) => {
     />
       <div className="ml-2 bg-gray-100">
         <div className="w-20">
-          <img className="h-28 w-20 object-contain" src={"https://api.bookswap.ru" || "" + book?.image || ''} />
+          <img className="h-28 w-20 object-contain" src={"https://api.bookswap.ru" + book?.image} />
         </div>
       </div>
       <div className={'ml-3 shrink flex flex-col'}>
