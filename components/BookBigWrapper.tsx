@@ -35,7 +35,7 @@ const BookWrapper = ({
           <div className="relative">
             {src && (
               <img
-                src={process.env.IMAGES_URL + src}
+                src={"https://api.bookswap.ru" + src}
                 alt={`${title} poster`}
                 style={{
                   height: 210,
